@@ -1,11 +1,24 @@
 "use client";
 import { cn } from "@/utils/cn";
-import Image from "next/image";
+import ArrowRightIcon from "@/public/icons/arrow-right.svg";
+import MoonIcon from "@/public/icons/moon.svg";
+import MenuIcon from "@/public/icons/menu.svg";
+import CloseIcon from "@/public/icons/close.svg";
+
+const icons = {
+  "arrow-right": ArrowRightIcon,
+  moon: MoonIcon,
+  menu: MenuIcon,
+  close: CloseIcon,
+} as const;
+
+type Icons = keyof typeof icons;
 
 type IconButtonProps = {
-  icon: string;
+  icon: Icons;
   onClick?: () => void;
   className?: string;
+  iconClassName?: string;
   alt?: string;
 };
 
@@ -13,10 +26,14 @@ export default function IconButton({
   icon,
   onClick,
   className,
-  alt = "icon",
+  iconClassName,
+  alt,
 }: IconButtonProps) {
+  const Icon = icons[icon];
+
   return (
     <button
+      aria-label={alt}
       onClick={onClick}
       className={cn(
         "flex items-center justify-center w-10 h-10 rounded-full transition-colors duration-200 cursor-pointer",
@@ -24,12 +41,11 @@ export default function IconButton({
         className
       )}
     >
-      <Image
-        src={`/icons/${icon}.svg`}
-        alt={alt}
-        width={24}
-        height={24}
-        className="brightness-0 invert pointer-events-none" // Para que los iconos negros se vean blancos en el header oscuro
+      <Icon
+        className={cn(
+          "w-6 h-6 fill-current text-white pointer-events-none",
+          iconClassName
+        )}
       />
     </button>
   );

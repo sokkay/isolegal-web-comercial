@@ -11,7 +11,7 @@ export default function Heading() {
   };
 
   return (
-    <div className="bg-darkBlue text-white">
+    <div className="bg-darkBlue text-white ">
       <div className="container mx-auto py-16 flex items-center flex-col lg:flex-row gap-8 xl:gap-12">
         <div className="flex-1 space-y-6">
           <h1 className="font-extrabold text-5xl md:text-6xl leading-[1.06] tracking-[-1.5px]">

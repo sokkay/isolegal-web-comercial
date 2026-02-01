@@ -18,7 +18,8 @@
   --color-input-bg: #F8FAFC;
   --color-input-border: #E2E8F0;
   --color-placeholder: #6C757C;
-  --color-checkbox-bg: #D9D9D9;
+  --color-checkbox-bg: #E8EFEC;
+  --color-green-bg: #E8EFEC;
   /* Font */
   --font-sans: var(--font-manrope), system-ui, sans-serif;
 }
@@ -37,4 +38,24 @@ body {
 
 .container {
   @apply px-8
+}
+
+.embla {
+  position: relative;
+}
+
+.embla__viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.embla__container {
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+  backface-visibility: hidden;
+}
+
+.embla__slide {
+  min-width: 0;
+  position: relative;
 }

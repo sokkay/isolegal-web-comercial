@@ -1,9 +1,13 @@
-import Heading from "@/sections/Heading";
+import BussinessSection from "@/sections/bussiness";
+import HeadingSection from "@/sections/heading";
+import WhyIsolegalSection from "@/sections/why-isolegal";
 
 export default function Home() {
   return (
     <main className="flex min-h-[calc(100vh-80px)] w-full mx-auto flex-col">
-      <Heading />
+      <HeadingSection />
+      <BussinessSection />
+      <WhyIsolegalSection />
     </main>
   );
 }

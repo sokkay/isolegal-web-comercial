@@ -29,7 +29,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="bg-darkBlue text-nav-base font-medium min-h-20 flex items-center relative z-50">
+    <header className="bg-darkBlue text-nav-base font-medium min-h-20 flex items-center z-50 sticky top-0">
       <nav className="container mx-auto flex flex-row items-center justify-between h-20">
         <Logo />
 
