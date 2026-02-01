@@ -14,7 +14,6 @@ export default function Header() {
       setActiveSection(window.location.hash || "/");
     };
 
-    // Set initial hash
     handleHashChange();
 
     window.addEventListener("hashchange", handleHashChange);
@@ -31,7 +30,7 @@ export default function Header() {
 
   return (
     <header className="bg-darkBlue text-nav-base font-medium min-h-20 flex items-center relative z-50">
-      <nav className="container mx-auto px-4 flex flex-row items-center justify-between h-20">
+      <nav className="container mx-auto flex flex-row items-center justify-between h-20">
         <Logo />
 
         <ul className="hidden lg:flex flex-row items-center gap-6 xl:gap-10">
@@ -84,7 +83,6 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Mobile Navigation Overlay */}
         <div
           className={cn(
             "fixed inset-0 bg-black/50 transition-all duration-300 lg:hidden z-50",
@@ -99,7 +97,6 @@ export default function Header() {
             )}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Mobile Header (Logo + Close) */}
             <div className="h-20 flex items-center justify-between px-4 border-b border-white/10 shrink-0 text-white">
               <Logo />
               <div className="flex items-center justify-center w-10 h-10">
@@ -130,7 +127,9 @@ export default function Header() {
                       <span
                         className={cn(
                           "w-2 h-2 rounded-full bg-nav-indicator transition-opacity absolute -left-6",
-                          isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                          isActive
+                            ? "opacity-100"
+                            : "opacity-0 group-hover:opacity-100"
                         )}
                       />
                       {link.name}

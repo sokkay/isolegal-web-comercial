@@ -12,8 +12,8 @@ type LogoProps = {
 
 export default function Logo({
   className,
-  width = 145,
-  height = 34,
+  width = 130,
+  height = 23,
   colors,
 }: LogoProps) {
   const primaryColor = colors?.primary || "#FFFFFF";
@@ -23,7 +23,7 @@ export default function Logo({
     <svg
       width={width}
       height={height}
-      viewBox="0 0 145 34"
+      viewBox="8.4 5.8 131 23"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}

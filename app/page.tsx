@@ -1,9 +1,9 @@
+import Heading from "@/sections/Heading";
+
 export default function Home() {
   return (
-    <div className="flex min-h-screen bg-background">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col">
-        <h1 className="text-4xl font-bold">Isolegal</h1>
-      </main>
-    </div>
+    <main className="flex min-h-[calc(100vh-80px)] w-full mx-auto flex-col">
+      <Heading />
+    </main>
   );
 }
