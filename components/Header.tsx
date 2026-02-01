@@ -28,6 +28,31 @@ export default function Header() {
     { name: "Calcula tu riesgo", href: "/#calcula-tu-riesgo" },
   ];
 
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    if (href === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.history.pushState(null, "", href);
+      setActiveSection(href);
+    } else if (href.startsWith("/#")) {
+      e.preventDefault();
+      const id = href.substring(2);
+      const element = document.getElementById(id);
+
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+        window.history.pushState(null, "", href);
+        setActiveSection(href);
+      }
+    }
+  };
+
   return (
     <header className="bg-darkBlue text-nav-base font-medium min-h-20 flex items-center z-50 sticky top-0">
       <nav className="container mx-auto flex flex-row items-center justify-between h-20">
@@ -43,6 +68,7 @@ export default function Header() {
               <li key={link.name}>
                 <a
                   href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className={cn(
                     "group relative flex items-center gap-2 transition-colors",
                     isActive ? "text-nav-active" : "hover:text-nav-active"
@@ -118,11 +144,14 @@ export default function Header() {
                   <li key={link.name}>
                     <a
                       href={link.href}
+                      onClick={(e) => {
+                        handleNavClick(e, link.href);
+                        setIsMenuOpen(false);
+                      }}
                       className={cn(
                         "group relative flex items-center gap-2 transition-colors",
                         isActive ? "text-nav-active" : "hover:text-nav-active"
                       )}
-                      onClick={() => setIsMenuOpen(false)}
                     >
                       <span
                         className={cn(
