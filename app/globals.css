@@ -1,26 +1,32 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light only;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  /* Light mode colors */
+  --color-primary: #1E5E3D;
+  --color-text: #202B5F;
+  --color-background: #F6F8F7;
+  --color-border: #E2E8F0;
+  --color-dark: #0F172A;
+  --color-darkBlue: #0F172A;
+  --color-nav-base: #ECEDFE;
+  --color-nav-active: #FFFFFF;
+  --color-nav-indicator: #1E5E3D;
+  /* Font */
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
 }
 
+/* Dark mode - listo para cuando lo necesites */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  @theme {
+    /* TODO: Agregar colores dark mode aquí */
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: theme(colors.background);
+  color: theme(colors.text);
 }
