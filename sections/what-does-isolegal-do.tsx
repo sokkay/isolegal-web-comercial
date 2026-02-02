@@ -36,7 +36,7 @@ export default function WhatDoesIsolegalDo() {
             key={step.title}
             className={cn(
               "flex items-center gap-9",
-              index % 2 === 0 ? "flex-row-reverse" : "flex-row",
+              index % 2 === 0 ? "flex-row" : "flex-row-reverse",
               index % 2 === 0 ? "mb-24" : ""
             )}
           >
