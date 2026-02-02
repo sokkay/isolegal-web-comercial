@@ -1,6 +1,7 @@
 import BussinessSection from "@/sections/bussiness";
 import HeadingSection from "@/sections/heading";
 import TabsBanner from "@/sections/tabs-banner";
+import Testimonials from "@/sections/testimonials";
 import WhatDoesIsolegalDo from "@/sections/what-does-isolegal-do";
 import WhyIsolegalSection from "@/sections/why-isolegal";
 
@@ -12,6 +13,7 @@ export default function Home() {
       <WhyIsolegalSection />
       <WhatDoesIsolegalDo />
       <TabsBanner />
+      <Testimonials />
     </main>
   );
 }
