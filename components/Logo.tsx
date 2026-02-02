@@ -1,4 +1,6 @@
-import Image from "next/image";
+"use client";
+
+import { cn } from "@/utils/cn";
 
 type LogoProps = {
   className?: string;
@@ -8,6 +10,7 @@ type LogoProps = {
     primary?: string;
     secondary?: string;
   };
+  goToHome?: boolean;
 };
 
 export default function Logo({
@@ -15,6 +18,7 @@ export default function Logo({
   width = 130,
   height = 23,
   colors,
+  goToHome = false,
 }: LogoProps) {
   const primaryColor = colors?.primary || "#FFFFFF";
   const secondaryColor = colors?.secondary || "#FFFFFF";
@@ -26,7 +30,12 @@ export default function Logo({
       viewBox="8.4 5.8 131 23"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      className={cn(className, goToHome && "cursor-pointer")}
+      onClick={() => {
+        if (goToHome) {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }}
     >
       <path
         d="M90.0652 5.92531C85.5304 6.6307 81.6535 10.3975 80.7018 15.0249C79.4141 21.317 83.515 27.5104 89.7713 28.7095C95.4957 29.81 101.178 26.41 102.914 20.8091C103.04 20.4141 103.236 19.5676 103.362 18.9187C103.557 17.9311 103.571 17.6207 103.431 17.1552C103.04 15.829 102.62 15.6597 99.6665 15.6597H97.2872L97.2452 14.9685L97.2032 14.2631L95.1038 15.7444C93.9561 16.5485 93.0044 17.2822 93.0044 17.3527C93.0044 17.4373 93.9561 18.171 95.1038 18.9892L97.2032 20.4705L97.2732 19.6523L97.3432 18.834L98.4489 18.7917C99.9744 18.7353 99.9744 18.7353 99.6945 19.6382C99.3026 21.0066 98.6728 22.0365 97.6371 23.0664C95.9715 24.717 94.25 25.4365 91.9547 25.4506C88.1617 25.4647 84.8866 22.8266 84.0608 19.088C83.7669 17.7477 83.7809 16.7884 84.1168 15.4622C84.5087 13.9104 85.1385 12.7817 86.2862 11.6249C87.8398 10.0448 89.6033 9.29709 91.8847 9.26888C94.166 9.24066 96.3354 10.1718 97.889 11.8365L98.3089 12.2739H100.24C101.304 12.2739 102.172 12.2315 102.172 12.1892C102.172 12.1328 101.99 11.766 101.766 11.371C101.234 10.4398 100.296 9.33942 99.2746 8.45062C98.3509 7.64647 96.0555 6.4473 94.8239 6.12282C93.8021 5.85477 91.2129 5.75602 90.0652 5.92531Z"
@@ -67,4 +76,3 @@ export default function Logo({
     </svg>
   );
 }
-
