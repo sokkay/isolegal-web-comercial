@@ -41,14 +41,16 @@ const TESTIMONIALS: Testimonial[] = [
   },
   {
     id: 4,
-    quote: "En AVUS, la experiencia de trabajo junto a ISOLEGAL ha sido altamente positiva. Destacamos especialmente su profesionalismo, flexibilidad y capacidad de análisis, cualidades que han fortalecido de manera concreta el trabajo colaborativo entre los equipos, particularmente en el desarrollo de las Matrices Legales para CMP. Tanto la plataforma como el acompañamiento del equipo de ISOLEGAL han aportado un valor tangible a nuestra gestión de cumplimiento, permitiéndonos abordar los requerimientos normativos con mayor claridad, orden y consistencia, y consolidar un enfoque más sólido en el control de nuestras obligaciones legales",
+    quote:
+      "En AVUS, la experiencia de trabajo junto a ISOLEGAL ha sido altamente positiva. Destacamos especialmente su profesionalismo, flexibilidad y capacidad de análisis, cualidades que han fortalecido de manera concreta el trabajo colaborativo entre los equipos, particularmente en el desarrollo de las Matrices Legales para CMP. Tanto la plataforma como el acompañamiento del equipo de ISOLEGAL han aportado un valor tangible a nuestra gestión de cumplimiento, permitiéndonos abordar los requerimientos normativos con mayor claridad, orden y consistencia, y consolidar un enfoque más sólido en el control de nuestras obligaciones legales",
     name: "Rodrigo Bravo C",
     companyRole: "Socio Fundador & Risk Architect Lead",
     logoUrl: "/images/isolgal-logo-6.jpg",
   },
   {
     id: 5,
-    quote: "El trabajo realizado junto a Isolegal fue un factor clave para que ESM destacara en su auditoría de normas ISO, particularmente en el control y cumplimiento de sus obligaciones legales. Más que una plataforma tecnológica, Isolegal actúa como un socio estratégico, gestionando activamente la normativas aplicables y manteniendo actualizada nuestra matriz legal, la cual nos permitió evidenciar nuestro cumplimiento. Esto nos permitió enfrentar la auditoría con orden, trazabilidad y plena confianza en la solidez de nuestro sistema",
+    quote:
+      "El trabajo realizado junto a Isolegal fue un factor clave para que ESM destacara en su auditoría de normas ISO, particularmente en el control y cumplimiento de sus obligaciones legales. Más que una plataforma tecnológica, Isolegal actúa como un socio estratégico, gestionando activamente la normativas aplicables y manteniendo actualizada nuestra matriz legal, la cual nos permitió evidenciar nuestro cumplimiento. Esto nos permitió enfrentar la auditoría con orden, trazabilidad y plena confianza en la solidez de nuestro sistema",
     name: "Alex Rivera T",
     companyRole: "Subgerente SSMA - Empresa de Soluciones Mineras, filial ENEX",
     logoUrl: "/images/isolgal-logo-5.jpg",
@@ -111,7 +113,7 @@ const TestimonialCard = ({
   logoUrl,
 }: Testimonial) => {
   return (
-    <div className="bg-gray-50 rounded-2xl p-8 flex flex-col h-full">
+    <div className="bg-background rounded-2xl p-8 flex flex-col h-full">
       <div className="flex gap-1 mb-4">
         {[...Array(5)].map((_, i) => (
           <StarIcon key={i} className="w-5 h-5 fill-yellow-400" />
