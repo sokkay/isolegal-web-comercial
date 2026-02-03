@@ -12,8 +12,9 @@ const steps = [
     ],
     href: "/#",
     button: "Conversemos",
-    image: "/images/que-hace-isolegal.gif",
-    unoptimized: true,
+    image: "",
+    video: "/videos/que-hace-isolegal.mp4",
+    isVideo: true,
   },
   {
     title: "Inteligencia Artificial aplicada al cumplimiento normativo",
@@ -23,7 +24,8 @@ const steps = [
     href: "/#",
     button: "¡Ponla a prueba!",
     image: "/images/ai-web.png",
-    unoptimized: false,
+    video: "",
+    isVideo: false,
   },
 ];
 
@@ -40,14 +42,25 @@ export default function WhatDoesIsolegalDo() {
               index % 2 === 0 ? "mb-24" : ""
             )}
           >
-            <Image
-              src={step.image}
-              alt={step.title}
-              width={800}
-              height={800}
-              unoptimized={step.unoptimized}
-              className="rounded-2xl hidden md:block max-w-80 xl:max-w-xl"
-            />
+            {step.isVideo ? (
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="rounded-2xl hidden md:block max-w-80 xl:max-w-xl w-full h-auto"
+              >
+                <source src={step.video} type="video/mp4" />
+              </video>
+            ) : (
+              <Image
+                src={step.image}
+                alt={step.title}
+                width={800}
+                height={800}
+                className="rounded-2xl hidden md:block max-w-80 xl:max-w-xl"
+              />
+            )}
             <div className="flex-1">
               <h2 className="text-xl font-bold mb-5">{step.title}</h2>
               {step.description.map((description, y) => (

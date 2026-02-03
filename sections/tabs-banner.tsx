@@ -2,7 +2,6 @@
 import Logo from "@/components/Logo";
 import Button from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
-import Image from "next/image";
 import { useState } from "react";
 
 export default function TabsBanner() {
@@ -13,21 +12,21 @@ export default function TabsBanner() {
       description:
         "Isolegal incorpora una asistente de inteligencia artificial llamada Norma, impulsada por Google Gemini, diseñada para apoyar la gestión del cumplimiento normativo en Chile. Norma interpreta requisitos legales, explica su aplicación práctica y orienta la carga y revisión de evidencias, trabajando directamente sobre la matriz legal y el contexto operativo de cada organización. La IA de Isolegal no reemplaza el criterio experto, sino que lo complementa, ayudando a estandarizar la gestión del cumplimiento y a reducir errores en auditorías y fiscalizaciones.",
       button: "Inicia hoy",
-      image: "/images/conocimiento.gif",
+      video: "/videos/conocimiento.mp4",
     },
     {
       title: "Cercania",
       description:
         "Creemos que el cumplimiento normativo no se gestiona desde la distancia ni solo con software. Se gestiona en la operación diaria, con personas que toman decisiones bajo presión y necesitan apoyo real. Por eso, nuestra visión es acompañar a organizaciones que operan bajo alta exigencia normativa en Chile y Latinoamérica, integrando tecnología, conocimiento especializado y apoyo continuo. Nos involucramos como socios estratégicos, trabajando codo a codo con quienes tienen la responsabilidad de cumplir. Cuando existe cercanía, el cumplimiento deja de ser una carga impuesta y se transforma en un activo estratégico, capaz de generar confianza, continuidad operativa y decisiones más seguras.",
       button: "Conversemos",
-      image: "/images/cercania.gif",
+      video: "/videos/cercania.mp4",
     },
     {
       title: "Simplicidad",
       description:
         "Nuestra misión es ayudar a las organizaciones a cumplir y demostrar el cumplimiento normativo de forma simple, trazable y confiable. Creemos que la complejidad no agrega valor: lo que agrega valor es entender qué aplica, qué hacer y cómo demostrarlo. Por eso, traducimos requisitos legales y ESG en acciones operativas claras, apoyadas por tecnología y acompañamiento experto. Así, el cumplimiento deja de ser un proceso confuso y reactivo, y se convierte en una práctica ordenada que genera confianza, sostenibilidad y mejores decisiones. Porque cuando el cumplimiento es simple, se puede sostener en el tiempo.",
       button: "¡Empecemos!",
-      image: "/images/simplicidad.gif",
+      video: "/videos/simplicidad.mp4",
     },
   ];
 
@@ -67,14 +66,16 @@ export default function TabsBanner() {
               />
             </div>
             <div className="w-full md:w-1/3 order-2 md:order-2 flex items-start justify-center">
-              <Image
-                src={tabs[activeTab].image}
-                alt={tabs[activeTab].title}
-                width={400}
-                height={400}
-                unoptimized={true}
-                className=" rounded-2xl"
-              />
+              <video
+                key={tabs[activeTab].video}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="rounded-2xl w-full h-auto"
+              >
+                <source src={tabs[activeTab].video} type="video/mp4" />
+              </video>
             </div>
           </div>
         </div>
