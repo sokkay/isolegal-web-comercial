@@ -1,0 +1,145 @@
+{
+  "id": "d7664761-3577-4d01-a968-394f96546bab",
+  "name": "Conversemos",
+  "createdAt": "2024-07-14T02:33:33.122Z",
+  "updatedAt": "2026-01-05T15:31:18.949Z",
+  "archived": false,
+  "fieldGroups": [
+    {
+      "groupType": "default_group",
+      "richTextType": "text",
+      "fields": [
+        {
+          "objectTypeId": "0-1",
+          "name": "firstname",
+          "label": "Nombre y Apellido",
+          "required": true,
+          "hidden": false,
+          "placeholder": "Nombre Apellido ",
+          "fieldType": "single_line_text"
+        }
+      ]
+    },
+    {
+      "groupType": "default_group",
+      "richTextType": "text",
+      "fields": [
+        {
+          "objectTypeId": "0-1",
+          "name": "email",
+          "label": "Correo",
+          "required": true,
+          "hidden": false,
+          "placeholder": "ejemplo@correo.com",
+          "validation": {
+            "blockedEmailDomains": [
+              "gmail.com hotmail.com outlook.com yahoo.com icloud.com live.com msn.com aol.com protonmail.com"
+            ],
+            "useDefaultBlockList": true
+          },
+          "fieldType": "email"
+        }
+      ]
+    },
+    {
+      "groupType": "default_group",
+      "richTextType": "text",
+      "fields": [
+        {
+          "objectTypeId": "0-1",
+          "name": "mobilephone",
+          "label": "Número de teléfono",
+          "required": true,
+          "hidden": false,
+          "placeholder": "+56912345678",
+          "validation": {
+            "minAllowedDigits": 12,
+            "maxAllowedDigits": 12
+          },
+          "fieldType": "mobile_phone"
+        }
+      ]
+    },
+    {
+      "groupType": "default_group",
+      "richTextType": "text",
+      "fields": [
+        {
+          "objectTypeId": "0-1",
+          "name": "company",
+          "label": "Nombre de tu empresa",
+          "required": true,
+          "hidden": false,
+          "placeholder": "Empresa",
+          "fieldType": "single_line_text"
+        }
+      ]
+    },
+    {
+      "groupType": "default_group",
+      "richTextType": "text",
+      "fields": [
+        {
+          "objectTypeId": "0-1",
+          "name": "message",
+          "label": "¿En qué podemos ayudarte?",
+          "required": true,
+          "hidden": false,
+          "placeholder": "Escribe aquí en qué podemos ayudarte y nos pondremos en contacto contigo prontamente",
+          "fieldType": "multi_line_text"
+        }
+      ]
+    }
+  ],
+  "configuration": {
+    "language": "es",
+    "cloneable": true,
+    "postSubmitAction": {
+      "type": "thank_you",
+      "value": "<h1 style=\"text-align: center;\"><span style=\"font-family: Arial, Helvetica, sans-serif; color: #134f5c;\"><strong>¡Estás un paso más cerca de la Simplicidad!</strong></span></h1>\n<p>&#xa0;</p>\n<div style=\"text-align: center;\"><span style=\"font-family: Arial, Helvetica, sans-serif; color: #134f5c;\">Muchas gracias por ponerte en contacto con <strong>Isolegal.&#xa0;</strong></span></div>\n<div style=\"text-align: center;\"><span style=\"font-family: Arial, Helvetica, sans-serif; color: #134f5c;\">Te escribiremos a la brevedad</span></div>\n<div style=\"text-align: center;\"><span style=\"font-family: Arial, Helvetica, sans-serif; color: #134f5c;\">&#xa0;</span></div>\n<div style=\"text-align: left;\"><span style=\"font-family: Arial, Helvetica, sans-serif; color: #134f5c;\">&#xa0;</span></div>\n<p style=\"text-align: center;\"><span style=\"font-family: 'Book Antiqua', Palatino, Georgia, serif;\"><img src=\"https://46469741.fs1.hubspotusercontent-na1.net/hubfs/46469741/banner%20(1).jpg\" style=\"height: auto; max-width: 100%; width: 274px; margin-left: auto; margin-right: auto; display: block;\" alt=\"banner (1)\" loading=\"lazy\" width=\"274\" height=\"64\"><em>Conocimiento, cercanía y simplicidad</em><br></span></p>\n<p>&#xa0;</p>"
+    },
+    "editable": true,
+    "archivable": true,
+    "recaptchaEnabled": false,
+    "notifyContactOwner": true,
+    "notifyRecipients": ["67969857"],
+    "createNewContactForNewEmail": true,
+    "prePopulateKnownValues": false,
+    "allowLinkToResetKnownValues": false,
+    "embedType": "V3"
+  },
+  "displayOptions": {
+    "renderRawHtml": false,
+    "theme": "round",
+    "submitButtonText": "Enviar",
+    "style": {
+      "fontFamily": "arial, helvetica, sans-serif",
+      "backgroundWidth": "100%",
+      "labelTextColor": "#33475b",
+      "labelTextSize": "14px",
+      "helpTextColor": "#537393",
+      "helpTextSize": "11px",
+      "legalConsentTextColor": "#33475b",
+      "legalConsentTextSize": "14px",
+      "submitColor": "#37761D",
+      "submitAlignment": "left",
+      "submitFontColor": "#ffffff",
+      "submitSize": "12px"
+    },
+    "cssClass": "hs-form stacked"
+  },
+  "legalConsentOptions": {
+    "communicationConsentText": "<p>*Al hacer clic en enviar, aceptas que ISOLEGAL almacene y procese la información personal proporcionada anteriormente para enviarte el contenido solicitado.*</p>",
+    "communicationsCheckboxes": [
+      {
+        "required": true,
+        "subscriptionTypeId": 366943399,
+        "label": "<p>Acepto recibir&#xa0; comunicaciones de Isolegal.</p>"
+      }
+    ],
+    "privacyText": "<p>ISOLEGAL tiene el compromiso de proteger y respetar tu privacidad y solo usaremos tus datos para la entrega de la información solicitada. También podríamos ponernos en contacto contigo acerca de nuestros productos y servicios, así como sobre otros contenidos que pueden ser de tu interés. Si aceptas que nos comuniquemos contigo con este propósito, marca la casilla a continuación.</p>",
+    "consentToProcessText": null,
+    "type": "implicit_consent_to_process"
+  },
+  "formType": "hubspot"
+}

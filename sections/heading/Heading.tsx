@@ -1,15 +1,6 @@
-"use client";
-import Button from "@/components/ui/Button";
-import Checkbox from "@/components/ui/Checkbox";
-import Input from "@/components/ui/Input";
-import TextArea from "@/components/ui/TextArea";
+import ContactForm from "./ContactForm";
 
 export default function Heading() {
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: Implementar lógica de envío
-  };
-
   return (
     <div className="bg-darkBlue text-white ">
       <div className="container mx-auto py-16 flex items-center flex-col lg:flex-row gap-8 xl:gap-12">
@@ -41,26 +32,7 @@ export default function Heading() {
           </ul>
         </div>
         <div className="flex-1 w-full">
-          <form
-            onSubmit={handleSubmit}
-            className="bg-white rounded-2xl p-4 md:p-8 xl:p-16 space-y-6"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Input label="Nombre" />
-              <Input label="Empresa" />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Input label="Telefono" type="tel" />
-              <Input label="Email" type="email" />
-            </div>
-
-            <TextArea label="Mensaje" />
-
-            <Checkbox label="Términos y condiciones" />
-
-            <Button text="Enviar" fullWidth />
-          </form>
+          <ContactForm />
         </div>
       </div>
     </div>
