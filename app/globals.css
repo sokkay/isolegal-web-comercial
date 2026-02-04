@@ -40,6 +40,10 @@ body {
   color: theme(colors.text);
 }
 
+section[id] {
+  scroll-margin-top: 5rem; /* altura del header */
+}
+
 .container {
   @apply px-8
 }
@@ -63,3 +67,4 @@ body {
   min-width: 0;
   position: relative;
 }
+

@@ -2,6 +2,7 @@
 import Button from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 
 const steps = [
   {
@@ -30,25 +31,38 @@ const steps = [
 ];
 
 export default function WhatDoesIsolegalDo() {
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+
+  useEffect(() => {
+    videoRefs.current.forEach((video, index) => {
+      if (video) {
+        video.playbackRate = 0.5;
+      }
+    });
+  }, [videoRefs]);
   return (
-    <div id="soluciones" className="bg-white py-16">
+    <section className="bg-white py-16">
       <div className="container mx-auto">
         {steps.map((step, index) => (
           <div
             key={step.title}
             className={cn(
-              "flex items-center gap-9",
-              index % 2 === 0 ? "flex-row" : "flex-row-reverse",
+              "flex flex-col items-center gap-9",
+              "md:flex-row",
+              index % 2 === 0 ? "" : "md:flex-row-reverse",
               index % 2 === 0 ? "mb-24" : ""
             )}
           >
             {step.isVideo ? (
               <video
+                ref={(el) => {
+                  videoRefs.current[index] = el;
+                }}
                 autoPlay
                 loop
                 muted
                 playsInline
-                className="rounded-2xl hidden md:block max-w-80 xl:max-w-xl w-full h-auto"
+                className="rounded-2xl max-w-80 xl:max-w-xl w-full h-auto order-2 md:order-0"
               >
                 <source src={step.video} type="video/mp4" />
               </video>
@@ -58,7 +72,7 @@ export default function WhatDoesIsolegalDo() {
                 alt={step.title}
                 width={800}
                 height={800}
-                className="rounded-2xl hidden md:block max-w-80 xl:max-w-xl"
+                className="rounded-2xl max-w-80 xl:max-w-xl order-2 md:order-0"
               />
             )}
             <div className="flex-1">
@@ -73,11 +87,12 @@ export default function WhatDoesIsolegalDo() {
                 onClick={() => {
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
+                className="hidden md:block"
               />
             </div>
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }

@@ -70,7 +70,7 @@ export default function BussinessSection() {
   }, [emblaApi]);
 
   return (
-    <section className="bg-darkBlue py-16 text-white" id="bussiness">
+    <section className="bg-darkBlue py-16 text-white">
       <div className="container mx-auto">
         <h2 className="mb-2 text-center text-sm font-bold tracking-wider">
           QUIENES YA CONFIARON EN ISOLEGAL
@@ -83,7 +83,7 @@ export default function BussinessSection() {
               {[...logos, ...logos].map((logo, index) => (
                 <div
                   key={`${logo.id}-${index}`}
-                  className="embla__slide flex-[0_0_20%] min-w-0 pl-6"
+                  className="embla__slide flex-[0_0_25%] md:flex-[0_0_20%] min-w-0 pl-6"
                 >
                   <div className="relative aspect-3/2 overflow-hidden rounded-lg p-4">
                     <Image

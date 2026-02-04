@@ -45,17 +45,14 @@ export default function WhyIsolegal() {
   const [showAll, setShowAll] = useState(false);
 
   return (
-    <div id="nosotros" className="container mx-auto py-16">
-      <div className="flex items-end justify-between">
+    <section id="soluciones" className="container mx-auto py-16">
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between">
         <div className="flex-6">
-          <h1 className="text-3xl font-bold">¿Por qué Isolegal?</h1>
-          <p className="text-md opacity-80 pt-4">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et
-            magna eget tellus venenatis vestibulum.
-          </p>
+          <h1 className="text-3xl font-bold md:text-left text-center">¿Por qué Isolegal?</h1>
         </div>
+        {/* Botón solo visible en tablets y desktop */}
         <div 
-          className="flex-6 text-primary font-bold flex items-center justify-end cursor-pointer"
+          className="hidden md:flex flex-6 text-primary font-bold items-center justify-end cursor-pointer"
           onClick={() => setShowAll(!showAll)}
         >
           <span className="text-sm">
@@ -78,10 +75,10 @@ export default function WhyIsolegal() {
         ))}
       </div>
       
-      {/* Características adicionales con animación */}
+      {/* Características adicionales: siempre visibles en móvil, con animación en desktop */}
       <div 
-        className={`grid grid-cols-1 lg:grid-cols-3 gap-4 overflow-hidden transition-all duration-500 ease-in-out ${
-          showAll ? "max-h-[1000px] opacity-100 mt-4" : "max-h-0 opacity-0"
+        className={`grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4 md:overflow-hidden md:transition-all md:duration-500 md:ease-in-out ${
+          showAll ? "md:max-h-[1000px] md:opacity-100 md:mt-4" : "md:max-h-0 md:opacity-0 md:mt-0"
         }`}
       >
         {caracteristics.slice(3).map((characteristic) => (
@@ -93,7 +90,7 @@ export default function WhyIsolegal() {
           />
         ))}
       </div>
-    </div>
+    </section>
   );
 }
 
