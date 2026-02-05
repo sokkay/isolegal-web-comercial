@@ -67,7 +67,6 @@ function TabContent({
           ref={videoRef}
           key={video}
           autoPlay
-          loop
           muted
           playsInline
           className="rounded-2xl w-full h-auto"
@@ -107,7 +106,7 @@ export default function TabsBanner() {
 
   return (
     <section id="nosotros" className="py-16 container mx-auto">
-      <div className="flex flex-col items-center justify-center bg-darkBlue rounded-2xl py-10 px-6 md:px-20 gap-7 text-white">
+      <div className="flex flex-col items-center bg-darkBlue rounded-2xl py-10 px-6 md:px-20 gap-7 text-white min-h-[950px] md:min-h-[510px]">
         <Logo />
         <div className="bg-[#1E293B] flex flex-col md:flex-row items-center justify-center w-full md:w-4/5 xl:w-2/3 rounded-lg md:h-12 p-1 relative">
           {tabs.map((tab, index) => (
