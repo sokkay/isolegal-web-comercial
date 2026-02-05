@@ -2,6 +2,7 @@ import EmailIcon from "@/public/icons/email.svg";
 import LinkedInIcon from "@/public/icons/linkedin.svg";
 import Logo from "./Logo";
 import Button from "./ui/Button";
+import Link from "next/link";
 
 export default function Footer() {
   const socialMedia = [
@@ -77,12 +78,12 @@ export default function Footer() {
             reservados.
           </span>
           <div className="flex flex-row gap-4 text-sm text-gray-500">
-            <a className="hover:text-gray-900 transition-colors cursor-pointer">
+            {/* <a className="hover:text-gray-900 transition-colors cursor-pointer">
               Política de privacidad
-            </a>
-            <a className="hover:text-gray-900 transition-colors cursor-pointer">
+            </a> */}
+            <Link href="/terminos-y-condiciones" className="hover:text-gray-900 transition-colors cursor-pointer">
               Términos y condiciones
-            </a>
+            </Link>
           </div>
         </div>
       </div>

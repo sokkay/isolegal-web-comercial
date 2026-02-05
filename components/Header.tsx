@@ -1,5 +1,6 @@
 "use client";
 import { cn } from "@/utils/cn";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
 import Button from "./ui/Button";
@@ -8,22 +9,27 @@ import IconButton from "./ui/IconButton";
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleHashChange = () => {
-      if (window.location.pathname === "/") {
+      if (pathname === "/") {
         setActiveSection(window.location.hash || "/");
         return;
       }
-
-      setActiveSection(window.location.pathname);
+      setActiveSection(pathname);
     };
 
     handleHashChange();
 
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
-  }, []);
+  }, [pathname]);
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
 
   const navLinks = [
     { name: "Inicio", href: "/" },
@@ -37,22 +43,22 @@ export default function Header() {
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string
   ) => {
-    const isOnHome = window.location.pathname === "/";
+    const isOnHome = pathname === "/";
 
     if (href === "/") {
       e.preventDefault();
       if (!isOnHome) {
-        window.location.href = href;
+        router.push(href);
         return;
       }
 
       window.scrollTo({ top: 0, behavior: "smooth" });
-      window.history.pushState(null, "", href);
+      router.push(href);
       setActiveSection(href);
     } else if (href.startsWith("/#")) {
       e.preventDefault();
       if (!isOnHome) {
-        window.location.href = href;
+        router.push(href);
         return;
       }
 
@@ -64,7 +70,7 @@ export default function Header() {
           behavior: "smooth",
           block: "start",
         });
-        window.history.pushState(null, "", href);
+        router.push(href);
         setActiveSection(href);
       }
     }

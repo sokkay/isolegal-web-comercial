@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/utils/cn";
+import { usePathname, useRouter } from "next/navigation";
 
 type LogoProps = {
   className?: string;
@@ -20,6 +21,8 @@ export default function Logo({
   colors,
   goToHome = false,
 }: LogoProps) {
+  const router = useRouter();
+  const pathname = usePathname();
   const primaryColor = colors?.primary || "#FFFFFF";
   const secondaryColor = colors?.secondary || "#FFFFFF";
 
@@ -32,9 +35,13 @@ export default function Logo({
       xmlns="http://www.w3.org/2000/svg"
       className={cn(className, goToHome && "cursor-pointer")}
       onClick={() => {
-        if (goToHome) {
+        if (!goToHome) return;
+        const isOnHome = pathname === "/";
+        if (isOnHome) {
           window.scrollTo({ top: 0, behavior: "smooth" });
+          return;
         }
+        router.push("/");
       }}
     >
       <path
