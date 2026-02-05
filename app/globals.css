@@ -20,6 +20,7 @@
   --color-placeholder: #6C757C;
   --color-checkbox-bg: #E8EFEC;
   --color-green-bg: #E8EFEC;
+  --color-disabled: #C1C1C1;
   /* Font */
   --font-sans: var(--font-manrope), system-ui, sans-serif;
 }

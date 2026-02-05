@@ -1,14 +1,24 @@
+import { OpinionForm } from "@/sections/technical-support/opinion-form";
+import { TechnicalSupportForm } from "@/sections/technical-support/technical-support-form";
+
 export default function SoporteTecnico() {
   return (
-    <div className="bg-darkBlue text-white ">
+    <div className="bg-darkBlue text-white">
       <div className="container mx-auto py-16 flex items-center flex-col lg:flex-row gap-8 xl:gap-12">
         <div className="flex flex-col gap-4">
           <h1 className="font-bold text-4xl">Soporte Técnico</h1>
           <h4>
             Estamos aquí para ayudarte a resolver cualquier inconveniente
-            técnico y escuchar tus valiosas sugerencias para seguir mejorando
-            nuestra plataforma.
+            técnico y escuchar tus <br /> valiosas sugerencias para seguir
+            mejorando nuestra plataforma.
           </h4>
+        </div>
+      </div>
+
+      <div className="container mx-auto pb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-12">
+          <TechnicalSupportForm />
+          <OpinionForm />
         </div>
       </div>
     </div>

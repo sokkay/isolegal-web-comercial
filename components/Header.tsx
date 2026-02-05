@@ -11,7 +11,12 @@ export default function Header() {
 
   useEffect(() => {
     const handleHashChange = () => {
-      setActiveSection(window.location.hash || "/");
+      if (window.location.pathname === "/") {
+        setActiveSection(window.location.hash || "/");
+        return;
+      }
+
+      setActiveSection(window.location.pathname);
     };
 
     handleHashChange();
@@ -32,13 +37,25 @@ export default function Header() {
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string
   ) => {
+    const isOnHome = window.location.pathname === "/";
+
     if (href === "/") {
       e.preventDefault();
+      if (!isOnHome) {
+        window.location.href = href;
+        return;
+      }
+
       window.scrollTo({ top: 0, behavior: "smooth" });
       window.history.pushState(null, "", href);
       setActiveSection(href);
     } else if (href.startsWith("/#")) {
       e.preventDefault();
+      if (!isOnHome) {
+        window.location.href = href;
+        return;
+      }
+
       const id = href.substring(2);
       const element = document.getElementById(id);
 
