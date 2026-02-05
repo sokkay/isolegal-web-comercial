@@ -2,8 +2,8 @@
 import Logo from "@/components/Logo";
 import Button from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
-import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 
 interface TabContentProps {
   title: string;
@@ -13,7 +13,21 @@ interface TabContentProps {
   tabKey: number;
 }
 
-function TabContent({ title, description, button, video, tabKey }: TabContentProps) {
+function TabContent({
+  title,
+  description,
+  button,
+  video,
+  tabKey,
+}: TabContentProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.7;
+    }
+  }, [videoRef]);
+
   return (
     <motion.div
       key={tabKey}
@@ -24,14 +38,7 @@ function TabContent({ title, description, button, video, tabKey }: TabContentPro
       className="flex flex-col md:flex-row gap-6 md:gap-10"
     >
       <div className="flex-1 order-1">
-        <motion.h2
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
-          className="text-lg font-bold mb-2"
-        >
-          {title}
-        </motion.h2>
+        <h2 className="text-lg font-bold mb-2">{title}</h2>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.8 }}
@@ -40,20 +47,15 @@ function TabContent({ title, description, button, video, tabKey }: TabContentPro
         >
           {description}
         </motion.p>
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.2 }}
-        >
-          <Button
-            text={button}
-            color="secondary"
-            onClick={() => {
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-            className="hidden md:block"
-          />
-        </motion.div>
+
+        <Button
+          text={button}
+          color="secondary"
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+          className="hidden md:block"
+        />
       </div>
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
@@ -62,6 +64,7 @@ function TabContent({ title, description, button, video, tabKey }: TabContentPro
         className="w-full md:w-1/3 order-2 md:order-2 flex items-start justify-center"
       >
         <video
+          ref={videoRef}
           key={video}
           autoPlay
           loop
