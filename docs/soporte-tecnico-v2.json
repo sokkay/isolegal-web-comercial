@@ -1,0 +1,130 @@
+{
+  "id": "18af907c-575b-40f2-b97d-57b928780e53",
+  "name": "Soporte Tecnico v2",
+  "createdAt": "2026-02-06T15:43:16.893Z",
+  "updatedAt": "2026-02-06T18:29:04.834Z",
+  "archived": false,
+  "fieldGroups": [
+      {
+          "groupType": "default_group",
+          "richTextType": "text",
+          "fields": [
+              {
+                  "objectTypeId": "0-1",
+                  "name": "firstname",
+                  "label": "Nombre",
+                  "required": false,
+                  "hidden": false,
+                  "fieldType": "single_line_text"
+              }
+          ]
+      },
+      {
+          "groupType": "default_group",
+          "richTextType": "text",
+          "fields": [
+              {
+                  "objectTypeId": "0-1",
+                  "name": "email",
+                  "label": "Correo",
+                  "required": true,
+                  "hidden": false,
+                  "validation": {
+                      "blockedEmailDomains": [],
+                      "useDefaultBlockList": false
+                  },
+                  "fieldType": "email"
+              }
+          ]
+      },
+      {
+          "groupType": "default_group",
+          "richTextType": "text",
+          "fields": [
+              {
+                  "objectTypeId": "0-1",
+                  "name": "mobilephone",
+                  "label": "Número de móvil",
+                  "required": false,
+                  "hidden": false,
+                  "validation": {
+                      "minAllowedDigits": 7,
+                      "maxAllowedDigits": 20
+                  },
+                  "fieldType": "mobile_phone"
+              }
+          ]
+      },
+      {
+          "groupType": "default_group",
+          "richTextType": "text",
+          "fields": [
+              {
+                  "objectTypeId": "0-1",
+                  "name": "company",
+                  "label": "Nombre de la empresa",
+                  "required": false,
+                  "hidden": false,
+                  "fieldType": "single_line_text"
+              }
+          ]
+      },
+      {
+          "groupType": "default_group",
+          "richTextType": "text",
+          "fields": [
+              {
+                  "objectTypeId": "0-1",
+                  "name": "message",
+                  "label": "Mensaje",
+                  "required": false,
+                  "hidden": false,
+                  "fieldType": "multi_line_text"
+              }
+          ]
+      }
+  ],
+  "configuration": {
+      "language": "es",
+      "cloneable": true,
+      "postSubmitAction": {
+          "type": "thank_you",
+          "value": "Gracias por enviar el formulario."
+      },
+      "editable": true,
+      "archivable": true,
+      "recaptchaEnabled": false,
+      "notifyContactOwner": false,
+      "notifyRecipients": [
+          "67969857"
+      ],
+      "createNewContactForNewEmail": false,
+      "prePopulateKnownValues": true,
+      "allowLinkToResetKnownValues": false,
+      "embedType": "V3"
+  },
+  "displayOptions": {
+      "renderRawHtml": false,
+      "theme": "default_style",
+      "submitButtonText": "Enviar",
+      "style": {
+          "fontFamily": "helvetica",
+          "backgroundWidth": "100%",
+          "labelTextColor": "#212d3a",
+          "labelTextSize": "16px",
+          "helpTextColor": "#516383DE",
+          "helpTextSize": "11px",
+          "legalConsentTextColor": "#33475B",
+          "legalConsentTextSize": "14px",
+          "submitColor": "#69A84F",
+          "submitAlignment": "left",
+          "submitFontColor": "#ffffff",
+          "submitSize": "12px"
+      },
+      "cssClass": "hs-form stacked"
+  },
+  "legalConsentOptions": {
+      "type": "none"
+  },
+  "formType": "hubspot"
+}

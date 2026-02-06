@@ -1,0 +1,80 @@
+{
+  "id": "1e505970-3b11-4b09-a6cb-a1feac866690",
+  "name": "Opiniones",
+  "createdAt": "2026-02-06T18:30:17.289Z",
+  "updatedAt": "2026-02-06T18:31:54.619Z",
+  "archived": false,
+  "fieldGroups": [
+      {
+          "groupType": "default_group",
+          "richTextType": "text",
+          "fields": [
+              {
+                  "objectTypeId": "0-1",
+                  "name": "calificacion",
+                  "label": "Calificacion",
+                  "required": false,
+                  "hidden": false,
+                  "fieldType": "number"
+              }
+          ]
+      },
+      {
+          "groupType": "default_group",
+          "richTextType": "text",
+          "fields": [
+              {
+                  "objectTypeId": "0-1",
+                  "name": "comentario",
+                  "label": "Comentario",
+                  "required": false,
+                  "hidden": false,
+                  "fieldType": "single_line_text"
+              }
+          ]
+      }
+  ],
+  "configuration": {
+      "language": "es",
+      "cloneable": true,
+      "postSubmitAction": {
+          "type": "thank_you",
+          "value": "Gracias por enviar el formulario."
+      },
+      "editable": true,
+      "archivable": true,
+      "recaptchaEnabled": false,
+      "notifyContactOwner": false,
+      "notifyRecipients": [
+          "67969857"
+      ],
+      "createNewContactForNewEmail": false,
+      "prePopulateKnownValues": true,
+      "allowLinkToResetKnownValues": false,
+      "embedType": "V3"
+  },
+  "displayOptions": {
+      "renderRawHtml": false,
+      "theme": "default_style",
+      "submitButtonText": "Enviar",
+      "style": {
+          "fontFamily": "helvetica",
+          "backgroundWidth": "100%",
+          "labelTextColor": "#212d3a",
+          "labelTextSize": "16px",
+          "helpTextColor": "#516383DE",
+          "helpTextSize": "11px",
+          "legalConsentTextColor": "#33475B",
+          "legalConsentTextSize": "14px",
+          "submitColor": "#69A84F",
+          "submitAlignment": "left",
+          "submitFontColor": "#ffffff",
+          "submitSize": "12px"
+      },
+      "cssClass": "hs-form stacked"
+  },
+  "legalConsentOptions": {
+      "type": "none"
+  },
+  "formType": "hubspot"
+}

@@ -4,8 +4,8 @@ import { ZodError } from "zod";
 import { getPb } from "@/lib/pocketbase";
 import { opinionFormSchema } from "@/lib/schemas/opinionForm";
 
-const HUBSPOT_PORTAL_ID = "PENDING_PORTAL_ID";
-const HUBSPOT_FORM_GUID = "PENDING_FORM_GUID";
+const HUBSPOT_PORTAL_ID = "46469741";
+const HUBSPOT_FORM_GUID = "1e505970-3b11-4b09-a6cb-a1feac866690";
 const HUBSPOT_API_URL = `https://api.hsforms.com/submissions/v3/integration/secure/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`;
 
 export async function POST(request: NextRequest) {
@@ -26,12 +26,12 @@ export async function POST(request: NextRequest) {
       fields: [
         {
           objectTypeId: "0-1",
-          name: "satisfaction",
+          name: "calificacion",
           value: Number(validatedData.satisfaction),
         },
         {
           objectTypeId: "0-1",
-          name: "message",
+          name: "comentario",
           value: validatedData.details,
         },
       ],

@@ -4,9 +4,9 @@ import { ZodError } from "zod";
 import { getPb } from "@/lib/pocketbase";
 import { technicalSupportFormSchema } from "@/lib/schemas/technicalSupportForm";
 
-const HUBSPOT_PORTAL_ID = "PENDING_PORTAL_ID";
-const HUBSPOT_FORM_GUID = "PENDING_FORM_GUID";
-const HUBSPOT_SUBSCRIPTION_TYPE_ID = "PENDING_SUBSCRIPTION_TYPE_ID";
+const HUBSPOT_PORTAL_ID = "46469741";
+const HUBSPOT_FORM_GUID = "18af907c-575b-40f2-b97d-57b928780e53";
+const HUBSPOT_SUBSCRIPTION_TYPE_ID = 366943399;
 const HUBSPOT_API_URL = `https://api.hsforms.com/submissions/v3/integration/secure/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`;
 
 export async function POST(request: NextRequest) {
@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
         },
         {
           objectTypeId: "0-1",
-          name: "phone",
+          name: "mobilephone",
           value: validatedData.phone,
         },
         {
