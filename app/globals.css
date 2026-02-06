@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  color-scheme: light only;
+  color-scheme: light;
 }
 
 @theme {
@@ -21,15 +23,30 @@
   --color-checkbox-bg: #E8EFEC;
   --color-green-bg: #E8EFEC;
   --color-disabled: #C1C1C1;
+  --color-card-background: #FFFFFF;
   /* Font */
   --font-sans: var(--font-manrope), system-ui, sans-serif;
 }
 
-/* Dark mode - listo para cuando lo necesites */
-@media (prefers-color-scheme: dark) {
-  @theme {
-    /* TODO: Agregar colores dark mode aquí */
-  }
+/* Dark mode colors */
+.dark {
+  color-scheme: dark;
+  --color-primary: #1E5E3D;
+  --color-text: #FFFFFF;
+  --color-background: #3e4354;
+  --color-border: #334155;
+  --color-dark: #F8FAFC;
+  --color-darkBlue: #0F172A;
+  --color-nav-base: #ECEDFE;
+  --color-nav-active: #FFFFFF;
+  --color-nav-indicator: #2ECC71;
+  --color-input-bg: #1E293B;
+  --color-input-border: #475569;
+  --color-placeholder: #94A3B8;
+  --color-checkbox-bg: #9ab5a3;
+  --color-green-bg: #9ab5a3;
+  --color-disabled: #475569;
+  --color-card-background: #262c3e;
 }
 
 html {

@@ -115,7 +115,7 @@ export default function TabsBanner() {
               onClick={() => setActiveTab(index)}
               className={cn(
                 "font-bold flex-1 w-full md:w-auto flex items-center justify-center rounded-lg cursor-pointer py-3 md:py-0 md:h-full relative z-10 transition-colors",
-                activeTab === index ? "text-text" : "text-white"
+                activeTab === index ? "text-darkBlue" : "text-white"
               )}
             >
               {activeTab === index && (

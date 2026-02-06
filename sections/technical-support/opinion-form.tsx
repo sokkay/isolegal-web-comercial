@@ -81,7 +81,7 @@ export const OpinionForm = () => {
   return (
     <form
       onSubmit={onSubmit}
-      className="bg-white rounded-2xl overflow-hidden"
+      className="bg-card-background rounded-2xl overflow-hidden"
     >
       <div className="space-y-2 bg-primary text-white p-4 md:p-8">
         <div className="flex items-center gap-2">
@@ -95,7 +95,7 @@ export const OpinionForm = () => {
       </div>
       <div className="flex flex-col gap-6 p-4 md:p-8">
         <fieldset className="space-y-3">
-          <legend className="text-text text-sm font-bold">
+          <legend className="text-text dark:text-white text-sm font-bold">
             ¿Qué tan satisfecho estás con el servicio?
           </legend>
           <div className="grid grid-cols-5 gap-0 md:gap-2.5 border border-disabled rounded-lg px-0 md:px-5 py-2.5 bg-input-bg">
@@ -146,12 +146,12 @@ export const OpinionForm = () => {
         <div className="space-y-2">
           <Button text="Enviar comentarios" fullWidth loading={isSubmitting} />
           {submitStatus === "success" && (
-            <p className="text-xs text-emerald-600">
+            <p className="text-xs text-emerald-600 dark:text-emerald-400">
               Comentarios enviados correctamente.
             </p>
           )}
           {submitStatus === "error" && (
-            <p className="text-xs text-red-500">
+            <p className="text-xs text-red-500 dark:text-red-400">
               No se pudo enviar. Intenta nuevamente.
             </p>
           )}

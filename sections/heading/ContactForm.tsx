@@ -66,7 +66,7 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="bg-white rounded-2xl p-4 md:p-8 xl:p-16 space-y-6"
+      className="bg-card-background rounded-2xl p-4 md:p-8 xl:p-16 space-y-6"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
@@ -141,14 +141,14 @@ export default function ContactForm() {
       </div>
 
       {submitStatus === "success" && (
-        <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg">
+        <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 text-green-800 dark:text-green-300 px-4 py-3 rounded-lg">
           ¡Gracias! Tu mensaje ha sido enviado exitosamente. Nos pondremos en
           contacto contigo pronto.
         </div>
       )}
 
       {submitStatus === "error" && (
-        <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg">
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 text-red-800 dark:text-red-300 px-4 py-3 rounded-lg">
           {errorMessage}
         </div>
       )}

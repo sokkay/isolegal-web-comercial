@@ -48,11 +48,11 @@ export default function WhyIsolegal() {
     <section id="soluciones" className="container mx-auto py-16">
       <div className="flex flex-col md:flex-row md:items-end md:justify-between">
         <div className="flex-6">
-          <h1 className="text-3xl font-bold md:text-left text-center">¿Por qué Isolegal?</h1>
+          <h1 className="text-3xl font-bold md:text-left text-center text-text dark:text-white">¿Por qué Isolegal?</h1>
         </div>
         {/* Botón solo visible en tablets y desktop */}
         <div 
-          className="hidden md:flex flex-6 text-primary font-bold items-center justify-end cursor-pointer"
+          className="hidden md:flex flex-6 text-primary dark:text-white font-bold items-center justify-end cursor-pointer"
           onClick={() => setShowAll(!showAll)}
         >
           <span className="text-sm">
@@ -60,7 +60,7 @@ export default function WhyIsolegal() {
           </span>
           <IconButton 
             icon="arrow-right" 
-            iconClassName={`fill-primary w-4 h-4 transition-transform duration-300 ${showAll ? "rotate-90" : ""}`} 
+            iconClassName={`fill-primary dark:fill-white w-4 h-4 transition-transform duration-300 ${showAll ? "rotate-90" : ""}`} 
           />
         </div>
       </div>
@@ -102,13 +102,13 @@ type CardProps = {
 
 const Card = ({ title, description, icon }: CardProps) => {
   return (
-    <div className="bg-white rounded-2xl p-8 flex flex-col md:flex-row lg:flex-col gap-4">
+    <div className="bg-card-background dark:bg-surface-tonal-a10 rounded-2xl p-8 flex flex-col md:flex-row lg:flex-col gap-4">
       <div className="flex items-center justify-center w-10 h-10 rounded-sm bg-green-bg shrink-0">
         {icon}
       </div>
       <div className="flex flex-col">
-        <h3 className="text-lg font-bold pb-3">{title}</h3>
-        <p className="text-sm opacity-80 leading-5">{description}</p>
+        <h3 className="text-lg font-bold pb-3 text-text dark:text-white">{title}</h3>
+        <p className="text-sm opacity-80 leading-5 text-text dark:text-white">{description}</p>
       </div>
     </div>
   );

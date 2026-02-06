@@ -9,24 +9,24 @@ export default function Footer() {
     {
       name: "Email",
       href: "mailto:contacto@isolegal.cl",
-      icon: <EmailIcon className="w-5.5 h-5.5 fill-[#64748B]" />,
+      icon: <EmailIcon className="w-5.5 h-5.5 fill-[#64748B] dark:fill-white/60" />,
     },
     {
       name: "LinkedIn",
       href: "https://www.linkedin.com/company/isolegal",
-      icon: <LinkedInIcon className="w-5.5 h-5.5 fill-[#64748B]" />,
+      icon: <LinkedInIcon className="w-5.5 h-5.5 fill-[#64748B] dark:fill-white/60" />,
     },
   ];
 
   return (
-    <footer className="bg-white">
+    <footer className="bg-white dark:bg-darkBlue">
       <div className="container mx-auto py-16">
         <div className="flex flex-col md:flex-row justify-between">
           <div>
-            <h3 className="text-xl font-bold">
+            <h3 className="text-xl font-bold text-text dark:text-white">
               Suscríbete a Radar Legislativo
             </h3>
-            <p className="">
+            <p className="text-text dark:text-white/80">
               Recibe las novedades legales más relevantes de la semana{" "}
             </p>
           </div>
@@ -38,7 +38,7 @@ export default function Footer() {
             />
           </div>
         </div>
-        <div className="h-px bg-gray-200 my-6" />
+        <div className="h-px bg-gray-200 dark:bg-border my-6" />
         <div className=" flex flex-col md:flex-row justify-between">
           <div>
             <Logo
@@ -46,7 +46,7 @@ export default function Footer() {
               className="mb-4"
               goToHome
             />
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 dark:text-white/60">
               Si te auditan, necesitas evidencia.
               <br />
               No Explicaciones
@@ -58,7 +58,7 @@ export default function Footer() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center"
+                  className="w-10 h-10 rounded-full bg-gray-100 dark:bg-surface-a20 flex items-center justify-center"
                 >
                   {item.icon}
                 </a>
@@ -66,22 +66,22 @@ export default function Footer() {
             </div>
           </div>
           <div className="mt-4 md:mt-0">
-            <span className="text-md font-bold text-text">
+            <span className="text-md font-bold text-text dark:text-white">
               Av. Bosques de Montemar N°30, Of. 316, Viña del Mar.
             </span>
           </div>
         </div>
-        <div className="h-px bg-gray-100 my-6" />
+        <div className="h-px bg-gray-100 dark:bg-border my-6" />
         <div className="flex flex-col md:flex-row justify-between gap-4 md:gap-0">
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-gray-500 dark:text-white/60">
             &copy; {new Date().getFullYear()} Isolegal. Todos los derechos
             reservados.
           </span>
-          <div className="flex flex-row gap-4 text-sm text-gray-500">
-            {/* <a className="hover:text-gray-900 transition-colors cursor-pointer">
+          <div className="flex flex-row gap-4 text-sm text-gray-500 dark:text-white/60">
+            {/* <a className="hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
               Política de privacidad
             </a> */}
-            <Link href="/terminos-y-condiciones" className="hover:text-gray-900 transition-colors cursor-pointer">
+            <Link href="/terminos-y-condiciones" className="hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
               Términos y condiciones
             </Link>
           </div>

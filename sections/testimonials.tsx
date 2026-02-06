@@ -53,12 +53,12 @@ export default function Testimonials() {
   }, [emblaApi, list.length]);
 
   return (
-    <div id="testimonios" className="bg-white py-16">
+    <div id="testimonios" className="bg-white dark:bg-darkBlue py-16">
       <div className="container mx-auto">
-        <h2 className="mb-2 text-center text-sm font-bold tracking-wider">
+        <h2 className="mb-2 text-center text-sm font-bold tracking-wider text-text dark:text-white">
           TESTIMONIOS
         </h2>
-        <h3 className="mb-12 text-center text-3xl font-bold">
+        <h3 className="mb-12 text-center text-3xl font-bold text-text dark:text-white">
           Lo que dicen nuestros clientes
         </h3>
 
@@ -88,15 +88,15 @@ const TestimonialCard = ({
   logoUrl,
 }: Testimonial) => {
   return (
-    <div className="bg-background rounded-2xl p-8 flex flex-col h-full">
+    <div className="bg-background dark:bg-surface-tonal-a10 rounded-2xl p-8 flex flex-col h-full">
       <div className="flex gap-1 mb-4">
         {[...Array(5)].map((_, i) => (
           <StarIcon key={i} className="w-5 h-5 fill-yellow-400" />
         ))}
       </div>
-      <p className="text-base leading-6 mb-6 flex-1">&quot;{quote}&quot;</p>
+      <p className="text-base leading-6 mb-6 flex-1 text-text dark:text-white">&quot;{quote}&quot;</p>
       <div className="flex items-center gap-3">
-        <div className="flex items-center justify-center w-12 h-12 rounded-full bg-white shrink-0 relative overflow-hidden">
+        <div className="flex items-center justify-center w-12 h-12 rounded-full bg-white dark:bg-surface-a20 shrink-0 relative overflow-hidden">
           <Image
             src={logoUrl}
             alt={companyName}
@@ -106,8 +106,8 @@ const TestimonialCard = ({
           />
         </div>
         <div className="flex flex-col">
-          <h4 className="text-base font-bold">{companyName}</h4>
-          {companyRole && <p className="text-sm opacity-60">{companyRole}</p>}
+          <h4 className="text-base font-bold text-text dark:text-white">{companyName}</h4>
+          {companyRole && <p className="text-sm opacity-60 text-text dark:text-white">{companyRole}</p>}
         </div>
       </div>
     </div>

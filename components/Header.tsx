@@ -3,6 +3,7 @@ import { cn } from "@/utils/cn";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
+import ThemeToggle from "./ThemeToggle";
 import Button from "./ui/Button";
 import IconButton from "./ui/IconButton";
 
@@ -113,16 +114,12 @@ export default function Header() {
         </ul>
 
         <div className="flex items-center gap-2 text-white">
-          <IconButton
-            icon="moon"
-            alt="Modo oscuro"
-            className="hidden sm:flex"
-          />
+          <ThemeToggle className="hidden sm:flex" />
           <div className="hidden sm:flex items-center gap-2">
             <Button text="Iniciar sesión" variant="contained" color="primary" />
           </div>
 
-          <IconButton icon="moon" alt="Modo oscuro" className="sm:hidden" />
+          <ThemeToggle className="sm:hidden" />
           <div className="lg:hidden w-10 h-10 flex items-center justify-center">
             <IconButton
               icon="menu"

@@ -7,7 +7,7 @@ import WhyIsolegalSection from "@/sections/why-isolegal";
 
 export default function Home() {
   return (
-    <main className="flex min-h-dvh w-full mx-auto flex-col">
+    <main className="flex min-h-dvh w-full mx-auto flex-col bg-background">
       <HeadingSection />
       <BussinessSection />
       <WhyIsolegalSection />

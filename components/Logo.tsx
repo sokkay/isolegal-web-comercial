@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/utils/cn";
+import { useTheme } from "next-themes";
 import { usePathname, useRouter } from "next/navigation";
 
 type LogoProps = {
@@ -23,8 +24,12 @@ export default function Logo({
 }: LogoProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const primaryColor = colors?.primary || "#FFFFFF";
-  const secondaryColor = colors?.secondary || "#FFFFFF";
+  const { theme } = useTheme();
+  const isDarkMode = theme === "dark";
+  const primaryColor = isDarkMode ? "#FFFFFF" : colors?.primary || "#FFFFFF";
+  const secondaryColor = isDarkMode
+    ? "#FFFFFF"
+    : colors?.secondary || "#FFFFFF";
 
   return (
     <svg

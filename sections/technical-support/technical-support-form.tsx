@@ -55,7 +55,7 @@ export const TechnicalSupportForm = () => {
   return (
     <form
       onSubmit={onSubmit}
-      className="bg-white rounded-2xl p-4 md:p-8 xl:p-10 space-y-6"
+      className="bg-card-background dark:bg-surface-tonal-a10 rounded-2xl p-4 md:p-8 xl:p-10 space-y-6"
     >
       <div className="flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-bg">
@@ -66,7 +66,7 @@ export const TechnicalSupportForm = () => {
             height={22}
           />
         </div>
-        <h3 className="text-text text-2xl font-bold">
+        <h3 className="text-text dark:text-white text-2xl font-bold">
           Formulario Soporte Técnico
         </h3>
       </div>
@@ -134,12 +134,12 @@ export const TechnicalSupportForm = () => {
       <div className="space-y-2">
         <Button text="Enviar solicitud" fullWidth loading={isSubmitting} />
         {submitStatus === "success" && (
-          <p className="text-xs text-emerald-600">
+          <p className="text-xs text-emerald-600 dark:text-emerald-400">
             Solicitud enviada correctamente.
           </p>
         )}
         {submitStatus === "error" && (
-          <p className="text-xs text-red-500">
+          <p className="text-xs text-red-500 dark:text-red-400">
             No se pudo enviar. Intenta nuevamente.
           </p>
         )}

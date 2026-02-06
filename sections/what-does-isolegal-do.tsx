@@ -41,7 +41,7 @@ export default function WhatDoesIsolegalDo() {
     });
   }, [videoRefs]);
   return (
-    <section className="bg-white py-16">
+    <section className="bg-white dark:bg-darkBlue py-16">
       <div className="container mx-auto">
         {steps.map((step, index) => (
           <div
@@ -76,9 +76,9 @@ export default function WhatDoesIsolegalDo() {
               />
             )}
             <div className="flex-1">
-              <h2 className="text-xl font-bold mb-5">{step.title}</h2>
+              <h2 className="text-xl font-bold mb-5 text-text dark:text-white">{step.title}</h2>
               {step.description.map((description, y) => (
-                <p key={step.title + y} className="mb-5 font-normal">
+                <p key={step.title + y} className="mb-5 font-normal text-text dark:text-white/80">
                   {description}
                 </p>
               ))}
