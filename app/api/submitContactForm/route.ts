@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
 
+import { getPb } from "@/lib/pocketbase";
 import { contactFormSchema } from "@/lib/schemas/contactForm";
 
 const HUBSPOT_PORTAL_ID = "46469741";
@@ -84,6 +85,19 @@ export async function POST(request: NextRequest) {
     }
 
     const hubspotResult = await hubspotResponse.json();
+
+    try {
+      const pb = getPb();
+      await pb.collection("contactos").create({
+        nombre: validatedData.firstname,
+        empresa: validatedData.company,
+        email: validatedData.email,
+        telefono: validatedData.mobilephone,
+        mensaje: validatedData.message,
+      });
+    } catch (pbError) {
+      console.error("PocketBase contactos:", pbError);
+    }
 
     return NextResponse.json(
       {

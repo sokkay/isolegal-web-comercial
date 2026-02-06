@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
 
+import { getPb } from "@/lib/pocketbase";
 import { technicalSupportFormSchema } from "@/lib/schemas/technicalSupportForm";
 
 const HUBSPOT_PORTAL_ID = "PENDING_PORTAL_ID";
@@ -84,6 +85,19 @@ export async function POST(request: NextRequest) {
     }
 
     const hubspotResult = await hubspotResponse.json();
+
+    try {
+      const pb = getPb();
+      await pb.collection("soportes_tecnicos").create({
+        nombre: validatedData.name,
+        empresa: validatedData.company,
+        telefono: validatedData.phone,
+        email: validatedData.email,
+        descripcion: validatedData.problem,
+      });
+    } catch (pbError) {
+      console.error("PocketBase soportes_tecnicos:", pbError);
+    }
 
     return NextResponse.json(
       {

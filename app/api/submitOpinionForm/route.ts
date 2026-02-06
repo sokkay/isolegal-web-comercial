@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
 
+import { getPb } from "@/lib/pocketbase";
 import { opinionFormSchema } from "@/lib/schemas/opinionForm";
 
 const HUBSPOT_PORTAL_ID = "PENDING_PORTAL_ID";
@@ -55,6 +56,16 @@ export async function POST(request: NextRequest) {
     }
 
     const hubspotResult = await hubspotResponse.json();
+
+    try {
+      const pb = getPb();
+      await pb.collection("opiniones").create({
+        calificacion: Number(validatedData.satisfaction),
+        descripcion: validatedData.details,
+      });
+    } catch (pbError) {
+      console.error("PocketBase opiniones:", pbError);
+    }
 
     return NextResponse.json(
       {

@@ -1,6 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "pocketbase-production-019d.up.railway.app",
+        pathname: "/api/files/**",
+      },
+    ],
+  },
   turbopack: {
     rules: {
       "*.svg": {
