@@ -11,7 +11,7 @@ import SaludMatrizLegal from "@/sections/risk-calculator/forms/salud-matriz-lega
 import RiskCalculatorBanner from "@/sections/risk-calculator/risk-calculator-banner";
 import { AnimatePresence, motion } from "motion/react";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 function CalculaTuRiesgoContent() {
   const searchParams = useSearchParams();
@@ -89,7 +89,9 @@ export default function CalculaTuRiesgo() {
         // Aquí puedes enviar los datos al backend
       }}
     >
-      <CalculaTuRiesgoContent />
+      <Suspense>
+        <CalculaTuRiesgoContent />
+      </Suspense>
     </RiskCalculatorProvider>
   );
 }
