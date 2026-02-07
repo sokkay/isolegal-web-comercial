@@ -13,6 +13,7 @@ type IconTextCardProps = {
   iconContainerClassName?: string;
   className?: string;
   containerStyle?: "outline" | "filled";
+  align?: "center" | "left";
   selected?: boolean;
   onClick?: () => void;
 };
@@ -25,6 +26,7 @@ export default function IconTextCard({
   iconContainerClassName,
   className,
   containerStyle = "filled",
+  align = "center",
   selected = false,
   onClick,
 }: IconTextCardProps) {
@@ -32,10 +34,11 @@ export default function IconTextCard({
     <div
       onClick={onClick}
       className={cn(
+        "flex  items-center gap-4 py-3 px-6 rounded-lg cursor-pointer relative transition-all",
         className,
-        "flex flex-col items-center justify-center gap-4 py-3 px-6 rounded-lg cursor-pointer relative transition-all",
         containerStyle === "outline" ? "border border-border" : "",
-        selected ? "border border-primary bg-primary/10" : ""
+        selected ? "border border-primary bg-primary/10" : "",
+        align === "left" ? "flex-row items-start" : " flex-col justify-center"
       )}
     >
       {selected ? (
@@ -54,8 +57,13 @@ export default function IconTextCard({
       >
         {icon}
       </div>
-      <div className="flex flex-col items-center justify-center">
-        <h3 className="text-lg font-bold text-center pb-3 text-text dark:text-white">
+      <div
+        className={cn(
+          "flex flex-col items-center justify-center",
+          align === "left" ? "items-start" : "items-center"
+        )}
+      >
+        <h3 className="text-lg font-bold text-center text-text dark:text-white">
           {title}
         </h3>
         {description && (

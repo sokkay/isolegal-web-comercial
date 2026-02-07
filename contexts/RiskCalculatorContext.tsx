@@ -34,15 +34,25 @@ const contextoOperativoSchema = z
     }
   );
 
+// Schema para el formulario de Salud Matriz Legal
+const saludMatrizLegalSchema = z.object({
+  gestionMatriz: z.string().min(1, "Debes seleccionar una opción"),
+  ultimaActualizacion: z.string().min(1, "Debes seleccionar una opción"),
+  normasTratadas: z
+    .array(z.string())
+    .min(1, "Debes seleccionar al menos una opción"),
+});
+
 // Schema completo del calculador de riesgo (expandible para más formularios)
 const riskCalculatorSchema = z.object({
   contextoOperativo: contextoOperativoSchema,
-  // Aquí se agregarán más schemas para otros pasos
+  saludMatrizLegal: saludMatrizLegalSchema,
 });
 
 export type ContextoOperativoFormData = z.infer<
   typeof contextoOperativoSchema
 >;
+export type SaludMatrizLegalFormData = z.infer<typeof saludMatrizLegalSchema>;
 export type RiskCalculatorFormData = z.infer<typeof riskCalculatorSchema>;
 
 type RiskCalculatorContextType = {
@@ -80,6 +90,13 @@ export function RiskCalculatorProvider({
         rubro: initialData?.contextoOperativo?.rubro || "",
         rubroOtro: initialData?.contextoOperativo?.rubroOtro || "",
         normasISO: initialData?.contextoOperativo?.normasISO || [],
+      },
+      saludMatrizLegal: {
+        gestionMatriz: initialData?.saludMatrizLegal?.gestionMatriz || "",
+        ultimaActualizacion:
+          initialData?.saludMatrizLegal?.ultimaActualizacion || "",
+        normasTratadas:
+          initialData?.saludMatrizLegal?.normasTratadas || [],
       },
     },
     mode: "onChange",
@@ -181,6 +198,50 @@ export function useContextoOperativo() {
       rubro: form.formState.errors.contextoOperativo?.rubro,
       rubroOtro: form.formState.errors.contextoOperativo?.rubroOtro,
       normasISO: form.formState.errors.contextoOperativo?.normasISO,
+    },
+  };
+}
+
+// Hook específico para el formulario de Salud Matriz Legal
+export function useSaludMatrizLegal() {
+  const { form } = useRiskCalculator();
+  return {
+    gestionMatriz: form.watch("saludMatrizLegal.gestionMatriz"),
+    ultimaActualizacion: form.watch("saludMatrizLegal.ultimaActualizacion"),
+    normasTratadas: form.watch("saludMatrizLegal.normasTratadas"),
+    setGestionMatriz: (value: string) =>
+      form.setValue("saludMatrizLegal.gestionMatriz", value, {
+        shouldValidate: true,
+      }),
+    setUltimaActualizacion: (value: string) =>
+      form.setValue("saludMatrizLegal.ultimaActualizacion", value, {
+        shouldValidate: true,
+      }),
+    toggleNormaTratada: (value: string) => {
+      const current = form.getValues("saludMatrizLegal.normasTratadas");
+      // Si selecciona "ninguna", deselecciona todo lo demás
+      if (value === "ninguna") {
+        form.setValue("saludMatrizLegal.normasTratadas", ["ninguna"], {
+          shouldValidate: true,
+        });
+        return;
+      }
+      // Si selecciona otra opción, quitar "ninguna" si estaba
+      const filtered = current.filter((v) => v !== "ninguna");
+      const newValue = filtered.includes(value)
+        ? filtered.filter((v) => v !== value)
+        : [...filtered, value];
+      form.setValue("saludMatrizLegal.normasTratadas", newValue, {
+        shouldValidate: true,
+      });
+    },
+    errors: {
+      gestionMatriz:
+        form.formState.errors.saludMatrizLegal?.gestionMatriz,
+      ultimaActualizacion:
+        form.formState.errors.saludMatrizLegal?.ultimaActualizacion,
+      normasTratadas:
+        form.formState.errors.saludMatrizLegal?.normasTratadas,
     },
   };
 }
