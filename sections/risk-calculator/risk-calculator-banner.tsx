@@ -5,7 +5,13 @@ import WarningIcon from "@/public/icons/warning.svg";
 import { cn } from "@/utils/cn";
 import Image from "next/image";
 
-export default function RiskCalculatorBanner() {
+type RiskCalculatorBannerProps = {
+  onStart?: () => void;
+};
+
+export default function RiskCalculatorBanner({
+  onStart,
+}: RiskCalculatorBannerProps) {
   const informationSection = [
     {
       title: "Score de Riesgo Inmediato",
@@ -30,26 +36,26 @@ export default function RiskCalculatorBanner() {
 
   return (
     <div className="flex flex-row rounded-2xl overflow-hidden">
-      <div className="flex-1 flex flex-col gap-6 text-white bg-darkBlue p-16">
+      <div className="flex-1 flex flex-col gap-6 text-white bg-darkBlue p-6 md:p-16 ">
         <h1 className="text-4xl font-bold">
           ¿Tu empresa resistiría una auditoría legal ISO hoy mismo?
         </h1>
         <h3 className="text-lg">
-          Descubre el nivel de cumplomiento normativo de tu organizacion en
-          menos de 5 min
+          Descubre el nivel de cumplimiento normativo de tu organización en
+          menos de 5 minutos.
         </h3>
         <div className="flex flex-col gap-6">
           {informationSection.map((section) => (
-            <div key={section.title} className="flex flex-row gap-4">
+            <div key={section.title} className="flex flex-row gap-3 md:gap-4">
               <div
                 className={cn(
-                  "w-10 h-10 rounded-full flex justify-center items-center",
+                  "w-10 h-10 rounded-full flex justify-center items-center shrink-0",
                   section.bgColor
                 )}
               >
                 {section.Icon}
               </div>
-              <div>
+              <div className="flex flex-col gap-1">
                 <h4 className="text font-bold">{section.title}</h4>
                 <p className="text-sm">{section.description}</p>
               </div>
@@ -61,6 +67,9 @@ export default function RiskCalculatorBanner() {
           variant="contained"
           color="primary"
           className="w-full md:w-auto"
+          {...(onStart
+            ? { onClick: onStart }
+            : { href: "/calcula-tu-riesgo?step=1" })}
         />
         <span className="text-sm text-gray-400">
           No requiere tarjeta de crédito. Resultados confidenciales.
