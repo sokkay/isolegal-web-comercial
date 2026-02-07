@@ -70,7 +70,7 @@ export function RiskCalculatorProvider({
   initialData,
   onSubmit,
 }: RiskCalculatorProviderProps) {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(0);
   const totalSteps = 5;
 
   const form = useForm<RiskCalculatorFormData>({
@@ -92,13 +92,13 @@ export function RiskCalculatorProvider({
   };
 
   const goToPrevStep = () => {
-    if (currentStep > 1) {
+    if (currentStep > 0) {
       setCurrentStep((prev) => prev - 1);
     }
   };
 
   const goToStep = (step: number) => {
-    if (step >= 1 && step <= totalSteps) {
+    if (step >= 0 && step <= totalSteps) {
       setCurrentStep(step);
     }
   };

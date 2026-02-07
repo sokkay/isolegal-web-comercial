@@ -1,11 +1,3 @@
-type CriterioYRespuestaProps = {
-  onNext?: () => void;
-  onPrev?: () => void;
-};
-
-export default function CriterioYRespuesta({
-  onNext,
-  onPrev,
-}: CriterioYRespuestaProps) {
+export default function CriterioYRespuesta() {
   return <div>CriterioYRespuesta</div>;
 }

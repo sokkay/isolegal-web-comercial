@@ -16,53 +16,44 @@ import { useEffect, useState } from "react";
 function CalculaTuRiesgoContent() {
   const searchParams = useSearchParams();
   const initialStep = Number(searchParams.get("step")) || 0;
-  const { currentStep: contextStep, goToStep } = useRiskCalculator();
+  const { currentStep, goToStep } = useRiskCalculator();
 
-  const [currentStep, setCurrentStep] = useState(initialStep);
   const [direction, setDirection] = useState(1);
 
-  // Sincronizar el step del context con el step local
+  // Inicializar el step desde la URL
   useEffect(() => {
-    if (contextStep !== currentStep && currentStep > 0) {
-      setCurrentStep(contextStep);
+    if (initialStep !== currentStep) {
+      goToStep(initialStep);
     }
-  }, [contextStep]);
+  }, []);
 
-  const goToStepLocal = (step: number) => {
-    setDirection(step > currentStep ? 1 : -1);
-    setCurrentStep(step);
+  // Detectar cambios de step para la animación
+  useEffect(() => {
+    setDirection(1);
+  }, [currentStep]);
+
+  const startCalculator = () => {
+    goToStep(1);
   };
 
-  const nextStep = () =>
-    goToStepLocal(Math.min(currentStep + 1, steps.length - 1));
-  const prevStep = () => goToStepLocal(Math.max(currentStep - 1, 0));
-
-  const steps = [
-    {
-      label: "Inicio",
-      component: <RiskCalculatorBanner onStart={nextStep} />,
-    },
-    {
-      label: "Contexto Operativo",
-      component: <ContextoOperativo />,
-    },
-    {
-      label: "Salud Matriz Legal",
-      component: <SaludMatrizLegal onNext={nextStep} onPrev={prevStep} />,
-    },
-    {
-      label: "Criterio y Respuesta",
-      component: <CriterioYRespuesta onNext={nextStep} onPrev={prevStep} />,
-    },
-    {
-      label: "Resultados Diagnóstico",
-      component: <ResultadosDiagnostico onNext={nextStep} onPrev={prevStep} />,
-    },
-    {
-      label: "Diagnóstico Completado",
-      component: <DiagnosticoCompletado />,
-    },
-  ];
+  const getStepComponent = () => {
+    switch (currentStep) {
+      case 0:
+        return <RiskCalculatorBanner onStart={startCalculator} />;
+      case 1:
+        return <ContextoOperativo />;
+      case 2:
+        return <SaludMatrizLegal />;
+      case 3:
+        return <CriterioYRespuesta />;
+      case 4:
+        return <ResultadosDiagnostico />;
+      case 5:
+        return <DiagnosticoCompletado />;
+      default:
+        return <RiskCalculatorBanner onStart={startCalculator} />;
+    }
+  };
 
   const variants = {
     enter: (dir: number) => ({ x: dir > 0 ? 80 : -80, opacity: 0 }),
@@ -83,7 +74,7 @@ function CalculaTuRiesgoContent() {
           transition={{ duration: 0.35, ease: "easeInOut" }}
           className="container mx-auto py-16"
         >
-          {steps[currentStep].component}
+          {getStepComponent()}
         </motion.div>
       </AnimatePresence>
     </div>

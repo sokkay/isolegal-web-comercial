@@ -1,11 +1,3 @@
-type ResultadosDiagnosticoProps = {
-  onNext?: () => void;
-  onPrev?: () => void;
-};
-
-export default function ResultadosDiagnostico({
-  onNext,
-  onPrev,
-}: ResultadosDiagnosticoProps) {
+export default function ResultadosDiagnostico() {
   return <div>ResultadosDiagnostico</div>;
 }
