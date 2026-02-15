@@ -1,5 +1,6 @@
 "use client";
 import { cn } from "@/utils/cn";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
@@ -37,7 +38,6 @@ export default function Header() {
     { name: "Soluciones", href: "/#soluciones" },
     { name: "Nosotros", href: "/#nosotros" },
     { name: "Testimonios", href: "/#testimonios" },
-    { name: "Calcula tu riesgo", href: "/#calcula-tu-riesgo" },
   ];
 
   const handleNavClick = (
@@ -77,46 +77,80 @@ export default function Header() {
     }
   };
 
+  const handleRiskCtaClick = () => {
+    const isOnHome = pathname === "/";
+    const riskSectionHref = "/#calcula-tu-riesgo";
+
+    if (!isOnHome) {
+      router.push(riskSectionHref);
+      return;
+    }
+
+    const element = document.getElementById("calcula-tu-riesgo");
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+      router.push(riskSectionHref);
+      setActiveSection(riskSectionHref);
+    }
+  };
+
   return (
     <header className="bg-darkBlue text-nav-base font-medium min-h-20 flex items-center z-50 sticky top-0">
-      <nav className="container mx-auto flex flex-row items-center justify-between h-20">
-        <Logo />
+      <nav className="container mx-auto flex flex-row items-center h-20 gap-4">
+        <div className="flex items-center gap-8 xl:gap-12">
+          <Logo />
 
-        <ul className="hidden lg:flex flex-row items-center gap-6 xl:gap-10">
-          {navLinks.map((link) => {
-            const isActive =
-              activeSection === link.href ||
-              (activeSection === "/" && link.href === "/");
+          <ul className="hidden lg:flex flex-row items-center justify-start gap-6 xl:gap-10">
+            {navLinks.map((link) => {
+              const isActive =
+                activeSection === link.href ||
+                (activeSection === "/" && link.href === "/");
 
-            return (
-              <li key={link.name}>
-                <a
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className={cn(
-                    "group relative flex items-center gap-2 transition-colors",
-                    isActive ? "text-nav-active" : "hover:text-nav-active"
-                  )}
-                >
-                  <span
+              return (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
                     className={cn(
-                      "w-1.5 h-1.5 rounded-full bg-nav-indicator transition-opacity absolute -left-4",
-                      isActive
-                        ? "opacity-100"
-                        : "opacity-0 group-hover:opacity-100"
+                      "group relative flex items-center gap-2 transition-colors text-lg",
+                      isActive ? "text-nav-active" : "hover:text-nav-active"
                     )}
-                  />
-                  {link.name}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
+                  >
+                    <span
+                      className={cn(
+                        "w-1.5 h-1.5 rounded-full bg-nav-indicator transition-opacity absolute -left-4",
+                        isActive
+                          ? "opacity-100"
+                          : "opacity-0 group-hover:opacity-100"
+                      )}
+                    />
+                    {link.name}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
 
-        <div className="flex items-center gap-2 text-white">
+        <div className="ml-auto flex items-center gap-2 text-white">
           <ThemeToggle className="hidden sm:flex" />
           <div className="hidden sm:flex items-center gap-2">
-            <Button text="Iniciar sesión" variant="contained" color="primary" />
+            <Button
+              text="Calcula tu riesgo"
+              variant="contained"
+              color="primary"
+              onClick={handleRiskCtaClick}
+              className="shadow-lg shadow-primary/40 hover:-translate-y-0.5"
+            />
+            <Button
+              text="Iniciar sesión"
+              variant="outline"
+              color="secondary"
+              className="border-white/30 text-white hover:bg-white/10"
+            />
           </div>
 
           <ThemeToggle className="sm:hidden" />
@@ -162,7 +196,7 @@ export default function Header() {
 
                 return (
                   <li key={link.name}>
-                    <a
+                    <Link
                       href={link.href}
                       onClick={(e) => {
                         handleNavClick(e, link.href);
@@ -182,15 +216,25 @@ export default function Header() {
                         )}
                       />
                       {link.name}
-                    </a>
+                    </Link>
                   </li>
                 );
               })}
-              <li className="pt-6 sm:hidden">
+              <li className="pt-6 sm:hidden space-y-3">
                 <Button
-                  text="Iniciar sesión"
+                  text="Calcula tu riesgo"
                   variant="contained"
                   color="primary"
+                  className="w-full"
+                  onClick={() => {
+                    handleRiskCtaClick();
+                    setIsMenuOpen(false);
+                  }}
+                />
+                <Button
+                  text="Iniciar sesión"
+                  variant="outline"
+                  color="secondary"
                   className="w-full"
                 />
               </li>
