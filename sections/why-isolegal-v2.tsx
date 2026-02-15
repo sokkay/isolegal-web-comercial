@@ -1,10 +1,10 @@
 "use client";
 
-import CheckListIcon from "@/public/icons/checklist.svg";
-import DatabaseIcon from "@/public/icons/database.svg";
-import HandshakeIcon from "@/public/icons/handshake.svg";
-import SupportIcon from "@/public/icons/support.svg";
-import TableEditIcon from "@/public/icons/table-edit.svg";
+import DatabaseV2Icon from "@/public/icons/database-v2.svg";
+import GestionCumplimientoIcon from "@/public/icons/gestion-cumplimiento.svg";
+import MatrizLegalPersonalizadaIcon from "@/public/icons/matriz-legal-perzonalizada.svg";
+import PreguntasGuiaIcon from "@/public/icons/preguntas-guia.svg";
+import RevisionInteligenteIcon from "@/public/icons/revision-inteligente.svg";
 import { cn } from "@/utils/cn";
 import { EmblaCarouselType } from "embla-carousel";
 import Autoplay from "embla-carousel-autoplay";
@@ -13,31 +13,31 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 
 const characteristics = [
   {
-    icon: <DatabaseIcon className="fill-primary w-8 h-8" />,
+    icon: <DatabaseV2Icon className="fill-primary w-9 h-9" />,
     title: "Base de datos normativa gestionada por abogados",
     description:
       "Nos encargamos de la gestión completa de tu matriz legal: incorporamos, actualizamos o eliminamos normas según cambios legales y su aplicabilidad real a tu operación.",
   },
-  {
-    icon: <TableEditIcon className="fill-primary w-8 h-8" />,
+  {   
+    icon: <MatrizLegalPersonalizadaIcon className="fill-primary w-9 h-9" />,
     title: "Matriz legal personalizada y accionable",
     description:
       "Visualiza solo lo que te aplica según tu rubro y actividad. Sin ruido ni duplicidades.",
   },
   {
-    icon: <CheckListIcon className="fill-primary w-8 h-8" />,
+    icon: <PreguntasGuiaIcon className="fill-primary w-9 h-9" />,
     title: "Preguntas guía con interpretación normativa clara",
     description:
       "Nos encargamos de la gestión completa de tu matriz legal: incorporamos, actualizamos o eliminamos normas según cambios legales y su aplicabilidad real a tu operación.",
   },
   {
-    icon: <SupportIcon className="fill-primary w-8 h-8" />,
+    icon: <RevisionInteligenteIcon className="fill-primary w-9 h-9" />,
     title: "Revisión inteligente de evidencia con apoyo de IA",
     description:
       "Nuestra IA valida que la evidencia sea pertinente y suficiente, reduciendo reprocesos permitiendo ahorrar auditorias internas de cumplimiento legal.",
   },
   {
-    icon: <HandshakeIcon className="fill-primary w-8 h-8" />,
+    icon: <GestionCumplimientoIcon className="fill-primary w-9 h-9" />,
     title: "Gestión de cumplimiento y acompañamiento en auditorías",
     description:
       "Alertas automáticas de cambios normativos, planes de acción trazables y apoyo experto durante auditorías internas, externas o de certificación.",
@@ -227,7 +227,7 @@ const Card = ({ title, icon, className, onClick }: CardProps) => {
         className
       )}
     >
-      <div className="flex items-center justify-center w-16 h-16 rounded-full bg-green-bg shrink-0">
+      <div className="flex items-center justify-center p-4 rounded-full bg-green-bg shrink-0">
         {icon}
       </div>
       <div className="flex flex-col">
