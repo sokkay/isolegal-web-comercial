@@ -4,14 +4,14 @@ import RiskCalculatorMainContainer from "@/sections/risk-calculator/risk-calcula
 import TabsBanner from "@/sections/tabs-banner";
 import Testimonials from "@/sections/testimonials";
 import WhatDoesIsolegalDo from "@/sections/what-does-isolegal-do";
-import WhyIsolegalSection from "@/sections/why-isolegal";
+import WhyIsolegalV2Section from "@/sections/why-isolegal-v2";
 
 export default function Home() {
   return (
     <main className="flex min-h-dvh w-full mx-auto flex-col bg-background">
       <HeadingSection />
       <BussinessSection />
-      <WhyIsolegalSection />
+      <WhyIsolegalV2Section />
       <WhatDoesIsolegalDo />
       <TabsBanner />
       <Testimonials />
