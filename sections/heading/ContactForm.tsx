@@ -63,7 +63,7 @@ export default function ContactForm() {
       onSubmit={handleSubmit(onSubmit)}
       className="bg-card-background rounded-2xl p-4 md:p-8 xl:p-16 space-y-6"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
         <div>
           <Input
             label="*Nombre y Apellido"
@@ -90,7 +90,7 @@ export default function ContactForm() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
         <div>
           <Input
             label="*Teléfono"

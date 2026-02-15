@@ -1,4 +1,5 @@
 import BussinessSection from "@/sections/bussiness";
+import FloatingActionButton from "@/components/FloatingActionButton";
 import HeadingSection from "@/sections/heading";
 import RiskCalculatorMainContainer from "@/sections/risk-calculator/risk-calculator-main-container";
 import TabsBanner from "@/sections/tabs-banner";
@@ -16,6 +17,7 @@ export default function Home() {
       <TabsBanner />
       <Testimonials />
       <RiskCalculatorMainContainer />
+      <FloatingActionButton />
     </main>
   );
 }

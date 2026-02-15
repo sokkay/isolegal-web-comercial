@@ -69,20 +69,20 @@ export default function WhatDoesIsolegalDo() {
       <div className="container mx-auto">
         {/* Nuevo ROI */}
         <div className="w-full flex flex-col items-center">
-          <h2 className="text-2xl font-bold mb-10 text-center">
+          <h2 className="text-text text-2xl font-bold mb-10 text-center">
             Del Requisito Legal a la Acción Operativa Diaria
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {roi.map((item) => (
               <div
                 key={item.title}
-                className="p-5.5 bg-green-bg rounded-2xl flex flex-col items-center gap-4"
+                className="p-5.5 bg-green-bg dark:bg-card-background rounded-2xl flex flex-col items-center gap-4 text-text"
               >
                 <span className="text-6xl text-center font-bold">
                   {`${item.type === "number" ? "+" : ""}${item.number} ${item.type === "hours" ? "h" : ""}`}
                 </span>
                 <h3 className="text-lg font-bold text-center">{item.title}</h3>
-                <p className="text-base text-center font-normal text-text dark:text-white/80">
+                <p className="text-base text-center font-norma">
                   {item.description}
                 </p>
               </div>
