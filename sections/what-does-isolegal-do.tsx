@@ -68,7 +68,7 @@ export default function WhatDoesIsolegalDo() {
     <section className="bg-white dark:bg-darkBlue py-16">
       <div className="container mx-auto">
         {/* Nuevo ROI */}
-        <div>
+        <div className="w-full flex flex-col items-center">
           <h2 className="text-2xl font-bold mb-10 text-center">
             Del Requisito Legal a la Acción Operativa Diaria
           </h2>
@@ -95,7 +95,7 @@ export default function WhatDoesIsolegalDo() {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
             fullWidth
-            className="my-10"
+            className="my-10 md:w-auto"
           />
         </div>
 
