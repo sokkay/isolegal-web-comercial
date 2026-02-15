@@ -8,10 +8,7 @@ import Button from "@/components/ui/Button";
 import Checkbox from "@/components/ui/Checkbox";
 import Input from "@/components/ui/Input";
 import TextArea from "@/components/ui/TextArea";
-import {
-  ContactFormData,
-  contactFormSchema,
-} from "@/lib/schemas/contactForm";
+import { ContactFormData, contactFormSchema } from "@/lib/schemas/contactForm";
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -54,9 +51,7 @@ export default function ContactForm() {
     } catch (error) {
       setSubmitStatus("error");
       setErrorMessage(
-        error instanceof Error
-          ? error.message
-          : "Error al enviar el formulario",
+        error instanceof Error ? error.message : "Error al enviar el formulario"
       );
     } finally {
       setIsSubmitting(false);
@@ -71,7 +66,8 @@ export default function ContactForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <Input
-            label="Nombre"
+            label="*Nombre y Apellido"
+            placeholder="Nombre Apellido"
             {...register("firstname")}
           />
           {errors.firstname && (
@@ -83,7 +79,35 @@ export default function ContactForm() {
 
         <div>
           <Input
-            label="Empresa"
+            label="*Email"
+            type="email"
+            placeholder="ejemplo@correo.com"
+            {...register("email")}
+          />
+          {errors.email && (
+            <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>
+          )}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <Input
+            label="*Teléfono"
+            type="tel"
+            placeholder="+56912345678"
+            {...register("mobilephone")}
+          />
+          {errors.mobilephone && (
+            <p className="text-red-500 text-xs mt-1">
+              {errors.mobilephone.message}
+            </p>
+          )}
+        </div>
+        <div>
+          <Input
+            label="*Empresa"
+            placeholder="Empresa"
             {...register("company")}
           />
           {errors.company && (
@@ -94,35 +118,10 @@ export default function ContactForm() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <Input
-            label="Telefono"
-            type="tel"
-            {...register("mobilephone")}
-          />
-          {errors.mobilephone && (
-            <p className="text-red-500 text-xs mt-1">
-              {errors.mobilephone.message}
-            </p>
-          )}
-        </div>
-
-        <div>
-          <Input
-            label="Email"
-            type="email"
-            {...register("email")}
-          />
-          {errors.email && (
-            <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>
-          )}
-        </div>
-      </div>
-
       <div>
         <TextArea
-          label="Mensaje"
+          label="*¿En qué podemos ayudarte?"
+          placeholder="Escribe tu mensaje aquí..."
           {...register("message")}
         />
         {errors.message && (
@@ -132,7 +131,7 @@ export default function ContactForm() {
 
       <div>
         <Checkbox
-          label="Acepto recibir comunicaciones de Isolegal"
+          label="*Acepto recibir comunicaciones de Isolegal"
           {...register("consent")}
         />
         {errors.consent && (

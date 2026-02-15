@@ -1,25 +1,8 @@
 import { z } from "zod";
 
 export const contactFormSchema = z.object({
-  firstname: z.string().min(1, "Nombre es requerido"),
-  email: z
-    .string()
-    .email("Email inválido")
-    .refine((email) => {
-      const blockedDomains = [
-        "gmail.com",
-        "hotmail.com",
-        "outlook.com",
-        "yahoo.com",
-        "icloud.com",
-        "live.com",
-        "msn.com",
-        "aol.com",
-        "protonmail.com",
-      ];
-      const domain = email.split("@")[1];
-      return !blockedDomains.includes(domain);
-    }, "Debes usar un email corporativo"),
+  firstname: z.string().min(1, "Nombre y Apellido es requerido"),
+  email: z.email({ message: "Email inválido" }),
   mobilephone: z
     .string()
     .regex(/^\+56\d{9}$/, "Formato: +56912345678 (12 dígitos)"),

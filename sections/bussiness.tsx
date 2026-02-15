@@ -73,7 +73,7 @@ export default function BussinessSection() {
     <section className="bg-darkBlue py-16 text-white">
       <div className="container mx-auto">
         <h2 className="mb-2 text-center text-sm font-bold tracking-wider">
-          QUIENES YA CONFIARON EN ISOLEGAL
+          {`Ellos ya simplificaron su cumplimiento`.toUpperCase()}
         </h2>
 
         <div className="embla relative">

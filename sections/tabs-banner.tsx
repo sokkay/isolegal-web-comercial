@@ -3,7 +3,7 @@ import Logo from "@/components/Logo";
 import Button from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 interface TabContentProps {
   title: string;
@@ -20,13 +20,6 @@ function TabContent({
   video,
   tabKey,
 }: TabContentProps) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.7;
-    }
-  }, [videoRef]);
 
   return (
     <motion.div
@@ -54,7 +47,7 @@ function TabContent({
           onClick={() => {
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
-          className="hidden md:block"
+          className="hidden md:block text-darkBlue"
         />
       </div>
       <motion.div
@@ -64,7 +57,6 @@ function TabContent({
         className="w-full md:w-1/3 order-2 md:order-2 flex items-start justify-center"
       >
         <video
-          ref={videoRef}
           key={video}
           autoPlay
           muted
