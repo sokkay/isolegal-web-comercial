@@ -5,18 +5,18 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 
 const steps = [
-  {
-    title: "¿Qué hace Isolegal?",
-    description: [
-      "Isolegal es un software de gestión de cumplimiento normativo que permite a las organizaciones identificar, gestionar y demostrar el cumplimiento de la normativa chilena, las RCA y las exigencias de empresas mandantes en un solo sistema. Convierte requisitos legales complejos en acciones operativas claras, con responsables, plazos, evidencias trazables y alertas automáticas, eliminando la dependencia de planillas y criterios individuales.",
-      "El sistema integra normativa pública y privada, muestra solo lo que realmente aplica a cada operación y mantiene la información actualizada frente a cambios regulatorios. Así, Isolegal permite pasar del cumplimiento en papel al control normativo real, auditable y sostenible en el tiempo.",
-    ],
-    href: "/#",
-    button: "Conversemos",
-    image: "",
-    video: "/videos/que-hace-isolegal.mp4",
-    isVideo: true,
-  },
+  // {
+  //   title: "¿Qué hace Isolegal?",
+  //   description: [
+  //     "Isolegal es un software de gestión de cumplimiento normativo que permite a las organizaciones identificar, gestionar y demostrar el cumplimiento de la normativa chilena, las RCA y las exigencias de empresas mandantes en un solo sistema. Convierte requisitos legales complejos en acciones operativas claras, con responsables, plazos, evidencias trazables y alertas automáticas, eliminando la dependencia de planillas y criterios individuales.",
+  //     "El sistema integra normativa pública y privada, muestra solo lo que realmente aplica a cada operación y mantiene la información actualizada frente a cambios regulatorios. Así, Isolegal permite pasar del cumplimiento en papel al control normativo real, auditable y sostenible en el tiempo.",
+  //   ],
+  //   href: "/#",
+  //   button: "Conversemos",
+  //   image: "",
+  //   video: "/videos/que-hace-isolegal.mp4",
+  //   isVideo: true,
+  // },
   {
     title: "Inteligencia Artificial aplicada al cumplimiento normativo",
     description: [
@@ -27,6 +27,30 @@ const steps = [
     image: "/images/ai-web.png",
     video: "",
     isVideo: false,
+  },
+];
+
+const roi = [
+  {
+    number: 30,
+    type: "number",
+    title: "Faenas mineras en Chile",
+    description:
+      "Isolegal ya opera donde el cumplimiento no es teórico, sino parte de la operación diaria y la exigencia regulatoria es permanente.",
+  },
+  {
+    number: 100,
+    type: "number",
+    title: "Usuarios Activos",
+    description:
+      "Equipos legales, prevencionistas y áreas de gestión utilizan Isolegal para centralizar obligaciones, evidencias y reportes en un solo lugar.",
+  },
+  {
+    number: 12,
+    type: "hours",
+    title: "Mensuales liberadas por trabajador",
+    description:
+      "La automatización de matrices, tareas y evidencias reduce carga manual y permite que el cumplimiento se gestione con continuidad, no a última hora.",
   },
 ];
 
@@ -43,6 +67,38 @@ export default function WhatDoesIsolegalDo() {
   return (
     <section className="bg-white dark:bg-darkBlue py-16">
       <div className="container mx-auto">
+        {/* Nuevo ROI */}
+        <div>
+          <h2 className="text-2xl font-bold mb-10 text-center">
+            Del Requisito Legal a la Acción Operativa Diaria
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {roi.map((item) => (
+              <div
+                key={item.title}
+                className="p-5.5 bg-green-bg rounded-2xl flex flex-col items-center gap-4"
+              >
+                <span className="text-6xl text-center font-bold">
+                  {`${item.type === "number" ? "+" : ""}${item.number} ${item.type === "hours" ? "h" : ""}`}
+                </span>
+                <h3 className="text-lg font-bold text-center">{item.title}</h3>
+                <p className="text-base text-center font-normal text-text dark:text-white/80">
+                  {item.description}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <Button
+            text="Descarga el informe ahora mismo"
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            fullWidth
+            className="my-10"
+          />
+        </div>
+
         {steps.map((step, index) => (
           <div
             key={step.title}
@@ -76,9 +132,14 @@ export default function WhatDoesIsolegalDo() {
               />
             )}
             <div className="flex-1">
-              <h2 className="text-xl font-bold mb-5 text-text dark:text-white">{step.title}</h2>
+              <h2 className="text-2xl font-bold mb-5 text-text dark:text-white">
+                {step.title}
+              </h2>
               {step.description.map((description, y) => (
-                <p key={step.title + y} className="mb-5 font-normal text-text dark:text-white/80">
+                <p
+                  key={step.title + y}
+                  className="mb-5 font-normal text-text dark:text-white/80"
+                >
                   {description}
                 </p>
               ))}
