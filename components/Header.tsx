@@ -235,7 +235,7 @@ export default function Header() {
                   text="Iniciar sesión"
                   variant="outline"
                   color="secondary"
-                  className="w-full"
+                  className="w-full border-white/80 text-white"
                 />
               </li>
             </ul>
