@@ -25,6 +25,7 @@ const nextConfig: NextConfig = {
     });
     return config;
   },
+  reactCompiler: true,
 };
 
 export default nextConfig;

@@ -74,13 +74,13 @@ export default function WhyIsolegalV2() {
 
   const tweenNodes = useRef<HTMLElement[]>([]);
 
-  const setTweenNodes = useCallback((emblaApi: EmblaCarouselType): void => {
+  const setTweenNodes = (emblaApi: EmblaCarouselType): void => {
     tweenNodes.current = emblaApi.slideNodes().map((slideNode) => {
       return slideNode.querySelector(".embla__slide__grow") as HTMLElement;
     });
-  }, []);
+  };
 
-  const applyScaleState = useCallback((emblaApi: EmblaCarouselType): void => {
+  const applyScaleState = (emblaApi: EmblaCarouselType): void => {
     const selectedIndex = emblaApi.selectedScrollSnap();
 
     tweenNodes.current.forEach((node, index) => {
@@ -94,7 +94,7 @@ export default function WhyIsolegalV2() {
       node.style.opacity = `${opacity}`;
       node.style.zIndex = isCenter ? "2" : "1";
     });
-  }, []);
+  };
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -118,7 +118,7 @@ export default function WhyIsolegalV2() {
       emblaApi.off("select", onSelect);
       emblaApi.off("slideFocus", onSlideFocus);
     };
-  }, [applyScaleState, emblaApi, setTweenNodes]);
+  }, [emblaApi]);
 
   useEffect(() => {
     if (activeCardIndex === null) return;
@@ -158,18 +158,18 @@ export default function WhyIsolegalV2() {
     };
   }, []);
 
-  const handleCloseModal = useCallback(() => {
+  const handleCloseModal = () => {
     setIsModalVisible(false);
     if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
     closeTimeoutRef.current = setTimeout(() => {
       setActiveCardIndex(null);
     }, MODAL_TRANSITION_MS);
-  }, []);
+  };
 
-  const handleOpenModal = useCallback((index: number) => {
+  const handleOpenModal = (index: number) => {
     if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
     setActiveCardIndex(index);
-  }, []);
+  };
 
   return (
     <section id="soluciones" className="container mx-auto py-16">

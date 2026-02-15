@@ -13,7 +13,7 @@ export async function GET() {
         quote: (r as { comentario?: string }).comentario ?? "",
         name: (r as { nombre?: string }).nombre ?? "",
         companyRole: (r as { cargo?: string }).cargo ?? undefined,
-        logoUrl: imagen ? pb.files.getUrl(r, imagen) : "",
+        logoUrl: imagen ? pb.files.getURL(r, imagen) : "",
       };
     });
     return NextResponse.json({ items });
