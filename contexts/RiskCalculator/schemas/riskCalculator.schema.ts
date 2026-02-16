@@ -29,13 +29,23 @@ export const saludMatrizLegalSchema = z.object({
     .min(1, "Debes seleccionar al menos una opción"),
 });
 
+export const criterioYRespuestaSchema = z.object({
+  cambioNormativo: z.string().min(1, "Debes seleccionar una opción"),
+  evidenciaTrazable: z.string().min(1, "Debes seleccionar una opción"),
+  compromisosVoluntarios: z.string().min(1, "Debes seleccionar una opción"),
+});
+
 export const riskCalculatorSchema = z.object({
   contextoOperativo: contextoOperativoSchema,
   saludMatrizLegal: saludMatrizLegalSchema,
+  criterioYRespuesta: criterioYRespuestaSchema,
 });
 
 export type ContextoOperativoFormData = z.infer<
   typeof contextoOperativoSchema
 >;
 export type SaludMatrizLegalFormData = z.infer<typeof saludMatrizLegalSchema>;
+export type CriterioYRespuestaFormData = z.infer<
+  typeof criterioYRespuestaSchema
+>;
 export type RiskCalculatorFormData = z.infer<typeof riskCalculatorSchema>;

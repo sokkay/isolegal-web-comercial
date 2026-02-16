@@ -17,6 +17,7 @@ import { useForm, UseFormReturn } from "react-hook-form";
 export type {
   ContextoOperativoFormData,
   SaludMatrizLegalFormData,
+  CriterioYRespuestaFormData,
   RiskCalculatorFormData,
 } from "@/contexts/RiskCalculator/schemas/riskCalculator.schema";
 
@@ -62,6 +63,14 @@ export function RiskCalculatorProvider({
           initialData?.saludMatrizLegal?.ultimaActualizacion || "",
         normasTratadas:
           initialData?.saludMatrizLegal?.normasTratadas || [],
+      },
+      criterioYRespuesta: {
+        cambioNormativo:
+          initialData?.criterioYRespuesta?.cambioNormativo || "",
+        evidenciaTrazable:
+          initialData?.criterioYRespuesta?.evidenciaTrazable || "",
+        compromisosVoluntarios:
+          initialData?.criterioYRespuesta?.compromisosVoluntarios || "",
       },
     },
     mode: "onChange",
