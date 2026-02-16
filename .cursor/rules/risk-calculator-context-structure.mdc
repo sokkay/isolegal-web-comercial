@@ -1,0 +1,45 @@
+---
+description: Estructura y extension del contexto RiskCalculator
+globs: contexts/RiskCalculator/**/*.ts, contexts/RiskCalculator/**/*.tsx, sections/risk-calculator/**/*.ts, sections/risk-calculator/**/*.tsx
+alwaysApply: false
+---
+# RiskCalculator Context Structure
+
+## Estructura obligatoria
+- Mantener `RiskCalculatorContext.tsx` solo para Provider, `createContext`, tipos de contexto y wiring de `react-hook-form`.
+- Mantener hooks de dominio en `hooks/` (`useRiskCalculator`, `useContextoOperativo`, `useSaludMatrizLegal`, etc.).
+- Mantener Zod en `schemas/` (`*.schema.ts`) y exportar tipos desde ahí.
+- Exponer API publica desde `contexts/RiskCalculator/index.ts`.
+
+## Como consumir
+- En componentes de formularios usar imports desde `@/contexts/RiskCalculator`.
+- Leer estado de campos con `useWatch` dentro de hooks de dominio, no con `form.watch` en componentes.
+- Para mutaciones usar `form.setValue(..., { shouldValidate: true, shouldDirty: true, shouldTouch: true })`.
+
+## Como extender (pasos)
+1. Agregar campo y validacion en `schemas/riskCalculator.schema.ts`.
+2. Agregar defaults en `RiskCalculatorProvider` (`defaultValues`).
+3. Crear/actualizar hook en `hooks/` con lectura (`useWatch`) y acciones (`setValue`).
+4. Re-exportar en `index.ts`.
+
+## Ejemplo corto
+```ts
+// ✅ Hook de dominio
+const score = useWatch({ control: form.control, name: "nuevo.score", defaultValue: 0 });
+const setScore = (value: number) =>
+  form.setValue("nuevo.score", value, {
+    shouldValidate: true,
+    shouldDirty: true,
+    shouldTouch: true,
+  });
+```
+
+```ts
+// ✅ Consumo desde formulario
+import { useNuevoBloque } from "@/contexts/RiskCalculator";
+```
+
+```ts
+// ❌ Evitar en componentes de UI
+const value = form.watch("nuevo.score");
+```

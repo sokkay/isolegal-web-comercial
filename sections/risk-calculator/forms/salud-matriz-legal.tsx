@@ -10,7 +10,7 @@ import Button from "@/components/ui/Button";
 import {
   useRiskCalculator,
   useSaludMatrizLegal,
-} from "@/contexts/RiskCalculatorContext";
+} from "@/contexts/RiskCalculator";
 import DnsIcon from "@/public/icons/dns.svg";
 import DocsIcon from "@/public/icons/docs.svg";
 import TableViewIcon from "@/public/icons/table-view.svg";

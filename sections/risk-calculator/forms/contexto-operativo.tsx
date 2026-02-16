@@ -10,7 +10,7 @@ import Input from "@/components/ui/Input";
 import {
   useContextoOperativo,
   useRiskCalculator,
-} from "@/contexts/RiskCalculatorContext";
+} from "@/contexts/RiskCalculator";
 import { AnimatePresence, motion } from "motion/react";
 
 import ConstructionIcon from "@/public/icons/construction.svg";

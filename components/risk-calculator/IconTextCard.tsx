@@ -63,9 +63,9 @@ export default function IconTextCard({
           align === "left" ? "items-start" : "items-center"
         )}
       >
-        <h3 className="text-lg font-bold text-center text-text dark:text-white">
+        <span className="text-lg font-bold text-center text-text dark:text-white">
           {title}
-        </h3>
+        </span>
         {description && (
           <p className="text-sm text-center opacity-80 leading-5 text-text dark:text-white">
             {description}

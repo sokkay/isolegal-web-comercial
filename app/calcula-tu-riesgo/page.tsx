@@ -2,7 +2,7 @@
 import {
   RiskCalculatorProvider,
   useRiskCalculator,
-} from "@/contexts/RiskCalculatorContext";
+} from "@/contexts/RiskCalculator";
 import ContextoOperativo from "@/sections/risk-calculator/forms/contexto-operativo";
 import CriterioYRespuesta from "@/sections/risk-calculator/forms/criterio-y-respuesta";
 import DiagnosticoCompletado from "@/sections/risk-calculator/forms/diagnostico-completado";
