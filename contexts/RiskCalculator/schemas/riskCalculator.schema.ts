@@ -35,17 +35,25 @@ export const criterioYRespuestaSchema = z.object({
   compromisosVoluntarios: z.string().min(1, "Debes seleccionar una opción"),
 });
 
+export const resultadosDiagnosticoSchema = z.object({
+  nombreCompleto: z.string().min(1, "Debes ingresar tu nombre completo"),
+  correoCorporativo: z.email({ message: "Email inválido" }),
+  cargoPuesto: z.string().min(1, "Debes ingresar tu cargo o puesto"),
+});
+
 export const riskCalculatorSchema = z.object({
   contextoOperativo: contextoOperativoSchema,
   saludMatrizLegal: saludMatrizLegalSchema,
   criterioYRespuesta: criterioYRespuestaSchema,
+  resultadosDiagnostico: resultadosDiagnosticoSchema,
 });
 
-export type ContextoOperativoFormData = z.infer<
-  typeof contextoOperativoSchema
->;
+export type ContextoOperativoFormData = z.infer<typeof contextoOperativoSchema>;
 export type SaludMatrizLegalFormData = z.infer<typeof saludMatrizLegalSchema>;
 export type CriterioYRespuestaFormData = z.infer<
   typeof criterioYRespuestaSchema
+>;
+export type ResultadosDiagnosticoFormData = z.infer<
+  typeof resultadosDiagnosticoSchema
 >;
 export type RiskCalculatorFormData = z.infer<typeof riskCalculatorSchema>;

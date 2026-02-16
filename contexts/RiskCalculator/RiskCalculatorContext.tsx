@@ -18,6 +18,7 @@ export type {
   ContextoOperativoFormData,
   SaludMatrizLegalFormData,
   CriterioYRespuestaFormData,
+  ResultadosDiagnosticoFormData,
   RiskCalculatorFormData,
 } from "@/contexts/RiskCalculator/schemas/riskCalculator.schema";
 
@@ -71,6 +72,13 @@ export function RiskCalculatorProvider({
           initialData?.criterioYRespuesta?.evidenciaTrazable || "",
         compromisosVoluntarios:
           initialData?.criterioYRespuesta?.compromisosVoluntarios || "",
+      },
+      resultadosDiagnostico: {
+        nombreCompleto:
+          initialData?.resultadosDiagnostico?.nombreCompleto || "",
+        correoCorporativo:
+          initialData?.resultadosDiagnostico?.correoCorporativo || "",
+        cargoPuesto: initialData?.resultadosDiagnostico?.cargoPuesto || "",
       },
     },
     mode: "onChange",

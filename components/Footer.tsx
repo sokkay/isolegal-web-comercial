@@ -47,9 +47,7 @@ export default function Footer() {
               goToHome
             />
             <p className="text-sm text-gray-500 dark:text-white/60">
-              Si te auditan, necesitas evidencia.
-              <br />
-              No Explicaciones
+              Concimiento, cercanía y simplicidad.
             </p>
             <div className="flex flex-row gap-4 mt-4">
               {socialMedia.map((item) => (
