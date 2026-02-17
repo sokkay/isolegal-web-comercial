@@ -16,9 +16,12 @@ import DocsIcon from "@/public/icons/docs.svg";
 import TableViewIcon from "@/public/icons/table-view.svg";
 
 const sliderOptions = [
-  { value: "menos_3_meses", label: "Menos de 3 meses" },
-  { value: "hace_6_meses", label: "Hace 6 meses" },
-  { value: "mas_6_meses", label: "Más de 6 meses" },
+  { value: "menos_3_meses", label: "Hace menos de 3 meses." },
+  { value: "entre_3_y_6_meses", label: "Entre 3 y 6 meses." },
+  {
+    value: "mas_6_meses_o_no_seguro",
+    label: "Más de 6 meses o no estoy seguro.",
+  },
 ];
 
 export default function SaludMatrizLegal() {
@@ -35,45 +38,49 @@ export default function SaludMatrizLegal() {
 
   const question3Responses = [
     {
-      value: "Excel / Hojas de Cálculo",
-      title: "Excel / Hojas de Cálculo",
-      description: "Gestión manual mediante archivos locales o compartidos.",
+      value: "planilla_excel_control_manual",
+      title: "Planilla Excel (Control manual).",
       icon: <TableViewIcon className="fill-[#15803D] dark:fill-white" />,
       iconContainerClassName: "bg-[#DCFCE7]",
     },
     {
-      value: "Software Especializado",
-      title: "Software Especializado",
-      description: "Plataforma SaaS o solución interna dedicada.",
+      value: "software_especializado_plataforma_legal",
+      title: "Software especializado / Plataforma legal.",
       icon: <DnsIcon className="fill-[#1D4ED8] dark:fill-white" />,
       iconContainerClassName: "bg-[#DBEAFE]",
+    },
+    {
+      value: "sin_matriz_estructurada",
+      title: "No contamos con una matriz estructurada todavía.",
+      icon: <DocsIcon className="fill-[#9A3412] dark:fill-white" />,
+      iconContainerClassName: "bg-[#FFEDD5]",
     },
   ];
 
   const question5Responses = [
     {
-      value: "DS 594",
-      title: "DS 594",
-      description: "Condiciones Sanitarias y Ambientales",
+      value: "ds_369",
+      title: "DS N° 369",
+      description: "Reglamento de Extintores",
     },
     {
-      value: "DS 369",
-      title: "DS 369",
-      description: "Reglamento sobre extintores",
-    },
-    {
-      value: "DS 40",
-      title: "DS 40",
+      value: "ds_40",
+      title: "DS N° 40",
       description: "Prevención de Riesgos Profesionales",
     },
     {
-      value: "DS 148",
-      title: "DS 148",
+      value: "ds_594",
+      title: "DS N° 594",
+      description: "Condiciones Sanitarias y Ambientales",
+    },
+    {
+      value: "ds_148",
+      title: "DS N° 148",
       description: "Residuos Peligrosos",
     },
     {
       value: "ninguna",
-      title: "No estoy seguro / Ninguna de las anteriores",
+      title: "No estoy seguro / Ninguna de las anteriores.",
     },
   ];
 
@@ -91,7 +98,7 @@ export default function SaludMatrizLegal() {
         description="Ayúdanos a entender cómo gestionas tus requisitos legales actualmente para identificar puntos críticos de mejora."
       />
       <FormAsk
-        question="¿Cómo gestionan actualmente su matriz legal?"
+        question="¿Cómo se gestiona actualmente tu matriz legal?"
         number={3}
       />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -109,7 +116,7 @@ export default function SaludMatrizLegal() {
       </div>
       <FormError message={errors.gestionMatriz?.message} />
       <FormAsk
-        question="¿Cuándo fue la última actualización integral?"
+        question="¿Cuándo fue la última actualización real de los requisitos de tu matriz?"
         number={4}
       />
       <SimpleSlider

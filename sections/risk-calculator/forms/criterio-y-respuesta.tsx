@@ -24,21 +24,49 @@ export default function CriterioYRespuesta() {
   } = useCriterioYRespuesta();
 
   const ask6Responses = [
-    "Agrego la nueva ley completa como un ítem adicional.",
-    "Actualizo solo los artículos específicos modificados dentro del cuerpo legal original.",
-    "Mantengo la norma anterior hasta la próxima auditoría.",
+    {
+      value: "agregar_ley_completa_item_adicional",
+      label: "Agrego la nueva ley completa como un ítem adicional.",
+    },
+    {
+      value: "actualizar_articulos_modificados",
+      label:
+        "Actualizo solo los artículos específicos modificados dentro del cuerpo legal original.",
+    },
+    {
+      value: "mantener_norma_hasta_proxima_auditoria",
+      label: "Mantengo la norma anterior hasta la próxima auditoría.",
+    },
   ];
 
   const ask7Responses = [
-    "Sí, disponible de forma inmediata.",
-    "Me tomaría tiempo buscar y consolidar archivos/correos.",
-    "No tengo certeza de contar con toda la evidencia vigente.",
+    {
+      value: "evidencia_disponible_inmediata",
+      label: "Sí, disponible de forma inmediata.",
+    },
+    {
+      value: "tomaria_tiempo_buscar_consolidar",
+      label: "Me tomaría tiempo buscar y consolidar archivos/correos.",
+    },
+    {
+      value: "sin_certeza_evidencia_vigente",
+      label: "No tengo certeza de contar con toda la evidencia vigente.",
+    },
   ];
 
   const ask8Responses = [
-    "Sí, están integrados y evaluados.",
-    "Solo nos enfoccamos en leyes y decretos nacionales.",
-    "Se gestionan de forma separada o informal.",
+    {
+      value: "integrados_y_evaluados",
+      label: "Sí, están integrados y evaluados.",
+    },
+    {
+      value: "solo_leyes_y_decretos_nacionales",
+      label: "Solo nos enfocamos en leyes y decretos nacionales.",
+    },
+    {
+      value: "gestion_separada_o_informal",
+      label: "Se gestionan de forma separada o informal.",
+    },
   ];
 
   const handleNext = async () => {
@@ -61,10 +89,11 @@ export default function CriterioYRespuesta() {
       <div className="flex flex-col gap-6">
         {ask6Responses.map((response) => (
           <SimpleTextResponse
-            key={response}
-            value={response}
-            onClick={() => setCambioNormativo(response)}
-            selected={cambioNormativo === response}
+            key={response.value}
+            value={response.value}
+            label={response.label}
+            onClick={() => setCambioNormativo(response.value)}
+            selected={cambioNormativo === response.value}
           />
         ))}
       </div>
@@ -76,10 +105,11 @@ export default function CriterioYRespuesta() {
       <div className="flex flex-col gap-6">
         {ask7Responses.map((response) => (
           <SimpleTextResponse
-            key={response}
-            value={response}
-            onClick={() => setEvidenciaTrazable(response)}
-            selected={evidenciaTrazable === response}
+            key={response.value}
+            value={response.value}
+            label={response.label}
+            onClick={() => setEvidenciaTrazable(response.value)}
+            selected={evidenciaTrazable === response.value}
           />
         ))}
       </div>
@@ -91,10 +121,11 @@ export default function CriterioYRespuesta() {
       <div className="flex flex-col gap-6">
         {ask8Responses.map((response) => (
           <SimpleTextResponse
-            key={response}
-            value={response}
-            onClick={() => setCompromisosVoluntarios(response)}
-            selected={compromisosVoluntarios === response}
+            key={response.value}
+            value={response.value}
+            label={response.label}
+            onClick={() => setCompromisosVoluntarios(response.value)}
+            selected={compromisosVoluntarios === response.value}
           />
         ))}
       </div>

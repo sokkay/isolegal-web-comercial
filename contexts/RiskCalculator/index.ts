@@ -1,5 +1,6 @@
 export {
   RiskCalculatorProvider,
+  type RiskCalculationResult,
   type ContextoOperativoFormData,
   type SaludMatrizLegalFormData,
   type CriterioYRespuestaFormData,

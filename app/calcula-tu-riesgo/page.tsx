@@ -11,26 +11,25 @@ import SaludMatrizLegal from "@/sections/risk-calculator/forms/salud-matriz-lega
 import RiskCalculatorBanner from "@/sections/risk-calculator/risk-calculator-banner";
 import { AnimatePresence, motion } from "motion/react";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef } from "react";
 
 function CalculaTuRiesgoContent() {
   const searchParams = useSearchParams();
   const initialStep = Number(searchParams.get("step")) || 0;
   const { currentStep, goToStep } = useRiskCalculator();
+  const hasInitializedStep = useRef(false);
 
-  const [direction, setDirection] = useState(1);
+  const direction = 1;
 
   // Inicializar el step desde la URL
   useEffect(() => {
+    if (hasInitializedStep.current) return;
+    hasInitializedStep.current = true;
+
     if (initialStep !== currentStep) {
       goToStep(initialStep);
     }
-  }, []);
-
-  // Detectar cambios de step para la animación
-  useEffect(() => {
-    setDirection(1);
-  }, [currentStep]);
+  }, [currentStep, goToStep, initialStep]);
 
   const startCalculator = () => {
     goToStep(1);
@@ -83,12 +82,7 @@ function CalculaTuRiesgoContent() {
 
 export default function CalculaTuRiesgo() {
   return (
-    <RiskCalculatorProvider
-      onSubmit={(data) => {
-        console.log("Formulario completo:", data);
-        // Aquí puedes enviar los datos al backend
-      }}
-    >
+    <RiskCalculatorProvider>
       <Suspense>
         <CalculaTuRiesgoContent />
       </Suspense>

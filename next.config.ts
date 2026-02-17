@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         hostname: "pocketbase-production-019d.up.railway.app",
         pathname: "/api/files/**",
       },
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+        pathname: "/seed/picsum/**",
+      },
     ],
   },
   turbopack: {

@@ -4,12 +4,14 @@ import { cn } from "@/utils/cn";
 type SimpleTextResponseProps = {
   selected: boolean;
   value: string;
+  label?: string;
   onClick: () => void;
 };
 
 export default function SimpleTextResponse({
   selected,
   value,
+  label,
   onClick,
 }: SimpleTextResponseProps) {
   return (
@@ -30,7 +32,9 @@ export default function SimpleTextResponse({
       >
         {selected ? <CheckIcon className="w-4 h-4 fill-white" /> : null}
       </div>
-      <span className="font-bold text-text dark:text-white">{value}</span>
+      <span className="font-bold text-text dark:text-white">
+        {label ?? value}
+      </span>
     </div>
   );
 }

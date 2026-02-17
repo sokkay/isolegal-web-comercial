@@ -63,7 +63,12 @@ export default function IconTextCard({
           align === "left" ? "items-start" : "items-center"
         )}
       >
-        <span className="text-lg font-bold text-center text-text dark:text-white">
+        <span
+          className={cn(
+            "text-lg font-bold text-center text-text dark:text-white",
+            align === "left" ? "text-left" : "text-center"
+          )}
+        >
           {title}
         </span>
         {description && (

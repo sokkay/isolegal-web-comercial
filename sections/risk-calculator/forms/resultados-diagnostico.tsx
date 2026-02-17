@@ -12,7 +12,8 @@ import LockIcon from "@/public/icons/lock.svg";
 import type { SubmitEventHandler } from "react";
 
 export default function ResultadosDiagnostico() {
-  const { form, submitForm, goToNextStep } = useRiskCalculator();
+  const { form, submitForm, goToNextStep, isSubmitting, submitError } =
+    useRiskCalculator();
   const {
     nombreCompleto,
     correoCorporativo,
@@ -28,8 +29,12 @@ export default function ResultadosDiagnostico() {
     const isStepValid = await form.trigger("resultadosDiagnostico");
     if (!isStepValid) return;
 
-    await submitForm();
-    goToNextStep();
+    try {
+      await submitForm();
+      goToNextStep();
+    } catch {
+      // El mensaje de error se expone desde el contexto.
+    }
   };
 
   return (
@@ -40,7 +45,7 @@ export default function ResultadosDiagnostico() {
           <h2 className="text-2xl font-bold mb-2">
             Tus resultados están listos.
           </h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-gray-500 dark:text-gray-400 leading-6">
             Hemos analizado tus respuestas y generado un perfil de riesgo legal
             personalizado para tu organización
           </p>
@@ -112,7 +117,13 @@ export default function ResultadosDiagnostico() {
               text="VER MI PUNTAJE DE RIESGO"
               fullWidth
               className="mt-4 md:mb-2 mb-4"
+              loading={isSubmitting}
             />
+            {submitError && (
+              <span className="text-xs text-center text-red-500">
+                {submitError}
+              </span>
+            )}
             <span className="text-xs text-center text-gray-400">
               <LockIcon className="w-4 h-4 inline-block mr-1 fill-gray-400" />
               Sus datos están protegidos por nuestra política de privacidad. No

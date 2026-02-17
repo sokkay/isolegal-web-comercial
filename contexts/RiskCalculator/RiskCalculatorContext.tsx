@@ -26,10 +26,19 @@ export type RiskCalculatorContextType = {
   form: UseFormReturn<RiskCalculatorFormData>;
   currentStep: number;
   totalSteps: number;
+  isSubmitting: boolean;
+  submitError: string | null;
+  calculationResult: RiskCalculationResult | null;
   goToNextStep: () => void;
   goToPrevStep: () => void;
   goToStep: (step: number) => void;
   submitForm: () => Promise<void>;
+};
+
+export type RiskCalculationResult = {
+  score: number;
+  riskLevel: "bajo" | "alto" | "critico";
+  submissionId?: string;
 };
 
 export const RiskCalculatorContext = createContext<
@@ -39,15 +48,17 @@ export const RiskCalculatorContext = createContext<
 type RiskCalculatorProviderProps = {
   children: ReactNode;
   initialData?: Partial<RiskCalculatorFormData>;
-  onSubmit?: (data: RiskCalculatorFormData) => void | Promise<void>;
 };
 
 export function RiskCalculatorProvider({
   children,
   initialData,
-  onSubmit,
 }: RiskCalculatorProviderProps) {
   const [currentStep, setCurrentStep] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [calculationResult, setCalculationResult] =
+    useState<RiskCalculationResult | null>(null);
   const totalSteps = 5;
 
   const form = useForm<RiskCalculatorFormData>({
@@ -87,12 +98,14 @@ export function RiskCalculatorProvider({
   const goToNextStep = useCallback(() => {
     if (currentStep < totalSteps) {
       setCurrentStep((prev) => prev + 1);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [currentStep, totalSteps]);
 
   const goToPrevStep = useCallback(() => {
     if (currentStep > 0) {
       setCurrentStep((prev) => prev - 1);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [currentStep]);
 
@@ -107,11 +120,37 @@ export function RiskCalculatorProvider({
 
   const submitForm = useCallback(async () => {
     const isValid = await form.trigger();
-    if (isValid) {
-      const data = form.getValues();
-      await onSubmit?.(data);
+    if (!isValid) return;
+
+    const data = form.getValues();
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+    setCalculationResult(null);
+
+    try {
+      const response = await fetch("/api/submitRiskCalculator", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.error || "No se pudo calcular el diagnóstico");
+      }
+
+      setCalculationResult(result.data as RiskCalculationResult);
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "No se pudo enviar el formulario";
+      setSubmitError(message);
+      throw error;
+    } finally {
+      setIsSubmitting(false);
     }
-  }, [form, onSubmit]);
+  }, [form]);
 
   useEffect(() => {
     const subscription = form.watch((value) => {
@@ -125,6 +164,9 @@ export function RiskCalculatorProvider({
       form,
       currentStep,
       totalSteps,
+      isSubmitting,
+      submitError,
+      calculationResult,
       goToNextStep,
       goToPrevStep,
       goToStep,
@@ -134,6 +176,9 @@ export function RiskCalculatorProvider({
       form,
       currentStep,
       totalSteps,
+      isSubmitting,
+      submitError,
+      calculationResult,
       goToNextStep,
       goToPrevStep,
       goToStep,
