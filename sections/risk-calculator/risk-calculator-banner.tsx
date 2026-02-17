@@ -16,7 +16,7 @@ export default function RiskCalculatorBanner({
     {
       title: "Score de Riesgo Inmediato",
       description:
-        "Obtén una puntuación clara sobre tu estado actual. (0 a 10)",
+        "Obtén una puntuación clara sobre tu estado actual",
       Icon: <ScoreIcon className="w-6 h-6 fill-[#16A34A]" />,
       bgColor: "bg-[#F0FDF4]",
     },
