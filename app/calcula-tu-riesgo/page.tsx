@@ -5,6 +5,7 @@ import {
 } from "@/contexts/RiskCalculator";
 import ContextoOperativo from "@/sections/risk-calculator/forms/contexto-operativo";
 import CriterioYRespuesta from "@/sections/risk-calculator/forms/criterio-y-respuesta";
+import AgendarSesion from "@/sections/risk-calculator/forms/agendar-sesion";
 import DiagnosticoCompletado from "@/sections/risk-calculator/forms/diagnostico-completado";
 import ResultadosDiagnostico from "@/sections/risk-calculator/forms/resultados-diagnostico";
 import SaludMatrizLegal from "@/sections/risk-calculator/forms/salud-matriz-legal";
@@ -49,6 +50,8 @@ function CalculaTuRiesgoContent() {
         return <ResultadosDiagnostico />;
       case 5:
         return <DiagnosticoCompletado />;
+      case 6:
+        return <AgendarSesion />;
       default:
         return <RiskCalculatorBanner onStart={startCalculator} />;
     }

@@ -13,6 +13,7 @@ import {
   useMemo,
   useState,
 } from "react";
+import { useMutation } from "@tanstack/react-query";
 import { useForm, UseFormReturn } from "react-hook-form";
 export type {
   ContextoOperativoFormData,
@@ -55,11 +56,9 @@ export function RiskCalculatorProvider({
   initialData,
 }: RiskCalculatorProviderProps) {
   const [currentStep, setCurrentStep] = useState(0);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
   const [calculationResult, setCalculationResult] =
     useState<RiskCalculationResult | null>(null);
-  const totalSteps = 5;
+  const totalSteps = 6;
 
   const form = useForm<RiskCalculatorFormData>({
     resolver: zodResolver(riskCalculatorSchema),
@@ -95,6 +94,36 @@ export function RiskCalculatorProvider({
     mode: "onChange",
   });
 
+  const submitRiskCalculatorMutation = useMutation({
+    mutationFn: async (payload: RiskCalculatorFormData) => {
+      const response = await fetch("/api/submitRiskCalculator", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      const result = (await response.json()) as
+        | {
+            error?: string;
+            data?: RiskCalculationResult;
+          }
+        | undefined;
+
+      if (!response.ok || !result?.data) {
+        throw new Error(result?.error || "No se pudo calcular el diagnóstico");
+      }
+
+      return result.data;
+    },
+  });
+
+  const isSubmitting = submitRiskCalculatorMutation.isPending;
+  const submitError =
+    submitRiskCalculatorMutation.error instanceof Error
+      ? submitRiskCalculatorMutation.error.message
+      : null;
+
   const goToNextStep = useCallback(() => {
     if (currentStep < totalSteps) {
       setCurrentStep((prev) => prev + 1);
@@ -123,34 +152,15 @@ export function RiskCalculatorProvider({
     if (!isValid) return;
 
     const data = form.getValues();
-
-    setIsSubmitting(true);
-    setSubmitError(null);
     setCalculationResult(null);
 
     try {
-      const response = await fetch("/api/submitRiskCalculator", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      const result = await response.json();
-      if (!response.ok) {
-        throw new Error(result.error || "No se pudo calcular el diagnóstico");
-      }
-
-      setCalculationResult(result.data as RiskCalculationResult);
+      const result = await submitRiskCalculatorMutation.mutateAsync(data);
+      setCalculationResult(result);
     } catch (error) {
-      const message =
-        error instanceof Error ? error.message : "No se pudo enviar el formulario";
-      setSubmitError(message);
       throw error;
-    } finally {
-      setIsSubmitting(false);
     }
-  }, [form]);
+  }, [form, submitRiskCalculatorMutation]);
 
   useEffect(() => {
     const subscription = form.watch((value) => {

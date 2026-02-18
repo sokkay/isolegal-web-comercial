@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import ReactQueryProvider from "@/components/ReactQueryProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
@@ -91,9 +92,11 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         <ThemeProvider>
-          <Header />
-          {children}
-          <Footer />
+          <ReactQueryProvider>
+            <Header />
+            {children}
+            <Footer />
+          </ReactQueryProvider>
         </ThemeProvider>
       </body>
     </html>

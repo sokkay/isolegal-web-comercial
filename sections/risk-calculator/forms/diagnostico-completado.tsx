@@ -9,7 +9,7 @@ import SpeedFillIcon from "@/public/icons/speed-fill.svg";
 import Image from "next/image";
 
 export default function DiagnosticoCompletado() {
-  const { calculationResult } = useRiskCalculator();
+  const { calculationResult, goToNextStep } = useRiskCalculator();
   const score = calculationResult?.score ?? 0;
   const riskMeta = getRiskMeta(score);
 
@@ -46,7 +46,11 @@ export default function DiagnosticoCompletado() {
           />
         </div>
 
-        <Button text="Reservar Sesión Estratégica" className="mt-4" />
+        <Button
+          text="Reservar Sesión Estratégica"
+          className="mt-4"
+          onClick={goToNextStep}
+        />
         <div className="mt-auto pt-4 border-t border-gray-200 dark:border-gray-800">
           <span className="text-xs text-gray-500 dark:text-gray-400">
             ID formulario:{" "}

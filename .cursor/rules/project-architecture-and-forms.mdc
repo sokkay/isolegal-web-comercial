@@ -1,0 +1,47 @@
+---
+description: Arquitectura actual del proyecto y patron de formularios
+alwaysApply: true
+---
+
+# Isolegal Web: arquitectura y formularios
+
+## Estructura base
+- `app/`: paginas y API routes (`app/api/**/route.ts`).
+- `sections/`: bloques de pagina y pantallas de formularios.
+- `components/`: UI reusable y componentes visuales de dominio.
+- `contexts/`: estado de dominio; `contexts/RiskCalculator` usa `Provider + hooks + schemas + index`.
+- `lib/`: integraciones y contratos compartidos (`schemas`, `pocketbase`, `google`, `email`, `rateLimit`).
+- `utils/`: helpers puros (ej. `utils/backend/scheduleMeetingTime.ts`).
+- `types/`: tipados globales; usar imports con alias `@/*`.
+
+## Patron de formularios (obligatorio)
+- Definir validacion con Zod en `lib/schemas/*` o `contexts/*/schemas/*`.
+- Usar `react-hook-form` + `zodResolver` para parse/errores de formulario.
+- Formularios multi-step (RiskCalculator):
+  - `RiskCalculatorContext.tsx` solo para provider, submit y navegacion de pasos.
+  - Cada paso va en `sections/risk-calculator/forms/*.tsx`.
+  - Logica de campos va en hooks (`useWatch`, `useFormState`, `form.setValue(...flags)`), no en UI.
+- Formularios simples (contacto/opinion/soporte): `useForm` local en la seccion y `fetch("/api/...")`.
+
+## API y backend
+- En `app/api/**/route.ts` validar input con Zod y devolver errores tipados.
+- Integraciones externas deben vivir en `lib/` o `utils/backend/`, no en componentes.
+- Mantener componentes enfocados en render y delegar logica a hooks/utilidades.
+
+## Librerias principales del proyecto
+- Framework: `next@16`, `react@19`, `typescript`.
+- Forms/validacion: `react-hook-form`, `@hookform/resolvers`, `zod`.
+- Server state: `@tanstack/react-query` (provider global en `app/layout.tsx`).
+- Integraciones: `pocketbase`, `googleapis`, `ioredis`, `rate-limiter-flexible`.
+- UI/estilos: `tailwindcss@4`, `motion`, `next-themes`, `clsx`, `tailwind-merge`.
+
+## Ejemplos
+```ts
+// GOOD: el paso consume hook de dominio, no maneja estado interno duplicado
+const { rubro, setRubro, errors } = useContextoOperativo();
+```
+
+```ts
+// BAD: evitar form.watch directo en componentes de UI de pasos
+const value = form.watch("contextoOperativo.rubro");
+```
