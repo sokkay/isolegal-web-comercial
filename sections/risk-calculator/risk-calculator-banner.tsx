@@ -15,20 +15,19 @@ export default function RiskCalculatorBanner({
   const informationSection = [
     {
       title: "Score de Riesgo Inmediato",
-      description:
-        "Obtén una puntuación clara sobre tu estado actual",
+      description: "Obtén una puntuación clara sobre tu estado actual",
       Icon: <ScoreIcon className="w-6 h-6 fill-[#16A34A]" />,
       bgColor: "bg-[#F0FDF4]",
     },
     {
-      title: 'Identificación de "Normas Zombie"',
-      description: "Detecta regulaciones obsoletas que sigues aplicando.",
+      title: 'Conoce tu estado actual',
+      description: "Obtén una visión completa de tu nivel de exposición al incumplimiento",
       Icon: <WarningIcon className="w-6 h-6 fill-[#EA580C]" />,
       bgColor: "bg-[#FFF7ED]",
     },
     {
-      title: "Hoja de Ruta Personalizada",
-      description: "Para cerrar brechas críticas",
+      title: "Agenda una reunión",
+      description: "Agenda una reunión y conoce en detalle tus principales riesgos de incumplimiento",
       Icon: <MapIcon className="w-6 h-6 fill-[#9333EA]" />,
       bgColor: "bg-[#FAF5FF]",
     },
@@ -38,11 +37,11 @@ export default function RiskCalculatorBanner({
     <div className="flex flex-row rounded-2xl overflow-hidden">
       <div className="flex-1 flex flex-col gap-6 text-white bg-darkBlue p-6 md:p-16 ">
         <h1 className="text-4xl font-bold">
-          ¿Tu empresa resistiría una auditoría legal ISO hoy mismo?
+          ¿Tu empresa resistiría una fiscalización o auditoria legal hoy mismo?
         </h1>
         <h3 className="text-lg">
-          Descubre el nivel de cumplimiento normativo de tu organización en
-          menos de 5 minutos.
+          Descubre el nivel de riesgo de incumplimiento normativo de tu
+          organización en menos de 5 minutos.
         </h3>
         <div className="flex flex-col gap-6">
           {informationSection.map((section) => (

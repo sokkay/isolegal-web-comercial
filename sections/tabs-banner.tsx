@@ -20,7 +20,6 @@ function TabContent({
   video,
   tabKey,
 }: TabContentProps) {
-
   return (
     <motion.div
       key={tabKey}
@@ -76,7 +75,7 @@ export default function TabsBanner() {
     {
       title: "Conocimiento",
       description:
-        "Isolegal incorpora una asistente de inteligencia artificial llamada Norma, impulsada por Google Gemini, diseñada para apoyar la gestión del cumplimiento normativo en Chile. Norma interpreta requisitos legales, explica su aplicación práctica y orienta la carga y revisión de evidencias, trabajando directamente sobre la matriz legal y el contexto operativo de cada organización. La IA de Isolegal no reemplaza el criterio experto, sino que lo complementa, ayudando a estandarizar la gestión del cumplimiento y a reducir errores en auditorías y fiscalizaciones.",
+        "Isolegal se construye sobre una base normativa creada y mantenida por abogados durante más de 10 años. No partimos desde interpretaciones genéricas: trabajamos con una biblioteca legal robusta —más de 1.300 normas y más de 4.500 artículos— estructurada para reflejar aplicabilidad real en operación. Ese conocimiento se traduce en matrices claras, preguntas guía y criterios consistentes, para que el cumplimiento se gestione con evidencia y no con supuestos. Sobre esta base, nuestro asistente de inteligencia artificial, impulsado por Google Gemini, permite interpretar requisitos, orientar la carga de evidencia y resolver dudas en tiempo real, aplicando el mismo criterio experto de la plataforma en el contexto operativo de cada organización.",
       button: "Inicia hoy",
       video: "/videos/conocimiento.mp4",
     },

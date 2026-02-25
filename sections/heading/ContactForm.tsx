@@ -66,7 +66,7 @@ export default function ContactForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
         <div>
           <Input
-            label="*Nombre y Apellido"
+            label="Nombre y Apellido"
             placeholder="Nombre Apellido"
             {...register("firstname")}
           />
@@ -79,7 +79,7 @@ export default function ContactForm() {
 
         <div>
           <Input
-            label="*Email"
+            label="Email"
             type="email"
             placeholder="ejemplo@correo.com"
             {...register("email")}
@@ -93,7 +93,7 @@ export default function ContactForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
         <div>
           <Input
-            label="*Teléfono"
+            label="Teléfono"
             type="tel"
             placeholder="+56912345678"
             {...register("mobilephone")}
@@ -106,7 +106,7 @@ export default function ContactForm() {
         </div>
         <div>
           <Input
-            label="*Empresa"
+            label="Empresa"
             placeholder="Empresa"
             {...register("company")}
           />
@@ -120,7 +120,7 @@ export default function ContactForm() {
 
       <div>
         <TextArea
-          label="*¿En qué podemos ayudarte?"
+          label="¿En qué podemos ayudarte?"
           placeholder="Escribe tu mensaje aquí..."
           {...register("message")}
         />
@@ -131,7 +131,7 @@ export default function ContactForm() {
 
       <div>
         <Checkbox
-          label="*Acepto recibir comunicaciones de Isolegal"
+          label="Acepto recibir comunicaciones de Isolegal"
           {...register("consent")}
         />
         {errors.consent && (

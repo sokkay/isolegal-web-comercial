@@ -1,5 +1,6 @@
 "use client";
 
+import ArrowRightIcon from "@/public/icons/arrow-right-alt.svg";
 import DatabaseV2Icon from "@/public/icons/database-v2.svg";
 import GestionCumplimientoIcon from "@/public/icons/gestion-cumplimiento.svg";
 import MatrizLegalPersonalizadaIcon from "@/public/icons/matriz-legal-perzonalizada.svg";
@@ -18,7 +19,7 @@ const characteristics = [
     description:
       "Nos encargamos de la gestión completa de tu matriz legal: incorporamos, actualizamos o eliminamos normas según cambios legales y su aplicabilidad real a tu operación.",
   },
-  {   
+  {
     icon: <MatrizLegalPersonalizadaIcon className="fill-primary w-9 h-9" />,
     title: "Matriz legal personalizada y accionable",
     description:
@@ -28,7 +29,7 @@ const characteristics = [
     icon: <PreguntasGuiaIcon className="fill-primary w-9 h-9" />,
     title: "Preguntas guía con interpretación normativa clara",
     description:
-      "Nos encargamos de la gestión completa de tu matriz legal: incorporamos, actualizamos o eliminamos normas según cambios legales y su aplicabilidad real a tu operación.",
+      "Convertimos requisitos legales en acciones concretas para controlar tu riesgo de cumplimiento.",
   },
   {
     icon: <RevisionInteligenteIcon className="fill-primary w-9 h-9" />,
@@ -65,7 +66,7 @@ export default function WhyIsolegalV2() {
     },
     [
       Autoplay({
-        delay: 5000,
+        delay: 3500,
         stopOnInteraction: false,
         playOnInit: true,
       }),
@@ -173,9 +174,14 @@ export default function WhyIsolegalV2() {
 
   return (
     <section id="soluciones" className="container mx-auto py-16">
-      <h1 className="text-3xl font-bold text-center text-text dark:text-white mb-12">
+      <h2 className="text-3xl font-bold text-center text-text dark:text-white mb-12">
         ¿Por qué Isolegal?
-      </h1>
+      </h2>
+
+      <h3 className="text-xl font-bold text-center text-text dark:text-white mb-12">
+        Convertimos requisitos legales en acciones concretas para controlar tu
+        riesgo de cumplimiento
+      </h3>
 
       <div className="embla relative">
         <div
@@ -223,7 +229,7 @@ const Card = ({ title, icon, className, onClick }: CardProps) => {
       type="button"
       onClick={onClick}
       className={cn(
-        "embla__slide__grow origin-center bg-card-background h-full dark:bg-surface-tonal-a10 rounded-2xl p-5 sm:p-6 lg:p-8 flex flex-col items-center gap-4 transition-all duration-300 will-change-transform cursor-pointer text-left w-full",
+        "embla__slide__grow group origin-center bg-card-background h-full dark:bg-surface-tonal-a10 rounded-2xl p-5 sm:p-6 lg:p-8 flex flex-col items-center gap-4 transition-all duration-300 will-change-transform cursor-pointer text-left w-full",
         className
       )}
     >
@@ -235,6 +241,15 @@ const Card = ({ title, icon, className, onClick }: CardProps) => {
           {title}
         </h3>
       </div>
+      <span className="inline-flex items-center gap-1 text-sm font-medium text-primary dark:text-white">
+        Ver más
+        <span
+          aria-hidden="true"
+          className="transition-transform duration-200 group-hover:translate-x-0.5"
+        >
+          <ArrowRightIcon className="w-4 h-4 fill-primary dark:fill-white" />
+        </span>
+      </span>
     </button>
   );
 };
@@ -261,7 +276,9 @@ const CardModal = ({ isOpen, title, description, onClose }: CardModalProps) => {
       <div
         className={cn(
           "w-full max-w-lg bg-card-background dark:bg-surface-tonal-a10 rounded-2xl p-6 sm:p-8 shadow-2xl transition-all duration-200",
-          isOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-2"
+          isOpen
+            ? "opacity-100 scale-100 translate-y-0"
+            : "opacity-0 scale-95 translate-y-2"
         )}
         onClick={(event) => event.stopPropagation()}
       >

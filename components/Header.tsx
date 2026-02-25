@@ -101,7 +101,7 @@ export default function Header() {
     <header className="bg-darkBlue text-nav-base font-medium min-h-20 flex items-center z-50 sticky top-0">
       <nav className="container mx-auto flex flex-row items-center h-20 gap-4">
         <div className="flex items-center gap-8 xl:gap-12">
-          <Logo />
+          <Logo goToHome />
 
           <ul className="hidden lg:flex flex-row items-center justify-start gap-6 xl:gap-10">
             {navLinks.map((link) => {

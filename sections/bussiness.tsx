@@ -14,16 +14,21 @@ interface BusinessLogo {
 
 // Datos temporales - después reemplazar con fetch al endpoint
 const TEMP_LOGOS: BusinessLogo[] = [
-  { id: 1, imageUrl: "/images/isolgal-logo-1.jpg", alt: "Cliente 1" },
-  { id: 2, imageUrl: "/images/isolgal-logo-2.jpg", alt: "Cliente 2" },
-  { id: 3, imageUrl: "/images/isolgal-logo-3.jpg", alt: "Cliente 3" },
-  { id: 4, imageUrl: "/images/isolgal-logo-4.jpg", alt: "Cliente 4" },
-  { id: 5, imageUrl: "/images/isolgal-logo-5.jpg", alt: "Cliente 5" },
-  { id: 6, imageUrl: "/images/isolgal-logo-6.jpg", alt: "Cliente 6" },
-  { id: 7, imageUrl: "/images/isolgal-logo-7.jpg", alt: "Cliente 7" },
-  { id: 8, imageUrl: "/images/isolgal-logo-8.jpg", alt: "Cliente 8" },
-  { id: 9, imageUrl: "/images/isolgal-logo-9.jpg", alt: "Cliente 9" },
-  { id: 10, imageUrl: "/images/isolgal-logo-10.jpg", alt: "Cliente 10" },
+  { id: 1, imageUrl: "/images/logos/1.png", alt: "Cliente 1" },
+  { id: 2, imageUrl: "/images/logos/2.png", alt: "Cliente 2" },
+  { id: 3, imageUrl: "/images/logos/3.png", alt: "Cliente 3" },
+  { id: 4, imageUrl: "/images/logos/4.png", alt: "Cliente 4" },
+  { id: 5, imageUrl: "/images/logos/5.png", alt: "Cliente 5" },
+  { id: 6, imageUrl: "/images/logos/6.png", alt: "Cliente 6" },
+  { id: 7, imageUrl: "/images/logos/7.png", alt: "Cliente 7" },
+  { id: 8, imageUrl: "/images/logos/8.png", alt: "Cliente 8" },
+  { id: 9, imageUrl: "/images/logos/9.png", alt: "Cliente 9" },
+  { id: 10, imageUrl: "/images/logos/10.png", alt: "Cliente 10" },
+  { id: 11, imageUrl: "/images/logos/11.png", alt: "Cliente 11" },
+  { id: 12, imageUrl: "/images/logos/12.png", alt: "Cliente 12" },
+  { id: 13, imageUrl: "/images/logos/13.png", alt: "Cliente 13" },
+  { id: 14, imageUrl: "/images/logos/14.png", alt: "Cliente 14" },
+  { id: 15, imageUrl: "/images/logos/15.png", alt: "Cliente 15" },
 ];
 
 export default function BussinessSection() {

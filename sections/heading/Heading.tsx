@@ -11,9 +11,9 @@ export default function Heading() {
             No Explicaciones
           </h1>
           <p className="text-lg opacity-90">
-            Centraliza tu matriz legal, evidencia y alertas en un solo lugar.
+            Centraliza tu matriz legal, evidencias y alertas en un solo lugar.
             Isolegal traduce obligaciones en acciones simples y demostrables en
-            terreno.
+            terreno, para eliminar el riesgo de incumplimiento
           </p>
           <ul className="space-y-3 opacity-80">
             <li className="flex items-start gap-2">
@@ -26,8 +26,8 @@ export default function Heading() {
             </li>
             <li className="flex items-start gap-2">
               <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-white shrink-0" />
-              Incorporamos normativa, RCA y exigencias de mandantes (RESO, SIGO,
-              RECSS) en un solo sistema.
+              Incorporamos normativa, RCA y exigencias de mandantes (RESSO,
+              SIGO, RECSS, etc.) en un solo sistema.
             </li>
           </ul>
         </div>
