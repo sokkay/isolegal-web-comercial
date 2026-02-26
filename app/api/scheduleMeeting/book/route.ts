@@ -202,7 +202,7 @@ export async function POST(request: NextRequest) {
       "Reserva creada desde calculadora de riesgo ISO Legal.",
       `Nombre: ${validatedBody.name}`,
       `Correo: ${validatedBody.email}`,
-      `Cargo: ${validatedBody.role}`,
+      `Empresa: ${validatedBody.company}`,
       validatedBody.submissionId
         ? `ID Diagnóstico: ${validatedBody.submissionId}`
         : undefined,
@@ -234,7 +234,7 @@ export async function POST(request: NextRequest) {
         submission_id: validatedBody.submissionId ?? "",
         nombre_cliente: validatedBody.name,
         email_cliente: validatedBody.email,
-        cargo_cliente: validatedBody.role,
+        empresa_cliente: validatedBody.company,
         start_datetime: validatedBody.startDateTime,
         end_datetime: validatedBody.endDateTime,
         timezone: validatedBody.timeZone,

@@ -1,7 +1,7 @@
 export type AgendaSesionCardProps = {
   clientName: string;
   clientEmail: string;
-  clientRole: string;
+  clientCompany: string;
   submissionId?: string;
 };
 

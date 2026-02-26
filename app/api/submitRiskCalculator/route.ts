@@ -114,7 +114,7 @@ export async function POST(request: NextRequest) {
         nombre_completo: validatedData.resultadosDiagnostico.nombreCompleto,
         correo_corporativo:
           validatedData.resultadosDiagnostico.correoCorporativo,
-        cargo_puesto: validatedData.resultadosDiagnostico.cargoPuesto,
+        empresa: validatedData.resultadosDiagnostico.empresa,
         rubro: validatedData.contextoOperativo.rubro,
         rubro_otro: validatedData.contextoOperativo.rubroOtro || "",
         normas_iso: validatedData.contextoOperativo.normasISO,

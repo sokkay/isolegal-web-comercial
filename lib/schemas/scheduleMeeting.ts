@@ -95,7 +95,7 @@ export const scheduleMeetingBookRequestSchema = z
     submissionId: z.string().trim().min(1).optional(),
     name: z.string().trim().min(1, "Nombre requerido"),
     email: z.email(),
-    role: z.string().trim().min(1, "Cargo requerido"),
+    company: z.string().trim().min(1, "Empresa requerida"),
     timeZone: z.string().trim().min(1).default(defaultTimeZone),
     startDateTime: z.iso.datetime({ offset: true }),
     endDateTime: z.iso.datetime({ offset: true }),

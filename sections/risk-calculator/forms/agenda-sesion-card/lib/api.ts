@@ -74,7 +74,7 @@ export async function bookMeeting(params: {
   submissionId?: string;
   clientName: string;
   clientEmail: string;
-  clientRole: string;
+  clientCompany: string;
   selectedSlot: Slot;
   timeZone: string;
 }) {
@@ -87,7 +87,7 @@ export async function bookMeeting(params: {
       submissionId: params.submissionId,
       name: params.clientName,
       email: params.clientEmail,
-      role: params.clientRole,
+      company: params.clientCompany,
       timeZone: params.timeZone,
       startDateTime: params.selectedSlot.start,
       endDateTime: params.selectedSlot.end,

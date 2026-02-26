@@ -15,9 +15,9 @@ export function useResultadosDiagnostico() {
     name: "resultadosDiagnostico.correoCorporativo",
     defaultValue: "",
   });
-  const cargoPuesto = useWatch({
+  const empresa = useWatch({
     control: form.control,
-    name: "resultadosDiagnostico.cargoPuesto",
+    name: "resultadosDiagnostico.empresa",
     defaultValue: "",
   });
   const { errors } = useFormState({ control: form.control });
@@ -42,9 +42,9 @@ export function useResultadosDiagnostico() {
     [form]
   );
 
-  const setCargoPuesto = useCallback(
+  const setEmpresa = useCallback(
     (value: string) =>
-      form.setValue("resultadosDiagnostico.cargoPuesto", value, {
+      form.setValue("resultadosDiagnostico.empresa", value, {
         shouldValidate: true,
         shouldDirty: true,
         shouldTouch: true,
@@ -55,14 +55,14 @@ export function useResultadosDiagnostico() {
   return {
     nombreCompleto,
     correoCorporativo,
-    cargoPuesto,
+    empresa,
     setNombreCompleto,
     setCorreoCorporativo,
-    setCargoPuesto,
+    setEmpresa,
     errors: {
       nombreCompleto: errors.resultadosDiagnostico?.nombreCompleto,
       correoCorporativo: errors.resultadosDiagnostico?.correoCorporativo,
-      cargoPuesto: errors.resultadosDiagnostico?.cargoPuesto,
+      empresa: errors.resultadosDiagnostico?.empresa,
     },
   };
 }

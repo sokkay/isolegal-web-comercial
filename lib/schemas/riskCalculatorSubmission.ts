@@ -75,7 +75,7 @@ export const riskCalculatorSubmissionSchema = z.object({
   resultadosDiagnostico: z.object({
     nombreCompleto: z.string().min(1, "Debes ingresar tu nombre completo"),
     correoCorporativo: z.email({ message: "Email inválido" }),
-    cargoPuesto: z.string().min(1, "Debes ingresar tu cargo o puesto"),
+    empresa: z.string().min(1, "Debes ingresar tu empresa"),
   }),
 });
 

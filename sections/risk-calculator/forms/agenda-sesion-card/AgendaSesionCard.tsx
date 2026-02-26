@@ -24,7 +24,7 @@ function AgendaSesionCardContent() {
 
       {!hasRequiredClientData && (
         <div className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-700 dark:border-amber-700/70 dark:bg-amber-900/20 dark:text-amber-300">
-          Completa nombre, correo y cargo para habilitar la reserva.
+          Completa nombre, correo y empresa para habilitar la reserva.
         </div>
       )}
 

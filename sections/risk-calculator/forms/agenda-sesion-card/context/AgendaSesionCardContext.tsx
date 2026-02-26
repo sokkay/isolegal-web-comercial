@@ -54,7 +54,7 @@ export function AgendaSesionCardStateProvider({
   children,
   ...agendaProps
 }: AgendaSesionCardStateProviderProps) {
-  const { clientName, clientEmail, clientRole, submissionId } = agendaProps;
+  const { clientName, clientEmail, clientCompany, submissionId } = agendaProps;
   const queryClient = useQueryClient();
   const [timeZone] = useState(() => {
     return (
@@ -76,7 +76,7 @@ export function AgendaSesionCardStateProvider({
   const hasRequiredClientData =
     clientName.trim().length > 0 &&
     clientEmail.trim().length > 0 &&
-    clientRole.trim().length > 0;
+    clientCompany.trim().length > 0;
 
   const activeDaysQuery = useQuery({
     queryKey: ["scheduleMeeting", "activeDays", timeZone],
@@ -156,7 +156,7 @@ export function AgendaSesionCardStateProvider({
         submissionId,
         clientName,
         clientEmail,
-        clientRole,
+        clientCompany,
         selectedSlot: slot,
         timeZone,
       }),

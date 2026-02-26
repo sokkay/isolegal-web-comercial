@@ -88,7 +88,7 @@ export function RiskCalculatorProvider({
           initialData?.resultadosDiagnostico?.nombreCompleto || "",
         correoCorporativo:
           initialData?.resultadosDiagnostico?.correoCorporativo || "",
-        cargoPuesto: initialData?.resultadosDiagnostico?.cargoPuesto || "",
+        empresa: initialData?.resultadosDiagnostico?.empresa || "",
       },
     },
     mode: "onChange",

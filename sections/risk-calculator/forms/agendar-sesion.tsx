@@ -9,7 +9,7 @@ import AgendaSesionCard from "@/sections/risk-calculator/forms/agenda-sesion-car
 
 export default function AgendarSesion() {
   const { calculationResult, goToPrevStep } = useRiskCalculator();
-  const { nombreCompleto, correoCorporativo, cargoPuesto } =
+  const { nombreCompleto, correoCorporativo, empresa } =
     useResultadosDiagnostico();
 
   return (
@@ -25,7 +25,7 @@ export default function AgendarSesion() {
       <AgendaSesionCard
         clientName={nombreCompleto}
         clientEmail={correoCorporativo}
-        clientRole={cargoPuesto}
+        clientCompany={empresa}
         submissionId={calculationResult?.submissionId}
       />
 
