@@ -1,10 +1,11 @@
 import BussinessSection from "@/sections/bussiness";
 import FloatingActionButton from "@/components/FloatingActionButton";
 import HeadingSection from "@/sections/heading";
+import HowIsolegalWorks from "@/sections/how-isolegal-works";
+import IsolegalRoi from "@/sections/isolegal-roi";
 import RiskCalculatorMainContainer from "@/sections/risk-calculator/risk-calculator-main-container";
 import TabsBanner from "@/sections/tabs-banner";
 import Testimonials from "@/sections/testimonials";
-import WhatDoesIsolegalDo from "@/sections/what-does-isolegal-do";
 import WhyIsolegalV2Section from "@/sections/why-isolegal-v2";
 
 export default function Home() {
@@ -13,7 +14,8 @@ export default function Home() {
       <HeadingSection />
       <BussinessSection />
       <WhyIsolegalV2Section />
-      <WhatDoesIsolegalDo />
+      <IsolegalRoi />
+      <HowIsolegalWorks />
       <TabsBanner />
       <Testimonials />
       <RiskCalculatorMainContainer />

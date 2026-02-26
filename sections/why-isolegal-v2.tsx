@@ -229,7 +229,7 @@ const Card = ({ title, icon, className, onClick }: CardProps) => {
       type="button"
       onClick={onClick}
       className={cn(
-        "embla__slide__grow group origin-center bg-card-background h-full dark:bg-surface-tonal-a10 rounded-2xl p-5 sm:p-6 lg:p-8 flex flex-col items-center gap-4 transition-all duration-300 will-change-transform cursor-pointer text-left w-full",
+        "embla__slide__grow group origin-center hover:-translate-y-0.5 bg-card-background h-full dark:bg-surface-tonal-a10 rounded-2xl p-5 sm:p-6 lg:p-8 flex flex-col items-center gap-4 transition-all duration-300 will-change-transform cursor-pointer text-left w-full",
         className
       )}
     >
@@ -241,7 +241,7 @@ const Card = ({ title, icon, className, onClick }: CardProps) => {
           {title}
         </h3>
       </div>
-      <span className="inline-flex items-center gap-1 text-sm font-medium text-primary dark:text-white">
+      <span className="inline-flex items-center justify-center gap-1 text-sm font-medium text-primary dark:text-white">
         Ver más
         <span
           aria-hidden="true"

@@ -6,18 +6,18 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 
 const steps = [
-  // {
-  //   title: "¿Qué hace Isolegal?",
-  //   description: [
-  //     "Isolegal es un software de gestión de cumplimiento normativo que permite a las organizaciones identificar, gestionar y demostrar el cumplimiento de la normativa chilena, las RCA y las exigencias de empresas mandantes en un solo sistema. Convierte requisitos legales complejos en acciones operativas claras, con responsables, plazos, evidencias trazables y alertas automáticas, eliminando la dependencia de planillas y criterios individuales.",
-  //     "El sistema integra normativa pública y privada, muestra solo lo que realmente aplica a cada operación y mantiene la información actualizada frente a cambios regulatorios. Así, Isolegal permite pasar del cumplimiento en papel al control normativo real, auditable y sostenible en el tiempo.",
-  //   ],
-  //   href: "/#",
-  //   button: "Conversemos",
-  //   image: "",
-  //   video: "/videos/que-hace-isolegal.mp4",
-  //   isVideo: true,
-  // },
+  {
+    title: "¿Qué hace Isolegal?",
+    description: [
+      "Isolegal es un software de gestión de cumplimiento normativo que permite a las organizaciones identificar, gestionar y demostrar el cumplimiento de la normativa chilena, las RCA y las exigencias de empresas mandantes en un solo sistema. Convierte requisitos legales complejos en acciones operativas claras, con responsables, plazos, evidencias trazables y alertas automáticas, eliminando la dependencia de planillas y criterios individuales.",
+      "El sistema integra normativa pública y privada, muestra solo lo que realmente aplica a cada operación y mantiene la información actualizada frente a cambios regulatorios. Así, Isolegal permite pasar del cumplimiento en papel al control normativo real, auditable y sostenible en el tiempo.",
+    ],
+    href: "/#",
+    button: "Conversemos",
+    image: "",
+    video: "/videos/que-hace-isolegal.mp4",
+    isVideo: true,
+  },
   {
     title: "Inteligencia Artificial aplicada al cumplimiento normativo",
     description: [
