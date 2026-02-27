@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
 
 import { getPb } from "@/lib/pocketbase";
+import { RISK_CALCULATOR_ORIGIN_PENDING } from "@/lib/riskCalculatorEmail";
 import {
   type RiskCalculatorSubmissionData,
   type RiskLevel,
@@ -127,7 +128,7 @@ export async function POST(request: NextRequest) {
           validatedData.criterioYRespuesta.compromisosVoluntarios,
         score: calculation.score,
         nivel_riesgo: calculation.riskLevel,
-        origen: "web_risk_calculator",
+        origen: RISK_CALCULATOR_ORIGIN_PENDING,
       });
       submissionId = record.id;
     } catch (pbError) {

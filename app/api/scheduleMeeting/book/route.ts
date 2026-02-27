@@ -1,10 +1,18 @@
-import { sendMeetingConfirmationEmail } from "@/lib/email/zeptomail";
+import {
+  sendMeetingConfirmationEmail,
+  sendRiskCalculatorResultsEmail,
+} from "@/lib/email/zeptomail";
+import { buildRiskCalculatorEmailParamsFromRecord } from "@/lib/email/riskCalculatorEmailData";
 import {
   createMeetingEvent,
   deleteMeetingEvent,
   queryCalendarBusyIntervals,
 } from "@/lib/google/calendar";
 import { getPb } from "@/lib/pocketbase";
+import {
+  isRiskCalculatorPendingOrigin,
+  RISK_CALCULATOR_ORIGIN_SENT_BOOKING,
+} from "@/lib/riskCalculatorEmail";
 import {
   buildRateLimitResponseInit,
   consumeScheduleMeetingBookRateLimit,
@@ -263,6 +271,31 @@ export async function POST(request: NextRequest) {
 
     let emailSent = true;
     try {
+      if (validatedBody.submissionId) {
+        try {
+          const diagnosisRecord = await pb
+            .collection("diagnosticos_riesgo")
+            .getOne(validatedBody.submissionId);
+          const origin = (diagnosisRecord as Record<string, unknown>).origen;
+
+          if (isRiskCalculatorPendingOrigin(String(origin ?? ""))) {
+            const riskEmailParams = buildRiskCalculatorEmailParamsFromRecord(
+              diagnosisRecord as Record<string, unknown>,
+            );
+            await sendRiskCalculatorResultsEmail(riskEmailParams);
+
+            await pb.collection("diagnosticos_riesgo").update(validatedBody.submissionId, {
+              origen: RISK_CALCULATOR_ORIGIN_SENT_BOOKING,
+            });
+          }
+        } catch (riskEmailError) {
+          console.error(
+            "Error enviando correo de resultados de riesgo (booking):",
+            riskEmailError,
+          );
+        }
+      }
+
       await sendMeetingConfirmationEmail({
         toEmail: validatedBody.email,
         toName: validatedBody.name,

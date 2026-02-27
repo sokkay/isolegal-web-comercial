@@ -1,0 +1,188 @@
+<div
+  style="
+    margin: 0;
+    padding: 24px;
+    background: #f6f8f7;
+    font-family: Manrope, Arial, sans-serif;
+    color: #202b5f;
+  "
+>
+  <table
+    role="presentation"
+    width="100%"
+    cellpadding="0"
+    cellspacing="0"
+    style="
+      max-width: 720px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+    "
+  >
+    <tr>
+      <td style="padding: 24px; background: #1e5e3d; color: #ffffff">
+        <div style="font-size: 22px; font-weight: 800; line-height: 1.2">
+          Resultado de tu diagnóstico legal
+        </div>
+        <div style="margin-top: 6px; font-size: 14px; opacity: 0.95">
+          ISO Legal · Calculadora de riesgo
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding: 24px">
+        <p style="margin: 0 0 16px 0; font-size: 15px; line-height: 1.6">
+          Hola {{toName}}, evaluamos la información de
+          <strong>{{empresa}}</strong> y este es el resumen:
+        </p>
+
+        <div style="border: 1px solid #e2e8f0; border-radius: 14px; padding: 18px; background: #f8fafc;">
+          <div style="font-size: 12px; font-weight: 800; letter-spacing: 0.04em; color: #64748b; text-transform: uppercase;">
+            Índice de riesgo legal ISO
+          </div>
+          <div style="margin-top: 10px; display: flex; align-items: center; gap: 8px;">
+            {{#if isRiskLow}}
+              <span style="font-size: 42px; font-weight: 900; line-height: 1; color: #16a34a;">{{scoreDisplay}}</span>
+            {{/if}}
+            {{#if isRiskHigh}}
+              <span style="font-size: 42px; font-weight: 900; line-height: 1; color: #d97706;">{{scoreDisplay}}</span>
+            {{/if}}
+            {{#if isRiskCritical}}
+              <span style="font-size: 42px; font-weight: 900; line-height: 1; color: #dc2626;">{{scoreDisplay}}</span>
+            {{/if}}
+            <span style="font-size: 22px; color: #64748b; font-weight: 700;">/20</span>
+            {{#if isRiskLow}}
+              <span style="display: inline-block; margin-left: 8px; padding: 6px 12px; border-radius: 999px; background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; font-size: 12px; font-weight: 800; line-height: 1;">
+                {{riskLevelLabel}}
+              </span>
+            {{/if}}
+            {{#if isRiskHigh}}
+              <span style="display: inline-block; margin-left: 8px; padding: 6px 12px; border-radius: 999px; background: #fffbeb; color: #b45309; border: 1px solid #fde68a; font-size: 12px; font-weight: 800; line-height: 1;">
+                {{riskLevelLabel}}
+              </span>
+            {{/if}}
+            {{#if isRiskCritical}}
+              <span style="display: inline-block; margin-left: 8px; padding: 6px 12px; border-radius: 999px; background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; font-size: 12px; font-weight: 800; line-height: 1;">
+                {{riskLevelLabel}}
+              </span>
+            {{/if}}
+          </div>
+
+          <div style="margin-top: 14px;">
+            <div style="position: relative; height: 12px; border-radius: 999px; overflow: hidden; background: #e2e8f0;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="height: 12px; border-collapse: collapse;">
+                <tr>
+                  <td style="background: #22c55e; width: 25%;"></td>
+                  <td style="background: #eab308; width: 25%;"></td>
+                  <td style="background: #f97316; width: 25%;"></td>
+                  <td style="background: #ef4444; width: 25%;"></td>
+                </tr>
+              </table>
+            </div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top: 6px; font-size: 11px; color: #64748b; font-weight: 700;">
+              <tr>
+                <td align="left">0</td>
+                <td align="center">5</td>
+                <td align="center">10</td>
+                <td align="right">20</td>
+              </tr>
+            </table>
+            <div style="margin-top: 6px; font-size: 12px; color: #334155;">
+              Posición estimada en escala: <strong>{{scoreDisplay}}</strong> de 20
+            </div>
+          </div>
+
+          <p style="margin: 12px 0 0 0; font-size: 14px; line-height: 1.6; color: #334155;">
+            {{riskLevelMessage}}
+          </p>
+        </div>
+
+        <div
+          style="
+            margin-top: 18px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+          "
+        >
+          <div style="font-size: 15px; font-weight: 800; margin-bottom: 10px">
+            Resumen de respuestas
+          </div>
+          <table
+            role="presentation"
+            width="100%"
+            cellpadding="0"
+            cellspacing="0"
+            style="font-size: 14px; line-height: 1.6"
+          >
+            <tr>
+              <td style="padding: 4px 0; color: #64748b">Rubro</td>
+              <td style="padding: 4px 0; text-align: right; font-weight: 700">
+                {{rubro}}
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 4px 0; color: #64748b">Normas ISO</td>
+              <td style="padding: 4px 0; text-align: right; font-weight: 700">
+                {{normasISOText}}
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 4px 0; color: #64748b">Gestión matriz</td>
+              <td style="padding: 4px 0; text-align: right; font-weight: 700">
+                {{gestionMatriz}}
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 4px 0; color: #64748b">
+                Última actualización
+              </td>
+              <td style="padding: 4px 0; text-align: right; font-weight: 700">
+                {{ultimaActualizacion}}
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 4px 0; color: #64748b">Normas tratadas</td>
+              <td style="padding: 4px 0; text-align: right; font-weight: 700">
+                {{normasTratadasText}}
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 4px 0; color: #64748b">Cambio normativo</td>
+              <td style="padding: 4px 0; text-align: right; font-weight: 700">
+                {{cambioNormativo}}
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 4px 0; color: #64748b">Evidencia trazable</td>
+              <td style="padding: 4px 0; text-align: right; font-weight: 700">
+                {{evidenciaTrazable}}
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 4px 0; color: #64748b">
+                Compromisos voluntarios
+              </td>
+              <td style="padding: 4px 0; text-align: right; font-weight: 700">
+                {{compromisosVoluntarios}}
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div style="margin-top: 18px; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; background: #ffffff;">
+          <div style="font-size: 14px; color: #334155; line-height: 1.6;">
+            Si quieres profundizar el diagnóstico, escríbenos a
+            <a href="{{contactMailtoHref}}" style="color: #1e5e3d; font-weight: 800; text-decoration: none;">{{contactEmail}}</a>.
+            El enlace ya incluye una plantilla breve para que solo completes el contexto.
+          </div>
+          <div style="margin-top: 10px; font-size: 12px; color: #64748b;">
+            Este correo es autogenerado y no recibe respuestas.
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
