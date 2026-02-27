@@ -1,6 +1,7 @@
 "use client";
 
 import AutoRotatingAccordion from "@/components/AutoRotatingAccordion";
+import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -70,17 +71,25 @@ export default function HowIsolegalWorks() {
           />
         </div>
         <div className="flex-7 order-1 md:order-2">
-          {/* contendra la imagen */}
-          <div className="flex items-center justify-center w-full h-[600px] rounded-2xl bg-checkbox-bg p-6 overflow-hidden">
-            <p className="text-primary text-xl font-semibold text-center">
-              <Image
-                src={features[activeFeature].image}
-                alt={features[activeFeature].title}
-                width={600}
-                height={600}
-                className="object-cover"
-              />
-            </p>
+          <div className="relative mx-auto w-full max-w-[600px] aspect-square rounded-2xl bg-checkbox-bg overflow-hidden">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={features[activeFeature].image}
+                initial={{ opacity: 0, y: 16, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -16, scale: 0.98 }}
+                transition={{ duration: 0.35, ease: "easeInOut" }}
+                className="absolute inset-0 flex items-center justify-center p-6"
+              >
+                <Image
+                  src={features[activeFeature].image}
+                  alt={features[activeFeature].title}
+                  fill
+                  sizes="(min-width: 768px) 600px, 100vw"
+                  className="object-contain p-6"
+                />
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </div>
