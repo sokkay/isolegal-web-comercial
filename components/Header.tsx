@@ -149,6 +149,7 @@ export default function Header() {
               text="Iniciar sesión"
               variant="outline"
               color="secondary"
+              href="https://app.isolegal.cl"
               className="border-white/30 text-white hover:bg-white/10"
             />
           </div>
