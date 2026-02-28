@@ -282,7 +282,10 @@ export async function POST(request: NextRequest) {
             const riskEmailParams = buildRiskCalculatorEmailParamsFromRecord(
               diagnosisRecord as Record<string, unknown>,
             );
-            await sendRiskCalculatorResultsEmail(riskEmailParams);
+            await sendRiskCalculatorResultsEmail({
+              ...riskEmailParams,
+              emailVariant: "form_copy",
+            });
 
             await pb.collection("diagnosticos_riesgo").update(validatedBody.submissionId, {
               origen: RISK_CALCULATOR_ORIGIN_SENT_BOOKING,

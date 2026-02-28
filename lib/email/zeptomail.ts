@@ -55,15 +55,6 @@ function getRiskLevelLabel(riskLevel: "bajo" | "alto" | "critico") {
   return "Riesgo Crítico";
 }
 
-function getRiskLevelMessage(riskLevel: "bajo" | "alto" | "critico") {
-  if (riskLevel === "bajo") {
-    return "Tienes una buena base. El foco está en mantener consistencia y trazabilidad para sostener el cumplimiento.";
-  }
-  if (riskLevel === "alto") {
-    return "Hay brechas activas que pueden exponerte en fiscalizaciones. Conviene priorizar ajustes de corto plazo.";
-  }
-  return "Tu operación está en zona crítica. Se recomienda acción inmediata para reducir exposición legal.";
-}
 
 function mapGestionMatriz(value: string) {
   const labels: Record<string, string> = {
@@ -130,6 +121,7 @@ export async function sendRiskCalculatorResultsEmail(params: {
   empresa: string;
   score: number;
   riskLevel: "bajo" | "alto" | "critico";
+  emailVariant?: "followup_no_booking" | "form_copy";
   rubro: string;
   normasISO: string[];
   gestionMatriz: string;
@@ -139,12 +131,13 @@ export async function sendRiskCalculatorResultsEmail(params: {
   evidenciaTrazable: string;
   compromisosVoluntarios: string;
 }) {
+  const emailVariant = params.emailVariant ?? "form_copy";
   const htmlbody = buildRiskCalculatorResultsTemplate({
     toName: params.toName,
     empresa: params.empresa,
     score: params.score,
     riskLevelLabel: getRiskLevelLabel(params.riskLevel),
-    riskLevelMessage: getRiskLevelMessage(params.riskLevel),
+    emailVariant,
     rubro: params.rubro,
     normasISO: params.normasISO,
     gestionMatriz: mapGestionMatriz(params.gestionMatriz),
@@ -160,7 +153,10 @@ export async function sendRiskCalculatorResultsEmail(params: {
   await sendZeptoMail({
     toEmail: params.toEmail,
     toName: params.toName,
-    subject: "Resultado de diagnóstico legal - ISO Legal",
+    subject:
+      emailVariant === "followup_no_booking"
+        ? "Ya tienes el diagnóstico. ¿Qué vas a hacer con eso? | Isolegal 🌱"
+        : "Copia de tu formulario completado | Isolegal 🌱",
     htmlbody,
   });
 }

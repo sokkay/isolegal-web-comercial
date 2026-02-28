@@ -122,7 +122,10 @@ export async function POST(request: NextRequest) {
           throw new Error("Diagnóstico sin correo corporativo");
         }
 
-        await sendRiskCalculatorResultsEmail(emailParams);
+        await sendRiskCalculatorResultsEmail({
+          ...emailParams,
+          emailVariant: "followup_no_booking",
+        });
         await pb.collection("diagnosticos_riesgo").update(record.id, {
           origen: RISK_CALCULATOR_ORIGIN_SENT_DELAYED,
         });

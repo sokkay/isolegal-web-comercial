@@ -7,7 +7,7 @@ export type RiskCalculatorResultsTemplateParams = {
   empresa: string;
   score: number;
   riskLevelLabel: string;
-  riskLevelMessage: string;
+  emailVariant: "followup_no_booking" | "form_copy";
   rubro: string;
   normasISO: string[];
   gestionMatriz: string;
@@ -44,6 +44,7 @@ export function buildRiskCalculatorResultsTemplate(
   const boundedScore = Math.min(20, Math.max(0, params.score));
   const contactEmail = "isolegal@contacto.cl";
   const riskTone = getRiskTone(params.riskLevelLabel);
+  const agendaLink = "https://calendar.app.google/9CaeX4duQX9rXiVj8";
   const mailSubject = encodeURIComponent(
     `Consulta diagnóstico legal - ${params.empresa}`,
   );
@@ -67,6 +68,9 @@ export function buildRiskCalculatorResultsTemplate(
     isRiskLow: riskTone === "low",
     isRiskHigh: riskTone === "high",
     isRiskCritical: riskTone === "critical",
+    isFollowupEmail: params.emailVariant === "followup_no_booking",
+    isFormCopyEmail: params.emailVariant === "form_copy",
+    agendaLink,
     contactEmail,
     contactMailtoHref: `mailto:${contactEmail}?subject=${mailSubject}&body=${mailBody}`,
     normasISOText: params.normasISO.length > 0 ? params.normasISO.join(", ") : "-",

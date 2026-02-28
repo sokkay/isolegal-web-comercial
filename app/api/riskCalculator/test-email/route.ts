@@ -5,6 +5,12 @@ import { riskCalculatorTestEmailSchema } from "@/lib/schemas/riskCalculatorTestE
 import { NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
 
+function getSubjectByVariant(variant: "form_copy" | "followup_no_booking") {
+  return variant === "followup_no_booking"
+    ? "Ya tienes el diagnóstico. ¿Qué vas a hacer con eso? | Isolegal 🌱"
+    : "Copia de tu formulario completado | Isolegal 🌱";
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -32,15 +38,20 @@ export async function POST(request: NextRequest) {
     await sendRiskCalculatorResultsEmail({
       ...emailParams,
       toEmail: validatedData.toEmail,
+      emailVariant: validatedData.emailVariant,
     });
+    const sourceFormEmail = emailParams.toEmail;
 
     return NextResponse.json(
       {
         success: true,
-        message: "Correo de prueba enviado exitosamente",
+        message: `Correo de prueba enviado exitosamente a ${validatedData.toEmail}`,
         data: {
           formId: validatedData.formId,
-          toEmail: validatedData.toEmail,
+          sentToEmail: validatedData.toEmail,
+          sourceFormEmail,
+          emailVariant: validatedData.emailVariant,
+          subject: getSubjectByVariant(validatedData.emailVariant),
         },
       },
       { status: 200 },

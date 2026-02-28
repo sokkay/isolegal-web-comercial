@@ -27,61 +27,191 @@
           Resultado de tu diagnóstico legal
         </div>
         <div style="margin-top: 6px; font-size: 14px; opacity: 0.95">
-          ISO Legal · Calculadora de riesgo
+          Isolegal · Calculadora de riesgo
         </div>
       </td>
     </tr>
     <tr>
       <td style="padding: 24px">
-        <p style="margin: 0 0 16px 0; font-size: 15px; line-height: 1.6">
-          Hola {{toName}}, evaluamos la información de
-          <strong>{{empresa}}</strong> y este es el resumen:
+        {{#if isFollowupEmail}}
+        <p style="margin: 0 0 8px 0; font-size: 15px; line-height: 1.6">
+          {{toName}},
         </p>
+        <p style="margin: 0 0 8px 0; font-size: 15px; line-height: 1.6">
+          Ayer completaste el diagnóstico. Ya tienes identificadas tus brechas y
+          el nivel de riesgo asociado.
+        </p>
+        <p style="margin: 0 0 16px 0; font-size: 15px; line-height: 1.6">
+          El punto ahora es qué haces con eso.
+        </p>
+        {{/if}} {{#if isFormCopyEmail}}
+        <p style="margin: 0 0 8px 0; font-size: 15px; line-height: 1.6">
+          {{toName}},
+        </p>
+        <p style="margin: 0 0 8px 0; font-size: 15px; line-height: 1.6">
+          Te compartimos la copia del formulario que completaste para
+          <strong>{{empresa}}</strong>, con el detalle de tus respuestas.
+        </p>
+        <p style="margin: 0 0 16px 0; font-size: 15px; line-height: 1.6">
+          Este registro nos servirá como base para la reunión de diagnóstico.
+        </p>
+        {{/if}}
 
-        <div style="border: 1px solid #e2e8f0; border-radius: 14px; padding: 18px; background: #f8fafc;">
-          <div style="font-size: 12px; font-weight: 800; letter-spacing: 0.04em; color: #64748b; text-transform: uppercase;">
-            Índice de riesgo legal ISO
+        <div
+          style="
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 18px;
+            background: #f8fafc;
+          "
+        >
+          <div
+            style="
+              font-size: 12px;
+              font-weight: 800;
+              letter-spacing: 0.04em;
+              color: #64748b;
+              text-transform: uppercase;
+            "
+          >
+            Índice de riesgo legal
           </div>
-          <div style="margin-top: 10px; display: flex; align-items: center; gap: 8px;">
+          <div
+            style="
+              margin-top: 10px;
+              display: flex;
+              align-items: center;
+              gap: 8px;
+            "
+          >
             {{#if isRiskLow}}
-              <span style="font-size: 42px; font-weight: 900; line-height: 1; color: #16a34a;">{{scoreDisplay}}</span>
+            <span
+              style="
+                font-size: 42px;
+                font-weight: 900;
+                line-height: 1;
+                color: #16a34a;
+              "
+              >{{scoreDisplay}}</span
+            >
+            {{/if}} {{#if isRiskHigh}}
+            <span
+              style="
+                font-size: 42px;
+                font-weight: 900;
+                line-height: 1;
+                color: #d97706;
+              "
+              >{{scoreDisplay}}</span
+            >
+            {{/if}} {{#if isRiskCritical}}
+            <span
+              style="
+                font-size: 42px;
+                font-weight: 900;
+                line-height: 1;
+                color: #dc2626;
+              "
+              >{{scoreDisplay}}</span
+            >
             {{/if}}
-            {{#if isRiskHigh}}
-              <span style="font-size: 42px; font-weight: 900; line-height: 1; color: #d97706;">{{scoreDisplay}}</span>
-            {{/if}}
-            {{#if isRiskCritical}}
-              <span style="font-size: 42px; font-weight: 900; line-height: 1; color: #dc2626;">{{scoreDisplay}}</span>
-            {{/if}}
-            <span style="font-size: 22px; color: #64748b; font-weight: 700;">/20</span>
             {{#if isRiskLow}}
-              <span style="display: inline-block; margin-left: 8px; padding: 6px 12px; border-radius: 999px; background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; font-size: 12px; font-weight: 800; line-height: 1;">
-                {{riskLevelLabel}}
-              </span>
-            {{/if}}
-            {{#if isRiskHigh}}
-              <span style="display: inline-block; margin-left: 8px; padding: 6px 12px; border-radius: 999px; background: #fffbeb; color: #b45309; border: 1px solid #fde68a; font-size: 12px; font-weight: 800; line-height: 1;">
-                {{riskLevelLabel}}
-              </span>
-            {{/if}}
-            {{#if isRiskCritical}}
-              <span style="display: inline-block; margin-left: 8px; padding: 6px 12px; border-radius: 999px; background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; font-size: 12px; font-weight: 800; line-height: 1;">
-                {{riskLevelLabel}}
-              </span>
+            <span
+              style="
+                display: inline-block;
+                margin-left: 8px;
+                padding: 6px 12px;
+                border-radius: 999px;
+                background: #f0fdf4;
+                color: #15803d;
+                border: 1px solid #bbf7d0;
+                font-size: 12px;
+                font-weight: 800;
+                line-height: 1;
+                height: fit-content;
+                align-self: center;
+              "
+            >
+              {{riskLevelLabel}}
+            </span>
+            {{/if}} {{#if isRiskHigh}}
+            <span
+              style="
+                display: inline-block;
+                margin-left: 8px;
+                padding: 6px 12px;
+                border-radius: 999px;
+                background: #fffbeb;
+                color: #b45309;
+                border: 1px solid #fde68a;
+                font-size: 12px;
+                font-weight: 800;
+                line-height: 1;
+                height: fit-content;
+                align-self: center;
+              "
+            >
+              {{riskLevelLabel}}
+            </span>
+            {{/if}} {{#if isRiskCritical}}
+            <span
+              style="
+                display: inline-block;
+                margin-left: 8px;
+                padding: 6px 12px;
+                border-radius: 999px;
+                background: #fef2f2;
+                color: #b91c1c;
+                border: 1px solid #fecaca;
+                font-size: 12px;
+                font-weight: 800;
+                line-height: 1;
+                height: fit-content;
+                align-self: center;
+              "
+            >
+              {{riskLevelLabel}}
+            </span>
             {{/if}}
           </div>
 
-          <div style="margin-top: 14px;">
-            <div style="position: relative; height: 12px; border-radius: 999px; overflow: hidden; background: #e2e8f0;">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="height: 12px; border-collapse: collapse;">
+          <div style="margin-top: 14px">
+            <div
+              style="
+                position: relative;
+                height: 12px;
+                border-radius: 999px;
+                overflow: hidden;
+                background: #e2e8f0;
+              "
+            >
+              <table
+                role="presentation"
+                width="100%"
+                cellpadding="0"
+                cellspacing="0"
+                style="height: 12px; border-collapse: collapse"
+              >
                 <tr>
-                  <td style="background: #22c55e; width: 25%;"></td>
-                  <td style="background: #eab308; width: 25%;"></td>
-                  <td style="background: #f97316; width: 25%;"></td>
-                  <td style="background: #ef4444; width: 25%;"></td>
+                  <td style="background: #22c55e; width: 25%"></td>
+                  <td style="background: #eab308; width: 25%"></td>
+                  <td style="background: #f97316; width: 25%"></td>
+                  <td style="background: #ef4444; width: 25%"></td>
                 </tr>
               </table>
             </div>
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top: 6px; font-size: 11px; color: #64748b; font-weight: 700;">
+            <table
+              role="presentation"
+              width="100%"
+              cellpadding="0"
+              cellspacing="0"
+              style="
+                margin-top: 6px;
+                font-size: 11px;
+                color: #64748b;
+                font-weight: 700;
+              "
+            >
               <tr>
                 <td align="left">0</td>
                 <td align="center">5</td>
@@ -89,14 +219,33 @@
                 <td align="right">20</td>
               </tr>
             </table>
-            <div style="margin-top: 6px; font-size: 12px; color: #334155;">
-              Posición estimada en escala: <strong>{{scoreDisplay}}</strong> de 20
-            </div>
           </div>
 
-          <p style="margin: 12px 0 0 0; font-size: 14px; line-height: 1.6; color: #334155;">
-            {{riskLevelMessage}}
+          {{#if isFollowupEmail}}
+          <p
+            style="
+              margin: 12px 0 0 0;
+              font-size: 14px;
+              line-height: 1.6;
+              color: #334155;
+            "
+          >
+            En una reunión breve podemos revisar tu resultado, priorizar lo
+            crítico y aterrizar cómo gestionarlo en la práctica.
           </p>
+          {{/if}} {{#if isFormCopyEmail}}
+          <p
+            style="
+              margin: 12px 0 0 0;
+              font-size: 14px;
+              line-height: 1.6;
+              color: #334155;
+            "
+          >
+            Te recomendamos revisarlo con calma para enfocar primero lo más
+            relevante.
+          </p>
+          {{/if}}
         </div>
 
         <div
@@ -172,13 +321,91 @@
           </table>
         </div>
 
-        <div style="margin-top: 18px; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; background: #ffffff;">
-          <div style="font-size: 14px; color: #334155; line-height: 1.6;">
-            Si quieres profundizar el diagnóstico, escríbenos a
-            <a href="{{contactMailtoHref}}" style="color: #1e5e3d; font-weight: 800; text-decoration: none;">{{contactEmail}}</a>.
-            El enlace ya incluye una plantilla breve para que solo completes el contexto.
+        <div
+          style="
+            margin-top: 18px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            background: #ffffff;
+          "
+        >
+          {{#if isFollowupEmail}}
+          <div
+            style="
+              font-size: 18px;
+              font-weight: 800;
+              line-height: 1.35;
+              color: #1e5e3d;
+              margin-bottom: 8px;
+            "
+          >
+            Este nivel de riesgo no se gestiona solo.
           </div>
-          <div style="margin-top: 10px; font-size: 12px; color: #64748b;">
+          <div style="font-size: 14px; color: #334155; line-height: 1.7">
+            Lo revisamos contigo, con claridad y foco en lo importante: qué está
+            expuesto hoy y cómo cerrar estas brechas de forma concreta.
+          </div>
+          {{/if}} {{#if isFormCopyEmail}}
+          <div style="font-size: 14px; color: #334155; line-height: 1.7">
+            Si aún no agendas, puedes hacerlo aquí.
+          </div>
+          {{/if}}
+
+          <table
+            role="presentation"
+            cellpadding="0"
+            cellspacing="0"
+            style="margin-top: 14px"
+          >
+            <tr>
+              <td
+                style="
+                  background: #1e5e3d;
+                  border-radius: 10px;
+                  text-align: center;
+                "
+              >
+                <a
+                  href="{{agendaLink}}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style="
+                    display: inline-block;
+                    padding: 12px 18px;
+                    color: #ffffff;
+                    font-size: 14px;
+                    font-weight: 800;
+                    text-decoration: none;
+                  "
+                  >{{#if isFollowupEmail}}Agenda aquí{{/if}}{{#if isFormCopyEmail}}Agenda aquí{{/if}}</a
+                >
+              </td>
+            </tr>
+          </table>
+
+          {{#if isFollowupEmail}}
+          <div style="margin-top: 12px; font-size: 14px; color: #334155">
+            El resultado ya lo tienes. La diferencia está en cómo lo gestionas.
+          </div>
+          {{/if}} {{#if isFormCopyEmail}}
+          <div style="margin-top: 12px; font-size: 14px; color: #334155">
+            Nos vemos pronto.
+          </div>
+          {{/if}}
+
+          <div
+            style="
+              margin-top: 14px;
+              font-size: 14px;
+              font-weight: 700;
+              color: #1e5e3d;
+            "
+          >
+            Conocimiento, cercanía y simplicidad; Isolegal 🌱
+          </div>
+
+          <div style="margin-top: 12px; font-size: 12px; color: #64748b">
             Este correo es autogenerado y no recibe respuestas.
           </div>
         </div>
