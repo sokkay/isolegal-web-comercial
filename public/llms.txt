@@ -1,0 +1,28 @@
+# Isolegal
+
+> Plataforma de gestion de cumplimiento normativo para organizaciones en Chile. Isolegal ayuda a identificar obligaciones aplicables, gestionar evidencias auditables y reducir riesgos de incumplimiento en auditorias y fiscalizaciones.
+
+Sitio oficial: https://isolegal.cl
+Sitemap: https://isolegal.cl/sitemap.xml
+
+## Contenido principal
+
+- Home (`/`): propuesta de valor de Isolegal, beneficios del sistema, funcionalidades clave, testimonios y acceso al formulario de contacto.
+- Calcula tu riesgo (`/calcula-tu-riesgo`): flujo guiado en varios pasos para evaluar riesgo de cumplimiento, mostrar resultados y agendar una sesion.
+- Soporte tecnico (`/soporte-tecnico`): formularios para reportar problemas tecnicos y enviar opiniones o sugerencias.
+- Terminos y condiciones (`/terminos-y-condiciones`): condiciones de uso, informacion legal y politicas del servicio.
+
+## Capacidades del producto
+
+- Matriz legal centralizada con requisitos aplicables por operacion.
+- Evidencia trazable y auditable por requisito normativo.
+- Alertas y vencimientos para gestion proactiva del cumplimiento.
+- Dashboard con indicadores de estado de cumplimiento.
+- Informes personalizados descargables.
+- Asistente de IA ("Norma") para interpretar requisitos y apoyar revision de evidencias.
+
+## Audiencia y casos de uso
+
+- Equipos legales, prevencionistas y areas de gestion de cumplimiento.
+- Organizaciones sujetas a normativa chilena, RCA y exigencias de empresas mandantes.
+- Operaciones que requieren demostrar cumplimiento de forma clara, trazable y sostenible.

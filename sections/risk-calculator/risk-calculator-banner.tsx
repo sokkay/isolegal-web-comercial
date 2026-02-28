@@ -36,9 +36,9 @@ export default function RiskCalculatorBanner({
   return (
     <div className="flex flex-row rounded-2xl overflow-hidden">
       <div className="flex-1 flex flex-col gap-6 text-white bg-darkBlue p-6 md:p-16 ">
-        <h1 className="text-4xl font-bold">
+        <h2 className="text-4xl font-bold">
           ¿Tu empresa resistiría una fiscalización o auditoria legal hoy mismo?
-        </h1>
+        </h2>
         <h3 className="text-lg">
           Descubre el nivel de riesgo de incumplimiento normativo de tu
           organización en menos de 5 minutos.

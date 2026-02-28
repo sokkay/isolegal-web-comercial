@@ -17,6 +17,9 @@ export const metadata: Metadata = {
     default: "Isolegal - Cumplimiento Normativo Digital en Chile",
     template: "%s | Isolegal",
   },
+  alternates: {
+    canonical: "https://isolegal.cl",
+  },
   description:
     "Plataforma digital que simplifica el cumplimiento normativo para industrias reguladas en Chile. Centraliza matriz legal, evidencia y alertas en un solo lugar.",
   keywords: [
