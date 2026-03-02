@@ -71,7 +71,7 @@ export default function HowIsolegalWorks() {
           />
         </div>
         <div className="flex-7 order-1 md:order-2">
-          <div className="relative mx-auto w-full max-w-[600px] aspect-square rounded-2xl bg-checkbox-bg overflow-hidden">
+          <div className="relative md:ml-auto w-full max-w-[600px] aspect-square rounded-2xl bg-checkbox-bg overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.div
                 key={features[activeFeature].image}
