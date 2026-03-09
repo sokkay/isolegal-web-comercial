@@ -44,7 +44,7 @@ export async function sendMeetingConfirmationEmail(params: {
   await sendZeptoMail({
     toEmail: params.toEmail,
     toName: params.toName,
-    subject: "Confirmación de reunión - ISO Legal",
+    subject: "Confirmación de reunión - IsoLegal",
     htmlbody: htmlParts.join(""),
   });
 }

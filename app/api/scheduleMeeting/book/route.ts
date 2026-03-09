@@ -298,7 +298,7 @@ export async function POST(request: NextRequest) {
           );
         }
       }
-
+      // TODO: Podria estar generando correos duplicados
       await sendMeetingConfirmationEmail({
         toEmail: validatedBody.email,
         toName: validatedBody.name,
