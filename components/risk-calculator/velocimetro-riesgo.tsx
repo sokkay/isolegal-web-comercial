@@ -5,11 +5,13 @@ import { cn } from "@/utils/cn";
 type VelocimetroRiesgoProps = {
   score: number;
   className?: string;
+  showScore?: boolean;
 };
 
 export const MAX_RISK_SCORE = 20;
 
-const clampScore = (score: number) => Math.min(MAX_RISK_SCORE, Math.max(0, score));
+const clampScore = (score: number) =>
+  Math.min(MAX_RISK_SCORE, Math.max(0, score));
 
 export const getRiskMeta = (score: number) => {
   if (score <= 4) {
@@ -53,13 +55,16 @@ export const getRiskMeta = (score: number) => {
 export default function VelocimetroRiesgo({
   score,
   className,
+  showScore = true,
 }: VelocimetroRiesgoProps) {
   const safeScore = clampScore(score);
   const needleDegrees = (safeScore / MAX_RISK_SCORE) * 180 - 90;
   const riskMeta = getRiskMeta(safeScore);
 
   return (
-    <div className={cn("w-full max-w-xs flex flex-col items-center", className)}>
+    <div
+      className={cn("w-full max-w-xs flex flex-col items-center", className)}
+    >
       <div className="relative w-64 h-32">
         <div
           className="absolute inset-0 rounded-t-full opacity-90"
@@ -82,12 +87,19 @@ export default function VelocimetroRiesgo({
       </div>
 
       <div className="text-center mt-6">
-        <div className="flex items-baseline justify-center gap-1">
-          <span className={cn("text-6xl font-black tracking-tighter", riskMeta.scoreClass)}>
-            {safeScore.toFixed(1)}
-          </span>
-          <span className="text-2xl font-bold text-gray-400">/20</span>
-        </div>
+        {showScore && (
+          <div className="flex items-baseline justify-center gap-1">
+            <span
+              className={cn(
+                "text-6xl font-black tracking-tighter",
+                riskMeta.scoreClass
+              )}
+            >
+              {safeScore.toFixed(1)}
+            </span>
+            <span className="text-2xl font-bold text-gray-400">/20</span>
+          </div>
+        )}
 
         <span
           className={cn(

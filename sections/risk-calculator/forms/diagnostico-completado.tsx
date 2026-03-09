@@ -20,7 +20,7 @@ export default function DiagnosticoCompletado() {
           <SpeedFillIcon className="w-4 h-4 inline-block mr-1 fill-gray-500" />
           ÍNDICE DE RIESGO LEGAL ISO
         </span>
-        <VelocimetroRiesgo score={score} className="mt-6" />
+        <VelocimetroRiesgo score={score} className="mt-6" showScore={false} />
       </div>
       <div className="flex-7 md:pl-6 pt-8 md:pt-0 flex flex-col gap-4">
         <h1 className="text-2xl font-bold">{riskMeta.title}</h1>
