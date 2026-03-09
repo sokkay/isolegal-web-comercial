@@ -1,3 +1,4 @@
+import freeEmailDomains from "free-email-domains";
 import { z } from "zod";
 
 export const contextoOperativoSchema = z
@@ -37,7 +38,13 @@ export const criterioYRespuestaSchema = z.object({
 
 export const resultadosDiagnosticoSchema = z.object({
   nombreCompleto: z.string().min(1, "Debes ingresar tu nombre completo"),
-  correoCorporativo: z.email({ message: "Email inválido" }),
+  correoCorporativo: z
+    .email("Email inválido")
+    .min(1, "Debes ingresar tu correo corporativo")
+    .refine((val) => !freeEmailDomains.includes(val.split("@")[1]), {
+      message:
+        "Debes usar un correo corporativo",
+    }),
   empresa: z.string().min(1, "Debes ingresar tu empresa"),
 });
 

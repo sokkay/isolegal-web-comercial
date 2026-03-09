@@ -32,6 +32,9 @@ importers:
       embla-carousel-react:
         specifier: ^8.6.0
         version: 8.6.0(react@19.2.3)
+      free-email-domains:
+        specifier: ^1.2.23
+        version: 1.2.23
       googleapis:
         specifier: ^171.4.0
         version: 171.4.0
@@ -2040,6 +2043,10 @@ packages:
         optional: true
       react-dom:
         optional: true
+
+  free-email-domains@1.2.23:
+    resolution: {integrity: sha512-+W6xtenPc2YXEz9gaWKCIVpo33DvA5DYpdvMJ8hc1nxXOFoQ25TvMWB+hYS0jOVzJLJfAvP/mzaXWpIOmipBcg==}
+    engines: {node: '>= 18'}
 
   function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
@@ -5626,6 +5633,8 @@ snapshots:
     optionalDependencies:
       react: 19.2.3
       react-dom: 19.2.3(react@19.2.3)
+
+  free-email-domains@1.2.23: {}
 
   function-bind@1.1.2: {}
 
