@@ -35,14 +35,14 @@ export default function DiagnosticoCompletado() {
         </span>
         <div className="flex lg:flex-row flex-col gap-4">
           <PersonCard
-            name="Claudio Arriegada"
+            name="Claudio Arriagada"
             charge="ISO/Medioambiente"
-            imgUrl="https://picsum.photos/seed/picsum/100/100"
+            imgUrl="/images/personal/claudio.png"
           />
           <PersonCard
             name="Felipe Arriagada"
             charge="Legal/Riesgo Normativo"
-            imgUrl="https://picsum.photos/seed/picsum/100/100"
+            imgUrl="/images/personal/felipe.png"
           />
         </div>
 
