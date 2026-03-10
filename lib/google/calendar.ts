@@ -120,7 +120,7 @@ export async function createMeetingEvent(params: {
     sendUpdates: "all",
     conferenceDataVersion: 1,
     requestBody: {
-      summary: params.summary ?? "Sesion estrategica ISO Legal",
+      summary: params.summary ?? "Sesion estrategica Isolegal",
       description: params.description ?? "",
       start: {
         dateTime: params.startDateTimeIso,

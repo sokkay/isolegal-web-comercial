@@ -234,7 +234,7 @@ export async function POST(request: NextRequest) {
         startDateTimeIso: validatedBody.startDateTime,
         endDateTimeIso: validatedBody.endDateTime,
         timeZone: validatedBody.timeZone,
-        summary: "Sesión Estratégica ISO Legal",
+        summary: "Sesión Estratégica Isolegal",
         description: eventDescription,
       });
 
