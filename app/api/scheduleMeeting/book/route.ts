@@ -10,6 +10,12 @@ import {
 } from "@/lib/google/calendar";
 import { getPb } from "@/lib/pocketbase";
 import {
+  consumeRiskBookingToken,
+  findRiskBookingTokenRecordByRawToken,
+  isRiskBookingTokenExpired,
+  isRiskBookingTokenUsed,
+} from "@/lib/riskCalculatorBookingToken";
+import {
   isRiskCalculatorPendingOrigin,
   RISK_CALCULATOR_ORIGIN_SENT_BOOKING,
 } from "@/lib/riskCalculatorEmail";
@@ -34,6 +40,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { ZodError, z } from "zod";
 
 const MAX_BOOKING_WINDOW_DAYS = 14;
+
+function escapeFilterValue(value: string) {
+  return value.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+}
 
 function slotOverlapsBusy(
   slot: { start: Date; end: Date },
@@ -69,17 +79,6 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const validatedBody = scheduleMeetingBookRequestSchema.parse(body);
-    const rateLimitResult = await consumeScheduleMeetingBookRateLimit({
-      headers: request.headers,
-      email: validatedBody.email,
-    });
-
-    if (!rateLimitResult.success) {
-      return NextResponse.json(
-        rateLimitResult.body,
-        buildRateLimitResponseInit(rateLimitResult),
-      );
-    }
 
     const startDate = new Date(validatedBody.startDateTime);
     const endDate = new Date(validatedBody.endDateTime);
@@ -123,6 +122,83 @@ export async function POST(request: NextRequest) {
     }
 
     await pb.collection("_superusers").authWithPassword(adminEmail, adminPassword);
+
+    let resolvedSubmissionId = validatedBody.submissionId;
+    let resolvedName = validatedBody.name;
+    let resolvedEmail = validatedBody.email;
+    let resolvedCompany = validatedBody.company;
+    let tokenRecordIdToConsume: string | null = null;
+
+    if (validatedBody.bookingToken) {
+      const tokenRecord = await findRiskBookingTokenRecordByRawToken({
+        pb,
+        rawToken: validatedBody.bookingToken,
+      });
+      if (!tokenRecord) {
+        return NextResponse.json({ error: "Link de agendamiento inválido" }, { status: 404 });
+      }
+      if (isRiskBookingTokenUsed(tokenRecord.used_at)) {
+        return NextResponse.json({ error: "Link de agendamiento ya utilizado" }, { status: 410 });
+      }
+      if (isRiskBookingTokenExpired(tokenRecord.expires_at)) {
+        return NextResponse.json({ error: "Link de agendamiento expirado" }, { status: 410 });
+      }
+
+      const submissionIdFromToken = String(tokenRecord.submission_id ?? "");
+      const tokenEmail = String(tokenRecord.email ?? "")
+        .trim()
+        .toLowerCase();
+      if (!submissionIdFromToken || !tokenEmail) {
+        return NextResponse.json({ error: "Link de agendamiento inválido" }, { status: 404 });
+      }
+
+      const diagnosisRecord = await pb
+        .collection("diagnosticos_riesgo")
+        .getOne(submissionIdFromToken);
+      const diagnosisData = diagnosisRecord as unknown as Record<string, unknown>;
+      const diagnosisEmail = String(diagnosisData.correo_corporativo ?? "")
+        .trim()
+        .toLowerCase();
+      if (!diagnosisEmail || diagnosisEmail !== tokenEmail) {
+        return NextResponse.json({ error: "Link de agendamiento inválido" }, { status: 404 });
+      }
+
+      resolvedSubmissionId = submissionIdFromToken;
+      resolvedName = String(diagnosisData.nombre_completo ?? "").trim();
+      resolvedEmail = diagnosisEmail;
+      resolvedCompany = String(diagnosisData.empresa ?? "").trim();
+      tokenRecordIdToConsume = tokenRecord.id;
+
+      if (!resolvedName || !resolvedCompany) {
+        return NextResponse.json(
+          { error: "El diagnóstico no tiene datos completos para agendar" },
+          { status: 409 },
+        );
+      }
+    }
+
+    const rateLimitResult = await consumeScheduleMeetingBookRateLimit({
+      headers: request.headers,
+      email: resolvedEmail,
+    });
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        rateLimitResult.body,
+        buildRateLimitResponseInit(rateLimitResult),
+      );
+    }
+
+    if (resolvedSubmissionId) {
+      const existingBooking = await pb.collection("reservas_reuniones").getList(1, 1, {
+        filter: `submission_id = "${escapeFilterValue(resolvedSubmissionId)}" && estado = "confirmada"`,
+      });
+      if (existingBooking.totalItems > 0) {
+        return NextResponse.json(
+          { error: "Este diagnóstico ya tiene una sesión confirmada" },
+          { status: 409 },
+        );
+      }
+    }
 
     const weeklyScheduleRaw = await pb
       .collection("agenda_semanal_de_reuniones")
@@ -207,12 +283,12 @@ export async function POST(request: NextRequest) {
     }
 
     const eventDescription = [
-      "Reserva creada desde calculadora de riesgo ISO Legal.",
-      `Nombre: ${validatedBody.name}`,
-      `Correo: ${validatedBody.email}`,
-      `Empresa: ${validatedBody.company}`,
-      validatedBody.submissionId
-        ? `ID Diagnóstico: ${validatedBody.submissionId}`
+      "Reserva creada desde calculadora de riesgo Isolegal.",
+      `Nombre: ${resolvedName}`,
+      `Correo: ${resolvedEmail}`,
+      `Empresa: ${resolvedCompany}`,
+      resolvedSubmissionId
+        ? `ID Diagnóstico: ${resolvedSubmissionId}`
         : undefined,
     ]
       .filter(Boolean)
@@ -229,8 +305,8 @@ export async function POST(request: NextRequest) {
 
     try {
       createdEvent = await createMeetingEvent({
-        attendeeEmail: validatedBody.email,
-        attendeeName: validatedBody.name,
+        attendeeEmail: resolvedEmail,
+        attendeeName: resolvedName,
         startDateTimeIso: validatedBody.startDateTime,
         endDateTimeIso: validatedBody.endDateTime,
         timeZone: validatedBody.timeZone,
@@ -239,10 +315,10 @@ export async function POST(request: NextRequest) {
       });
 
       await pb.collection("reservas_reuniones").create({
-        submission_id: validatedBody.submissionId ?? "",
-        nombre_cliente: validatedBody.name,
-        email_cliente: validatedBody.email,
-        empresa_cliente: validatedBody.company,
+        submission_id: resolvedSubmissionId ?? "",
+        nombre_cliente: resolvedName,
+        email_cliente: resolvedEmail,
+        empresa_cliente: resolvedCompany,
         start_datetime: validatedBody.startDateTime,
         end_datetime: validatedBody.endDateTime,
         timezone: validatedBody.timeZone,
@@ -269,13 +345,21 @@ export async function POST(request: NextRequest) {
       throw error;
     }
 
+    if (tokenRecordIdToConsume) {
+      try {
+        await consumeRiskBookingToken({ pb, tokenRecordId: tokenRecordIdToConsume });
+      } catch (tokenConsumeError) {
+        console.error("Error consumiendo token de agendamiento:", tokenConsumeError);
+      }
+    }
+
     let emailSent = true;
     try {
-      if (validatedBody.submissionId) {
+      if (resolvedSubmissionId) {
         try {
           const diagnosisRecord = await pb
             .collection("diagnosticos_riesgo")
-            .getOne(validatedBody.submissionId);
+            .getOne(resolvedSubmissionId);
           const origin = (diagnosisRecord as Record<string, unknown>).origen;
 
           if (isRiskCalculatorPendingOrigin(String(origin ?? ""))) {
@@ -287,7 +371,7 @@ export async function POST(request: NextRequest) {
               emailVariant: "form_copy",
             });
 
-            await pb.collection("diagnosticos_riesgo").update(validatedBody.submissionId, {
+            await pb.collection("diagnosticos_riesgo").update(resolvedSubmissionId, {
               origen: RISK_CALCULATOR_ORIGIN_SENT_BOOKING,
             });
           }
@@ -300,8 +384,8 @@ export async function POST(request: NextRequest) {
       }
       // TODO: Podria estar generando correos duplicados
       await sendMeetingConfirmationEmail({
-        toEmail: validatedBody.email,
-        toName: validatedBody.name,
+        toEmail: resolvedEmail,
+        toName: resolvedName,
         startDateTimeIso: validatedBody.startDateTime,
         endDateTimeIso: validatedBody.endDateTime,
         timeZone: validatedBody.timeZone,

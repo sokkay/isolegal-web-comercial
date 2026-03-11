@@ -16,6 +16,7 @@ export type RiskCalculatorResultsTemplateParams = {
   cambioNormativo: string;
   evidenciaTrazable: string;
   compromisosVoluntarios: string;
+  agendaLink?: string;
 };
 
 function getRiskTone(riskLevelLabel: string) {
@@ -44,7 +45,8 @@ export function buildRiskCalculatorResultsTemplate(
   const boundedScore = Math.min(20, Math.max(0, params.score));
   const contactEmail = "isolegal@contacto.cl";
   const riskTone = getRiskTone(params.riskLevelLabel);
-  const agendaLink = "https://calendar.app.google/9CaeX4duQX9rXiVj8";
+  const agendaLink =
+    params.agendaLink ?? "https://calendar.app.google/9CaeX4duQX9rXiVj8";
   const mailSubject = encodeURIComponent(
     `Consulta diagnóstico legal - ${params.empresa}`,
   );

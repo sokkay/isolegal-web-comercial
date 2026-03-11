@@ -1,17 +1,13 @@
 import { buildRiskCalculatorEmailParamsFromRecord } from "@/lib/email/riskCalculatorEmailData";
 import { sendRiskCalculatorResultsEmail } from "@/lib/email/zeptomail";
 import { getPb } from "@/lib/pocketbase";
+import { createRiskBookingTokenRecord } from "@/lib/riskCalculatorBookingToken";
 import {
   RISK_CALCULATOR_ORIGIN_LEGACY,
   RISK_CALCULATOR_ORIGIN_PENDING,
   RISK_CALCULATOR_ORIGIN_SENT_DELAYED,
 } from "@/lib/riskCalculatorEmail";
-import { getZonedDateParts, zonedDateTimeToUtc } from "@/utils/backend/scheduleMeetingTime";
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
-
-const followupHourSchema = z.coerce.number().int().min(0).max(23);
-const followupMinuteSchema = z.coerce.number().int().min(0).max(59);
 
 function isAuthorized(request: NextRequest) {
   const dispatchToken = process.env.RISK_CALCULATOR_DISPATCH_TOKEN;
@@ -23,28 +19,10 @@ function isAuthorized(request: NextRequest) {
   );
 }
 
-function shouldSendDelayedEmail(params: {
-  createdAtIso: string;
-  now: Date;
-  timeZone: string;
-  followupHour: number;
-  followupMinute: number;
-}) {
-  const { createdAtIso, now, timeZone, followupHour, followupMinute } = params;
-  const createdAt = new Date(createdAtIso);
-  if (Number.isNaN(createdAt.getTime())) return false;
-
-  const createdAtZone = getZonedDateParts(createdAt, timeZone);
-  const nextDayFollowupUtc = zonedDateTimeToUtc({
-    year: createdAtZone.year,
-    month: createdAtZone.month,
-    day: createdAtZone.day + 1,
-    hour: followupHour,
-    minute: followupMinute,
-    timeZone,
-  });
-
-  return now.getTime() >= nextDayFollowupUtc.getTime();
+function resolveAppBaseUrl(request: NextRequest) {
+  const configuredUrl =
+    process.env.APP_URL ?? process.env.NEXT_PUBLIC_APP_URL ?? request.nextUrl.origin;
+  return configuredUrl.endsWith("/") ? configuredUrl.slice(0, -1) : configuredUrl;
 }
 
 export async function POST(request: NextRequest) {
@@ -69,17 +47,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const followupHour = followupHourSchema.parse(
-      process.env.RISK_CALCULATOR_FOLLOWUP_HOUR ?? 10,
-    );
-    const followupMinute = followupMinuteSchema.parse(
-      process.env.RISK_CALCULATOR_FOLLOWUP_MINUTE ?? 0,
-    );
-    const followupTimeZone =
-      process.env.RISK_CALCULATOR_FOLLOWUP_TIMEZONE ?? "America/Santiago";
-
     const pb = getPb();
     await pb.collection("_superusers").authWithPassword(adminEmail, adminPassword);
+    const appBaseUrl = resolveAppBaseUrl(request);
 
     const now = new Date();
     const pendingRecords = await pb.collection("diagnosticos_riesgo").getFullList({
@@ -95,18 +65,6 @@ export async function POST(request: NextRequest) {
       evaluated += 1;
 
       const recordData = record as unknown as Record<string, unknown>;
-      const recordCreated = String(recordData.created ?? "");
-      const shouldSend = shouldSendDelayedEmail({
-        createdAtIso: recordCreated,
-        now,
-        timeZone: followupTimeZone,
-        followupHour,
-        followupMinute,
-      });
-      if (!shouldSend) {
-        skipped += 1;
-        continue;
-      }
 
       const bookingExists = await pb.collection("reservas_reuniones").getList(1, 1, {
         filter: `submission_id = "${record.id}" && estado = "confirmada"`,
@@ -122,9 +80,17 @@ export async function POST(request: NextRequest) {
           throw new Error("Diagnóstico sin correo corporativo");
         }
 
+        const { rawToken } = await createRiskBookingTokenRecord({
+          pb,
+          submissionId: record.id,
+          email: emailParams.toEmail,
+        });
+        const agendaLink = `${appBaseUrl}/agendar-sesion?token=${encodeURIComponent(rawToken)}`;
+
         await sendRiskCalculatorResultsEmail({
           ...emailParams,
           emailVariant: "followup_no_booking",
+          agendaLink,
         });
         await pb.collection("diagnosticos_riesgo").update(record.id, {
           origen: RISK_CALCULATOR_ORIGIN_SENT_DELAYED,

@@ -3,6 +3,7 @@ export type AgendaSesionCardProps = {
   clientEmail: string;
   clientCompany: string;
   submissionId?: string;
+  bookingToken?: string;
 };
 
 export type ActiveDay = {

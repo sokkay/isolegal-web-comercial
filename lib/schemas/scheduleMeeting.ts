@@ -92,6 +92,7 @@ export const scheduleMeetingActiveDaysResponseSchema = z.object({
 
 export const scheduleMeetingBookRequestSchema = z
   .object({
+    bookingToken: z.string().trim().min(1).optional(),
     submissionId: z.string().trim().min(1).optional(),
     name: z.string().trim().min(1, "Nombre requerido"),
     email: z.email(),

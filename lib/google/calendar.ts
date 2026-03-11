@@ -117,7 +117,7 @@ export async function createMeetingEvent(params: {
 
   const response = await calendar.events.insert({
     calendarId,
-    sendUpdates: "all",
+    sendUpdates: "none",
     conferenceDataVersion: 1,
     requestBody: {
       summary: params.summary ?? "Sesion estrategica Isolegal",

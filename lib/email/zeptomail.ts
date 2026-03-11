@@ -1,3 +1,4 @@
+import { buildMeetingConfirmationTemplate } from "@/lib/email/meetingConfirmationTemplate";
 import { buildRiskCalculatorResultsTemplate } from "@/lib/email/riskCalculatorResultsTemplate";
 
 const defaultZeptoMailUrl = "https://api.zeptomail.com/v1.1/email";
@@ -21,31 +22,19 @@ export async function sendMeetingConfirmationEmail(params: {
 }) {
   const formattedStart = formatDateTime(params.startDateTimeIso, params.timeZone);
   const formattedEnd = formatDateTime(params.endDateTimeIso, params.timeZone);
-  const htmlParts = [
-    `<p>Hola ${params.toName},</p>`,
-    "<p>Tu sesión estratégica en ISO Legal fue agendada correctamente.</p>",
-    `<p><strong>Inicio:</strong> ${formattedStart}<br/>`,
-    `<strong>Término:</strong> ${formattedEnd}<br/>`,
-    `<strong>Zona horaria:</strong> ${params.timeZone}</p>`,
-  ];
-
-  if (params.meetLink) {
-    htmlParts.push(
-      `<p><strong>Enlace de Google Meet:</strong> <a href="${params.meetLink}">${params.meetLink}</a></p>`,
-    );
-  }
-  if (params.eventLink) {
-    htmlParts.push(
-      `<p><strong>Evento en Google Calendar:</strong> <a href="${params.eventLink}">${params.eventLink}</a></p>`,
-    );
-  }
-  htmlParts.push("<p>Nos vemos pronto.</p>");
+  const htmlbody = buildMeetingConfirmationTemplate({
+    toName: params.toName,
+    formattedStart,
+    formattedEnd,
+    meetLink: params.meetLink,
+    eventLink: params.eventLink,
+  });
 
   await sendZeptoMail({
     toEmail: params.toEmail,
     toName: params.toName,
     subject: "Confirmación de reunión - IsoLegal",
-    htmlbody: htmlParts.join(""),
+    htmlbody,
   });
 }
 
@@ -130,6 +119,7 @@ export async function sendRiskCalculatorResultsEmail(params: {
   cambioNormativo: string;
   evidenciaTrazable: string;
   compromisosVoluntarios: string;
+  agendaLink?: string;
 }) {
   const emailVariant = params.emailVariant ?? "form_copy";
   const htmlbody = buildRiskCalculatorResultsTemplate({
@@ -148,6 +138,7 @@ export async function sendRiskCalculatorResultsEmail(params: {
     compromisosVoluntarios: mapCompromisosVoluntarios(
       params.compromisosVoluntarios,
     ),
+    agendaLink: params.agendaLink,
   });
 
   await sendZeptoMail({

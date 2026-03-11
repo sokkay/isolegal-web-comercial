@@ -71,6 +71,7 @@ export async function fetchSlotsByDay(params: {
 }
 
 export async function bookMeeting(params: {
+  bookingToken?: string;
   submissionId?: string;
   clientName: string;
   clientEmail: string;
@@ -84,6 +85,7 @@ export async function bookMeeting(params: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      bookingToken: params.bookingToken,
       submissionId: params.submissionId,
       name: params.clientName,
       email: params.clientEmail,

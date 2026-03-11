@@ -1,4 +1,6 @@
+import freeEmailDomains from "free-email-domains";
 import { z } from "zod";
+import { isBusinessEmailValidationEnabled } from "@/lib/config/businessEmailValidation";
 
 export const gestionMatrizEnum = z.enum([
   "planilla_excel_control_manual",
@@ -74,7 +76,18 @@ export const riskCalculatorSubmissionSchema = z.object({
   }),
   resultadosDiagnostico: z.object({
     nombreCompleto: z.string().min(1, "Debes ingresar tu nombre completo"),
-    correoCorporativo: z.email({ message: "Email inválido" }),
+    correoCorporativo: z
+      .email({ message: "Email inválido" })
+      .refine((val) => {
+        if (!isBusinessEmailValidationEnabled()) {
+          return true;
+        }
+
+        const domain = val.split("@")[1]?.toLowerCase();
+        return !!domain && !freeEmailDomains.includes(domain);
+      }, {
+        message: "Debes usar un correo corporativo",
+      }),
     empresa: z.string().min(1, "Debes ingresar tu empresa"),
   }),
 });
