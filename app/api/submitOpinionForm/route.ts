@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
 
+import { notifyTeamFormSubmission } from "@/lib/email/teamFormNotification";
 import { getPb } from "@/lib/pocketbase";
 import { opinionFormSchema } from "@/lib/schemas/opinionForm";
 
@@ -13,6 +14,19 @@ export async function POST(request: NextRequest) {
       calificacion: Number(validatedData.satisfaction),
       descripcion: validatedData.details,
     });
+
+    try {
+      await notifyTeamFormSubmission({
+        formType: "opinion",
+        source: "api/submitOpinionForm",
+        fields: [
+          { label: "Calificación", value: validatedData.satisfaction },
+          { label: "Comentario", value: validatedData.details },
+        ],
+      });
+    } catch (notificationError) {
+      console.error("Error enviando notificación interna (opinión):", notificationError);
+    }
 
     return NextResponse.json(
       {

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
 
+import { notifyTeamFormSubmission } from "@/lib/email/teamFormNotification";
 import { getPb } from "@/lib/pocketbase";
 import { technicalSupportFormSchema } from "@/lib/schemas/technicalSupportForm";
 
@@ -16,6 +17,26 @@ export async function POST(request: NextRequest) {
       email: validatedData.email,
       descripcion: validatedData.problem,
     });
+
+    try {
+      await notifyTeamFormSubmission({
+        formType: "soporte_tecnico",
+        source: "api/submitTechnicalSupportForm",
+        fields: [
+          { label: "Nombre", value: validatedData.name },
+          { label: "Empresa", value: validatedData.company },
+          { label: "Teléfono", value: validatedData.phone },
+          { label: "Email", value: validatedData.email },
+          { label: "Descripción", value: validatedData.problem },
+          { label: "Aceptó términos", value: validatedData.terms },
+        ],
+      });
+    } catch (notificationError) {
+      console.error(
+        "Error enviando notificación interna (soporte técnico):",
+        notificationError,
+      );
+    }
 
     return NextResponse.json(
       {

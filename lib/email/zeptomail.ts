@@ -1,5 +1,6 @@
 import { buildMeetingConfirmationTemplate } from "@/lib/email/meetingConfirmationTemplate";
 import { buildRiskCalculatorResultsTemplate } from "@/lib/email/riskCalculatorResultsTemplate";
+import { getTeamFormNotificationEmails } from "./teamFormNotificationRecipients";
 
 const defaultZeptoMailUrl = "https://api.zeptomail.com/v1.1/email";
 
@@ -149,14 +150,16 @@ export async function sendRiskCalculatorResultsEmail(params: {
         ? "Ya tienes el diagnóstico. ¿Qué vas a hacer con eso? | Isolegal 🌱"
         : "Copia de tu formulario completado | Isolegal 🌱",
     htmlbody,
+    bccEmails: getTeamFormNotificationEmails(),
   });
 }
 
-async function sendZeptoMail(params: {
+export async function sendZeptoMail(params: {
   toEmail: string;
   toName: string;
   subject: string;
   htmlbody: string;
+  bccEmails?: string[];
 }) {
   const zeptoMailUrl = process.env.ZEPTOMAIL_URL || defaultZeptoMailUrl;
   const zeptoMailToken = process.env.ZEPTOMAIL_TOKEN;
@@ -184,6 +187,14 @@ async function sendZeptoMail(params: {
           },
         },
       ],
+      bcc:
+        params.bccEmails && params.bccEmails.length > 0
+          ? params.bccEmails.map((email) => ({
+              email_address: {
+                address: email,
+              },
+            }))
+          : undefined,
       subject: params.subject,
       htmlbody: params.htmlbody,
     }),

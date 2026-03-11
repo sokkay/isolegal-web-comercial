@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
 
+import { notifyTeamFormSubmission } from "@/lib/email/teamFormNotification";
 import { getPb } from "@/lib/pocketbase";
 import { contactFormSchema } from "@/lib/schemas/contactForm";
 
@@ -16,6 +17,23 @@ export async function POST(request: NextRequest) {
       telefono: validatedData.mobilephone,
       mensaje: validatedData.message,
     });
+
+    try {
+      await notifyTeamFormSubmission({
+        formType: "contacto",
+        source: "api/submitContactForm",
+        fields: [
+          { label: "Nombre", value: validatedData.firstname },
+          { label: "Empresa", value: validatedData.company },
+          { label: "Email", value: validatedData.email },
+          { label: "Teléfono", value: validatedData.mobilephone },
+          { label: "Mensaje", value: validatedData.message },
+          { label: "Consentimiento", value: validatedData.consent },
+        ],
+      });
+    } catch (notificationError) {
+      console.error("Error enviando notificación interna (contacto):", notificationError);
+    }
 
     return NextResponse.json(
       {
