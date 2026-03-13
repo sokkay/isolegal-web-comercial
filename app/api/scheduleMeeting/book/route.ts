@@ -4,6 +4,12 @@ import {
 } from "@/lib/email/zeptomail";
 import { buildRiskCalculatorEmailParamsFromRecord } from "@/lib/email/riskCalculatorEmailData";
 import {
+  consumeExternalBookingToken,
+  findExternalBookingTokenRecordByRawToken,
+  isExternalBookingTokenExpired,
+  isExternalBookingTokenUsed,
+} from "@/lib/externalBookingToken";
+import {
   createMeetingEvent,
   deleteMeetingEvent,
   queryCalendarBusyIntervals,
@@ -123,57 +129,120 @@ export async function POST(request: NextRequest) {
 
     await pb.collection("_superusers").authWithPassword(adminEmail, adminPassword);
 
+    const isExternalBooking = validatedBody.bookingSource === "external_admin";
+    if (isExternalBooking && !validatedBody.bookingToken) {
+      return NextResponse.json(
+        { error: "El flujo externo requiere bookingToken" },
+        { status: 400 },
+      );
+    }
+
     let resolvedSubmissionId = validatedBody.submissionId;
     let resolvedName = validatedBody.name;
     let resolvedEmail = validatedBody.email;
     let resolvedCompany = validatedBody.company;
     let tokenRecordIdToConsume: string | null = null;
+    let tokenRecordSource: "risk" | "external" | null = null;
 
     if (validatedBody.bookingToken) {
-      const tokenRecord = await findRiskBookingTokenRecordByRawToken({
-        pb,
-        rawToken: validatedBody.bookingToken,
-      });
-      if (!tokenRecord) {
-        return NextResponse.json({ error: "Link de agendamiento inválido" }, { status: 404 });
-      }
-      if (isRiskBookingTokenUsed(tokenRecord.used_at)) {
-        return NextResponse.json({ error: "Link de agendamiento ya utilizado" }, { status: 410 });
-      }
-      if (isRiskBookingTokenExpired(tokenRecord.expires_at)) {
-        return NextResponse.json({ error: "Link de agendamiento expirado" }, { status: 410 });
-      }
+      if (isExternalBooking) {
+        const externalTokenRecord = await findExternalBookingTokenRecordByRawToken({
+          pb,
+          rawToken: validatedBody.bookingToken,
+        });
+        if (!externalTokenRecord) {
+          return NextResponse.json({ error: "Link de agendamiento inválido" }, { status: 404 });
+        }
+        if (isExternalBookingTokenUsed(externalTokenRecord.used_at)) {
+          return NextResponse.json(
+            { error: "Link de agendamiento ya utilizado" },
+            { status: 410 },
+          );
+        }
+        if (isExternalBookingTokenExpired(externalTokenRecord.expires_at)) {
+          return NextResponse.json(
+            { error: "Link de agendamiento expirado" },
+            { status: 410 },
+          );
+        }
 
-      const submissionIdFromToken = String(tokenRecord.submission_id ?? "");
-      const tokenEmail = String(tokenRecord.email ?? "")
-        .trim()
-        .toLowerCase();
-      if (!submissionIdFromToken || !tokenEmail) {
-        return NextResponse.json({ error: "Link de agendamiento inválido" }, { status: 404 });
-      }
+        resolvedSubmissionId = undefined;
+        resolvedName = String(externalTokenRecord.name ?? "").trim();
+        resolvedEmail = String(externalTokenRecord.email ?? "")
+          .trim()
+          .toLowerCase();
+        resolvedCompany = String(externalTokenRecord.company ?? "").trim();
+        tokenRecordIdToConsume = externalTokenRecord.id;
+        tokenRecordSource = "external";
 
-      const diagnosisRecord = await pb
-        .collection("diagnosticos_riesgo")
-        .getOne(submissionIdFromToken);
-      const diagnosisData = diagnosisRecord as unknown as Record<string, unknown>;
-      const diagnosisEmail = String(diagnosisData.correo_corporativo ?? "")
-        .trim()
-        .toLowerCase();
-      if (!diagnosisEmail || diagnosisEmail !== tokenEmail) {
-        return NextResponse.json({ error: "Link de agendamiento inválido" }, { status: 404 });
-      }
+        if (!resolvedName || !resolvedEmail || !resolvedCompany) {
+          return NextResponse.json(
+            { error: "El link no tiene datos completos para agendar" },
+            { status: 409 },
+          );
+        }
+      } else {
+        const tokenRecord = await findRiskBookingTokenRecordByRawToken({
+          pb,
+          rawToken: validatedBody.bookingToken,
+        });
+        if (!tokenRecord) {
+          return NextResponse.json(
+            { error: "Link de agendamiento inválido" },
+            { status: 404 },
+          );
+        }
+        if (isRiskBookingTokenUsed(tokenRecord.used_at)) {
+          return NextResponse.json(
+            { error: "Link de agendamiento ya utilizado" },
+            { status: 410 },
+          );
+        }
+        if (isRiskBookingTokenExpired(tokenRecord.expires_at)) {
+          return NextResponse.json(
+            { error: "Link de agendamiento expirado" },
+            { status: 410 },
+          );
+        }
 
-      resolvedSubmissionId = submissionIdFromToken;
-      resolvedName = String(diagnosisData.nombre_completo ?? "").trim();
-      resolvedEmail = diagnosisEmail;
-      resolvedCompany = String(diagnosisData.empresa ?? "").trim();
-      tokenRecordIdToConsume = tokenRecord.id;
+        const submissionIdFromToken = String(tokenRecord.submission_id ?? "");
+        const tokenEmail = String(tokenRecord.email ?? "")
+          .trim()
+          .toLowerCase();
+        if (!submissionIdFromToken || !tokenEmail) {
+          return NextResponse.json(
+            { error: "Link de agendamiento inválido" },
+            { status: 404 },
+          );
+        }
 
-      if (!resolvedName || !resolvedCompany) {
-        return NextResponse.json(
-          { error: "El diagnóstico no tiene datos completos para agendar" },
-          { status: 409 },
-        );
+        const diagnosisRecord = await pb
+          .collection("diagnosticos_riesgo")
+          .getOne(submissionIdFromToken);
+        const diagnosisData = diagnosisRecord as unknown as Record<string, unknown>;
+        const diagnosisEmail = String(diagnosisData.correo_corporativo ?? "")
+          .trim()
+          .toLowerCase();
+        if (!diagnosisEmail || diagnosisEmail !== tokenEmail) {
+          return NextResponse.json(
+            { error: "Link de agendamiento inválido" },
+            { status: 404 },
+          );
+        }
+
+        resolvedSubmissionId = submissionIdFromToken;
+        resolvedName = String(diagnosisData.nombre_completo ?? "").trim();
+        resolvedEmail = diagnosisEmail;
+        resolvedCompany = String(diagnosisData.empresa ?? "").trim();
+        tokenRecordIdToConsume = tokenRecord.id;
+        tokenRecordSource = "risk";
+
+        if (!resolvedName || !resolvedCompany) {
+          return NextResponse.json(
+            { error: "El diagnóstico no tiene datos completos para agendar" },
+            { status: 409 },
+          );
+        }
       }
     }
 
@@ -294,7 +363,9 @@ export async function POST(request: NextRequest) {
     }
 
     const eventDescription = [
-      "Reserva creada desde calculadora de riesgo Isolegal.",
+      isExternalBooking
+        ? "Reserva creada desde agendamiento externo Isolegal."
+        : "Reserva creada desde calculadora de riesgo Isolegal.",
       `Nombre: ${resolvedName}`,
       `Correo: ${resolvedEmail}`,
       `Empresa: ${resolvedCompany}`,
@@ -325,20 +396,22 @@ export async function POST(request: NextRequest) {
         description: eventDescription,
       });
 
-      await pb.collection("reservas_reuniones").create({
-        submission_id: resolvedSubmissionId ?? "",
-        nombre_cliente: resolvedName,
-        email_cliente: resolvedEmail,
-        empresa_cliente: resolvedCompany,
-        start_datetime: validatedBody.startDateTime,
-        end_datetime: validatedBody.endDateTime,
-        timezone: validatedBody.timeZone,
-        google_event_id: createdEvent.eventId,
-        google_event_link: createdEvent.eventLink ?? "",
-        google_meet_link: createdEvent.meetLink ?? "",
-        estado: "confirmada",
-        origen: "web_risk_calculator",
-      });
+      if (!isExternalBooking) {
+        await pb.collection("reservas_reuniones").create({
+          submission_id: resolvedSubmissionId ?? "",
+          nombre_cliente: resolvedName,
+          email_cliente: resolvedEmail,
+          empresa_cliente: resolvedCompany,
+          start_datetime: validatedBody.startDateTime,
+          end_datetime: validatedBody.endDateTime,
+          timezone: validatedBody.timeZone,
+          google_event_id: createdEvent.eventId,
+          google_event_link: createdEvent.eventLink ?? "",
+          google_meet_link: createdEvent.meetLink ?? "",
+          estado: "confirmada",
+          origen: "web_risk_calculator",
+        });
+      }
     } catch (error) {
       if (createdEvent) {
         try {
@@ -356,9 +429,16 @@ export async function POST(request: NextRequest) {
       throw error;
     }
 
-    if (tokenRecordIdToConsume) {
+    if (tokenRecordIdToConsume && tokenRecordSource) {
       try {
-        await consumeRiskBookingToken({ pb, tokenRecordId: tokenRecordIdToConsume });
+        if (tokenRecordSource === "risk") {
+          await consumeRiskBookingToken({ pb, tokenRecordId: tokenRecordIdToConsume });
+        } else {
+          await consumeExternalBookingToken({
+            pb,
+            tokenRecordId: tokenRecordIdToConsume,
+          });
+        }
       } catch (tokenConsumeError) {
         console.error("Error consumiendo token de agendamiento:", tokenConsumeError);
       }

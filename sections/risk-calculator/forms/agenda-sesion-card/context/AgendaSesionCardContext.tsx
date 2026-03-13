@@ -54,8 +54,14 @@ export function AgendaSesionCardStateProvider({
   children,
   ...agendaProps
 }: AgendaSesionCardStateProviderProps) {
-  const { clientName, clientEmail, clientCompany, submissionId, bookingToken } =
-    agendaProps;
+  const {
+    clientName,
+    clientEmail,
+    clientCompany,
+    submissionId,
+    bookingToken,
+    bookingSource,
+  } = agendaProps;
   const queryClient = useQueryClient();
   const [timeZone] = useState(() => {
     return (
@@ -154,6 +160,7 @@ export function AgendaSesionCardStateProvider({
   const bookingMutation = useMutation({
     mutationFn: (slot: Slot) =>
       bookMeeting({
+        bookingSource,
         bookingToken,
         submissionId,
         clientName,

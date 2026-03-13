@@ -1,9 +1,12 @@
+export type BookingSource = "risk_calculator" | "external_admin";
+
 export type AgendaSesionCardProps = {
   clientName: string;
   clientEmail: string;
   clientCompany: string;
   submissionId?: string;
   bookingToken?: string;
+  bookingSource?: BookingSource;
 };
 
 export type ActiveDay = {

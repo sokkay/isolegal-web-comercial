@@ -138,6 +138,7 @@ export const scheduleMeetingActiveDaysResponseSchema = z.object({
 
 export const scheduleMeetingBookRequestSchema = z
   .object({
+    bookingSource: z.enum(["risk_calculator", "external_admin"]).optional(),
     bookingToken: z.string().trim().min(1).optional(),
     submissionId: z.string().trim().min(1).optional(),
     name: z.string().trim().min(1, "Nombre requerido"),

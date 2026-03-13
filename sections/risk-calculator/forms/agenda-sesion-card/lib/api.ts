@@ -1,6 +1,7 @@
 import { getDateKeyInTimeZone, getDayRangeFromDateKey } from "./date";
 import type {
   ActiveDay,
+  BookingSource,
   BookingSuccess,
   Slot,
 } from "../types";
@@ -71,6 +72,7 @@ export async function fetchSlotsByDay(params: {
 }
 
 export async function bookMeeting(params: {
+  bookingSource?: BookingSource;
   bookingToken?: string;
   submissionId?: string;
   clientName: string;
@@ -85,6 +87,7 @@ export async function bookMeeting(params: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      bookingSource: params.bookingSource,
       bookingToken: params.bookingToken,
       submissionId: params.submissionId,
       name: params.clientName,
