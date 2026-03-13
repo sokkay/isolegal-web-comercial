@@ -119,6 +119,11 @@ function parseTimeToParts(time: string) {
   return { hours, minutes };
 }
 
+function timeToMinutes(time: string) {
+  const { hours, minutes } = parseTimeToParts(time);
+  return hours * 60 + minutes;
+}
+
 export function buildCandidateSlots(params: {
   rangeStart: Date;
   rangeEnd: Date;
@@ -143,8 +148,10 @@ export function buildCandidateSlots(params: {
   }
 
   const slots: SlotInterval[] = [];
+  const slotKeys = new Set<string>();
+  const sortedLocalDateKeys = [...localDateKeys].sort();
 
-  for (const key of localDateKeys) {
+  for (const key of sortedLocalDateKeys) {
     const [yearStr, monthStr, dayStr] = key.split("-");
     const year = Number(yearStr);
     const month = Number(monthStr);
@@ -167,7 +174,15 @@ export function buildCandidateSlots(params: {
     );
     if (dayRules.length === 0) continue;
 
-    for (const rule of dayRules) {
+    const sortedDayRules = [...dayRules].sort((a, b) => {
+      const startDiff = timeToMinutes(a.hora_inicio) - timeToMinutes(b.hora_inicio);
+      if (startDiff !== 0) return startDiff;
+      const endDiff = timeToMinutes(a.hora_fin) - timeToMinutes(b.hora_fin);
+      if (endDiff !== 0) return endDiff;
+      return (a.tiempo_bloque ?? fallbackSlotMinutes) - (b.tiempo_bloque ?? fallbackSlotMinutes);
+    });
+
+    for (const rule of sortedDayRules) {
       const startParts = parseTimeToParts(rule.hora_inicio);
       const endParts = parseTimeToParts(rule.hora_fin);
       const slotMinutes = rule.tiempo_bloque ?? fallbackSlotMinutes;
@@ -199,7 +214,11 @@ export function buildCandidateSlots(params: {
           const boundedStart = slotStart < rangeStart ? rangeStart : slotStart;
           const boundedEnd = slotEnd > rangeEnd ? rangeEnd : slotEnd;
           if (boundedEnd > boundedStart) {
-            slots.push({ start: boundedStart, end: boundedEnd });
+            const key = `${boundedStart.getTime()}-${boundedEnd.getTime()}`;
+            if (!slotKeys.has(key)) {
+              slotKeys.add(key);
+              slots.push({ start: boundedStart, end: boundedEnd });
+            }
           }
         }
 
@@ -208,7 +227,11 @@ export function buildCandidateSlots(params: {
     }
   }
 
-  return slots.sort((a, b) => a.start.getTime() - b.start.getTime());
+  return slots.sort((a, b) => {
+    const startDiff = a.start.getTime() - b.start.getTime();
+    if (startDiff !== 0) return startDiff;
+    return a.end.getTime() - b.end.getTime();
+  });
 }
 
 export function mergeIntervals(intervals: BusyInterval[]): BusyInterval[] {

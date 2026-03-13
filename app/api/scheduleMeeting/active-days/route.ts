@@ -1,7 +1,7 @@
 import { getPb } from "@/lib/pocketbase";
 import {
   scheduleMeetingActiveDaysResponseSchema,
-  weeklyScheduleRecordSchema,
+  weeklyScheduleSchema,
 } from "@/lib/schemas/scheduleMeeting";
 import {
   dayNameToIsoWeekday,
@@ -41,9 +41,20 @@ export async function GET(request: NextRequest) {
     const weeklyScheduleRaw = await pb
       .collection("agenda_semanal_de_reuniones")
       .getFullList();
-    const weeklySchedule = weeklyScheduleRecordSchema
-      .array()
-      .parse(weeklyScheduleRaw);
+    const weeklyScheduleResult = weeklyScheduleSchema.safeParse(weeklyScheduleRaw);
+    if (!weeklyScheduleResult.success) {
+      return NextResponse.json(
+        {
+          error: "Configuración inválida en agenda_semanal_de_reuniones",
+          details: weeklyScheduleResult.error.issues.map((issue) => ({
+            field: issue.path.join("."),
+            message: issue.message,
+          })),
+        },
+        { status: 500 },
+      );
+    }
+    const weeklySchedule = weeklyScheduleResult.data;
     const activeWeekdays = new Set(
       weeklySchedule
         .filter((rule) => rule.activado)

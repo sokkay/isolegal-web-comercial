@@ -3,6 +3,11 @@ import { z } from "zod";
 export const scheduleMeetingTimeRegex = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
 const defaultTimeZone = "America/Santiago";
 
+function timeToMinutes(time: string) {
+  const [hours, minutes] = time.split(":").map(Number);
+  return hours * 60 + minutes;
+}
+
 function validateDateRange(
   startDateTime: string,
   endDateTime: string,
@@ -57,6 +62,47 @@ export const weeklyScheduleRecordSchema = z
         message: "hora_fin debe ser mayor a hora_inicio",
         path: ["hora_fin"],
       });
+    }
+  });
+
+export const weeklyScheduleSchema = weeklyScheduleRecordSchema
+  .array()
+  .superRefine((rules, ctx) => {
+    const activeRulesByDay = new Map<
+      string,
+      Array<{ index: number; horaInicio: string; horaFin: string }>
+    >();
+
+    rules.forEach((rule, index) => {
+      if (!rule.activado) return;
+      const normalizedDay = rule.dia.trim().toLowerCase();
+      const entries = activeRulesByDay.get(normalizedDay) ?? [];
+      entries.push({
+        index,
+        horaInicio: rule.hora_inicio,
+        horaFin: rule.hora_fin,
+      });
+      activeRulesByDay.set(normalizedDay, entries);
+    });
+
+    for (const [day, entries] of activeRulesByDay.entries()) {
+      const sorted = [...entries].sort((a, b) => {
+        const startDiff = timeToMinutes(a.horaInicio) - timeToMinutes(b.horaInicio);
+        if (startDiff !== 0) return startDiff;
+        return timeToMinutes(a.horaFin) - timeToMinutes(b.horaFin);
+      });
+
+      for (let i = 1; i < sorted.length; i += 1) {
+        const prev = sorted[i - 1];
+        const current = sorted[i];
+        if (timeToMinutes(current.horaInicio) < timeToMinutes(prev.horaFin)) {
+          ctx.addIssue({
+            code: "custom",
+            message: `Bloque solapado para ${day}: ${current.horaInicio}-${current.horaFin}`,
+            path: [current.index, "hora_inicio"],
+          });
+        }
+      }
     }
   });
 
@@ -133,6 +179,7 @@ export const scheduleMeetingBookResponseSchema = z.object({
 });
 
 export type WeeklyScheduleRecord = z.infer<typeof weeklyScheduleRecordSchema>;
+export type WeeklySchedule = z.infer<typeof weeklyScheduleSchema>;
 export type ScheduleMeetingAvailabilityRequest = z.infer<
   typeof scheduleMeetingAvailabilityRequestSchema
 >;
