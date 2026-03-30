@@ -25,6 +25,12 @@ const features = [
     image: "/images/features/informes-personalizados.png",
   },
   {
+    title: "Gestión de riesgos",
+    description:
+      "Visualiza un mapa de calor con los riesgos asociados a los requisitos normativos de tu matriz para una gestión más eficiente.",
+    image: "/images/features/gestion-de-riesgos.png",
+  },
+  {
     title: "Gestión de normas",
     description:
       "Olvídate de interpretar, accede a las normas aplicables a tu matriz con el detalle de cada artículo, preguntas guía y referencias de cumplimiento.",

@@ -57,7 +57,7 @@ export const metadata: Metadata = {
       "Plataforma digital que simplifica el cumplimiento normativo para industrias reguladas en Chile.",
     images: [
       {
-        url: "/images/og-image.jpg", // Crear esta imagen 1200x630px
+        url: "/images/og-image.png", // Crear esta imagen 1200x630px
         width: 1200,
         height: 630,
         alt: "Isolegal - Cumplimiento Normativo Digital",
@@ -69,11 +69,8 @@ export const metadata: Metadata = {
     title: "Isolegal - Cumplimiento Normativo Digital en Chile",
     description:
       "Plataforma digital que simplifica el cumplimiento normativo para industrias reguladas.",
-    images: ["/images/og-image.jpg"],
+    images: ["/images/og-image.png"],
     creator: "@isolegal", // Si tienen Twitter
-  },
-  verification: {
-    google: "tu-codigo-google-verification", // Agregar después de Google Search Console
   },
   manifest: "/manifest.json",
   appleWebApp: {

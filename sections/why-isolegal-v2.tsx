@@ -11,8 +11,15 @@ import { EmblaCarouselType } from "embla-carousel";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { ReactNode, useEffect, useRef, useState } from "react";
+import HeatmapIcon from "@/public/icons/heat-map.svg";
 
 const characteristics = [
+  {
+    icon: <HeatmapIcon className="fill-primary w-9 h-9" />,
+    title: "Análisis de riesgo con mapa de calor",
+    description:
+      "Visualiza dónde está tu mayor exposición al incumplimiento: priorizamos brechas críticas según su impacto y probabilidad, para enfocar la gestión donde realmente se genera el riesgo y reducir no conformidades antes de auditorías o sanciones en fiscalizaciones.",
+  },
   {
     icon: <DatabaseV2Icon className="fill-primary w-9 h-9" />,
     title: "Base de datos normativa gestionada por abogados",
