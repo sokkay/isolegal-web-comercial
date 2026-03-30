@@ -21,6 +21,10 @@ export function SlotsPanel() {
     handleBookSlot,
   } = useAgendaSesionCardContext();
 
+  const bookingFollowUpMessage = bookingSuccess?.emailSent
+    ? "Revisa el correo electrónico que ingresaste para encontrar la confirmación de la reunión y el archivo para agregarla a tu calendario. Si no lo ves en los próximos minutos, revisa también spam o correo no deseado."
+    : "Tu reunión quedó reservada, pero no pudimos confirmar el envío del correo al email ingresado. Revisa spam o correo no deseado de todas formas y, si no recibes nada, contáctanos para ayudarte.";
+
   function handleGoToHome() {
     router.push("/");
   }
@@ -112,6 +116,9 @@ export function SlotsPanel() {
             <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
               {bookingSuccess.message}
             </p>
+            <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">
+              {bookingFollowUpMessage}
+            </p>
             <p className="mt-2 text-sm font-semibold text-primary">
               {formatTimeRange(
                 {
@@ -122,8 +129,9 @@ export function SlotsPanel() {
               )}
             </p>
             <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">
-              Gracias por agendar en Isolegal. Desde nuestro sitio puedes seguir
-              explorando soluciones y preparar tu próxima etapa de cumplimiento legal.
+              Gracias por agendar en Isolegal. Mientras llega la confirmación,
+              puedes seguir explorando nuestras soluciones y preparar tu próxima
+              etapa de cumplimiento legal.
             </p>
             <div className="mt-5">
               <Button text="Ir al inicio de Isolegal" fullWidth onClick={handleGoToHome} />

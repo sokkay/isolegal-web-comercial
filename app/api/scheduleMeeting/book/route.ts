@@ -491,8 +491,8 @@ export async function POST(request: NextRequest) {
     const payload = scheduleMeetingBookResponseSchema.parse({
       success: true,
       message: emailSent
-        ? "Reserva confirmada y correo enviado"
-        : "Reserva confirmada, pero no se pudo enviar el correo de confirmación",
+        ? "Reserva confirmada y correo de confirmación enviado."
+        : "Reserva confirmada, pero no pudimos enviar el correo de confirmación.",
       emailSent,
       booking: {
         eventId: createdEvent.eventId,

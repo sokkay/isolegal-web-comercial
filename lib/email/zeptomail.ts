@@ -1,4 +1,8 @@
 import { buildMeetingConfirmationTemplate } from "@/lib/email/meetingConfirmationTemplate";
+import {
+  buildMeetingInvitationIcsAttachment,
+  type ZeptoMailAttachment,
+} from "@/lib/email/meetingInvitationIcs";
 import { buildRiskCalculatorResultsTemplate } from "@/lib/email/riskCalculatorResultsTemplate";
 import { getTeamFormNotificationEmails } from "./teamFormNotificationRecipients";
 
@@ -36,6 +40,16 @@ export async function sendMeetingConfirmationEmail(params: {
     toName: params.toName,
     subject: "Confirmación de reunión - IsoLegal",
     htmlbody,
+    attachments: [
+      buildMeetingInvitationIcsAttachment({
+        attendeeEmail: params.toEmail,
+        attendeeName: params.toName,
+        startDateTimeIso: params.startDateTimeIso,
+        endDateTimeIso: params.endDateTimeIso,
+        eventLink: params.eventLink,
+        meetLink: params.meetLink,
+      }),
+    ],
   });
 }
 
@@ -160,6 +174,7 @@ export async function sendZeptoMail(params: {
   subject: string;
   htmlbody: string;
   bccEmails?: string[];
+  attachments?: ZeptoMailAttachment[];
 }) {
   const zeptoMailUrl = process.env.ZEPTOMAIL_URL || defaultZeptoMailUrl;
   const zeptoMailToken = process.env.ZEPTOMAIL_TOKEN;
@@ -197,6 +212,14 @@ export async function sendZeptoMail(params: {
           : undefined,
       subject: params.subject,
       htmlbody: params.htmlbody,
+      attachments:
+        params.attachments && params.attachments.length > 0
+          ? params.attachments.map((attachment) => ({
+              name: attachment.name,
+              mime_type: attachment.mimeType,
+              content: attachment.content,
+            }))
+          : undefined,
     }),
   });
 
