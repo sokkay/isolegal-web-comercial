@@ -12,7 +12,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://isolegal.cl"), 
+  metadataBase: new URL("https://isolegal.cl"),
   title: {
     default: "Isolegal - Cumplimiento Normativo Digital en Chile",
     template: "%s | Isolegal",
@@ -21,13 +21,17 @@ export const metadata: Metadata = {
     canonical: "https://isolegal.cl",
   },
   description:
-    "Plataforma digital que simplifica el cumplimiento normativo para industrias reguladas en Chile. Centraliza matriz legal, evidencia y alertas en un solo lugar.",
+    "Plataforma que convierte requisitos legales en acciones operativas, trazables y priorizadas por riesgo. Gestiona matriz legal, evidencia y cumplimiento en un solo lugar.",
   keywords: [
-    "cumplimiento normativo",
-    "compliance Chile",
-    "auditoría legal",
-    "matriz legal",
-    "normativa Chile",
+    "cumplimiento normativo Chile",
+    "gestión de cumplimiento legal",
+    "matriz legal Chile",
+    "control de cumplimiento normativo",
+    "riesgo legal operacional",
+    "software compliance Chile",
+    "auditoría cumplimiento legal",
+    "gestión normativa empresas",
+    "RCA cumplimiento ambiental",
     "RCA",
     "RESO",
     "SIGO",
@@ -52,25 +56,25 @@ export const metadata: Metadata = {
     locale: "es_CL",
     url: "https://isolegal.cl",
     siteName: "Isolegal",
-    title: "Isolegal - Cumplimiento Normativo Digital en Chile",
+    title: "Isolegal - Control operativo del cumplimiento normativo",
     description:
-      "Plataforma digital que simplifica el cumplimiento normativo para industrias reguladas en Chile.",
+      "Convierte requisitos legales en acciones trazables, priorizadas por riesgo y listas para auditoría.",
     images: [
       {
         url: "/images/og-image.png", // Crear esta imagen 1200x630px
         width: 1200,
         height: 630,
-        alt: "Isolegal - Cumplimiento Normativo Digital",
+        alt: "Isolegal plataforma de cumplimiento normativo y control de riesgo",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Isolegal - Cumplimiento Normativo Digital en Chile",
+    title: "Isolegal - Cumplimiento normativo con control operativo",
     description:
-      "Plataforma digital que simplifica el cumplimiento normativo para industrias reguladas.",
+      "Gestiona tu matriz legal, evidencia y riesgo en un solo lugar. Cumplimiento trazable y listo para auditoría.",
     images: ["/images/og-image.png"],
-    creator: "@isolegal", // Si tienen Twitter
+    creator: "@isolegal",
   },
   manifest: "/manifest.json",
   appleWebApp: {
