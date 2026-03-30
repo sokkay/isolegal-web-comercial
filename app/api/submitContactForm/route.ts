@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
 
 import { notifyTeamFormSubmission } from "@/lib/email/teamFormNotification";
+import { captureServerError } from "@/lib/posthog/server";
 import { getPb } from "@/lib/pocketbase";
 import { contactFormSchema } from "@/lib/schemas/contactForm";
 
@@ -58,6 +59,13 @@ export async function POST(request: NextRequest) {
     }
 
     console.error("Error en submitContactForm:", error);
+    await captureServerError({
+      route: request.nextUrl.pathname,
+      error,
+      properties: {
+        form_name: "contact",
+      },
+    });
     return NextResponse.json(
       {
         error:

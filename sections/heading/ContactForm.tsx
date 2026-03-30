@@ -8,6 +8,8 @@ import Button from "@/components/ui/Button";
 import Checkbox from "@/components/ui/Checkbox";
 import Input from "@/components/ui/Input";
 import TextArea from "@/components/ui/TextArea";
+import { captureClientEvent } from "@/lib/posthog/client";
+import { POSTHOG_EVENTS } from "@/lib/posthog/events";
 import { ContactFormData, contactFormSchema } from "@/lib/schemas/contactForm";
 
 export default function ContactForm() {
@@ -47,6 +49,10 @@ export default function ContactForm() {
       }
 
       setSubmitStatus("success");
+      captureClientEvent(POSTHOG_EVENTS.contactFormCompleted, {
+        consent: data.consent,
+        has_company: Boolean(data.company.trim()),
+      });
       reset();
     } catch (error) {
       setSubmitStatus("error");

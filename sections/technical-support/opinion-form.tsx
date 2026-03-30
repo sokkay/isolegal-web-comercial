@@ -12,6 +12,8 @@ import SentimentDissatisfiedIcon from "@/public/icons/sentiment-dissatisfied.svg
 import SentimentNeutralIcon from "@/public/icons/sentiment-neutral.svg";
 import SentimentSatisfiedIcon from "@/public/icons/sentiment-satisfied.svg";
 import SentimentVerySatisfiedIcon from "@/public/icons/sentiment-very-satisfied.svg";
+import { captureClientEvent } from "@/lib/posthog/client";
+import { POSTHOG_EVENTS } from "@/lib/posthog/events";
 import { opinionFormSchema, type OpinionFormData } from "@/lib/schemas/opinionForm";
 import { cn } from "@/utils/cn";
 
@@ -72,6 +74,9 @@ export const OpinionForm = () => {
       }
 
       setSubmitStatus("success");
+      captureClientEvent(POSTHOG_EVENTS.opinionFormCompleted, {
+        satisfaction: Number(values.satisfaction),
+      });
       reset();
     } catch {
       setSubmitStatus("error");

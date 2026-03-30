@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
 
 import { notifyTeamFormSubmission } from "@/lib/email/teamFormNotification";
+import { captureServerError } from "@/lib/posthog/server";
 import { getPb } from "@/lib/pocketbase";
 import { technicalSupportFormSchema } from "@/lib/schemas/technicalSupportForm";
 
@@ -61,6 +62,13 @@ export async function POST(request: NextRequest) {
     }
 
     console.error("Error en submitTechnicalSupportForm:", error);
+    await captureServerError({
+      route: request.nextUrl.pathname,
+      error,
+      properties: {
+        form_name: "technical_support",
+      },
+    });
     return NextResponse.json(
       {
         error:

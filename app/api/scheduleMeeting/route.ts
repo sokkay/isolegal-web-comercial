@@ -1,4 +1,5 @@
 import { queryCalendarBusyIntervals } from "@/lib/google/calendar";
+import { captureServerError } from "@/lib/posthog/server";
 import { getPb } from "@/lib/pocketbase";
 import {
   buildRateLimitResponseInit,
@@ -38,6 +39,16 @@ export async function POST(request: NextRequest) {
     const adminPassword = process.env.POCKET_BASE_ADMIN_PASSWORD;
 
     if (!adminEmail || !adminPassword) {
+      await captureServerError({
+        route: request.nextUrl.pathname,
+        error: new Error(
+          "Faltan credenciales admin de PocketBase en variables de entorno"
+        ),
+        properties: {
+          flow: "schedule_meeting_availability",
+          stage: "missing_admin_credentials",
+        },
+      });
       return NextResponse.json(
         {
           error:
@@ -56,6 +67,14 @@ export async function POST(request: NextRequest) {
       .getFullList();
     const weeklyScheduleResult = weeklyScheduleSchema.safeParse(weeklyScheduleRaw);
     if (!weeklyScheduleResult.success) {
+      await captureServerError({
+        route: request.nextUrl.pathname,
+        error: new Error("Configuración inválida en agenda_semanal_de_reuniones"),
+        properties: {
+          flow: "schedule_meeting_availability",
+          stage: "invalid_weekly_schedule",
+        },
+      });
       return NextResponse.json(
         {
           error: "Configuración inválida en agenda_semanal_de_reuniones",
@@ -81,6 +100,15 @@ export async function POST(request: NextRequest) {
     });
 
     if (busyResult.errors.length > 0) {
+      await captureServerError({
+        route: request.nextUrl.pathname,
+        error: new Error("No se pudo consultar el calendario de contacto@isolegal.cl"),
+        properties: {
+          flow: "schedule_meeting_availability",
+          stage: "calendar_busy_query",
+          error_count: busyResult.errors.length,
+        },
+      });
       return NextResponse.json(
         {
           error: "No se pudo consultar el calendario de contacto@isolegal.cl",
@@ -131,6 +159,13 @@ export async function POST(request: NextRequest) {
 
     const message =
       error instanceof Error ? error.message : "Error interno del servidor";
+    await captureServerError({
+      route: request.nextUrl.pathname,
+      error,
+      properties: {
+        flow: "schedule_meeting_availability",
+      },
+    });
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

@@ -1,4 +1,5 @@
 import { getPb } from "@/lib/pocketbase";
+import { captureServerError } from "@/lib/posthog/server";
 import {
   scheduleMeetingActiveDaysResponseSchema,
   weeklyScheduleSchema,
@@ -26,6 +27,16 @@ export async function GET(request: NextRequest) {
     const adminPassword = process.env.POCKET_BASE_ADMIN_PASSWORD;
 
     if (!adminEmail || !adminPassword) {
+      await captureServerError({
+        route: request.nextUrl.pathname,
+        error: new Error(
+          "Faltan credenciales admin de PocketBase en variables de entorno"
+        ),
+        properties: {
+          flow: "schedule_meeting_active_days",
+          stage: "missing_admin_credentials",
+        },
+      });
       return NextResponse.json(
         {
           error:
@@ -43,6 +54,14 @@ export async function GET(request: NextRequest) {
       .getFullList();
     const weeklyScheduleResult = weeklyScheduleSchema.safeParse(weeklyScheduleRaw);
     if (!weeklyScheduleResult.success) {
+      await captureServerError({
+        route: request.nextUrl.pathname,
+        error: new Error("Configuración inválida en agenda_semanal_de_reuniones"),
+        properties: {
+          flow: "schedule_meeting_active_days",
+          stage: "invalid_weekly_schedule",
+        },
+      });
       return NextResponse.json(
         {
           error: "Configuración inválida en agenda_semanal_de_reuniones",
@@ -110,6 +129,13 @@ export async function GET(request: NextRequest) {
 
     const message =
       error instanceof Error ? error.message : "Error interno del servidor";
+    await captureServerError({
+      route: request.nextUrl.pathname,
+      error,
+      properties: {
+        flow: "schedule_meeting_active_days",
+      },
+    });
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

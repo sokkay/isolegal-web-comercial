@@ -15,6 +15,7 @@ import {
   queryCalendarBusyIntervals,
 } from "@/lib/google/calendar";
 import { getPb } from "@/lib/pocketbase";
+import { captureServerError } from "@/lib/posthog/server";
 import {
   consumeRiskBookingToken,
   findRiskBookingTokenRecordByRawToken,
@@ -118,6 +119,16 @@ export async function POST(request: NextRequest) {
     const adminEmail = process.env.POCKET_BASE_ADMIN_EMAIL;
     const adminPassword = process.env.POCKET_BASE_ADMIN_PASSWORD;
     if (!adminEmail || !adminPassword) {
+      await captureServerError({
+        route: request.nextUrl.pathname,
+        error: new Error(
+          "Faltan credenciales admin de PocketBase en variables de entorno"
+        ),
+        properties: {
+          flow: "schedule_meeting_booking",
+          stage: "missing_admin_credentials",
+        },
+      });
       return NextResponse.json(
         {
           error:
@@ -274,6 +285,14 @@ export async function POST(request: NextRequest) {
       .getFullList();
     const weeklyScheduleResult = weeklyScheduleSchema.safeParse(weeklyScheduleRaw);
     if (!weeklyScheduleResult.success) {
+      await captureServerError({
+        route: request.nextUrl.pathname,
+        error: new Error("Configuración inválida en agenda_semanal_de_reuniones"),
+        properties: {
+          flow: "schedule_meeting_booking",
+          stage: "invalid_weekly_schedule",
+        },
+      });
       return NextResponse.json(
         {
           error: "Configuración inválida en agenda_semanal_de_reuniones",
@@ -338,6 +357,15 @@ export async function POST(request: NextRequest) {
       timeZone: validatedBody.timeZone,
     });
     if (busyResult.errors.length > 0) {
+      await captureServerError({
+        route: request.nextUrl.pathname,
+        error: new Error("No se pudo consultar disponibilidad del calendario"),
+        properties: {
+          flow: "schedule_meeting_booking",
+          stage: "calendar_busy_query",
+          error_count: busyResult.errors.length,
+        },
+      });
       return NextResponse.json(
         {
           error: "No se pudo consultar disponibilidad del calendario",
@@ -424,6 +452,14 @@ export async function POST(request: NextRequest) {
             "Error al hacer rollback del evento en Google Calendar:",
             rollbackError,
           );
+          await captureServerError({
+            route: request.nextUrl.pathname,
+            error: rollbackError,
+            properties: {
+              flow: "schedule_meeting_booking",
+              stage: "google_calendar_rollback",
+            },
+          });
         }
       }
       throw error;
@@ -441,6 +477,14 @@ export async function POST(request: NextRequest) {
         }
       } catch (tokenConsumeError) {
         console.error("Error consumiendo token de agendamiento:", tokenConsumeError);
+        await captureServerError({
+          route: request.nextUrl.pathname,
+          error: tokenConsumeError,
+          properties: {
+            flow: "schedule_meeting_booking",
+            stage: "consume_booking_token",
+          },
+        });
       }
     }
 
@@ -471,6 +515,14 @@ export async function POST(request: NextRequest) {
             "Error enviando correo de resultados de riesgo (booking):",
             riskEmailError,
           );
+          await captureServerError({
+            route: request.nextUrl.pathname,
+            error: riskEmailError,
+            properties: {
+              flow: "schedule_meeting_booking",
+              stage: "send_risk_results_email",
+            },
+          });
         }
       }
       // TODO: Podria estar generando correos duplicados
@@ -486,6 +538,14 @@ export async function POST(request: NextRequest) {
     } catch (emailError) {
       emailSent = false;
       console.error("Error enviando correo de confirmación:", emailError);
+      await captureServerError({
+        route: request.nextUrl.pathname,
+        error: emailError,
+        properties: {
+          flow: "schedule_meeting_booking",
+          stage: "send_booking_confirmation_email",
+        },
+      });
     }
 
     const payload = scheduleMeetingBookResponseSchema.parse({
@@ -521,6 +581,13 @@ export async function POST(request: NextRequest) {
 
     const message =
       error instanceof Error ? error.message : "Error interno del servidor";
+    await captureServerError({
+      route: request.nextUrl.pathname,
+      error,
+      properties: {
+        flow: "schedule_meeting_booking",
+      },
+    });
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

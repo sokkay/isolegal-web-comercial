@@ -3,6 +3,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { addMonths, getDay, getDaysInMonth, startOfMonth } from "date-fns";
 import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
+import { captureClientEvent } from "@/lib/posthog/client";
+import { POSTHOG_EVENTS } from "@/lib/posthog/events";
 import { bookMeeting, fetchActiveDays, fetchSlotsByDay } from "../lib/api";
 import {
   formatMonthLabel,
@@ -225,6 +227,11 @@ export function AgendaSesionCardStateProvider({
     try {
       const result = await bookingMutation.mutateAsync(selectedSlot);
       setBookingSuccess(result);
+      captureClientEvent(POSTHOG_EVENTS.meetingBooked, {
+        booking_source: bookingSource ?? "risk_calculator",
+        email_sent: result.emailSent,
+        time_zone: timeZone,
+      });
       await queryClient.invalidateQueries({
         queryKey: [
           "scheduleMeeting",

@@ -15,6 +15,8 @@ import {
 } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useForm, UseFormReturn } from "react-hook-form";
+import { captureClientEvent } from "@/lib/posthog/client";
+import { POSTHOG_EVENTS } from "@/lib/posthog/events";
 export type {
   ContextoOperativoFormData,
   SaludMatrizLegalFormData,
@@ -157,6 +159,11 @@ export function RiskCalculatorProvider({
     try {
       const result = await submitRiskCalculatorMutation.mutateAsync(data);
       setCalculationResult(result);
+      captureClientEvent(POSTHOG_EVENTS.riskCalculatorCompleted, {
+        has_submission_id: Boolean(result.submissionId),
+        risk_level: result.riskLevel,
+        score: result.score,
+      });
     } catch (error) {
       throw error;
     }

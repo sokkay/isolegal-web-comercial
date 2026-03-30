@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
 
 import { getPb } from "@/lib/pocketbase";
+import { captureServerError } from "@/lib/posthog/server";
 import { RISK_CALCULATOR_ORIGIN_PENDING } from "@/lib/riskCalculatorEmail";
 import {
   type RiskCalculatorSubmissionData,
@@ -133,6 +134,14 @@ export async function POST(request: NextRequest) {
       submissionId = record.id;
     } catch (pbError) {
       console.error("PocketBase diagnosticos_riesgo:", pbError);
+      await captureServerError({
+        route: request.nextUrl.pathname,
+        error: pbError,
+        properties: {
+          form_name: "risk_calculator",
+          stage: "pocketbase_create",
+        },
+      });
     }
 
     return NextResponse.json(
@@ -162,6 +171,13 @@ export async function POST(request: NextRequest) {
     }
 
     console.error("Error en submitRiskCalculator:", error);
+    await captureServerError({
+      route: request.nextUrl.pathname,
+      error,
+      properties: {
+        form_name: "risk_calculator",
+      },
+    });
     return NextResponse.json(
       {
         error:

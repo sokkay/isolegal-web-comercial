@@ -9,6 +9,8 @@ import Button from "@/components/ui/Button";
 import Checkbox from "@/components/ui/Checkbox";
 import Input from "@/components/ui/Input";
 import TextArea from "@/components/ui/TextArea";
+import { captureClientEvent } from "@/lib/posthog/client";
+import { POSTHOG_EVENTS } from "@/lib/posthog/events";
 import {
   technicalSupportFormSchema,
   type TechnicalSupportFormData,
@@ -46,6 +48,10 @@ export const TechnicalSupportForm = () => {
       }
 
       setSubmitStatus("success");
+      captureClientEvent(POSTHOG_EVENTS.technicalSupportFormCompleted, {
+        accepted_terms: values.terms,
+        has_company: Boolean(values.company.trim()),
+      });
       reset();
     } catch {
       setSubmitStatus("error");

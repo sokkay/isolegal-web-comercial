@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import ReactQueryProvider from "@/components/ReactQueryProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { PostHogProvider } from "@/lib/posthog/PostHogProvider";
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
@@ -97,9 +98,11 @@ export default function RootLayout({
       <body className="antialiased">
         <ThemeProvider>
           <ReactQueryProvider>
-            <Header />
-            {children}
-            <Footer />
+            <PostHogProvider>
+              <Header />
+              {children}
+              <Footer />
+            </PostHogProvider>
           </ReactQueryProvider>
         </ThemeProvider>
       </body>
