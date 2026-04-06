@@ -109,9 +109,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <h1 className="font-extrabold text-4xl md:text-5xl leading-tight tracking-[-1.2px]">
               {post.title}
             </h1>
-            {post.excerpt ? (
+            {/* {post.excerpt ? (
               <p className="text-lg text-text/85">{post.excerpt}</p>
-            ) : null}
+            ) : null} */}
           </header>
         </div>
 

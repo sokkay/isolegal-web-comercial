@@ -1,20 +1,32 @@
 import EmailIcon from "@/public/icons/email.svg";
 import LinkedInIcon from "@/public/icons/linkedin.svg";
+import NewsIcon from "@/public/icons/news.svg";
+import Link from "next/link";
 import Logo from "./Logo";
 import Button from "./ui/Button";
-import Link from "next/link";
 
 export default function Footer() {
   const socialMedia = [
     {
       name: "Email",
       href: "mailto:contacto@isolegal.cl",
-      icon: <EmailIcon className="w-5.5 h-5.5 fill-[#64748B] dark:fill-white/60" />,
+      icon: (
+        <EmailIcon className="w-5.5 h-5.5 fill-[#64748B] dark:fill-white/60" />
+      ),
     },
     {
       name: "LinkedIn",
       href: "https://www.linkedin.com/company/isolegal",
-      icon: <LinkedInIcon className="w-5.5 h-5.5 fill-[#64748B] dark:fill-white/60" />,
+      icon: (
+        <LinkedInIcon className="w-5.5 h-5.5 fill-[#64748B] dark:fill-white/60" />
+      ),
+    },
+    {
+      name: "Blog",
+      href: "/blog",
+      icon: (
+        <NewsIcon className="w-5.5 h-5.5 fill-[#64748B] dark:fill-white/60" />
+      ),
     },
   ];
 
@@ -79,7 +91,10 @@ export default function Footer() {
             {/* <a className="hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
               Política de privacidad
             </a> */}
-            <Link href="/terminos-y-condiciones" className="hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
+            <Link
+              href="/terminos-y-condiciones"
+              className="hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
+            >
               Términos y condiciones
             </Link>
           </div>
