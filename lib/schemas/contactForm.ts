@@ -1,6 +1,8 @@
-import freeEmailDomains from "free-email-domains";
 import { z } from "zod";
-import { isBusinessEmailValidationEnabled } from "@/lib/config/businessEmailValidation";
+import {
+  hasBusinessEmailDomain,
+  isBusinessEmailValidationEnabled,
+} from "@/lib/config/businessEmailValidation";
 
 export const contactFormSchema = z.object({
   firstname: z.string().min(1, "Nombre y Apellido es requerido"),
@@ -12,8 +14,7 @@ export const contactFormSchema = z.object({
         return true;
       }
 
-      const domain = val.split("@")[1]?.toLowerCase();
-      return !!domain && !freeEmailDomains.includes(domain);
+      return hasBusinessEmailDomain(val);
     }, {
       message: "Debes usar un correo corporativo",
     }),

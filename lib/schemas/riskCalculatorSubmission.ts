@@ -1,6 +1,8 @@
-import freeEmailDomains from "free-email-domains";
 import { z } from "zod";
-import { isBusinessEmailValidationEnabled } from "@/lib/config/businessEmailValidation";
+import {
+  hasBusinessEmailDomain,
+  isBusinessEmailValidationEnabled,
+} from "@/lib/config/businessEmailValidation";
 
 export const gestionMatrizEnum = z.enum([
   "planilla_excel_control_manual",
@@ -83,8 +85,7 @@ export const riskCalculatorSubmissionSchema = z.object({
           return true;
         }
 
-        const domain = val.split("@")[1]?.toLowerCase();
-        return !!domain && !freeEmailDomains.includes(domain);
+        return hasBusinessEmailDomain(val);
       }, {
         message: "Debes usar un correo corporativo",
       }),
