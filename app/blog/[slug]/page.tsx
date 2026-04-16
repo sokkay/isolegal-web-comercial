@@ -1,3 +1,4 @@
+import ProtectedImage from "@/components/ProtectedImage";
 import {
   getPublishedBlogPostBySlug,
   getPublishedBlogPosts,
@@ -5,7 +6,6 @@ import {
 } from "@/lib/blogPosts";
 import clsx from "clsx";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -120,8 +120,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
 
         {post.coverImageUrl ? (
-          <div className="relative mt-10 mx-auto aspect-video w-full max-w-5xl overflow-hidden rounded-2xl border border-text/15">
-            <Image
+          <div className="relative mt-10 mx-auto aspect-video w-full max-w-5xl overflow-hidden rounded-2xl border border-text/15 select-none">
+            <ProtectedImage
               src={post.coverImageUrl}
               alt={post.title}
               fill
@@ -134,9 +134,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
         <div
           className={clsx(
-            "prose mt-10 mx-auto max-w-3xl text-text/90 leading-8",
+            "prose mt-10 mx-auto max-w-3xl text-text/90 leading-8 select-none",
             "[&_a]:text-primary [&_a:hover]:text-primary/80",
-            "[&_img]:rounded-xl [&_p]:my-6 [&_p]:leading-8",
+            "[&_img]:rounded-xl [&_img]:pointer-events-none [&_img]:select-none [&_img]:[-webkit-user-drag:none] [&_img]:[-webkit-touch-callout:none]",
+            "[&_p]:my-6 [&_p]:leading-8",
             "[&_h2]:mt-10 [&_h2]:mb-2 [&_h2]:text-3xl",
             "[&_h2]:font-extrabold [&_h2]:tracking-tight [&_h2]:leading-tight",
             "[&_h3]:mt-10 [&_h3]:mb-2 [&_h3]:text-2xl",
@@ -173,8 +174,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 >
                   <Link href={`/blog/${relatedPost.slug}`} className="block h-full">
                     {relatedPost.coverImageUrl ? (
-                      <div className="relative aspect-video w-full">
-                        <Image
+                      <div className="relative aspect-video w-full select-none">
+                        <ProtectedImage
                           src={relatedPost.coverImageUrl}
                           alt={relatedPost.title}
                           fill

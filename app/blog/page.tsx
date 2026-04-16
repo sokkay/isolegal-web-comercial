@@ -1,6 +1,6 @@
+import ProtectedImage from "@/components/ProtectedImage";
 import { getPublishedBlogPosts } from "@/lib/blogPosts";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
 const publishedDateFormatter = new Intl.DateTimeFormat("es-CL", {
@@ -69,8 +69,8 @@ export default async function BlogPage() {
               >
                 <Link href={`/blog/${post.slug}`} className="block">
                   {post.coverImageUrl ? (
-                    <div className="relative aspect-video w-full">
-                      <Image
+                    <div className="relative aspect-video w-full select-none">
+                      <ProtectedImage
                         src={post.coverImageUrl}
                         alt={post.title}
                         fill
