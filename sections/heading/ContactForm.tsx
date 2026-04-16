@@ -12,7 +12,11 @@ import { captureClientEvent } from "@/lib/posthog/client";
 import { POSTHOG_EVENTS } from "@/lib/posthog/events";
 import { ContactFormData, contactFormSchema } from "@/lib/schemas/contactForm";
 
-export default function ContactForm() {
+type ContactFormProps = {
+  onSuccess?: (data: ContactFormData) => void;
+};
+
+export default function ContactForm({ onSuccess }: ContactFormProps = {}) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
@@ -54,6 +58,7 @@ export default function ContactForm() {
         has_company: Boolean(data.company.trim()),
       });
       reset();
+      onSuccess?.(data);
     } catch (error) {
       setSubmitStatus("error");
       setErrorMessage(

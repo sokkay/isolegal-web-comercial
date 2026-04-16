@@ -2,18 +2,25 @@ import freeEmailDomains from "free-email-domains";
 
 const TRUE_VALUES = new Set(["1", "true", "yes", "on"]);
 const FALSE_VALUES = new Set(["0", "false", "no", "off"]);
-const BUSINESS_EMAIL_VALIDATION_ENV_KEYS = [
-  "VALIDATE_BUSINESS_EMAILS",
-  "NEXT_PUBLIC_VALIDATE_BUSINESS_EMAILS",
-] as const;
+const PUBLIC_BUSINESS_EMAIL_VALIDATION_ENV_VALUE =
+  process.env.NEXT_PUBLIC_VALIDATE_BUSINESS_EMAILS;
+const SERVER_BUSINESS_EMAIL_VALIDATION_ENV_VALUE =
+  process.env.VALIDATE_BUSINESS_EMAILS;
 
 function getBusinessEmailValidationEnvValue() {
-  for (const envKey of BUSINESS_EMAIL_VALIDATION_ENV_KEYS) {
-    const value = process.env[envKey];
+  if (
+    typeof PUBLIC_BUSINESS_EMAIL_VALIDATION_ENV_VALUE === "string" &&
+    PUBLIC_BUSINESS_EMAIL_VALIDATION_ENV_VALUE.trim() !== ""
+  ) {
+    return PUBLIC_BUSINESS_EMAIL_VALIDATION_ENV_VALUE;
+  }
 
-    if (typeof value === "string" && value.trim() !== "") {
-      return value;
-    }
+  if (
+    typeof window === "undefined" &&
+    typeof SERVER_BUSINESS_EMAIL_VALIDATION_ENV_VALUE === "string" &&
+    SERVER_BUSINESS_EMAIL_VALIDATION_ENV_VALUE.trim() !== ""
+  ) {
+    return SERVER_BUSINESS_EMAIL_VALIDATION_ENV_VALUE;
   }
 
   return undefined;

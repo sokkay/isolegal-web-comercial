@@ -1,7 +1,9 @@
-import { createHash } from "node:crypto";
+import { createHash, randomBytes } from "node:crypto";
 import type PocketBase from "pocketbase";
+import { z } from "zod";
 
 export const EXTERNAL_BOOKING_TOKENS_COLLECTION = "external_booking_tokens";
+const DEFAULT_EXTERNAL_TOKEN_TTL_DAYS = 14;
 
 type ExternalTokenRecord = {
   id: string;
@@ -12,12 +14,52 @@ type ExternalTokenRecord = {
   used_at?: string | null;
 };
 
+const ttlDaysSchema = z.coerce.number().int().min(1).max(30);
+
 function escapeFilterValue(value: string) {
   return value.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
 }
 
 export function hashExternalBookingToken(rawToken: string) {
   return createHash("sha256").update(rawToken).digest("hex");
+}
+
+export function generateExternalBookingToken() {
+  return randomBytes(32).toString("base64url");
+}
+
+export function resolveExternalBookingTokenTtlDays() {
+  return ttlDaysSchema.parse(
+    process.env.EXTERNAL_BOOKING_TOKEN_TTL_DAYS ?? DEFAULT_EXTERNAL_TOKEN_TTL_DAYS,
+  );
+}
+
+export function buildExternalBookingTokenExpiryDate(ttlDays: number) {
+  return new Date(Date.now() + ttlDays * 24 * 60 * 60 * 1000);
+}
+
+export async function createExternalBookingTokenRecord(params: {
+  pb: PocketBase;
+  name: string;
+  email: string;
+  company: string;
+  ttlDays?: number;
+}) {
+  const rawToken = generateExternalBookingToken();
+  const tokenHash = hashExternalBookingToken(rawToken);
+  const ttlDays = params.ttlDays ?? resolveExternalBookingTokenTtlDays();
+  const expiresAt = buildExternalBookingTokenExpiryDate(ttlDays).toISOString();
+
+  await params.pb.collection(EXTERNAL_BOOKING_TOKENS_COLLECTION).create({
+    token_hash: tokenHash,
+    name: params.name.trim(),
+    email: params.email.trim().toLowerCase(),
+    company: params.company.trim(),
+    expires_at: expiresAt,
+    used_at: null,
+  });
+
+  return { rawToken, tokenHash, expiresAt };
 }
 
 export async function findExternalBookingTokenRecordByRawToken(params: {

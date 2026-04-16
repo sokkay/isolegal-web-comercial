@@ -1,6 +1,13 @@
+"use client";
+
+import type { ContactFormData } from "@/lib/schemas/contactForm";
 import ContactForm from "./ContactForm";
 
-export default function Heading() {
+type HeadingProps = {
+  onContactSuccess?: (data: ContactFormData) => void;
+};
+
+export default function Heading({ onContactSuccess }: HeadingProps = {}) {
   return (
     <div className="bg-darkBlue text-white ">
       <div className="container mx-auto py-16 flex items-center flex-col lg:flex-row gap-8 xl:gap-12">
@@ -32,7 +39,7 @@ export default function Heading() {
           </ul>
         </div>
         <div className="flex-1 w-full">
-          <ContactForm />
+          <ContactForm onSuccess={onContactSuccess} />
         </div>
       </div>
     </div>
