@@ -4,7 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 const publishedDateFormatter = new Intl.DateTimeFormat("es-CL", {
-  dateStyle: "long",
+  month: "long",
+  year: "numeric",
 });
 
 function formatPublishedDate(date: Date): string {

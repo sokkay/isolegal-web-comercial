@@ -16,8 +16,6 @@ function mapStatus(status: number): number {
   return 500;
 }
 
-export const runtime = "nodejs";
-
 export async function GET(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   if (!pathname.startsWith(API_PREFIX)) {

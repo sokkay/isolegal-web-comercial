@@ -14,6 +14,13 @@ export const blogPostRecordSchema = z.object({
   title: z.string().trim().min(1),
   slug: z.string().trim().min(1),
   excerpt: z.string().trim().default(""),
+  tags: z
+    .array(z.string().trim())
+    .optional()
+    .nullable()
+    .transform((value) =>
+      (value ?? []).map((tag) => tag.trim()).filter(Boolean)
+    ),
   content_html: z.string().trim().min(1),
   cover_image_key: z
     .string()

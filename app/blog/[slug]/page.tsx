@@ -1,10 +1,12 @@
 import {
   getPublishedBlogPostBySlug,
   getPublishedBlogPosts,
+  getRelatedPublishedBlogPosts,
 } from "@/lib/blogPosts";
 import clsx from "clsx";
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 type BlogPostPageProps = {
@@ -12,7 +14,8 @@ type BlogPostPageProps = {
 };
 
 const publishedDateFormatter = new Intl.DateTimeFormat("es-CL", {
-  dateStyle: "long",
+  month: "long",
+  year: "numeric",
 });
 
 function formatPublishedDate(date: Date): string {
@@ -24,7 +27,6 @@ function formatPublishedDate(date: Date): string {
 }
 
 export const revalidate = 3600;
-export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const posts = await getPublishedBlogPosts();
@@ -91,6 +93,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
+  const relatedPosts = await getRelatedPublishedBlogPosts(post, 3);
+
   return (
     <main className="bg-background text-text min-h-dvh">
       <article className="container mx-auto px-5 py-16 md:px-6">
@@ -149,6 +153,60 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           )}
           dangerouslySetInnerHTML={{ __html: post.contentHtml }}
         />
+
+        {relatedPosts.length > 0 ? (
+          <section className="mx-auto mt-16 max-w-5xl border-t border-text/10 pt-12">
+            <div className="mx-auto max-w-3xl">
+              <h2 className="text-3xl font-extrabold tracking-tight">
+                Blogs recomendados
+              </h2>
+              <p className="mt-3 text-text/70">
+                Sigue leyendo contenido relacionado con este tema.
+              </p>
+            </div>
+
+            <div className="mt-8 grid gap-6 md:grid-cols-3">
+              {relatedPosts.map((relatedPost) => (
+                <article
+                  key={relatedPost.id}
+                  className="overflow-hidden rounded-2xl border border-text/10 bg-background/60"
+                >
+                  <Link href={`/blog/${relatedPost.slug}`} className="block h-full">
+                    {relatedPost.coverImageUrl ? (
+                      <div className="relative aspect-video w-full">
+                        <Image
+                          src={relatedPost.coverImageUrl}
+                          alt={relatedPost.title}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                        />
+                      </div>
+                    ) : (
+                      <div className="aspect-video w-full bg-text/5" />
+                    )}
+
+                    <div className="space-y-3 p-5">
+                      <p className="text-sm uppercase tracking-wide text-text/60">
+                        {formatPublishedDate(relatedPost.publishedAt)}
+                      </p>
+                      <h3 className="text-xl font-bold leading-tight">
+                        {relatedPost.title}
+                      </h3>
+                      <p className="text-sm leading-6 text-text/75">
+                        {relatedPost.excerpt ||
+                          "Sin resumen disponible para esta publicación."}
+                      </p>
+                      <span className="inline-flex text-sm font-semibold text-primary">
+                        Leer artículo
+                      </span>
+                    </div>
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : null}
       </article>
     </main>
   );

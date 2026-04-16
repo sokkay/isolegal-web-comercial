@@ -1,6 +1,6 @@
-import { unstable_cache } from "next/cache";
 import type PocketBase from "pocketbase";
 import type { RecordModel } from "pocketbase";
+import { cache } from "react";
 
 import { getPb } from "@/lib/pocketbase";
 import { blogPostRecordSchema } from "@/lib/schemas/blogPost";
@@ -13,6 +13,7 @@ export interface BlogPost {
   title: string;
   slug: string;
   excerpt: string;
+  tags: string[];
   contentHtml: string;
   coverImageUrl: string | null;
   publishedAt: Date;
@@ -25,6 +26,7 @@ interface CachedBlogPost {
   title: string;
   slug: string;
   excerpt: string;
+  tags?: string[];
   contentHtml: string;
   coverImageUrl: string | null;
   publishedAt: string;
@@ -35,6 +37,10 @@ interface CachedBlogPost {
 function toValidDate(value: string): Date | null {
   const date = new Date(value);
   return Number.isNaN(date.getTime()) ? null : date;
+}
+
+function normalizeTags(tags: string[] | null | undefined): string[] {
+  return (tags ?? []).map((tag) => tag.trim()).filter(Boolean);
 }
 
 function hydrateBlogPost(post: CachedBlogPost): BlogPost | null {
@@ -51,6 +57,7 @@ function hydrateBlogPost(post: CachedBlogPost): BlogPost | null {
     title: post.title,
     slug: post.slug,
     excerpt: post.excerpt,
+    tags: normalizeTags(post.tags),
     contentHtml: post.contentHtml,
     coverImageUrl: post.coverImageUrl,
     publishedAt,
@@ -93,6 +100,7 @@ function normalizeBlogPost(
     title: (record as { title?: unknown }).title,
     slug: (record as { slug?: unknown }).slug,
     excerpt: (record as { excerpt?: unknown }).excerpt,
+    tags: (record as { tags?: unknown }).tags,
     content_html: (record as { content_html?: unknown }).content_html,
     cover_image_key: (record as { cover_image_key?: unknown }).cover_image_key,
     status: (record as { status?: unknown }).status,
@@ -132,6 +140,7 @@ function normalizeBlogPost(
     title: post.title,
     slug: post.slug,
     excerpt: post.excerpt,
+    tags: post.tags,
     contentHtml: post.content_html,
     coverImageUrl,
     publishedAt: post.published_at,
@@ -140,36 +149,30 @@ function normalizeBlogPost(
   };
 }
 
-const loadPublishedBlogPosts = unstable_cache(
-  async (): Promise<CachedBlogPost[]> => {
-    try {
-      const pb = await getPbAdminAuthenticated();
-      const now = new Date();
+const loadPublishedBlogPosts = cache(async (): Promise<CachedBlogPost[]> => {
+  try {
+    const pb = await getPbAdminAuthenticated();
+    const now = new Date();
 
-      const records = await pb.collection(BLOG_POSTS_COLLECTION).getFullList({
-        filter: 'status = "published"',
-        sort: "-published_at",
-      });
+    const records = await pb.collection(BLOG_POSTS_COLLECTION).getFullList({
+      filter: 'status = "published"',
+      sort: "-published_at",
+    });
 
-      const posts: CachedBlogPost[] = [];
-      for (const record of records) {
-        const normalized = normalizeBlogPost(record, now);
-        if (normalized) {
-          posts.push(normalized);
-        }
+    const posts: CachedBlogPost[] = [];
+    for (const record of records) {
+      const normalized = normalizeBlogPost(record, now);
+      if (normalized) {
+        posts.push(normalized);
       }
-
-      return posts;
-    } catch (error) {
-      console.error("No fue posible cargar blog_posts:", error);
-      return [];
     }
-  },
-  ["blog-posts-published"],
-  {
-    revalidate: BLOG_CACHE_REVALIDATE_SECONDS,
+
+    return posts;
+  } catch (error) {
+    console.error("No fue posible cargar blog_posts:", error);
+    return [];
   }
-);
+});
 
 export async function getPublishedBlogPosts(): Promise<BlogPost[]> {
   const cachedPosts = await loadPublishedBlogPosts();
@@ -195,4 +198,40 @@ export async function getPublishedBlogPostBySlug(
 
   const posts = await getPublishedBlogPosts();
   return posts.find((post) => post.slug === cleanSlug) ?? null;
+}
+
+function normalizeTag(tag: string): string {
+  return tag.trim().toLowerCase();
+}
+
+export async function getRelatedPublishedBlogPosts(
+  currentPost: BlogPost,
+  limit = 3
+): Promise<BlogPost[]> {
+  if (limit <= 0) {
+    return [];
+  }
+
+  const currentTags = new Set(
+    normalizeTags(currentPost.tags).map(normalizeTag).filter(Boolean)
+  );
+
+  if (currentTags.size === 0) {
+    return [];
+  }
+
+  const posts = await getPublishedBlogPosts();
+
+  return posts
+    .filter((post) => {
+      if (post.id === currentPost.id) {
+        return false;
+      }
+
+      return normalizeTags(post.tags).some((tag) =>
+        currentTags.has(normalizeTag(tag))
+      );
+    })
+    .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+    .slice(0, limit);
 }
