@@ -13,6 +13,7 @@ const manrope = Manrope({
   subsets: ["latin"],
 });
 const GTM_ID = "GTM-K6KZ57WP";
+const LINKEDIN_PARTNER_ID = "10047017";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://isolegal.cl"),
@@ -105,6 +106,31 @@ export default function RootLayout({
             })(window,document,'script','dataLayer','${GTM_ID}');
           `}
         </Script>
+        <Script id="linkedin-partner" strategy="afterInteractive">
+          {`
+            _linkedin_partner_id = "${LINKEDIN_PARTNER_ID}";
+            window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+            window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+          `}
+        </Script>
+        <Script id="linkedin-insight" strategy="afterInteractive">
+          {`
+            (function(l) {
+              if (!l) {
+                window.lintrk = function(a, b) {
+                  window.lintrk.q.push([a, b]);
+                };
+                window.lintrk.q = [];
+              }
+              var s = document.getElementsByTagName("script")[0];
+              var b = document.createElement("script");
+              b.type = "text/javascript";
+              b.async = true;
+              b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+              s.parentNode.insertBefore(b, s);
+            })(window.lintrk);
+          `}
+        </Script>
       </head>
       <body className="antialiased">
         <noscript>
@@ -113,6 +139,15 @@ export default function RootLayout({
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            alt=""
+            src={`https://px.ads.linkedin.com/collect/?pid=${LINKEDIN_PARTNER_ID}&fmt=gif`}
           />
         </noscript>
         <ThemeProvider>
@@ -125,6 +160,7 @@ export default function RootLayout({
           </ReactQueryProvider>
         </ThemeProvider>
       </body>
+      
     </html>
   );
 }
