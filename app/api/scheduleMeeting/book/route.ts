@@ -15,7 +15,8 @@ import {
   queryCalendarBusyIntervals,
 } from "@/lib/google/calendar";
 import { getPb } from "@/lib/pocketbase";
-import { captureServerError } from "@/lib/posthog/server";
+import { POSTHOG_EVENTS } from "@/lib/posthog/events";
+import { captureServerError, captureServerEvent } from "@/lib/posthog/server";
 import {
   consumeRiskBookingToken,
   findRiskBookingTokenRecordByRawToken,
@@ -37,6 +38,7 @@ import {
 } from "@/lib/schemas/scheduleMeeting";
 import {
   buildCandidateSlots,
+  dayNameToIsoWeekday,
   getLocalDayRangeUtc,
   getZonedDateParts,
   mergeIntervals,
@@ -113,6 +115,26 @@ export async function POST(request: NextRequest) {
         },
         { status: 400 },
       );
+    }
+
+    async function captureBookingIssue(params: {
+      reason: string;
+      httpStatus: number;
+      selectedDate?: string;
+    }) {
+      await captureServerEvent({
+        event: POSTHOG_EVENTS.meetingScheduleError,
+        properties: {
+          flow: "schedule_meeting_booking",
+          step: "book_meeting",
+          booking_source: validatedBody.bookingSource ?? "risk_calculator",
+          time_zone: validatedBody.timeZone,
+          reason: params.reason,
+          http_status: params.httpStatus,
+          selected_date:
+            params.selectedDate ?? validatedBody.startDateTime.slice(0, 10),
+        },
+      });
     }
 
     const pb = getPb();
@@ -311,11 +333,17 @@ export async function POST(request: NextRequest) {
     });
     const activeRules = weeklySchedule.filter((rule) => rule.activado);
     const selectedWeekday = normalizeDay(dayRange.weekday);
+    const selectedWeekdayNumber = dayNameToIsoWeekday[selectedWeekday];
     const hasActiveDay = activeRules.some(
-      (rule) => normalizeDay(rule.dia) === selectedWeekday,
+      (rule) => dayNameToIsoWeekday[normalizeDay(rule.dia)] === selectedWeekdayNumber,
     );
 
     if (!hasActiveDay) {
+      await captureBookingIssue({
+        reason: "inactive_day",
+        httpStatus: 409,
+        selectedDate: dayRange.localDateKey,
+      });
       return NextResponse.json(
         { error: "El día seleccionado no está habilitado para reuniones" },
         { status: 409 },
@@ -342,6 +370,11 @@ export async function POST(request: NextRequest) {
     );
 
     if (!hasMatchingSlot) {
+      await captureBookingIssue({
+        reason: "invalid_slot",
+        httpStatus: 409,
+        selectedDate: dayRange.localDateKey,
+      });
       return NextResponse.json(
         {
           error:
@@ -381,6 +414,11 @@ export async function POST(request: NextRequest) {
     );
 
     if (slotIsBusy) {
+      await captureBookingIssue({
+        reason: "slot_unavailable",
+        httpStatus: 409,
+        selectedDate: dayRange.localDateKey,
+      });
       return NextResponse.json(
         {
           error:

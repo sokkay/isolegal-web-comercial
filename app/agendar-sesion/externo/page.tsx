@@ -1,6 +1,11 @@
 "use client";
 
 import AgendaSesionCard from "@/sections/risk-calculator/forms/agenda-sesion-card";
+import {
+  captureClientEvent,
+  captureClientException,
+} from "@/lib/posthog/client";
+import { POSTHOG_EVENTS } from "@/lib/posthog/events";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
@@ -47,6 +52,25 @@ function AgendarSesionExternaContent() {
   const error =
     bookingContextQuery.error instanceof Error ? bookingContextQuery.error.message : null;
   const bookingContext = bookingContextQuery.data ?? null;
+
+  useEffect(() => {
+    if (!bookingContextQuery.error) return;
+
+    captureClientEvent(POSTHOG_EVENTS.meetingScheduleError, {
+      booking_source: "external_admin",
+      step: "validate_external_link",
+      has_token: Boolean(token),
+      error_message:
+        bookingContextQuery.error instanceof Error
+          ? bookingContextQuery.error.message
+          : "No se pudo validar el link",
+    });
+    captureClientException(bookingContextQuery.error, {
+      booking_source: "external_admin",
+      step: "validate_external_link",
+      has_token: Boolean(token),
+    });
+  }, [bookingContextQuery.error, token]);
 
   if (!token) return null;
 

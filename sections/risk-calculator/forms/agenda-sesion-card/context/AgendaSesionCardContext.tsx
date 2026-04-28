@@ -1,10 +1,21 @@
 "use client";
 
+import {
+  captureClientEvent,
+  captureClientException,
+} from "@/lib/posthog/client";
+import { POSTHOG_EVENTS } from "@/lib/posthog/events";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { addMonths, getDay, getDaysInMonth, startOfMonth } from "date-fns";
-import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
-import { captureClientEvent } from "@/lib/posthog/client";
-import { POSTHOG_EVENTS } from "@/lib/posthog/events";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { bookMeeting, fetchActiveDays, fetchSlotsByDay } from "../lib/api";
 import {
   formatMonthLabel,
@@ -86,6 +97,12 @@ export function AgendaSesionCardStateProvider({
     clientName.trim().length > 0 &&
     clientEmail.trim().length > 0 &&
     clientCompany.trim().length > 0;
+  const resolvedBookingSource = bookingSource ?? "risk_calculator";
+  const trackedClientErrorsRef = useRef<{
+    activeDays?: string;
+    slots?: string;
+    booking?: string;
+  }>({});
 
   const activeDaysQuery = useQuery({
     queryKey: ["scheduleMeeting", "activeDays", timeZone],
@@ -159,6 +176,48 @@ export function AgendaSesionCardStateProvider({
     slotsQuery.error instanceof Error ? slotsQuery.error.message : null;
   const showSlotsSkeleton = daysLoading || slotsLoading;
 
+  useEffect(() => {
+    if (!daysError) return;
+
+    const fingerprint = `${resolvedBookingSource}|${timeZone}|${daysError}`;
+    if (trackedClientErrorsRef.current.activeDays === fingerprint) return;
+
+    trackedClientErrorsRef.current.activeDays = fingerprint;
+    captureClientEvent(POSTHOG_EVENTS.meetingScheduleError, {
+      booking_source: resolvedBookingSource,
+      step: "load_active_days",
+      time_zone: timeZone,
+      error_message: daysError,
+    });
+    captureClientException(activeDaysQuery.error ?? new Error(daysError), {
+      booking_source: resolvedBookingSource,
+      step: "load_active_days",
+      time_zone: timeZone,
+    });
+  }, [activeDaysQuery.error, daysError, resolvedBookingSource, timeZone]);
+
+  useEffect(() => {
+    if (!slotsError || !selectedDate) return;
+
+    const fingerprint = `${resolvedBookingSource}|${timeZone}|${selectedDate}|${slotsError}`;
+    if (trackedClientErrorsRef.current.slots === fingerprint) return;
+
+    trackedClientErrorsRef.current.slots = fingerprint;
+    captureClientEvent(POSTHOG_EVENTS.meetingScheduleError, {
+      booking_source: resolvedBookingSource,
+      step: "load_slots",
+      time_zone: timeZone,
+      selected_date: selectedDate,
+      error_message: slotsError,
+    });
+    captureClientException(slotsQuery.error ?? new Error(slotsError), {
+      booking_source: resolvedBookingSource,
+      step: "load_slots",
+      time_zone: timeZone,
+      selected_date: selectedDate,
+    });
+  }, [resolvedBookingSource, selectedDate, slotsError, slotsQuery.error, timeZone]);
+
   const bookingMutation = useMutation({
     mutationFn: (slot: Slot) =>
       bookMeeting({
@@ -228,7 +287,7 @@ export function AgendaSesionCardStateProvider({
       const result = await bookingMutation.mutateAsync(selectedSlot);
       setBookingSuccess(result);
       captureClientEvent(POSTHOG_EVENTS.meetingBooked, {
-        booking_source: bookingSource ?? "risk_calculator",
+        booking_source: resolvedBookingSource,
         email_sent: result.emailSent,
         time_zone: timeZone,
       });
@@ -247,6 +306,47 @@ export function AgendaSesionCardStateProvider({
       setBookingError(message);
     }
   }
+
+  useEffect(() => {
+    if (!bookingError) return;
+
+    const fingerprint = [
+      resolvedBookingSource,
+      timeZone,
+      selectedDate ?? "",
+      selectedSlot?.start ?? "",
+      selectedSlot?.end ?? "",
+      bookingError,
+    ].join("|");
+    if (trackedClientErrorsRef.current.booking === fingerprint) return;
+
+    trackedClientErrorsRef.current.booking = fingerprint;
+    captureClientEvent(POSTHOG_EVENTS.meetingScheduleError, {
+      booking_source: resolvedBookingSource,
+      step: "book_meeting",
+      time_zone: timeZone,
+      selected_date: selectedDate,
+      selected_slot_start: selectedSlot?.start,
+      selected_slot_end: selectedSlot?.end,
+      error_message: bookingError,
+    });
+    captureClientException(bookingMutation.error ?? new Error(bookingError), {
+      booking_source: resolvedBookingSource,
+      step: "book_meeting",
+      time_zone: timeZone,
+      selected_date: selectedDate,
+      selected_slot_start: selectedSlot?.start,
+      selected_slot_end: selectedSlot?.end,
+    });
+  }, [
+    bookingError,
+    bookingMutation.error,
+    resolvedBookingSource,
+    selectedDate,
+    selectedSlot?.end,
+    selectedSlot?.start,
+    timeZone,
+  ]);
 
   function handleSelectDate(dateKey: string) {
     setSelectedDateManual(dateKey);
