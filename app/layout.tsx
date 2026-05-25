@@ -14,15 +14,50 @@ const manrope = Manrope({
 });
 const GTM_ID = "GTM-K6KZ57WP";
 const LINKEDIN_PARTNER_ID = "10047017";
+const SITE_URL = "https://isolegal.cl";
+
+const organizationStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${SITE_URL}/#organization`,
+  name: "Isolegal",
+  url: SITE_URL,
+  logo: `${SITE_URL}/icon-512.png`,
+  sameAs: ["https://www.linkedin.com/company/isolegal"],
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "sales",
+    email: "contacto@isolegal.cl",
+  },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Software de Cumplimiento Normativo",
+    itemListElement: [
+      {
+        "@type": "SoftwareApplication",
+        name: "Isolegal",
+        operatingSystem: "All",
+        applicationCategory: "BusinessApplication",
+        url: SITE_URL,
+        description:
+          "Software de cumplimiento normativo que convierte requisitos legales en acciones operativas, trazables y priorizadas por riesgo. Deja atras Excel hoy.",
+        offers: {
+          "@type": "Offer",
+          priceCurrency: "CLP",
+        },
+      },
+    ],
+  },
+};
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://isolegal.cl"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Isolegal - Cumplimiento Normativo Digital en Chile",
     template: "%s | Isolegal",
   },
   alternates: {
-    canonical: "https://isolegal.cl",
+    canonical: SITE_URL,
   },
   description:
     "Plataforma que convierte requisitos legales en acciones operativas, trazables y priorizadas por riesgo. Gestiona matriz legal, evidencia y cumplimiento en un solo lugar.",
@@ -58,7 +93,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "es_CL",
-    url: "https://isolegal.cl",
+    url: SITE_URL,
     siteName: "Isolegal",
     title: "Isolegal - Control operativo del cumplimiento normativo",
     description:
@@ -97,6 +132,12 @@ export default function RootLayout({
     <html lang="es" className={manrope.variable} suppressHydrationWarning>
       <head>
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationStructuredData),
+          }}
+        />
         <Script id="google-tag-manager" strategy="afterInteractive">
           {`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
