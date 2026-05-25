@@ -5,7 +5,13 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/api/"],
+      disallow: [
+        "/api/",
+        "/new/tag/",
+        "/new/category/",
+        "/new/page/",
+        "*/feed/",
+      ],
     },
     sitemap: "https://isolegal.cl/sitemap.xml",
   };
