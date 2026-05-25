@@ -1,9 +1,8 @@
 import { getBlogSitemapIndexEntry } from "@/lib/sitemap/blog";
 import { buildIndexXml } from "@/lib/sitemap/buildIndexXml";
-import { SITEMAP_REVALIDATE_SECONDS } from "@/lib/sitemap/constants";
 import { getMainSitemapIndexEntry } from "@/lib/sitemap/main";
 
-export const revalidate = SITEMAP_REVALIDATE_SECONDS;
+export const revalidate = 3600;
 
 export async function GET() {
   const xml = buildIndexXml([
