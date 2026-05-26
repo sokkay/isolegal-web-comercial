@@ -1,0 +1,236 @@
+<div
+  style="
+    margin: 0;
+    padding: 24px;
+    background: #f6f8f7;
+    font-family: Manrope, Arial, sans-serif;
+    color: #202b5f;
+  "
+>
+  <table
+    role="presentation"
+    width="100%"
+    cellpadding="0"
+    cellspacing="0"
+    style="
+      max-width: 720px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+    "
+  >
+    <tr>
+      <td style="padding: 24px; background: #1e5e3d; color: #ffffff">
+        <div style="font-size: 22px; font-weight: 800; line-height: 1.2">
+          Recibimos tu solicitud de soporte
+        </div>
+        <div style="margin-top: 6px; font-size: 14px; opacity: 0.95">
+          Isolegal · Copia de tu formulario
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding: 24px">
+        <p style="margin: 0 0 12px 0; font-size: 15px; line-height: 1.6">
+          Hola {{toName}},
+        </p>
+        <p style="margin: 0 0 16px 0; font-size: 15px; line-height: 1.6">
+          Hemos recibido tu solicitud y nuestro equipo la revisará a la
+          brevedad. Usa el siguiente ID para hacer seguimiento:
+        </p>
+
+        <div
+          style="
+            margin: 0 0 18px 0;
+            padding: 16px;
+            border-radius: 12px;
+            background: #ecfdf3;
+            border: 1px solid #bbf7d0;
+            color: #14532d;
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+          "
+        >
+          ID de seguimiento: {{trackingId}}
+        </div>
+
+        <table
+          role="presentation"
+          width="100%"
+          cellpadding="0"
+          cellspacing="0"
+          style="
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            margin: 0;
+            background: #f8fafc;
+          "
+        >
+          <tr>
+            <td
+              style="
+                width: 36%;
+                padding: 10px 14px;
+                font-size: 13px;
+                color: #64748b;
+                border-bottom: 1px solid #e2e8f0;
+                vertical-align: top;
+              "
+            >
+              Tipo de solicitud
+            </td>
+            <td
+              style="
+                padding: 10px 14px;
+                font-size: 13px;
+                color: #0f172a;
+                border-bottom: 1px solid #e2e8f0;
+                word-break: break-word;
+              "
+            >
+              {{supportTypeLabel}}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="
+                width: 36%;
+                padding: 10px 14px;
+                font-size: 13px;
+                color: #64748b;
+                border-bottom: 1px solid #e2e8f0;
+                vertical-align: top;
+              "
+            >
+              Fecha
+            </td>
+            <td
+              style="
+                padding: 10px 14px;
+                font-size: 13px;
+                color: #0f172a;
+                border-bottom: 1px solid #e2e8f0;
+                word-break: break-word;
+              "
+            >
+              {{submittedAtDisplay}}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="
+                width: 36%;
+                padding: 10px 14px;
+                font-size: 13px;
+                color: #64748b;
+                border-bottom: 1px solid #e2e8f0;
+                vertical-align: top;
+              "
+            >
+              Empresa
+            </td>
+            <td
+              style="
+                padding: 10px 14px;
+                font-size: 13px;
+                color: #0f172a;
+                border-bottom: 1px solid #e2e8f0;
+                word-break: break-word;
+              "
+            >
+              {{company}}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="
+                width: 36%;
+                padding: 10px 14px;
+                font-size: 13px;
+                color: #64748b;
+                border-bottom: 1px solid #e2e8f0;
+                vertical-align: top;
+              "
+            >
+              Teléfono
+            </td>
+            <td
+              style="
+                padding: 10px 14px;
+                font-size: 13px;
+                color: #0f172a;
+                border-bottom: 1px solid #e2e8f0;
+                word-break: break-word;
+              "
+            >
+              {{phone}}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="
+                width: 36%;
+                padding: 10px 14px;
+                font-size: 13px;
+                color: #64748b;
+                border-bottom: 1px solid #e2e8f0;
+                vertical-align: top;
+              "
+            >
+              Email
+            </td>
+            <td
+              style="
+                padding: 10px 14px;
+                font-size: 13px;
+                color: #0f172a;
+                border-bottom: 1px solid #e2e8f0;
+                word-break: break-word;
+              "
+            >
+              {{email}}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="
+                width: 36%;
+                padding: 10px 14px;
+                font-size: 13px;
+                color: #64748b;
+                vertical-align: top;
+              "
+            >
+              Descripción
+            </td>
+            <td
+              style="
+                padding: 10px 14px;
+                font-size: 13px;
+                color: #0f172a;
+                word-break: break-word;
+              "
+            >
+              {{problem}}
+            </td>
+          </tr>
+        </table>
+
+        <p
+          style="
+            margin: 18px 0 0 0;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #64748b;
+          "
+        >
+          Este correo confirma que tu solicitud fue registrada correctamente. Si
+          necesitas contactarnos por este caso, menciona el ID de seguimiento.
+        </p>
+      </td>
+    </tr>
+  </table>
+</div>

@@ -4,6 +4,7 @@ import {
   type ZeptoMailAttachment,
 } from "@/lib/email/meetingInvitationIcs";
 import { buildRiskCalculatorResultsTemplate } from "@/lib/email/riskCalculatorResultsTemplate";
+import { buildTechnicalSupportCopyTemplate } from "@/lib/email/technicalSupportCopyTemplate";
 import { getTeamFormNotificationEmails } from "./teamFormNotificationRecipients";
 
 const defaultZeptoMailUrl = "https://api.zeptomail.com/v1.1/email";
@@ -16,6 +17,14 @@ function formatDateTime(valueIso: string, timeZone: string) {
   }).format(new Date(valueIso));
 }
 
+function formatSubmittedAt(value: Date) {
+  return new Intl.DateTimeFormat("es-CL", {
+    dateStyle: "full",
+    timeStyle: "short",
+    timeZone: "America/Santiago",
+  }).format(value);
+}
+
 export async function sendMeetingConfirmationEmail(params: {
   toEmail: string;
   toName: string;
@@ -25,7 +34,10 @@ export async function sendMeetingConfirmationEmail(params: {
   eventLink?: string;
   meetLink?: string;
 }) {
-  const formattedStart = formatDateTime(params.startDateTimeIso, params.timeZone);
+  const formattedStart = formatDateTime(
+    params.startDateTimeIso,
+    params.timeZone
+  );
   const formattedEnd = formatDateTime(params.endDateTimeIso, params.timeZone);
   const htmlbody = buildMeetingConfirmationTemplate({
     toName: params.toName,
@@ -58,7 +70,6 @@ function getRiskLevelLabel(riskLevel: "bajo" | "alto" | "critico") {
   if (riskLevel === "alto") return "Riesgo Alto";
   return "Riesgo Crítico";
 }
-
 
 function mapGestionMatriz(value: string) {
   const labels: Record<string, string> = {
@@ -151,7 +162,7 @@ export async function sendRiskCalculatorResultsEmail(params: {
     cambioNormativo: mapCambioNormativo(params.cambioNormativo),
     evidenciaTrazable: mapEvidenciaTrazable(params.evidenciaTrazable),
     compromisosVoluntarios: mapCompromisosVoluntarios(
-      params.compromisosVoluntarios,
+      params.compromisosVoluntarios
     ),
     agendaLink: params.agendaLink,
   });
@@ -165,6 +176,35 @@ export async function sendRiskCalculatorResultsEmail(params: {
         : "Copia de tu formulario completado | Isolegal 🌱",
     htmlbody,
     bccEmails: getTeamFormNotificationEmails(),
+  });
+}
+
+export async function sendTechnicalSupportCopyEmail(params: {
+  toEmail: string;
+  toName: string;
+  trackingId: string;
+  supportTypeLabel: string;
+  submittedAt?: Date;
+  company: string;
+  phone: string;
+  problem: string;
+}) {
+  const htmlbody = buildTechnicalSupportCopyTemplate({
+    toName: params.toName,
+    trackingId: params.trackingId,
+    supportTypeLabel: params.supportTypeLabel,
+    submittedAtDisplay: formatSubmittedAt(params.submittedAt ?? new Date()),
+    company: params.company,
+    phone: params.phone,
+    email: params.toEmail,
+    problem: params.problem,
+  });
+
+  await sendZeptoMail({
+    toEmail: params.toEmail,
+    toName: params.toName,
+    subject: "Recibimos tu solicitud de soporte | Isolegal",
+    htmlbody,
   });
 }
 
@@ -227,6 +267,6 @@ export async function sendZeptoMail(params: {
 
   const responseText = await response.text();
   throw new Error(
-    `Error enviando correo de confirmación (${response.status}): ${responseText}`,
+    `Error enviando correo de confirmación (${response.status}): ${responseText}`
   );
 }
