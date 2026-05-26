@@ -1,9 +1,9 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 import Button from "@/components/ui/Button";
 import Checkbox from "@/components/ui/Checkbox";
@@ -12,6 +12,7 @@ import TextArea from "@/components/ui/TextArea";
 import { captureClientEvent } from "@/lib/posthog/client";
 import { POSTHOG_EVENTS } from "@/lib/posthog/events";
 import {
+  TECHNICAL_SUPPORT_TYPE_OPTIONS,
   technicalSupportFormSchema,
   type TechnicalSupportFormData,
 } from "@/lib/schemas/technicalSupportForm";
@@ -28,6 +29,7 @@ export const TechnicalSupportForm = () => {
   } = useForm<TechnicalSupportFormData>({
     resolver: zodResolver(technicalSupportFormSchema),
     defaultValues: {
+      supportType: undefined,
       terms: false,
     },
   });
@@ -51,6 +53,7 @@ export const TechnicalSupportForm = () => {
       captureClientEvent(POSTHOG_EVENTS.technicalSupportFormCompleted, {
         accepted_terms: values.terms,
         has_company: Boolean(values.company.trim()),
+        support_type: values.supportType,
       });
       reset();
     } catch {
@@ -81,9 +84,7 @@ export const TechnicalSupportForm = () => {
         <div className="space-y-1">
           <Input label="Nombre" {...register("name")} />
           {errors.name?.message && (
-            <span className="text-xs text-red-500">
-              {errors.name.message}
-            </span>
+            <span className="text-xs text-red-500">{errors.name.message}</span>
           )}
         </div>
         <div className="space-y-1">
@@ -100,40 +101,57 @@ export const TechnicalSupportForm = () => {
         <div className="space-y-1">
           <Input label="Telefono" type="tel" {...register("phone")} />
           {errors.phone?.message && (
-            <span className="text-xs text-red-500">
-              {errors.phone.message}
-            </span>
+            <span className="text-xs text-red-500">{errors.phone.message}</span>
           )}
         </div>
         <div className="space-y-1">
           <Input label="Email" type="email" {...register("email")} />
           {errors.email?.message && (
-            <span className="text-xs text-red-500">
-              {errors.email.message}
-            </span>
+            <span className="text-xs text-red-500">{errors.email.message}</span>
           )}
         </div>
       </div>
 
       <div className="space-y-1">
+        <label className="text-text font-semibold text-sm">
+          Tipo de solicitud
+        </label>
+        <select
+          className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-lg text-text text-sm font-semibold focus:outline-none focus:border-primary transition-colors"
+          defaultValue=""
+          {...register("supportType")}
+        >
+          <option value="" disabled>
+            Selecciona el tipo de soporte que necesitas
+          </option>
+          {TECHNICAL_SUPPORT_TYPE_OPTIONS.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+        {errors.supportType?.message && (
+          <span className="text-xs text-red-500">
+            {errors.supportType.message}
+          </span>
+        )}
+      </div>
+
+      <div className="space-y-1">
         <TextArea
-          label="Descripción del problema"
-          placeholder="Describe detalladamente lo que sucede..."
+          label="Describe tu solicitud"
+          placeholder="Cuéntanos qué ocurre o qué necesitas revisar. Mientras más detalle incluyas, más rápido podremos ayudarte."
           {...register("problem")}
         />
         {errors.problem?.message && (
-          <span className="text-xs text-red-500">
-            {errors.problem.message}
-          </span>
+          <span className="text-xs text-red-500">{errors.problem.message}</span>
         )}
       </div>
 
       <div className="space-y-1">
         <Checkbox label="Términos y condiciones" {...register("terms")} />
         {errors.terms?.message && (
-          <span className="text-xs text-red-500">
-            {errors.terms.message}
-          </span>
+          <span className="text-xs text-red-500">{errors.terms.message}</span>
         )}
       </div>
 
