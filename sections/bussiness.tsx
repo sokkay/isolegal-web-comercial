@@ -29,6 +29,13 @@ const TEMP_LOGOS: BusinessLogo[] = [
   { id: 13, imageUrl: "/images/logos/13.png", alt: "Cliente 13" },
   { id: 14, imageUrl: "/images/logos/14.png", alt: "Cliente 14" },
   { id: 15, imageUrl: "/images/logos/15.png", alt: "Cliente 15" },
+  { id: 16, imageUrl: "/images/logos/16.png", alt: "CMP" },
+  { id: 17, imageUrl: "/images/logos/17.png", alt: "Cobra" },
+  {
+    id: 18,
+    imageUrl: "/images/logos/18.png",
+    alt: "Aguas Santiago Poniente",
+  },
 ];
 
 export default function BussinessSection() {
