@@ -1,0 +1,6 @@
+allowBuilds:
+  core-js: true
+  free-email-domains: true
+  protobufjs: true
+  sharp: true
+  unrs-resolver: true

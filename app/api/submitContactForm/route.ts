@@ -16,6 +16,9 @@ export async function POST(request: NextRequest) {
       empresa: validatedData.company,
       email: validatedData.email,
       telefono: validatedData.mobilephone,
+      cargo: validatedData.cargo,
+      tamano_empresa: validatedData.companySize,
+      rubro: validatedData.rubro,
       mensaje: validatedData.message,
     });
 
@@ -26,9 +29,12 @@ export async function POST(request: NextRequest) {
         fields: [
           { label: "Nombre", value: validatedData.firstname },
           { label: "Empresa", value: validatedData.company },
-          { label: "Email", value: validatedData.email },
+          { label: "Correo corporativo", value: validatedData.email },
           { label: "Teléfono", value: validatedData.mobilephone },
-          { label: "Mensaje", value: validatedData.message },
+          { label: "Cargo", value: validatedData.cargo },
+          { label: "Tamaño de la empresa", value: validatedData.companySize },
+          { label: "Rubro/Industria", value: validatedData.rubro },
+          { label: "¿Qué necesita resolver tu empresa?", value: validatedData.message },
           { label: "Consentimiento", value: validatedData.consent },
         ],
       });
