@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const features = [
   {
-    title: "Dashboard interactivo",
+    title: "Dashboard de cumplimiento legal en tiempo real",
     description:
       "Visualiza el nivel de cumplimiento de tus matrices con indicadores claros y actualizados en tiempo real.",
     image: "/images/features/dashboard-interactivo.png",
@@ -25,7 +25,7 @@ const features = [
     image: "/images/features/informes-personalizados.png",
   },
   {
-    title: "Gestión de riesgos",
+    title: "Gestión de riesgos normativos",
     description:
       "Visualiza un mapa de calor con los riesgos asociados a los requisitos normativos de tu matriz para una gestión más eficiente.",
     image: "/images/features/gestion-de-riesgos.png",
