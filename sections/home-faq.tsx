@@ -100,7 +100,7 @@ export default function HomeFaqSection() {
 
           <FaqAccordion
             items={homeFaqItems}
-            className="border-border bg-card-background/90 rounded-2xl border px-5 shadow-lg shadow-black/5 backdrop-blur-sm sm:px-8"
+            className="bg-card-background/90 rounded-2xl px-5 shadow-md shadow-black/5 backdrop-blur-sm sm:px-8"
           />
         </div>
       </div>
