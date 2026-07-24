@@ -18,37 +18,37 @@ const characteristics = [
     icon: <HeatmapIcon className="fill-primary w-9 h-9" />,
     title: "Análisis de riesgo con mapa de calor",
     description:
-      "Visualiza dónde está tu mayor exposición al incumplimiento: priorizamos brechas críticas según su impacto y probabilidad, para enfocar la gestión donde realmente se genera el riesgo y reducir no conformidades antes de auditorías o sanciones en fiscalizaciones.",
-  },
-  {
-    icon: <DatabaseV2Icon className="fill-primary w-9 h-9" />,
-    title: "Base de datos normativa gestionada por abogados",
-    description:
-      "Nos encargamos de la gestión completa de tu matriz legal: incorporamos, actualizamos o eliminamos normas según cambios legales y su aplicabilidad real a tu operación.",
+      "Identifica rápidamente las áreas con mayor exposición al incumplimiento normativo. Priorizamos brechas críticas según impacto y probabilidad, para enfocar la gestión donde existe mayor riesgo operacional, legal o reputacional.",
   },
   {
     icon: <MatrizLegalPersonalizadaIcon className="fill-primary w-9 h-9" />,
-    title: "Matriz legal personalizada y accionable",
+    title: "Matriz legal personalizada y accionable en Chile",
     description:
-      "Visualiza solo lo que te aplica según tu rubro y actividad. Sin ruido ni duplicidades.",
+      "Administramos y mantenemos actualizada tu matriz legal, mostrando solo lo que te aplica según tu rubro y actividad. Sin ruido ni duplicidades.",
   },
   {
     icon: <PreguntasGuiaIcon className="fill-primary w-9 h-9" />,
-    title: "Preguntas guía con interpretación normativa clara",
+    title: "Interpretación normativa clara y aplicable",
     description:
-      "Convertimos requisitos legales en acciones concretas para controlar tu riesgo de cumplimiento.",
+      "Convertimos requisitos legales complejos en preguntas guía y acciones concretas para facilitar el cumplimiento en terreno.",
   },
   {
     icon: <RevisionInteligenteIcon className="fill-primary w-9 h-9" />,
-    title: "Revisión inteligente de evidencia con apoyo de IA",
+    title: "Revisión inteligente de evidencia con IA",
     description:
-      "Nuestra IA valida que la evidencia sea pertinente y suficiente, reduciendo reprocesos permitiendo ahorrar auditorias internas de cumplimiento legal.",
+      "Nuestro sistema valida si la evidencia cargada es pertinente y suficiente antes de auditorías o fiscalizaciones, reduciendo reprocesos y tiempos de revisión.",
   },
   {
     icon: <GestionCumplimientoIcon className="fill-primary w-9 h-9" />,
-    title: "Gestión de cumplimiento y acompañamiento en auditorías",
+    title: "Gestión de auditorías y fiscalizaciones",
     description:
-      "Alertas automáticas de cambios normativos, planes de acción trazables y apoyo experto durante auditorías internas, externas o de certificación.",
+      "Gestiona auditorías internas, externas o de certificación con información ordenada, trazable y disponible en tiempo real.",
+  },
+  {
+    icon: <DatabaseV2Icon className="fill-primary w-9 h-9" />,
+    title: "Base normativa administrada por abogados",
+    description:
+      "Nuestro equipo legal mantiene actualizada la matriz normativa incorporando cambios legales, derogaciones y nuevas obligaciones aplicables a tu operación.",
   },
 ];
 
@@ -182,13 +182,13 @@ export default function WhyIsolegalV2() {
   return (
     <section id="soluciones" className="container mx-auto py-16">
       <h2 className="text-3xl font-bold text-center text-text dark:text-white mb-12">
-        ¿Por qué Isolegal?
+        ¿Por qué Isolegal es tu software de compliance?
       </h2>
 
-      <h3 className="text-xl font-bold text-center text-text dark:text-white mb-12">
+      <p className="text-xl font-bold text-center text-text dark:text-white mb-12">
         Convertimos requisitos legales en acciones concretas para controlar tu
         riesgo de cumplimiento
-      </h3>
+      </p>
 
       <div className="embla relative">
         <div
