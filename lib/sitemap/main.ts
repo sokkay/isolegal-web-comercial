@@ -21,6 +21,12 @@ export function getMainSitemapEntries(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${SITE_URL}/sistema-de-gestion-sst`,
+      lastModified: new Date("2026-07-24T00:00:00.000Z"),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
       url: `${SITE_URL}/soporte-tecnico`,
       lastModified: STATIC_CONTENT_LAST_MODIFIED,
       changeFrequency: "monthly",

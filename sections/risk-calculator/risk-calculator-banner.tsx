@@ -2,67 +2,84 @@ import Button from "@/components/ui/Button";
 import MapIcon from "@/public/icons/map.svg";
 import ScoreIcon from "@/public/icons/score.svg";
 import WarningIcon from "@/public/icons/warning.svg";
-import { cn } from "@/utils/cn";
 import Image from "next/image";
+
+export type RiskCalculatorInformationItem = {
+  title: string;
+  description: string;
+};
 
 type RiskCalculatorBannerProps = {
   onStart?: () => void;
+  title?: string;
+  description?: string;
+  buttonText?: string;
+  informationItems?: RiskCalculatorInformationItem[];
+  useThemeAccent?: boolean;
 };
 
 export default function RiskCalculatorBanner({
   onStart,
+  title = "¿Tu empresa resistiría una fiscalización o auditoria legal hoy mismo?",
+  description = "Descubre el nivel de riesgo de incumplimiento normativo de tu organización en menos de 5 minutos.",
+  buttonText = "Iniciar evaluación Gratuita",
+  informationItems,
+  useThemeAccent = false,
 }: RiskCalculatorBannerProps) {
-  const informationSection = [
+  const defaultInformationItems = [
     {
       title: "Score de Riesgo Inmediato",
       description: "Obtén una puntuación clara sobre tu estado actual",
-      Icon: <ScoreIcon className="w-6 h-6 fill-[#16A34A]" />,
-      bgColor: "bg-[#F0FDF4]",
     },
     {
-      title: 'Conoce tu estado actual',
-      description: "Obtén una visión completa de tu nivel de exposición al incumplimiento",
-      Icon: <WarningIcon className="w-6 h-6 fill-[#EA580C]" />,
-      bgColor: "bg-[#FFF7ED]",
+      title: "Conoce tu estado actual",
+      description:
+        "Obtén una visión completa de tu nivel de exposición al incumplimiento",
     },
     {
       title: "Agenda una reunión",
-      description: "Agenda una reunión y conoce en detalle tus principales riesgos de incumplimiento",
-      Icon: <MapIcon className="w-6 h-6 fill-[#9333EA]" />,
-      bgColor: "bg-[#FAF5FF]",
+      description:
+        "Agenda una reunión y conoce en detalle tus principales riesgos de incumplimiento",
     },
+  ];
+  const resolvedInformationItems = informationItems ?? defaultInformationItems;
+  const icons = [ScoreIcon, WarningIcon, MapIcon];
+  const defaultIconClasses = [
+    "bg-[#F0FDF4] text-[#16A34A]",
+    "bg-[#FFF7ED] text-[#EA580C]",
+    "bg-[#FAF5FF] text-[#9333EA]",
   ];
 
   return (
-    <div className="flex flex-row rounded-2xl overflow-hidden">
-      <div className="flex-1 flex flex-col gap-6 text-white bg-darkBlue p-6 md:p-16 ">
-        <h2 className="text-4xl font-bold">
-          ¿Tu empresa resistiría una fiscalización o auditoria legal hoy mismo?
-        </h2>
-        <h3 className="text-lg">
-          Descubre el nivel de riesgo de incumplimiento normativo de tu
-          organización en menos de 5 minutos.
-        </h3>
+    <div className="flex flex-row overflow-hidden rounded-2xl">
+      <div className="bg-darkBlue flex flex-1 flex-col gap-6 p-6 text-white md:p-16">
+        <h2 className="text-4xl font-bold">{title}</h2>
+        <p className="text-lg">{description}</p>
         <div className="flex flex-col gap-6">
-          {informationSection.map((section) => (
-            <div key={section.title} className="flex flex-row gap-3 md:gap-4">
-              <div
-                className={cn(
-                  "w-10 h-10 rounded-full flex justify-center items-center shrink-0",
-                  section.bgColor
-                )}
-              >
-                {section.Icon}
+          {resolvedInformationItems.map((section, index) => {
+            const Icon = icons[index] ?? ScoreIcon;
+
+            return (
+              <div key={section.title} className="flex flex-row gap-3 md:gap-4">
+                <div
+                  className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${
+                    useThemeAccent
+                      ? "bg-primary/15 text-primary"
+                      : (defaultIconClasses[index] ?? defaultIconClasses[0])
+                  }`}
+                >
+                  <Icon className="h-6 w-6 fill-current" />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <h4 className="text font-bold">{section.title}</h4>
+                  <p className="text-sm">{section.description}</p>
+                </div>
               </div>
-              <div className="flex flex-col gap-1">
-                <h4 className="text font-bold">{section.title}</h4>
-                <p className="text-sm">{section.description}</p>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
         <Button
-          text="Iniciar evaluación Gratuita"
+          text={buttonText}
           variant="contained"
           color="primary"
           className="w-full md:w-auto"
@@ -74,7 +91,7 @@ export default function RiskCalculatorBanner({
           No requiere tarjeta de crédito. Resultados confidenciales.
         </span>
       </div>
-      <div className="flex-1 hidden lg:flex items-center justify-center bg-card-background ">
+      <div className="bg-card-background hidden flex-1 items-center justify-center lg:flex">
         <Image
           src="/images/risk-banner-image.png"
           alt="Risk Calculator Banner"

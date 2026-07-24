@@ -21,6 +21,9 @@ import {
 
 type ContactFormProps = {
   onSuccess?: (data: ContactFormData) => void;
+  messageLabel?: string;
+  messagePlaceholder?: string;
+  submitText?: string;
 };
 
 const cargoOptions = CONTACT_CARGO_OPTIONS.map((value) => ({
@@ -41,7 +44,12 @@ const rubroOptions = CONTACT_RUBRO_OPTIONS.map((value) => ({
   label: value,
 }));
 
-export default function ContactForm({ onSuccess }: ContactFormProps = {}) {
+export default function ContactForm({
+  onSuccess,
+  messageLabel = "¿Qué necesita resolver tu empresa?",
+  messagePlaceholder = "Describe el desafío o necesidad de tu empresa...",
+  submitText = "Cotiza aquí",
+}: ContactFormProps = {}) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [submitStatus, setSubmitStatus] = useState<
@@ -218,8 +226,8 @@ export default function ContactForm({ onSuccess }: ContactFormProps = {}) {
 
       <div>
         <TextArea
-          label="¿Qué necesita resolver tu empresa?"
-          placeholder="Describe el desafío o necesidad de tu empresa..."
+          label={messageLabel}
+          placeholder={messagePlaceholder}
           {...register("message")}
         />
 
@@ -253,7 +261,7 @@ export default function ContactForm({ onSuccess }: ContactFormProps = {}) {
       )}
 
       <Button
-        text={isSubmitting ? "Enviando..." : "Cotiza aquí"}
+        text={isSubmitting ? "Enviando..." : submitText}
         fullWidth
         disabled={isSubmitting}
       />

@@ -13,12 +13,14 @@ type FaqAccordionProps = {
   items: FaqItem[];
   className?: string;
   defaultOpenIndex?: number | null;
+  useThemeAccent?: boolean;
 };
 
 export default function FaqAccordion({
   items,
   className,
   defaultOpenIndex = 0,
+  useThemeAccent = false,
 }: FaqAccordionProps) {
   const accordionId = useId();
   const [openIndex, setOpenIndex] = useState<number | null>(
@@ -49,13 +51,19 @@ export default function FaqAccordion({
                 onClick={() => setOpenIndex(isOpen ? null : index)}
                 className="group flex w-full cursor-pointer items-start justify-between gap-5 py-5 text-left sm:items-center sm:py-6"
               >
-                <span className="text-text group-hover:text-primary text-base leading-6 font-bold transition-colors sm:text-lg dark:group-hover:text-white">
+                <span
+                  className={cn(
+                    "text-text group-hover:text-primary text-base leading-6 font-bold transition-colors sm:text-lg",
+                    !useThemeAccent && "dark:group-hover:text-white"
+                  )}
+                >
                   {item.question}
                 </span>
                 <span
                   aria-hidden="true"
                   className={cn(
-                    "text-primary relative mt-1.5 block size-5 shrink-0 sm:mt-0 dark:text-green-300",
+                    "text-primary relative mt-1.5 block size-5 shrink-0 sm:mt-0",
+                    !useThemeAccent && "dark:text-green-300",
                     "before:absolute before:top-1/2 before:left-0 before:h-0.5 before:w-5 before:-translate-y-1/2 before:rounded-full before:bg-current",
                     "after:absolute after:top-0 after:left-1/2 after:h-5 after:w-0.5 after:-translate-x-1/2 after:rounded-full after:bg-current after:transition-transform after:duration-200",
                     isOpen && "after:scale-y-0"

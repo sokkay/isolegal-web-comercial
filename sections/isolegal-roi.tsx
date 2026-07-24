@@ -2,7 +2,14 @@
 
 import AnimatedCounter from "@/components/AnimatedCounter";
 
-const roi = [
+export type IsolegalRoiItem = {
+  number: number;
+  type: "number" | "hours" | "porcentaje";
+  title: string;
+  description: string;
+};
+
+const roi: IsolegalRoiItem[] = [
   {
     number: 50,
     type: "number",
@@ -26,23 +33,31 @@ const roi = [
   },
 ];
 
-export default function IsolegalRoi() {
+type IsolegalRoiProps = {
+  items?: IsolegalRoiItem[];
+  title?: string;
+};
+
+export default function IsolegalRoi({
+  items = roi,
+  title = "Los números nos avalan",
+}: IsolegalRoiProps = {}) {
   return (
-    <section className="bg-white dark:bg-darkBlue pt-16">
+    <section className="dark:bg-darkBlue bg-white pt-16">
       <div className="container mx-auto">
-        <div className="w-full flex flex-col items-center">
-          <h2 className="text-text text-3xl font-bold mb-10 text-center">
-            Los números nos avalan
+        <div className="flex w-full flex-col items-center">
+          <h2 className="text-text mb-10 text-center text-3xl font-bold">
+            {title}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
-            {roi.map((item) => (
+          <div className="mb-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+            {items.map((item) => (
               <div
                 key={item.title}
-                className="p-5.5 bg-green-bg dark:bg-card-background rounded-2xl flex flex-col items-center gap-4 text-text"
+                className="bg-green-bg dark:bg-card-background text-text flex flex-col items-center gap-4 rounded-2xl p-5.5"
               >
                 <AnimatedCounter value={item.number} type={item.type} />
-                <h3 className="text-lg font-bold text-center">{item.title}</h3>
-                <p className="text-base text-center font-norma">
+                <h3 className="text-center text-lg font-bold">{item.title}</h3>
+                <p className="font-norma text-center text-base">
                   {item.description}
                 </p>
               </div>

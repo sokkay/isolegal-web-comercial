@@ -49,6 +49,18 @@
   --color-card-background: #262c3e;
 }
 
+.sst-page-theme {
+  --color-primary: #8A2BE2;
+  --color-checkbox-bg: color-mix(in srgb, #8A2BE2 14%, white);
+  --color-green-bg: color-mix(in srgb, #8A2BE2 12%, white);
+}
+
+.dark .sst-page-theme {
+  --color-primary: #8A2BE2;
+  --color-checkbox-bg: color-mix(in srgb, #8A2BE2 24%, #262c3e);
+  --color-green-bg: color-mix(in srgb, #8A2BE2 22%, #262c3e);
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -63,7 +75,7 @@ section[id] {
 }
 
 .container {
-  @apply px-8
+  @apply px-8;
 }
 
 .embla {
@@ -85,4 +97,3 @@ section[id] {
   min-width: 0;
   position: relative;
 }
-
