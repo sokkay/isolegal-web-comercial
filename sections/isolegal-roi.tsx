@@ -4,14 +4,14 @@ import AnimatedCounter from "@/components/AnimatedCounter";
 
 const roi = [
   {
-    number: 30,
+    number: 50,
     type: "number",
     title: "Faenas mineras en Chile",
     description:
       "Isolegal ya opera donde el cumplimiento no es teórico, sino parte de la operación diaria y la exigencia regulatoria es permanente.",
   },
   {
-    number: 100,
+    number: 200,
     type: "number",
     title: "Usuarios Activos",
     description:

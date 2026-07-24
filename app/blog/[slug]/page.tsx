@@ -4,10 +4,10 @@ import {
   getPublishedBlogPosts,
   getRelatedPublishedBlogPosts,
 } from "@/lib/blogPosts";
-import clsx from "clsx";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import BlogPostContent from "./BlogPostContent";
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
@@ -120,7 +120,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
 
         {post.coverImageUrl ? (
-          <div className="relative mt-10 mx-auto aspect-video w-full max-w-5xl overflow-hidden rounded-2xl border border-text/15 select-none">
+          <div className="relative mt-10 mx-auto aspect-video w-full max-w-3xl overflow-hidden rounded-2xl border border-text/15 select-none">
             <ProtectedImage
               src={post.coverImageUrl}
               alt={post.title}
@@ -132,32 +132,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         ) : null}
 
-        <div
-          className={clsx(
-            "prose mt-10 mx-auto max-w-3xl text-text/90 leading-8 select-none",
-            "[&_a]:text-primary [&_a:hover]:text-primary/80",
-            "[&_img]:rounded-xl [&_img]:pointer-events-none [&_img]:select-none [&_img]:[-webkit-user-drag:none] [&_img]:[-webkit-touch-callout:none]",
-            "[&_p]:my-6 [&_p]:leading-8",
-            "[&_h2]:mt-10 [&_h2]:mb-2 [&_h2]:text-3xl",
-            "[&_h2]:font-extrabold [&_h2]:tracking-tight [&_h2]:leading-tight",
-            "[&_h3]:mt-10 [&_h3]:mb-2 [&_h3]:text-2xl",
-            "[&_h3]:font-bold [&_h3]:leading-snug",
-            "[&_h4]:mt-10 [&_h4]:mb-2 [&_h4]:text-xl",
-            "[&_h4]:font-semibold [&_h4]:leading-snug",
-            "[&_ul]:my-3 [&_ul]:list-disc [&_ul]:pl-7",
-            "[&_ol]:my-3 [&_ol]:list-decimal [&_ol]:pl-7",
-            "[&_li]:my-0 [&_li]:pl-1 [&_li]:leading-7",
-            "[&_li_p]:my-0 [&_li_p]:leading-7",
-            "[&_li>ul]:my-1 [&_li>ol]:my-1",
-            "[&_li>ul]:list-[circle] [&_li>ul]:pl-6",
-            "[&_li>ol]:list-[lower-alpha] [&_li>ol]:pl-6"
-          )}
-          dangerouslySetInnerHTML={{ __html: post.contentHtml }}
-        />
+        <BlogPostContent contentHtml={post.contentHtml} />
 
         {relatedPosts.length > 0 ? (
           <section className="mx-auto mt-16 max-w-5xl border-t border-text/10 pt-12">
-            <div className="mx-auto max-w-3xl">
+            <div className="mx-auto max-w-5xl">
               <h2 className="text-3xl font-extrabold tracking-tight">
                 Blogs recomendados
               </h2>
