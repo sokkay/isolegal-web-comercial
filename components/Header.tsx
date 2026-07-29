@@ -1,4 +1,5 @@
 "use client";
+import { usePageTheme } from "@/contexts/PageTheme";
 import { cn } from "@/utils/cn";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -13,6 +14,8 @@ export default function Header() {
   const [activeSection, setActiveSection] = useState("");
   const router = useRouter();
   const pathname = usePathname();
+  const { riskCalculatorHref, riskCalculatorPath, riskCalculatorSectionId } =
+    usePageTheme();
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -27,10 +30,6 @@ export default function Header() {
 
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
-  }, [pathname]);
-
-  useEffect(() => {
-    setIsMenuOpen(false);
   }, [pathname]);
 
   const navLinks = [
@@ -78,32 +77,31 @@ export default function Header() {
   };
 
   const handleRiskCtaClick = () => {
-    const isOnHome = pathname === "/";
-    const riskSectionHref = "/#calcula-tu-riesgo";
+    const isOnCalculatorPage = pathname === riskCalculatorPath;
 
-    if (!isOnHome) {
-      router.push(riskSectionHref);
+    if (!isOnCalculatorPage) {
+      router.push(riskCalculatorHref);
       return;
     }
 
-    const element = document.getElementById("calcula-tu-riesgo");
+    const element = document.getElementById(riskCalculatorSectionId);
     if (element) {
       element.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
-      router.push(riskSectionHref);
-      setActiveSection(riskSectionHref);
+      router.push(riskCalculatorHref);
+      setActiveSection(riskCalculatorHref);
     }
   };
 
   return (
-    <header className="bg-darkBlue text-nav-base font-medium min-h-20 flex items-center z-50 sticky top-0">
-      <nav className="container mx-auto flex flex-row items-center h-20 gap-4">
+    <header className="bg-darkBlue text-nav-base sticky top-0 z-50 flex min-h-20 items-center font-medium">
+      <nav className="container mx-auto flex h-20 flex-row items-center gap-4">
         <div className="flex items-center gap-8 xl:gap-12">
           <Logo goToHome />
 
-          <ul className="hidden lg:flex flex-row items-center justify-start gap-6 xl:gap-10">
+          <ul className="hidden flex-row items-center justify-start gap-6 lg:flex xl:gap-10">
             {navLinks.map((link) => {
               const isActive =
                 activeSection === link.href ||
@@ -115,13 +113,13 @@ export default function Header() {
                     href={link.href}
                     onClick={(e) => handleNavClick(e, link.href)}
                     className={cn(
-                      "group relative flex items-center gap-2 transition-colors text-lg",
+                      "group relative flex items-center gap-2 text-lg transition-colors",
                       isActive ? "text-nav-active" : "hover:text-nav-active"
                     )}
                   >
                     <span
                       className={cn(
-                        "w-1.5 h-1.5 rounded-full bg-nav-indicator transition-opacity absolute -left-4",
+                        "bg-nav-indicator absolute -left-4 h-1.5 w-1.5 rounded-full transition-opacity",
                         isActive
                           ? "opacity-100"
                           : "opacity-0 group-hover:opacity-100"
@@ -137,13 +135,13 @@ export default function Header() {
 
         <div className="ml-auto flex items-center gap-2 text-white">
           <ThemeToggle className="hidden sm:flex" />
-          <div className="hidden sm:flex items-center gap-2">
+          <div className="hidden items-center gap-2 sm:flex">
             <Button
               text="Calcula tu riesgo"
               variant="contained"
               color="primary"
               onClick={handleRiskCtaClick}
-              className="shadow-lg shadow-primary/40 hover:-translate-y-0.5"
+              className="shadow-primary/40 shadow-lg hover:-translate-y-0.5"
             />
             <Button
               text="Iniciar sesión"
@@ -155,7 +153,7 @@ export default function Header() {
           </div>
 
           <ThemeToggle className="sm:hidden" />
-          <div className="lg:hidden w-10 h-10 flex items-center justify-center">
+          <div className="flex h-10 w-10 items-center justify-center lg:hidden">
             <IconButton
               icon="menu"
               alt="Menú"
@@ -166,21 +164,21 @@ export default function Header() {
 
         <div
           className={cn(
-            "fixed inset-0 bg-black/50 transition-all duration-300 lg:hidden z-50",
-            isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible delay-300"
+            "fixed inset-0 z-50 bg-black/50 transition-all duration-300 lg:hidden",
+            isMenuOpen ? "visible opacity-100" : "invisible opacity-0 delay-300"
           )}
           onClick={() => setIsMenuOpen(false)}
         >
           <div
             className={cn(
-              "fixed inset-y-0 left-0 w-[70%] sm:w-[60%] bg-darkBlue transition-transform duration-300 ease-in-out shadow-2xl",
+              "bg-darkBlue fixed inset-y-0 left-0 w-[70%] shadow-2xl transition-transform duration-300 ease-in-out sm:w-[60%]",
               isMenuOpen ? "translate-x-0" : "-translate-x-full"
             )}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="h-20 flex items-center justify-between px-4 border-b border-white/10 shrink-0 text-white">
+            <div className="flex h-20 shrink-0 items-center justify-between border-b border-white/10 px-4 text-white">
               <Logo />
-              <div className="flex items-center justify-center w-10 h-10">
+              <div className="flex h-10 w-10 items-center justify-center">
                 <IconButton
                   icon="close"
                   alt="Cerrar menú"
@@ -189,7 +187,7 @@ export default function Header() {
               </div>
             </div>
 
-            <ul className="flex flex-col gap-6 text-lg px-10 pt-8">
+            <ul className="flex flex-col gap-6 px-10 pt-8 text-lg">
               {navLinks.map((link) => {
                 const isActive =
                   activeSection === link.href ||
@@ -210,7 +208,7 @@ export default function Header() {
                     >
                       <span
                         className={cn(
-                          "w-2 h-2 rounded-full bg-nav-indicator transition-opacity absolute -left-6",
+                          "bg-nav-indicator absolute -left-6 h-2 w-2 rounded-full transition-opacity",
                           isActive
                             ? "opacity-100"
                             : "opacity-0 group-hover:opacity-100"
@@ -221,7 +219,7 @@ export default function Header() {
                   </li>
                 );
               })}
-              <li className="pt-6 sm:hidden space-y-3">
+              <li className="space-y-3 pt-6 sm:hidden">
                 <Button
                   text="Calcula tu riesgo"
                   variant="contained"

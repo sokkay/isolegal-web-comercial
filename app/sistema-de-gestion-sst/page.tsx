@@ -64,7 +64,7 @@ const faqStructuredData = {
 
 export default function SistemaGestionSstPage() {
   return (
-    <main className="sst-page-theme bg-background min-h-dvh overflow-hidden">
+    <main className="bg-background min-h-dvh overflow-hidden">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}

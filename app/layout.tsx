@@ -1,7 +1,6 @@
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
 import ReactQueryProvider from "@/components/ReactQueryProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import ThemedLayout from "@/components/ThemedLayout";
 import { PostHogProvider } from "@/lib/posthog/PostHogProvider";
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
@@ -194,14 +193,11 @@ export default function RootLayout({
         <ThemeProvider>
           <ReactQueryProvider>
             <PostHogProvider>
-              <Header />
-              {children}
-              <Footer />
+              <ThemedLayout>{children}</ThemedLayout>
             </PostHogProvider>
           </ReactQueryProvider>
         </ThemeProvider>
       </body>
-      
     </html>
   );
 }
