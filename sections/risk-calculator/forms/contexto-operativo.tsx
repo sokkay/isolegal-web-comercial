@@ -24,7 +24,7 @@ import MoreHorizontalIcon from "@/public/icons/more-horiz.svg";
 import VerifiedIcon from "@/public/icons/verified.svg";
 
 export default function ContextoOperativo() {
-  const { goToNextStep, goToPrevStep, form } = useRiskCalculator();
+  const { goToNextStep, form } = useRiskCalculator();
   const {
     rubro,
     rubroOtro,

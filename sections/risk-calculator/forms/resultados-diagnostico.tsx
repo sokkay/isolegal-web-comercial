@@ -14,14 +14,8 @@ import { motion } from "motion/react";
 import { useEffect, useState, type SubmitEventHandler } from "react";
 
 export default function ResultadosDiagnostico() {
-  const {
-    form,
-    submitForm,
-    goToNextStep,
-    goToPrevStep,
-    isSubmitting,
-    submitError,
-  } = useRiskCalculator();
+  const { form, submitForm, goToNextStep, isSubmitting, submitError } =
+    useRiskCalculator();
   const {
     nombreCompleto,
     correoCorporativo,
@@ -51,9 +45,7 @@ export default function ResultadosDiagnostico() {
 
   useEffect(() => {
     let animationFrameId = 0;
-    let timeoutId: ReturnType<typeof setTimeout> | undefined;
-
-    timeoutId = setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       const startTime = performance.now();
       const durationMs = progressBarDuration * 1000;
 
@@ -75,7 +67,7 @@ export default function ResultadosDiagnostico() {
     }, progressBarDelay * 1000);
 
     return () => {
-      if (timeoutId) clearTimeout(timeoutId);
+      clearTimeout(timeoutId);
       cancelAnimationFrame(animationFrameId);
     };
   }, [progressBarDelay, progressBarDuration]);

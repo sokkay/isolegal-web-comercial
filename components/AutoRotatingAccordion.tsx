@@ -42,11 +42,6 @@ export default function AutoRotatingAccordion({
   };
 
   useEffect(() => {
-    setMobileDirection(1);
-    setActiveIndex(safeInitialIndex);
-  }, [safeInitialIndex]);
-
-  useEffect(() => {
     onActiveChange?.(activeIndex);
   }, [activeIndex, onActiveChange]);
 

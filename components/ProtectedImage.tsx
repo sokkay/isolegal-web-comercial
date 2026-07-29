@@ -14,7 +14,7 @@ const protectionStyle: CSSProperties = {
 } as CSSProperties;
 
 export default function ProtectedImage(props: ProtectedImageProps) {
-  const { style, onContextMenu, onDragStart, draggable, ...rest } = props;
+  const { alt, style, onContextMenu, onDragStart, ...rest } = props;
 
   const handleContextMenu = (event: MouseEvent<HTMLImageElement>) => {
     event.preventDefault();
@@ -29,6 +29,7 @@ export default function ProtectedImage(props: ProtectedImageProps) {
   return (
     <Image
       {...rest}
+      alt={alt}
       draggable={false}
       onContextMenu={handleContextMenu}
       onDragStart={handleDragStart}

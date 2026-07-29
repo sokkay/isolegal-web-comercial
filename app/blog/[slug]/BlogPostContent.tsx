@@ -1,35 +1,48 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 const FONT_SIZES = [16, 18, 20] as const;
 const DEFAULT_FONT_SIZE_INDEX = 0;
 const STORAGE_KEY = "blog-font-size";
+const STORAGE_EVENT = "blog-font-size-change";
+
+const subscribeToFontSize = (onStoreChange: () => void) => {
+  window.addEventListener("storage", onStoreChange);
+  window.addEventListener(STORAGE_EVENT, onStoreChange);
+
+  return () => {
+    window.removeEventListener("storage", onStoreChange);
+    window.removeEventListener(STORAGE_EVENT, onStoreChange);
+  };
+};
+
+const getFontSizeIndex = () => {
+  const storedFontSize = Number(window.localStorage.getItem(STORAGE_KEY));
+  const storedIndex = FONT_SIZES.findIndex(
+    (availableFontSize) => availableFontSize === storedFontSize
+  );
+
+  return storedIndex >= 0 ? storedIndex : DEFAULT_FONT_SIZE_INDEX;
+};
 
 type BlogPostContentProps = {
   contentHtml: string;
 };
 
 export default function BlogPostContent({ contentHtml }: BlogPostContentProps) {
-  const [fontSizeIndex, setFontSizeIndex] = useState(DEFAULT_FONT_SIZE_INDEX);
+  const fontSizeIndex = useSyncExternalStore(
+    subscribeToFontSize,
+    getFontSizeIndex,
+    () => DEFAULT_FONT_SIZE_INDEX
+  );
   const fontSize = FONT_SIZES[fontSizeIndex];
-
-  useEffect(() => {
-    const storedFontSize = Number(window.localStorage.getItem(STORAGE_KEY));
-    const storedIndex = FONT_SIZES.findIndex(
-      (availableFontSize) => availableFontSize === storedFontSize
-    );
-
-    if (storedIndex >= 0) {
-      setFontSizeIndex(storedIndex);
-    }
-  }, []);
 
   const changeFontSize = (nextIndex: number) => {
     const safeIndex = Math.min(Math.max(nextIndex, 0), FONT_SIZES.length - 1);
 
-    setFontSizeIndex(safeIndex);
     window.localStorage.setItem(STORAGE_KEY, String(FONT_SIZES[safeIndex]));
+    window.dispatchEvent(new Event(STORAGE_EVENT));
   };
 
   return (

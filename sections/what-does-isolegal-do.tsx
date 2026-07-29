@@ -59,7 +59,7 @@ export default function WhatDoesIsolegalDo() {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   useEffect(() => {
-    videoRefs.current.forEach((video, index) => {
+    videoRefs.current.forEach((video) => {
       if (video) {
         video.playbackRate = 0.5;
       }

@@ -168,6 +168,8 @@ export function RiskCalculatorProvider({
   }, [form, submitRiskCalculatorMutation]);
 
   useEffect(() => {
+    // React Hook Form expone watch como una suscripción estable para cambios.
+    // eslint-disable-next-line react-hooks/incompatible-library
     const subscription = form.watch((value) => {
       localStorage.setItem("riskCalculatorData", JSON.stringify(value));
     });
