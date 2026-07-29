@@ -43,10 +43,23 @@ export default function SstFaq() {
     >
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-20 opacity-60 dark:opacity-30"
+        className="absolute inset-0 -z-20 opacity-60 dark:hidden"
         style={{
           backgroundImage:
             "linear-gradient(to right, rgba(138, 43, 226, 0.18) 1px, transparent 1px), linear-gradient(to bottom, rgba(138, 43, 226, 0.18) 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
+          maskImage:
+            "linear-gradient(to bottom, transparent, black 8%, black 92%, transparent)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, transparent, black 8%, black 92%, transparent)",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-20 hidden opacity-70 dark:block"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(192, 132, 252, 0.34) 1px, transparent 1px), linear-gradient(to bottom, rgba(192, 132, 252, 0.34) 1px, transparent 1px)",
           backgroundSize: "64px 64px",
           maskImage:
             "linear-gradient(to bottom, transparent, black 8%, black 92%, transparent)",
@@ -62,6 +75,10 @@ export default function SstFaq() {
       <div className="container mx-auto">
         <div className="mx-auto max-w-5xl">
           <div className="mb-10 text-center">
+            <span
+              aria-hidden="true"
+              className="bg-primary mx-auto mb-5 block size-9 mask-[url('/icons/psychiatry.svg')] mask-center mask-no-repeat mask-contain dark:bg-(--color-primary-on-dark-gray)"
+            />
             <p className="text-primary mb-3 text-sm font-bold tracking-[0.18em] uppercase dark:text-(--color-primary-on-dark-gray)">
               Resolvemos tus dudas
             </p>

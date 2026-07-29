@@ -58,10 +58,23 @@ export default function HomeFaqSection() {
     >
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-20 opacity-60 dark:opacity-30"
+        className="absolute inset-0 -z-20 opacity-60 dark:hidden"
         style={{
           backgroundImage:
             "linear-gradient(to right, rgba(30, 94, 61, 0.16) 1px, transparent 1px), linear-gradient(to bottom, rgba(30, 94, 61, 0.16) 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
+          maskImage:
+            "linear-gradient(to bottom, transparent, black 8%, black 92%, transparent)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, transparent, black 8%, black 92%, transparent)",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-20 hidden opacity-70 dark:block"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(134, 239, 172, 0.3) 1px, transparent 1px), linear-gradient(to bottom, rgba(134, 239, 172, 0.3) 1px, transparent 1px)",
           backgroundSize: "64px 64px",
           maskImage:
             "linear-gradient(to bottom, transparent, black 8%, black 92%, transparent)",
@@ -77,12 +90,10 @@ export default function HomeFaqSection() {
       <div className="container mx-auto">
         <div className="mx-auto max-w-5xl">
           <div className="mb-8 text-center sm:mb-10">
-            <div
+            <span
               aria-hidden="true"
-              className="mx-auto mb-5 flex size-9 rotate-45 items-center justify-center"
-            >
-              <span className="bg-primary block size-5 [clip-path:polygon(50%_0%,61%_39%,100%_50%,61%_61%,50%_100%,39%_61%,0%_50%,39%_39%)] dark:bg-green-300" />
-            </div>
+              className="bg-primary mx-auto mb-5 block size-9 [mask-image:url('/icons/psychiatry.svg')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] dark:bg-green-300"
+            />
             <p className="text-primary mb-3 text-sm font-bold tracking-widest uppercase dark:text-green-300">
               Resolvemos tus dudas
             </p>
