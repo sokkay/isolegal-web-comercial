@@ -5,6 +5,7 @@ import { createContext, type ReactNode, useContext } from "react";
 
 type PageThemeConfig = {
   className: string;
+  navIndicatorColor: string;
   riskCalculatorHref: string;
   riskCalculatorSectionId: string;
   riskCalculatorPath: string;
@@ -12,6 +13,7 @@ type PageThemeConfig = {
 
 const defaultThemeConfig: PageThemeConfig = {
   className: "",
+  navIndicatorColor: "var(--color-nav-indicator)",
   riskCalculatorHref: "/#calcula-tu-riesgo",
   riskCalculatorSectionId: "calcula-tu-riesgo",
   riskCalculatorPath: "/",
@@ -20,6 +22,7 @@ const defaultThemeConfig: PageThemeConfig = {
 const pageThemeConfigs: Record<string, PageThemeConfig> = {
   "/sistema-de-gestion-sst": {
     className: "sst-page-theme",
+    navIndicatorColor: "var(--color-primary-on-dark)",
     riskCalculatorHref: "/sistema-de-gestion-sst#calcula-tu-riesgo-sst",
     riskCalculatorSectionId: "calcula-tu-riesgo-sst",
     riskCalculatorPath: "/sistema-de-gestion-sst",
