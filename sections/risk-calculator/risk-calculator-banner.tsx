@@ -15,7 +15,6 @@ type RiskCalculatorBannerProps = {
   description?: string;
   buttonText?: string;
   informationItems?: RiskCalculatorInformationItem[];
-  useThemeAccent?: boolean;
 };
 
 export default function RiskCalculatorBanner({
@@ -24,7 +23,6 @@ export default function RiskCalculatorBanner({
   description = "Descubre el nivel de riesgo de incumplimiento normativo de tu organización en menos de 5 minutos.",
   buttonText = "Iniciar evaluación Gratuita",
   informationItems,
-  useThemeAccent = false,
 }: RiskCalculatorBannerProps) {
   const defaultInformationItems = [
     {
@@ -63,9 +61,7 @@ export default function RiskCalculatorBanner({
               <div key={section.title} className="flex flex-row gap-3 md:gap-4">
                 <div
                   className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${
-                    useThemeAccent
-                      ? "bg-primary/15 text-primary"
-                      : (defaultIconClasses[index] ?? defaultIconClasses[0])
+                    defaultIconClasses[index] ?? defaultIconClasses[0]
                   }`}
                 >
                   <Icon className="h-6 w-6 fill-current" />

@@ -27,7 +27,6 @@ export default function SstRiskCta() {
         description="Descubre el nivel de riesgo de incumplimiento SST, HSE y ambiental de tu organización en menos de 5 minutos."
         buttonText="Iniciar evaluación gratuita SST"
         informationItems={riskInformationItems}
-        useThemeAccent
       />
     </section>
   );
