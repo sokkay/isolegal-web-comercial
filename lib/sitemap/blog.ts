@@ -7,7 +7,9 @@ import {
   STATIC_CONTENT_LAST_MODIFIED,
 } from "@/lib/sitemap/constants";
 
-function getBlogLastModified(posts: Awaited<ReturnType<typeof getPublishedBlogPosts>>): Date {
+function getBlogLastModified(
+  posts: Awaited<ReturnType<typeof getPublishedBlogPosts>>
+): Date {
   return posts.reduce((latest, post) => {
     return post.updatedAt > latest ? post.updatedAt : latest;
   }, STATIC_CONTENT_LAST_MODIFIED);

@@ -52,9 +52,7 @@ function ComparisonColumn({
   return (
     <article
       className={
-        muted
-          ? "bg-background p-6 sm:p-8"
-          : "bg-card-background p-6 sm:p-8"
+        muted ? "bg-background p-6 sm:p-8" : "bg-card-background p-6 sm:p-8"
       }
     >
       <h3

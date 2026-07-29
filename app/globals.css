@@ -8,22 +8,22 @@
 
 @theme {
   /* Light mode colors */
-  --color-primary: #1E5E3D;
-  --color-text: #202B5F;
-  --color-background: #F6F8F7;
-  --color-border: #E2E8F0;
-  --color-dark: #0F172A;
-  --color-darkBlue: #0F172A;
-  --color-nav-base: #ECEDFE;
-  --color-nav-active: #FFFFFF;
-  --color-nav-indicator: #1E5E3D;
-  --color-input-bg: #F8FAFC;
-  --color-input-border: #E2E8F0;
-  --color-placeholder: #6C757C;
-  --color-checkbox-bg: #E8EFEC;
-  --color-green-bg: #E8EFEC;
-  --color-disabled: #C1C1C1;
-  --color-card-background: #FFFFFF;
+  --color-primary: #1e5e3d;
+  --color-text: #202b5f;
+  --color-background: #f6f8f7;
+  --color-border: #e2e8f0;
+  --color-dark: #0f172a;
+  --color-darkBlue: #0f172a;
+  --color-nav-base: #ecedfe;
+  --color-nav-active: #ffffff;
+  --color-nav-indicator: #1e5e3d;
+  --color-input-bg: #f8fafc;
+  --color-input-border: #e2e8f0;
+  --color-placeholder: #6c757c;
+  --color-checkbox-bg: #e8efec;
+  --color-green-bg: #e8efec;
+  --color-disabled: #c1c1c1;
+  --color-card-background: #ffffff;
   /* Font */
   --font-sans: var(--font-manrope), system-ui, sans-serif;
 }
@@ -31,18 +31,18 @@
 /* Dark mode colors */
 .dark {
   color-scheme: dark;
-  --color-primary: #1E5E3D;
-  --color-text: #FFFFFF;
+  --color-primary: #1e5e3d;
+  --color-text: #ffffff;
   --color-background: #3e4354;
   --color-border: #334155;
-  --color-dark: #F8FAFC;
-  --color-darkBlue: #0F172A;
-  --color-nav-base: #ECEDFE;
-  --color-nav-active: #FFFFFF;
-  --color-nav-indicator: #2ECC71;
-  --color-input-bg: #1E293B;
+  --color-dark: #f8fafc;
+  --color-darkBlue: #0f172a;
+  --color-nav-base: #ecedfe;
+  --color-nav-active: #ffffff;
+  --color-nav-indicator: #2ecc71;
+  --color-input-bg: #1e293b;
   --color-input-border: #475569;
-  --color-placeholder: #94A3B8;
+  --color-placeholder: #94a3b8;
   --color-checkbox-bg: #9ab5a3;
   --color-green-bg: #9ab5a3;
   --color-disabled: #475569;
@@ -50,19 +50,19 @@
 }
 
 .sst-page-theme {
-  --color-primary: #8A2BE2;
-  --color-primary-on-dark: #C084FC;
-  --color-primary-on-dark-gray: #D8B4FE;
-  --color-checkbox-bg: color-mix(in srgb, #8A2BE2 14%, white);
-  --color-green-bg: color-mix(in srgb, #8A2BE2 12%, white);
+  --color-primary: #8a2be2;
+  --color-primary-on-dark: #c084fc;
+  --color-primary-on-dark-gray: #d8b4fe;
+  --color-checkbox-bg: color-mix(in srgb, #8a2be2 14%, white);
+  --color-green-bg: color-mix(in srgb, #8a2be2 12%, white);
 }
 
 .dark .sst-page-theme {
-  --color-primary: #8A2BE2;
-  --color-primary-on-dark: #C084FC;
-  --color-primary-on-dark-gray: #D8B4FE;
-  --color-checkbox-bg: color-mix(in srgb, #8A2BE2 24%, #262c3e);
-  --color-green-bg: color-mix(in srgb, #8A2BE2 22%, #262c3e);
+  --color-primary: #8a2be2;
+  --color-primary-on-dark: #c084fc;
+  --color-primary-on-dark-gray: #d8b4fe;
+  --color-checkbox-bg: color-mix(in srgb, #8a2be2 24%, #262c3e);
+  --color-green-bg: color-mix(in srgb, #8a2be2 22%, #262c3e);
 }
 
 html {

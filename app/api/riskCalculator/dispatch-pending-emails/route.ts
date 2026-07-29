@@ -15,22 +15,29 @@ function isAuthorized(request: NextRequest) {
   const authHeader = request.headers.get("authorization");
   const cronTokenHeader = request.headers.get("x-cron-token");
   return (
-    authHeader === `Bearer ${dispatchToken}` || cronTokenHeader === dispatchToken
+    authHeader === `Bearer ${dispatchToken}` ||
+    cronTokenHeader === dispatchToken
   );
 }
 
 function resolveAppBaseUrl(request: NextRequest) {
   const configuredUrl =
-    process.env.APP_URL ?? process.env.NEXT_PUBLIC_APP_URL ?? request.nextUrl.origin;
-  return configuredUrl.endsWith("/") ? configuredUrl.slice(0, -1) : configuredUrl;
+    process.env.APP_URL ??
+    process.env.NEXT_PUBLIC_APP_URL ??
+    request.nextUrl.origin;
+  return configuredUrl.endsWith("/")
+    ? configuredUrl.slice(0, -1)
+    : configuredUrl;
 }
 
 export async function POST(request: NextRequest) {
   try {
     if (!process.env.RISK_CALCULATOR_DISPATCH_TOKEN) {
       return NextResponse.json(
-        { error: "Falta RISK_CALCULATOR_DISPATCH_TOKEN en variables de entorno" },
-        { status: 500 },
+        {
+          error: "Falta RISK_CALCULATOR_DISPATCH_TOKEN en variables de entorno",
+        },
+        { status: 500 }
       );
     }
 
@@ -43,18 +50,22 @@ export async function POST(request: NextRequest) {
     if (!adminEmail || !adminPassword) {
       return NextResponse.json(
         { error: "Faltan credenciales admin de PocketBase" },
-        { status: 500 },
+        { status: 500 }
       );
     }
 
     const pb = getPb();
-    await pb.collection("_superusers").authWithPassword(adminEmail, adminPassword);
+    await pb
+      .collection("_superusers")
+      .authWithPassword(adminEmail, adminPassword);
     const appBaseUrl = resolveAppBaseUrl(request);
 
     const now = new Date();
-    const pendingRecords = await pb.collection("diagnosticos_riesgo").getFullList({
-      filter: `(origen = "${RISK_CALCULATOR_ORIGIN_PENDING}" || origen = "${RISK_CALCULATOR_ORIGIN_LEGACY}") && created <= "${now.toISOString()}"`,
-    });
+    const pendingRecords = await pb
+      .collection("diagnosticos_riesgo")
+      .getFullList({
+        filter: `(origen = "${RISK_CALCULATOR_ORIGIN_PENDING}" || origen = "${RISK_CALCULATOR_ORIGIN_LEGACY}") && created <= "${now.toISOString()}"`,
+      });
 
     let evaluated = 0;
     let sent = 0;
@@ -66,16 +77,19 @@ export async function POST(request: NextRequest) {
 
       const recordData = record as unknown as Record<string, unknown>;
 
-      const bookingExists = await pb.collection("reservas_reuniones").getList(1, 1, {
-        filter: `submission_id = "${record.id}" && estado = "confirmada"`,
-      });
+      const bookingExists = await pb
+        .collection("reservas_reuniones")
+        .getList(1, 1, {
+          filter: `submission_id = "${record.id}" && estado = "confirmada"`,
+        });
       if (bookingExists.totalItems > 0) {
         skipped += 1;
         continue;
       }
 
       try {
-        const emailParams = buildRiskCalculatorEmailParamsFromRecord(recordData);
+        const emailParams =
+          buildRiskCalculatorEmailParamsFromRecord(recordData);
         if (!emailParams.toEmail) {
           throw new Error("Diagnóstico sin correo corporativo");
         }
@@ -100,7 +114,7 @@ export async function POST(request: NextRequest) {
         failed += 1;
         console.error(
           `Error enviando correo diferido para diagnóstico ${record.id}:`,
-          error,
+          error
         );
       }
     }
@@ -110,7 +124,7 @@ export async function POST(request: NextRequest) {
         success: true,
         stats: { evaluated, sent, skipped, failed },
       },
-      { status: 200 },
+      { status: 200 }
     );
   } catch (error) {
     const message =

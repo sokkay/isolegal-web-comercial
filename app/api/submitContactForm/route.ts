@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
 
 import { notifyTeamFormSubmission } from "@/lib/email/teamFormNotification";
-import { captureServerError } from "@/lib/posthog/server";
 import { getPb } from "@/lib/pocketbase";
+import { captureServerError } from "@/lib/posthog/server";
 import { contactFormSchema } from "@/lib/schemas/contactForm";
 
 export async function POST(request: NextRequest) {
@@ -34,12 +34,18 @@ export async function POST(request: NextRequest) {
           { label: "Cargo", value: validatedData.cargo },
           { label: "Tamaño de la empresa", value: validatedData.companySize },
           { label: "Rubro/Industria", value: validatedData.rubro },
-          { label: "¿Qué necesita resolver tu empresa?", value: validatedData.message },
+          {
+            label: "¿Qué necesita resolver tu empresa?",
+            value: validatedData.message,
+          },
           { label: "Consentimiento", value: validatedData.consent },
         ],
       });
     } catch (notificationError) {
-      console.error("Error enviando notificación interna (contacto):", notificationError);
+      console.error(
+        "Error enviando notificación interna (contacto):",
+        notificationError
+      );
     }
 
     return NextResponse.json(
@@ -48,7 +54,7 @@ export async function POST(request: NextRequest) {
         message: "Formulario enviado exitosamente",
         data: record,
       },
-      { status: 200 },
+      { status: 200 }
     );
   } catch (error) {
     if (error instanceof ZodError) {
@@ -60,7 +66,7 @@ export async function POST(request: NextRequest) {
             message: err.message,
           })),
         },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -75,11 +81,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         error:
-          error instanceof Error
-            ? error.message
-            : "Error interno del servidor",
+          error instanceof Error ? error.message : "Error interno del servidor",
       },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

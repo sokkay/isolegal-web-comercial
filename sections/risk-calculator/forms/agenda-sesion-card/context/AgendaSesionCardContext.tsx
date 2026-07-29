@@ -109,10 +109,15 @@ export function AgendaSesionCardStateProvider({
     queryFn: () => fetchActiveDays(timeZone),
   });
 
-  const days = useMemo(() => activeDaysQuery.data ?? [], [activeDaysQuery.data]);
+  const days = useMemo(
+    () => activeDaysQuery.data ?? [],
+    [activeDaysQuery.data]
+  );
   const daysLoading = activeDaysQuery.isPending;
   const daysError =
-    activeDaysQuery.error instanceof Error ? activeDaysQuery.error.message : null;
+    activeDaysQuery.error instanceof Error
+      ? activeDaysQuery.error.message
+      : null;
 
   const activeDaysMap = useMemo(() => {
     return new Map(days.map((day) => [day.date, day.enabled]));
@@ -216,7 +221,13 @@ export function AgendaSesionCardStateProvider({
       time_zone: timeZone,
       selected_date: selectedDate,
     });
-  }, [resolvedBookingSource, selectedDate, slotsError, slotsQuery.error, timeZone]);
+  }, [
+    resolvedBookingSource,
+    selectedDate,
+    slotsError,
+    slotsQuery.error,
+    timeZone,
+  ]);
 
   const bookingMutation = useMutation({
     mutationFn: (slot: Slot) =>
@@ -302,7 +313,9 @@ export function AgendaSesionCardStateProvider({
       });
     } catch (error) {
       const message =
-        error instanceof Error ? error.message : "No se pudo agendar la reunión";
+        error instanceof Error
+          ? error.message
+          : "No se pudo agendar la reunión";
       setBookingError(message);
     }
   }

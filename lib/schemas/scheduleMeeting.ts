@@ -11,7 +11,7 @@ function timeToMinutes(time: string) {
 function validateDateRange(
   startDateTime: string,
   endDateTime: string,
-  ctx: z.RefinementCtx,
+  ctx: z.RefinementCtx
 ) {
   const start = new Date(startDateTime);
   const end = new Date(endDateTime);
@@ -42,7 +42,7 @@ export const scheduleMeetingAvailabilityRequestSchema = z
     timeZone: z.string().trim().min(1).default(defaultTimeZone),
   })
   .superRefine((value, ctx) =>
-    validateDateRange(value.startDateTime, value.endDateTime, ctx),
+    validateDateRange(value.startDateTime, value.endDateTime, ctx)
   );
 
 export const weeklyScheduleRecordSchema = z
@@ -87,7 +87,8 @@ export const weeklyScheduleSchema = weeklyScheduleRecordSchema
 
     for (const [day, entries] of activeRulesByDay.entries()) {
       const sorted = [...entries].sort((a, b) => {
-        const startDiff = timeToMinutes(a.horaInicio) - timeToMinutes(b.horaInicio);
+        const startDiff =
+          timeToMinutes(a.horaInicio) - timeToMinutes(b.horaInicio);
         if (startDiff !== 0) return startDiff;
         return timeToMinutes(a.horaFin) - timeToMinutes(b.horaFin);
       });

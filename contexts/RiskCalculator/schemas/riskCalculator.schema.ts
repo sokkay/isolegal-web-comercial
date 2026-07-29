@@ -1,8 +1,8 @@
-import { z } from "zod";
 import {
   hasBusinessEmailDomain,
   isBusinessEmailValidationEnabled,
 } from "@/lib/config/businessEmailValidation";
+import { z } from "zod";
 
 export const contextoOperativoSchema = z
   .object({
@@ -44,16 +44,18 @@ export const resultadosDiagnosticoSchema = z.object({
   correoCorporativo: z
     .email("Email inválido")
     .min(1, "Debes ingresar tu correo corporativo")
-    .refine((val) => {
-      if (!isBusinessEmailValidationEnabled()) {
-        return true;
-      }
+    .refine(
+      (val) => {
+        if (!isBusinessEmailValidationEnabled()) {
+          return true;
+        }
 
-      return hasBusinessEmailDomain(val);
-    }, {
-      message:
-        "Debes usar un correo corporativo",
-    }),
+        return hasBusinessEmailDomain(val);
+      },
+      {
+        message: "Debes usar un correo corporativo",
+      }
+    ),
   empresa: z.string().min(1, "Debes ingresar tu empresa"),
 });
 

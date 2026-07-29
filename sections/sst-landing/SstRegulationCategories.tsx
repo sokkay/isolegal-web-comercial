@@ -7,12 +7,7 @@ const regulationCategories = [
   },
   {
     title: "Medio Ambiente",
-    items: [
-      "RCA",
-      "Ley 19.300",
-      "Normas SMA",
-      "Permisos sectoriales",
-    ],
+    items: ["RCA", "Ley 19.300", "Normas SMA", "Permisos sectoriales"],
   },
   {
     title: "Estándares Internacionales",
@@ -34,7 +29,7 @@ export default function SstRegulationCategories() {
         title="Toda la normativa SST, HSE y de medio ambiente en un solo lugar"
         description="Nuestro equipo legal mantiene la matriz actualizada en las cuatro dimensiones que más le importan a tu operación."
       />
-      <div className=" bg-card-background mx-auto max-w-6xl overflow-hidden rounded-3xl shadow-sm">
+      <div className="bg-card-background mx-auto max-w-6xl overflow-hidden rounded-3xl shadow-sm">
         <div className="divide-border divide-y">
           {regulationCategories.map((category, index) => (
             <article

@@ -1,10 +1,10 @@
 "use client";
-import { cn } from "@/utils/cn";
 import ArrowRightIcon from "@/public/icons/arrow-right.svg";
+import CloseIcon from "@/public/icons/close.svg";
+import MenuIcon from "@/public/icons/menu.svg";
 import MoonIcon from "@/public/icons/moon.svg";
 import SunIcon from "@/public/icons/sun.svg";
-import MenuIcon from "@/public/icons/menu.svg";
-import CloseIcon from "@/public/icons/close.svg";
+import { cn } from "@/utils/cn";
 
 const icons = {
   "arrow-right": ArrowRightIcon,
@@ -41,7 +41,7 @@ export default function IconButton({
       onClick={onClick}
       disabled={disabled}
       className={cn(
-        "flex items-center justify-center w-10 h-10 rounded-full transition-colors duration-200",
+        "flex h-10 w-10 items-center justify-center rounded-full transition-colors duration-200",
         disabled
           ? "cursor-not-allowed opacity-50"
           : "cursor-pointer bg-transparent hover:bg-white/10 active:bg-white/20",
@@ -50,7 +50,7 @@ export default function IconButton({
     >
       <Icon
         className={cn(
-          "w-6 h-6 fill-current text-white pointer-events-none",
+          "pointer-events-none h-6 w-6 fill-current text-white",
           iconClassName
         )}
       />

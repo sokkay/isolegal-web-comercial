@@ -87,7 +87,9 @@ async function getPbAdminAuthenticated(): Promise<PocketBase> {
   }
 
   const pb = getPb();
-  await pb.collection("_superusers").authWithPassword(adminEmail, adminPassword);
+  await pb
+    .collection("_superusers")
+    .authWithPassword(adminEmail, adminPassword);
   return pb;
 }
 
@@ -110,10 +112,7 @@ function normalizeBlogPost(
   });
 
   if (!parsed.success) {
-    console.error(
-      "Registro de blog inválido:",
-      parsed.error.issues
-    );
+    console.error("Registro de blog inválido:", parsed.error.issues);
     return null;
   }
 

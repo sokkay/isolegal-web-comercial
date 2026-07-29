@@ -12,7 +12,9 @@ function escapeXml(value: string): string {
     .replaceAll("'", "&apos;");
 }
 
-function formatLastModified(lastModified?: SitemapIndexEntry["lastModified"]): string | null {
+function formatLastModified(
+  lastModified?: SitemapIndexEntry["lastModified"]
+): string | null {
   if (!lastModified) {
     return null;
   }
@@ -32,7 +34,9 @@ export function buildIndexXml(entries: SitemapIndexEntry[]): string {
       return [
         "  <sitemap>",
         `    <loc>${escapeXml(entry.url)}</loc>`,
-        lastModified ? `    <lastmod>${escapeXml(lastModified)}</lastmod>` : null,
+        lastModified
+          ? `    <lastmod>${escapeXml(lastModified)}</lastmod>`
+          : null,
         "  </sitemap>",
       ]
         .filter(Boolean)

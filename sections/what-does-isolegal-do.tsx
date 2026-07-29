@@ -67,22 +67,22 @@ export default function WhatDoesIsolegalDo() {
   }, [videoRefs]);
 
   return (
-    <section className="bg-white dark:bg-darkBlue py-16">
+    <section className="dark:bg-darkBlue bg-white py-16">
       <div className="container mx-auto">
         {/* Nuevo ROI */}
-        <div className="w-full flex flex-col items-center">
-          <h2 className="text-text text-3xl font-bold mb-10 text-center">
+        <div className="flex w-full flex-col items-center">
+          <h2 className="text-text mb-10 text-center text-3xl font-bold">
             Los números nos avalan
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+          <div className="mb-10 grid grid-cols-1 gap-4 md:grid-cols-3">
             {roi.map((item) => (
               <div
                 key={item.title}
-                className="p-5.5 bg-green-bg dark:bg-card-background rounded-2xl flex flex-col items-center gap-4 text-text"
+                className="bg-green-bg dark:bg-card-background text-text flex flex-col items-center gap-4 rounded-2xl p-5.5"
               >
                 <AnimatedCounter value={item.number} type={item.type} />
-                <h3 className="text-lg font-bold text-center">{item.title}</h3>
-                <p className="text-base text-center font-norma">
+                <h3 className="text-center text-lg font-bold">{item.title}</h3>
+                <p className="font-norma text-center text-base">
                   {item.description}
                 </p>
               </div>
@@ -109,7 +109,7 @@ export default function WhatDoesIsolegalDo() {
                 loop
                 muted
                 playsInline
-                className="rounded-2xl max-w-80 xl:max-w-xl w-full h-auto order-2 md:order-0"
+                className="order-2 h-auto w-full max-w-80 rounded-2xl md:order-0 xl:max-w-xl"
               >
                 <source src={step.video} type="video/mp4" />
               </video>
@@ -119,17 +119,17 @@ export default function WhatDoesIsolegalDo() {
                 alt={step.title}
                 width={800}
                 height={800}
-                className="rounded-2xl max-w-80 xl:max-w-xl order-2 md:order-0"
+                className="order-2 max-w-80 rounded-2xl md:order-0 xl:max-w-xl"
               />
             )}
             <div className="flex-1">
-              <h2 className="text-2xl font-bold mb-5 text-text dark:text-white">
+              <h2 className="text-text mb-5 text-2xl font-bold dark:text-white">
                 {step.title}
               </h2>
               {step.description.map((description, y) => (
                 <p
                   key={step.title + y}
-                  className="mb-5 font-normal text-text dark:text-white/80"
+                  className="text-text mb-5 font-normal dark:text-white/80"
                 >
                   {description}
                 </p>

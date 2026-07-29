@@ -1,4 +1,4 @@
-import { getPb, getPbPublic } from "@/lib/pocketbase";
+import { getPbPublic } from "@/lib/pocketbase";
 import { NextResponse } from "next/server";
 
 export async function GET() {

@@ -1,8 +1,8 @@
-import { z } from "zod";
 import {
   hasBusinessEmailDomain,
   isBusinessEmailValidationEnabled,
 } from "@/lib/config/businessEmailValidation";
+import { z } from "zod";
 
 export const CONTACT_CARGO_OPTIONS = [
   "SSOMA/HSE",
@@ -34,15 +34,18 @@ export const contactFormSchema = z.object({
   email: z
     .email({ message: "Email inválido" })
     .min(1, "Debes ingresar tu correo corporativo")
-    .refine((val) => {
-      if (!isBusinessEmailValidationEnabled()) {
-        return true;
-      }
+    .refine(
+      (val) => {
+        if (!isBusinessEmailValidationEnabled()) {
+          return true;
+        }
 
-      return hasBusinessEmailDomain(val);
-    }, {
-      message: "Debes usar un correo corporativo",
-    }),
+        return hasBusinessEmailDomain(val);
+      },
+      {
+        message: "Debes usar un correo corporativo",
+      }
+    ),
   mobilephone: z
     .string()
     .regex(/^\+56\d{9}$/, "Formato: +56912345678 (12 dígitos)"),

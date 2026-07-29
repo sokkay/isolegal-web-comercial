@@ -60,13 +60,13 @@ export default function HowIsolegalWorks() {
   const [activeFeature, setActiveFeature] = useState(0);
 
   return (
-    <section className="bg-white dark:bg-darkBlue py-16">
-      <div className="container mx-auto flex flex-col md:flex-row justify-center ">
-        <h2 className="text-text text-center text-3xl font-bold mb-10 block md:hidden">
+    <section className="dark:bg-darkBlue bg-white py-16">
+      <div className="container mx-auto flex flex-col justify-center md:flex-row">
+        <h2 className="text-text mb-10 block text-center text-3xl font-bold md:hidden">
           Cómo Funciona Isolegal
         </h2>
-        <div className="flex-5 flex flex-col order-2 md:order-1">
-          <h2 className="text-text text-3xl font-bold tracking-[0.01em] mb-10 hidden md:block">
+        <div className="order-2 flex flex-5 flex-col md:order-1">
+          <h2 className="text-text mb-10 hidden text-3xl font-bold tracking-[0.01em] md:block">
             Cómo Funciona Isolegal
           </h2>
           <AutoRotatingAccordion
@@ -76,8 +76,8 @@ export default function HowIsolegalWorks() {
             className="w-full"
           />
         </div>
-        <div className="flex-7 order-1 md:order-2">
-          <div className="relative md:ml-auto w-full max-w-[600px] aspect-square rounded-2xl bg-checkbox-bg overflow-hidden">
+        <div className="order-1 flex-7 md:order-2">
+          <div className="bg-checkbox-bg relative aspect-square w-full max-w-[600px] overflow-hidden rounded-2xl md:ml-auto">
             <AnimatePresence mode="wait">
               <motion.div
                 key={features[activeFeature].image}

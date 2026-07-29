@@ -27,26 +27,24 @@ export default function SimpleSlider({
   return (
     <div className="w-full px-4">
       {/* Track */}
-      <div className="relative w-full h-1 bg-border rounded-full">
+      <div className="bg-border relative h-1 w-full rounded-full">
         {/* Dots */}
         {options.map((option, index) => {
           const isSelected = option.value === value;
           const position =
-            options.length === 1
-              ? 50
-              : (index / (options.length - 1)) * 100;
+            options.length === 1 ? 50 : (index / (options.length - 1)) * 100;
 
           return (
             <button
               key={option.value}
               type="button"
               onClick={() => onChange?.(option.value)}
-              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 p-3 cursor-pointer"
+              className="absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer p-3"
               style={{ left: `${position}%` }}
             >
               <div
                 className={cn(
-                  "w-4 h-4 rounded-full border-2 transition-all",
+                  "h-4 w-4 rounded-full border-2 transition-all",
                   isSelected
                     ? "bg-primary border-primary scale-125"
                     : "bg-card-background border-border hover:border-primary/50"
@@ -59,7 +57,7 @@ export default function SimpleSlider({
         {/* Filled track */}
         {selectedIndex >= 0 && (
           <div
-            className="absolute top-0 left-0 h-full bg-primary rounded-full transition-all"
+            className="bg-primary absolute top-0 left-0 h-full rounded-full transition-all"
             style={{
               width: `${selectedWidthPercent}%`,
             }}
@@ -84,7 +82,7 @@ export default function SimpleSlider({
                 type="button"
                 onClick={() => onChange?.(option.value)}
                 className={cn(
-                  "text-center text-xs leading-tight transition-colors whitespace-pre-line break-words cursor-pointer px-1",
+                  "cursor-pointer px-1 text-center text-xs leading-tight break-words whitespace-pre-line transition-colors",
                   isSelected
                     ? "text-primary font-bold"
                     : "text-text/60 dark:text-white/60"
@@ -104,9 +102,7 @@ export default function SimpleSlider({
           const isFirst = index === 0;
           const isLast = index === options.length - 1;
           const position =
-            options.length === 1
-              ? 50
-              : (index / (options.length - 1)) * 100;
+            options.length === 1 ? 50 : (index / (options.length - 1)) * 100;
 
           return (
             <button
@@ -114,7 +110,7 @@ export default function SimpleSlider({
               type="button"
               onClick={() => onChange?.(option.value)}
               className={cn(
-                "absolute text-sm transition-colors cursor-pointer whitespace-pre-line leading-tight w-44",
+                "absolute w-44 cursor-pointer text-sm leading-tight whitespace-pre-line transition-colors",
                 isFirst && "left-0 translate-x-0 text-left",
                 isLast && "right-0 translate-x-0 text-right",
                 !isFirst && !isLast && "-translate-x-1/2 text-center",

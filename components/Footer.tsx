@@ -11,31 +11,31 @@ export default function Footer() {
       name: "Email",
       href: "mailto:contacto@isolegal.cl",
       icon: (
-        <EmailIcon className="w-5.5 h-5.5 fill-[#64748B] dark:fill-white/60" />
+        <EmailIcon className="h-5.5 w-5.5 fill-[#64748B] dark:fill-white/60" />
       ),
     },
     {
       name: "LinkedIn",
       href: "https://www.linkedin.com/company/isolegal",
       icon: (
-        <LinkedInIcon className="w-5.5 h-5.5 fill-[#64748B] dark:fill-white/60" />
+        <LinkedInIcon className="h-5.5 w-5.5 fill-[#64748B] dark:fill-white/60" />
       ),
     },
     {
       name: "Blog",
       href: "/blog",
       icon: (
-        <NewsIcon className="w-5.5 h-5.5 fill-[#64748B] dark:fill-white/60" />
+        <NewsIcon className="h-5.5 w-5.5 fill-[#64748B] dark:fill-white/60" />
       ),
     },
   ];
 
   return (
-    <footer className="bg-white dark:bg-darkBlue">
+    <footer className="dark:bg-darkBlue bg-white">
       <div className="container mx-auto py-16">
-        <div className="flex flex-col md:flex-row justify-between">
+        <div className="flex flex-col justify-between md:flex-row">
           <div>
-            <h3 className="text-xl font-bold text-text dark:text-white">
+            <h3 className="text-text text-xl font-bold dark:text-white">
               Suscríbete a Radar Legislativo
             </h3>
             <p className="text-text dark:text-white/80">
@@ -46,12 +46,12 @@ export default function Footer() {
             <Button
               text="Suscribirme"
               href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7170086036545478656"
-              className="w-full md:w-auto mt-4 md:mt-0"
+              className="mt-4 w-full md:mt-0 md:w-auto"
             />
           </div>
         </div>
-        <div className="h-px bg-gray-200 dark:bg-border my-6" />
-        <div className=" flex flex-col md:flex-row justify-between">
+        <div className="dark:bg-border my-6 h-px bg-gray-200" />
+        <div className="flex flex-col justify-between md:flex-row">
           <div>
             <Logo
               colors={{ primary: "#1B3C59", secondary: "#E33421" }}
@@ -61,14 +61,14 @@ export default function Footer() {
             <p className="text-sm text-gray-500 dark:text-white/60">
               Concimiento, cercanía y simplicidad.
             </p>
-            <div className="flex flex-row gap-4 mt-4">
+            <div className="mt-4 flex flex-row gap-4">
               {socialMedia.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-gray-100 dark:bg-surface-a20 flex items-center justify-center"
+                  className="dark:bg-surface-a20 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100"
                 >
                   {item.icon}
                 </a>
@@ -76,13 +76,13 @@ export default function Footer() {
             </div>
           </div>
           <div className="mt-4 md:mt-0">
-            <span className="text-md font-bold text-text dark:text-white">
+            <span className="text-md text-text font-bold dark:text-white">
               Av. Bosques de Montemar N°30, Of. 316, Viña del Mar.
             </span>
           </div>
         </div>
-        <div className="h-px bg-gray-100 dark:bg-border my-6" />
-        <div className="flex flex-col md:flex-row justify-between gap-4 md:gap-0">
+        <div className="dark:bg-border my-6 h-px bg-gray-100" />
+        <div className="flex flex-col justify-between gap-4 md:flex-row md:gap-0">
           <span className="text-sm text-gray-500 dark:text-white/60">
             &copy; {new Date().getFullYear()} Isolegal. Todos los derechos
             reservados.
@@ -93,7 +93,7 @@ export default function Footer() {
             </a> */}
             <Link
               href="/terminos-y-condiciones"
-              className="hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
+              className="cursor-pointer transition-colors hover:text-gray-900 dark:hover:text-white"
             >
               Términos y condiciones
             </Link>

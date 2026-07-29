@@ -44,10 +44,10 @@ export default async function BlogPage() {
   const posts = await getPublishedBlogPosts();
 
   return (
-    <main className="bg-darkBlue text-white min-h-dvh">
+    <main className="bg-darkBlue min-h-dvh text-white">
       <section className="container mx-auto py-16">
         <div className="max-w-3xl space-y-4">
-          <h1 className="font-extrabold text-5xl md:text-6xl leading-[1.06] tracking-[-1.5px]">
+          <h1 className="text-5xl leading-[1.06] font-extrabold tracking-[-1.5px] md:text-6xl">
             Blog Isolegal
           </h1>
           <p className="text-lg text-white/85">
@@ -58,7 +58,9 @@ export default async function BlogPage() {
 
         {posts.length === 0 ? (
           <div className="mt-12 rounded-2xl border border-white/15 bg-white/5 p-8">
-            <p className="text-white/80">Aún no hay publicaciones disponibles.</p>
+            <p className="text-white/80">
+              Aún no hay publicaciones disponibles.
+            </p>
           </div>
         ) : (
           <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
@@ -82,12 +84,15 @@ export default async function BlogPage() {
                     <div className="aspect-video w-full bg-white/10" />
                   )}
                   <div className="space-y-3 p-6">
-                    <p className="text-sm uppercase tracking-wide text-white/70">
+                    <p className="text-sm tracking-wide text-white/70 uppercase">
                       {formatPublishedDate(post.publishedAt)}
                     </p>
-                    <h2 className="text-2xl font-bold leading-tight">{post.title}</h2>
+                    <h2 className="text-2xl leading-tight font-bold">
+                      {post.title}
+                    </h2>
                     <p className="text-white/80">
-                      {post.excerpt || "Sin resumen disponible para esta publicación."}
+                      {post.excerpt ||
+                        "Sin resumen disponible para esta publicación."}
                     </p>
                     <span className="inline-flex text-sm font-semibold text-white">
                       Leer artículo

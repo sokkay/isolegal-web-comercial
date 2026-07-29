@@ -2,7 +2,11 @@ import Button from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
 import { useRouter } from "next/navigation";
 import { useAgendaSesionCardContext } from "../context/AgendaSesionCardContext";
-import { SLOT_SKELETON_ROWS, formatLongDate, formatTimeRange } from "../lib/date";
+import {
+  SLOT_SKELETON_ROWS,
+  formatLongDate,
+  formatTimeRange,
+} from "../lib/date";
 
 export function SlotsPanel() {
   const router = useRouter();
@@ -32,7 +36,7 @@ export function SlotsPanel() {
   return (
     <>
       <section className="rounded-xl border border-gray-200 p-4 dark:border-gray-800">
-        <h3 className="text-base font-bold text-text">
+        <h3 className="text-text text-base font-bold">
           {showSlotsSkeleton ? (
             <span className="block h-5 w-56 animate-pulse rounded bg-gray-200/70 dark:bg-gray-800/80" />
           ) : selectedDate ? (
@@ -55,17 +59,21 @@ export function SlotsPanel() {
             <span className="text-sm text-red-500">{slotsError}</span>
           )}
 
-          {!showSlotsSkeleton && !slotsError && selectedDate && slots.length === 0 && (
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              No hay bloques disponibles para este día.
-            </span>
-          )}
+          {!showSlotsSkeleton &&
+            !slotsError &&
+            selectedDate &&
+            slots.length === 0 && (
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                No hay bloques disponibles para este día.
+              </span>
+            )}
 
           {!showSlotsSkeleton &&
             !slotsError &&
             slots.map((slot) => {
               const isSelected =
-                selectedSlot?.start === slot.start && selectedSlot?.end === slot.end;
+                selectedSlot?.start === slot.start &&
+                selectedSlot?.end === slot.end;
               return (
                 <button
                   key={`${slot.start}-${slot.end}`}
@@ -74,7 +82,7 @@ export function SlotsPanel() {
                     "cursor-pointer rounded-lg border px-3 py-2 text-left text-sm font-semibold transition-colors",
                     isSelected
                       ? "border-primary bg-primary/10 text-primary dark:bg-primary/20 dark:text-white"
-                      : "border-gray-200 text-text hover:border-primary/60 hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-900/50"
+                      : "text-text hover:border-primary/60 border-gray-200 hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-900/50"
                   )}
                   onClick={() => handleSelectSlot(slot)}
                   disabled={bookingPending}
@@ -109,8 +117,11 @@ export function SlotsPanel() {
           aria-modal="true"
           aria-labelledby="booking-success-title"
         >
-          <div className="w-full max-w-md rounded-2xl bg-background p-6 shadow-2xl dark:border dark:border-gray-800">
-            <h4 id="booking-success-title" className="text-lg font-bold text-text">
+          <div className="bg-background w-full max-w-md rounded-2xl p-6 shadow-2xl dark:border dark:border-gray-800">
+            <h4
+              id="booking-success-title"
+              className="text-text text-lg font-bold"
+            >
               Sesión agendada con éxito
             </h4>
             <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
@@ -119,7 +130,7 @@ export function SlotsPanel() {
             <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">
               {bookingFollowUpMessage}
             </p>
-            <p className="mt-2 text-sm font-semibold text-primary">
+            <p className="text-primary mt-2 text-sm font-semibold">
               {formatTimeRange(
                 {
                   start: bookingSuccess.booking.startDateTime,
@@ -134,7 +145,11 @@ export function SlotsPanel() {
               etapa de cumplimiento legal.
             </p>
             <div className="mt-5">
-              <Button text="Ir al inicio de Isolegal" fullWidth onClick={handleGoToHome} />
+              <Button
+                text="Ir al inicio de Isolegal"
+                fullWidth
+                onClick={handleGoToHome}
+              />
             </div>
           </div>
         </div>

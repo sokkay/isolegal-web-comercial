@@ -8,12 +8,10 @@ export default function TextArea({ label, ...props }: TextAreaProps) {
   return (
     <div className="flex flex-col gap-2">
       {label && (
-        <label className="text-text font-semibold text-sm">
-          {label}
-        </label>
+        <label className="text-text text-sm font-semibold">{label}</label>
       )}
       <textarea
-        className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-lg text-text text-sm font-semibold placeholder:text-placeholder placeholder:font-semibold focus:outline-none focus:border-primary transition-colors resize-none"
+        className="bg-input-bg border-input-border text-text placeholder:text-placeholder focus:border-primary w-full resize-none rounded-lg border px-4 py-3 text-sm font-semibold transition-colors placeholder:font-semibold focus:outline-none"
         rows={5}
         {...props}
       />

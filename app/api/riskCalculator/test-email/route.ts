@@ -20,20 +20,25 @@ export async function POST(request: NextRequest) {
 
     if (!adminEmail || !adminPassword) {
       return NextResponse.json(
-        { error: "Faltan credenciales admin de PocketBase en variables de entorno" },
-        { status: 500 },
+        {
+          error:
+            "Faltan credenciales admin de PocketBase en variables de entorno",
+        },
+        { status: 500 }
       );
     }
 
     const pb = getPb();
-    await pb.collection("_superusers").authWithPassword(adminEmail, adminPassword);
+    await pb
+      .collection("_superusers")
+      .authWithPassword(adminEmail, adminPassword);
 
     const diagnosisRecord = await pb
       .collection("diagnosticos_riesgo")
       .getOne(validatedData.formId);
 
     const emailParams = buildRiskCalculatorEmailParamsFromRecord(
-      diagnosisRecord as unknown as Record<string, unknown>,
+      diagnosisRecord as unknown as Record<string, unknown>
     );
     await sendRiskCalculatorResultsEmail({
       ...emailParams,
@@ -54,7 +59,7 @@ export async function POST(request: NextRequest) {
           subject: getSubjectByVariant(validatedData.emailVariant),
         },
       },
-      { status: 200 },
+      { status: 200 }
     );
   } catch (error) {
     if (error instanceof ZodError) {
@@ -66,7 +71,7 @@ export async function POST(request: NextRequest) {
             message: err.message,
           })),
         },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -75,7 +80,7 @@ export async function POST(request: NextRequest) {
         error:
           error instanceof Error ? error.message : "Error interno del servidor",
       },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

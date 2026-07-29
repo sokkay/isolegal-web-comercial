@@ -9,7 +9,7 @@ export function toRiskLevel(value: unknown): "bajo" | "alto" | "critico" {
 }
 
 export function buildRiskCalculatorEmailParamsFromRecord(
-  record: Record<string, unknown>,
+  record: Record<string, unknown>
 ) {
   const rawRubro = String(record.rubro ?? "");
   const rawRubroOtro = String(record.rubro_otro ?? "");

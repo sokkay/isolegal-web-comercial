@@ -1,11 +1,11 @@
 "use client";
 
-import AgendaSesionCard from "@/sections/risk-calculator/forms/agenda-sesion-card";
 import {
   captureClientEvent,
   captureClientException,
 } from "@/lib/posthog/client";
 import { POSTHOG_EVENTS } from "@/lib/posthog/events";
+import AgendaSesionCard from "@/sections/risk-calculator/forms/agenda-sesion-card";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
@@ -34,7 +34,7 @@ function AgendarSesionExternaContent() {
     enabled: Boolean(token),
     queryFn: async () => {
       const response = await fetch(
-        `/api/scheduleMeeting/external-booking-link?token=${encodeURIComponent(token)}`,
+        `/api/scheduleMeeting/external-booking-link?token=${encodeURIComponent(token)}`
       );
       const payload = (await response.json()) as
         | { error?: string; bookingContext?: ExternalBookingContextPayload }
@@ -50,7 +50,9 @@ function AgendarSesionExternaContent() {
 
   const isLoading = bookingContextQuery.isPending;
   const error =
-    bookingContextQuery.error instanceof Error ? bookingContextQuery.error.message : null;
+    bookingContextQuery.error instanceof Error
+      ? bookingContextQuery.error.message
+      : null;
   const bookingContext = bookingContextQuery.data ?? null;
 
   useEffect(() => {
@@ -76,12 +78,12 @@ function AgendarSesionExternaContent() {
 
   return (
     <div className="container mx-auto py-16">
-      <div className="rounded-3xl bg-card-background px-4 py-8 text-text shadow-lg md:px-8">
+      <div className="bg-card-background text-text rounded-3xl px-4 py-8 shadow-lg md:px-8">
         <div className="mb-6 flex flex-col gap-2">
           <h1 className="text-2xl font-bold">Agenda tu sesión estratégica</h1>
           <p className="text-sm font-semibold text-gray-500 dark:text-gray-400">
-            Selecciona un día activo y luego el bloque horario que prefieras para
-            reservar tu reunión.
+            Selecciona un día activo y luego el bloque horario que prefieras
+            para reservar tu reunión.
           </p>
         </div>
 

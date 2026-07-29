@@ -27,7 +27,9 @@ export function CalendarPanel() {
           enabled={canNavigatePrev}
           onClick={handlePrevMonth}
         />
-        <span className="text-sm font-bold capitalize text-text">{monthLabel}</span>
+        <span className="text-text text-sm font-bold capitalize">
+          {monthLabel}
+        </span>
         <MonthNavButton
           direction="next"
           enabled={canNavigateNext}
@@ -78,7 +80,7 @@ export function CalendarPanel() {
                     !selected &&
                     "text-text hover:bg-primary/10 dark:hover:bg-primary/20",
                   selected &&
-                    "bg-primary text-white hover:bg-primary/90 dark:text-white"
+                    "bg-primary hover:bg-primary/90 text-white dark:text-white"
                 )}
                 disabled={!enabled || !inRange || daysLoading}
                 onClick={() => handleSelectDate(cell.dateKey)}

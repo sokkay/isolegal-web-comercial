@@ -13,9 +13,7 @@ export default function ThemeToggle({ className }: { className?: string }) {
   }, []);
 
   if (!mounted) {
-    return (
-      <IconButton icon="moon" alt="Tema" className={className} disabled />
-    );
+    return <IconButton icon="moon" alt="Tema" className={className} disabled />;
   }
 
   const toggleTheme = () => {

@@ -1,6 +1,6 @@
 import { queryCalendarBusyIntervals } from "@/lib/google/calendar";
-import { captureServerError } from "@/lib/posthog/server";
 import { getPb } from "@/lib/pocketbase";
+import { captureServerError } from "@/lib/posthog/server";
 import {
   buildRateLimitResponseInit,
   consumeScheduleMeetingRateLimit,
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     if (!rateLimitResult.success) {
       return NextResponse.json(
         rateLimitResult.body,
-        buildRateLimitResponseInit(rateLimitResult),
+        buildRateLimitResponseInit(rateLimitResult)
       );
     }
 
@@ -65,11 +65,14 @@ export async function POST(request: NextRequest) {
     const weeklyScheduleRaw = await pb
       .collection("agenda_semanal_de_reuniones")
       .getFullList();
-    const weeklyScheduleResult = weeklyScheduleSchema.safeParse(weeklyScheduleRaw);
+    const weeklyScheduleResult =
+      weeklyScheduleSchema.safeParse(weeklyScheduleRaw);
     if (!weeklyScheduleResult.success) {
       await captureServerError({
         route: request.nextUrl.pathname,
-        error: new Error("Configuración inválida en agenda_semanal_de_reuniones"),
+        error: new Error(
+          "Configuración inválida en agenda_semanal_de_reuniones"
+        ),
         properties: {
           flow: "schedule_meeting_availability",
           stage: "invalid_weekly_schedule",
@@ -83,7 +86,7 @@ export async function POST(request: NextRequest) {
             message: issue.message,
           })),
         },
-        { status: 500 },
+        { status: 500 }
       );
     }
     const weeklySchedule = weeklyScheduleResult.data;
@@ -102,7 +105,9 @@ export async function POST(request: NextRequest) {
     if (busyResult.errors.length > 0) {
       await captureServerError({
         route: request.nextUrl.pathname,
-        error: new Error("No se pudo consultar el calendario de contacto@isolegal.cl"),
+        error: new Error(
+          "No se pudo consultar el calendario de contacto@isolegal.cl"
+        ),
         properties: {
           flow: "schedule_meeting_availability",
           stage: "calendar_busy_query",
@@ -114,7 +119,7 @@ export async function POST(request: NextRequest) {
           error: "No se pudo consultar el calendario de contacto@isolegal.cl",
           details: busyResult.errors,
         },
-        { status: 502 },
+        { status: 502 }
       );
     }
     const mergedBusyIntervals = mergeIntervals(busyResult.busyIntervals);

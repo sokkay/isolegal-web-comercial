@@ -17,10 +17,10 @@ export default function FormAsk({
   return (
     <div className={cn("flex items-center gap-4", className)}>
       <CircleNumber number={number} />
-      <div className="flex items-start gap-2 flex-col md:flex-row md:items-center">
+      <div className="flex flex-col items-start gap-2 md:flex-row md:items-center">
         <span className="text-lg font-bold">{question}</span>
         {isMultipleChoice && (
-          <div className="px-2 py-1 bg-[#F1F5F9] dark:bg-[#334155] rounded-full shrink-0 flex items-center justify-center">
+          <div className="flex shrink-0 items-center justify-center rounded-full bg-[#F1F5F9] px-2 py-1 dark:bg-[#334155]">
             <span className="text-xs">Selección múltiple</span>
           </div>
         )}

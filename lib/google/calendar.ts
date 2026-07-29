@@ -15,7 +15,7 @@ const freeBusyResponseSchema = z.object({
           z.object({
             start: z.iso.datetime({ offset: true }),
             end: z.iso.datetime({ offset: true }),
-          }),
+          })
         )
         .default([]),
       errors: z
@@ -24,27 +24,31 @@ const freeBusyResponseSchema = z.object({
             domain: z.string().optional(),
             reason: z.string().optional(),
             message: z.string().optional(),
-          }),
+          })
         )
         .optional(),
-    }),
+    })
   ),
 });
 
 function getServiceAccountAuth(scopes: string[]) {
   const serviceAccountEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
-  const serviceAccountPrivateKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY;
-  const impersonatedUserEmail = process.env.GOOGLE_IMPERSONATED_USER_EMAIL || "contacto@isolegal.cl";
+  const serviceAccountPrivateKey =
+    process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY;
+  const impersonatedUserEmail =
+    process.env.GOOGLE_IMPERSONATED_USER_EMAIL || "contacto@isolegal.cl";
 
   if (!serviceAccountEmail || !serviceAccountPrivateKey) {
-    throw new Error("Faltan credenciales de service account en variables de entorno");
+    throw new Error(
+      "Faltan credenciales de service account en variables de entorno"
+    );
   }
 
   return new google.auth.JWT({
     email: serviceAccountEmail,
     key: serviceAccountPrivateKey.replace(/\\n/g, "\n"),
     scopes,
-    subject: impersonatedUserEmail
+    subject: impersonatedUserEmail,
   });
 }
 
@@ -77,7 +81,9 @@ export async function queryCalendarBusyIntervals(params: {
   const parsed = freeBusyResponseSchema.parse(response.data);
   const targetCalendar = parsed.calendars[calendarId];
   if (!targetCalendar) {
-    throw new Error("No se pudo obtener disponibilidad del calendario objetivo");
+    throw new Error(
+      "No se pudo obtener disponibilidad del calendario objetivo"
+    );
   }
 
   const busyIntervals: BusyInterval[] = targetCalendar.busy
@@ -89,7 +95,7 @@ export async function queryCalendarBusyIntervals(params: {
       (interval) =>
         !Number.isNaN(interval.start.getTime()) &&
         !Number.isNaN(interval.end.getTime()) &&
-        interval.end > interval.start,
+        interval.end > interval.start
     );
 
   return {

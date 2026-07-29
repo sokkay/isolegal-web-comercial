@@ -1,6 +1,6 @@
+import Handlebars from "handlebars";
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import Handlebars from "handlebars";
 
 type TeamNotificationField = {
   label: string;
@@ -20,15 +20,15 @@ const templateSource = readFileSync(
     "lib",
     "email",
     "templates",
-    "team-form-notification.html",
+    "team-form-notification.html"
   ),
-  "utf-8",
+  "utf-8"
 );
 
 const template = Handlebars.compile(templateSource);
 
 export function buildTeamFormNotificationTemplate(
-  params: TeamFormNotificationTemplateParams,
+  params: TeamFormNotificationTemplateParams
 ) {
   return template(params);
 }

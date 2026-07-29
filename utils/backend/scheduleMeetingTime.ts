@@ -72,7 +72,7 @@ export function zonedDateTimeToUtc(params: {
       zoned.hour,
       zoned.minute,
       0,
-      0,
+      0
     );
     guess = new Date(guess.getTime() + (desiredTs - zonedTs));
   }
@@ -142,7 +142,7 @@ export function buildCandidateSlots(params: {
   while (cursor.getTime() <= maxTs) {
     const zoned = getZonedDateParts(cursor, timeZone);
     localDateKeys.add(
-      `${zoned.year}-${String(zoned.month).padStart(2, "0")}-${String(zoned.day).padStart(2, "0")}`,
+      `${zoned.year}-${String(zoned.month).padStart(2, "0")}-${String(zoned.day).padStart(2, "0")}`
     );
     cursor.setUTCDate(cursor.getUTCDate() + 1);
   }
@@ -170,16 +170,20 @@ export function buildCandidateSlots(params: {
     if (!weekday) continue;
 
     const dayRules = activeRules.filter(
-      (rule) => dayNameToIsoWeekday[normalizeDay(rule.dia)] === weekday,
+      (rule) => dayNameToIsoWeekday[normalizeDay(rule.dia)] === weekday
     );
     if (dayRules.length === 0) continue;
 
     const sortedDayRules = [...dayRules].sort((a, b) => {
-      const startDiff = timeToMinutes(a.hora_inicio) - timeToMinutes(b.hora_inicio);
+      const startDiff =
+        timeToMinutes(a.hora_inicio) - timeToMinutes(b.hora_inicio);
       if (startDiff !== 0) return startDiff;
       const endDiff = timeToMinutes(a.hora_fin) - timeToMinutes(b.hora_fin);
       if (endDiff !== 0) return endDiff;
-      return (a.tiempo_bloque ?? fallbackSlotMinutes) - (b.tiempo_bloque ?? fallbackSlotMinutes);
+      return (
+        (a.tiempo_bloque ?? fallbackSlotMinutes) -
+        (b.tiempo_bloque ?? fallbackSlotMinutes)
+      );
     });
 
     for (const rule of sortedDayRules) {
@@ -238,7 +242,7 @@ export function mergeIntervals(intervals: BusyInterval[]): BusyInterval[] {
   if (intervals.length === 0) return [];
 
   const sortedIntervals = [...intervals].sort(
-    (a, b) => a.start.getTime() - b.start.getTime(),
+    (a, b) => a.start.getTime() - b.start.getTime()
   );
 
   const merged: BusyInterval[] = [sortedIntervals[0]];
@@ -263,12 +267,12 @@ function slotOverlapsBusy(slot: SlotInterval, busy: BusyInterval) {
 
 export function getAvailableSlotsFromCandidates(
   candidateSlots: SlotInterval[],
-  mergedBusyIntervals: BusyInterval[],
+  mergedBusyIntervals: BusyInterval[]
 ) {
   return candidateSlots
     .filter(
       (slot) =>
-        !mergedBusyIntervals.some((busy) => slotOverlapsBusy(slot, busy)),
+        !mergedBusyIntervals.some((busy) => slotOverlapsBusy(slot, busy))
     )
     .map((slot) => ({
       start: slot.start.toISOString(),

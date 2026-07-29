@@ -34,21 +34,21 @@ export default function IconTextCard({
     <div
       onClick={onClick}
       className={cn(
-        "flex  items-center gap-4 py-3 px-6 rounded-lg cursor-pointer relative transition-all",
+        "relative flex cursor-pointer items-center gap-4 rounded-lg px-6 py-3 transition-all",
         className,
-        containerStyle === "outline" ? "border border-border" : "",
-        selected ? "border border-primary bg-primary/10" : "",
-        align === "left" ? "flex-row items-start" : " flex-col justify-center"
+        containerStyle === "outline" ? "border-border border" : "",
+        selected ? "border-primary bg-primary/10 border" : "",
+        align === "left" ? "flex-row items-start" : "flex-col justify-center"
       )}
     >
       {selected ? (
-        <div className="absolute top-3 right-2 w-6 h-6 bg-primary rounded-full z-10 flex items-center justify-center">
-          <CheckIcon className="w-4 h-4 fill-white" />
+        <div className="bg-primary absolute top-3 right-2 z-10 flex h-6 w-6 items-center justify-center rounded-full">
+          <CheckIcon className="h-4 w-4 fill-white" />
         </div>
       ) : null}
       <div
         className={cn(
-          "flex items-center justify-center w-10 h-10 rounded-sm shrink-0",
+          "flex h-10 w-10 shrink-0 items-center justify-center rounded-sm",
           iconContainerStyle === "circle"
             ? "rounded-full bg-white dark:bg-[#334155]"
             : "rounded-sm",
@@ -65,14 +65,14 @@ export default function IconTextCard({
       >
         <span
           className={cn(
-            "text-lg font-bold text-center text-text dark:text-white",
+            "text-text text-center text-lg font-bold dark:text-white",
             align === "left" ? "text-left" : "text-center"
           )}
         >
           {title}
         </span>
         {description && (
-          <p className="text-sm text-center opacity-80 leading-5 text-text dark:text-white">
+          <p className="text-text text-center text-sm leading-5 opacity-80 dark:text-white">
             {description}
           </p>
         )}

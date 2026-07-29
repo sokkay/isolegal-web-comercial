@@ -4,9 +4,9 @@ import { TechnicalSupportForm } from "@/sections/technical-support/technical-sup
 export default function SoporteTecnico() {
   return (
     <div className="bg-darkBlue text-white">
-      <div className="container mx-auto py-16 flex items-center flex-col lg:flex-row gap-8 xl:gap-12">
+      <div className="container mx-auto flex flex-col items-center gap-8 py-16 lg:flex-row xl:gap-12">
         <div className="flex flex-col gap-4">
-          <h1 className="font-bold text-4xl">Soporte Técnico</h1>
+          <h1 className="text-4xl font-bold">Soporte Técnico</h1>
           <h4>
             Estamos aquí para ayudarte a resolver cualquier inconveniente
             técnico y escuchar tus <br /> valiosas sugerencias para seguir
@@ -16,7 +16,7 @@ export default function SoporteTecnico() {
       </div>
 
       <div className="container mx-auto pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-12">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 xl:gap-12">
           <TechnicalSupportForm />
           <OpinionForm />
         </div>

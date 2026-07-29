@@ -31,8 +31,10 @@ export default function Button({
       secondary: "bg-white text-primary hover:bg-background",
     },
     outline: {
-      primary: "border-1 border-primary text-primary bg-transparent hover:bg-primary/10",
-      secondary: "border-1 border-primary text-primary bg-transparent hover:bg-primary/10",
+      primary:
+        "border-1 border-primary text-primary bg-transparent hover:bg-primary/10",
+      secondary:
+        "border-1 border-primary text-primary bg-transparent hover:bg-primary/10",
     },
   };
 
@@ -45,7 +47,7 @@ export default function Button({
 
   const content = loading ? (
     <div className="flex items-center justify-center gap-2">
-      <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+      <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
       <span>Cargando...</span>
     </div>
   ) : (

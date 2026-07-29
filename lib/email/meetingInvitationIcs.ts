@@ -64,7 +64,10 @@ function buildEventDescription(params: {
     .join("\n");
 }
 
-function buildEventUid(params: { attendeeEmail: string; startDateTimeIso: string }) {
+function buildEventUid(params: {
+  attendeeEmail: string;
+  startDateTimeIso: string;
+}) {
   const sanitizedEmail = params.attendeeEmail
     .trim()
     .toLowerCase()

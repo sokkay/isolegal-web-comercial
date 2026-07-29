@@ -101,7 +101,7 @@ export default function SaludMatrizLegal() {
         question="¿Cómo se gestiona actualmente tu matriz legal?"
         number={3}
       />
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {question3Responses.map((response) => (
           <IconTextCard
             key={response.value}
@@ -130,7 +130,7 @@ export default function SaludMatrizLegal() {
         number={5}
         isMultipleChoice
       />
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {question5Responses.map((response) => (
           <IconTextCard
             key={response.value}

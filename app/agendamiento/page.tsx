@@ -3,7 +3,7 @@ import BussinessSection from "@/sections/bussiness";
 
 export default function AgendamientoPage() {
   return (
-    <main className="flex w-full mx-auto flex-col bg-background">
+    <main className="bg-background mx-auto flex w-full flex-col">
       <AgendamientoHeading />
       <BussinessSection />
     </main>

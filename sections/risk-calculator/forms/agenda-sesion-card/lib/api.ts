@@ -1,10 +1,5 @@
+import type { ActiveDay, BookingSource, BookingSuccess, Slot } from "../types";
 import { getDateKeyInTimeZone, getDayRangeFromDateKey } from "./date";
-import type {
-  ActiveDay,
-  BookingSource,
-  BookingSuccess,
-  Slot,
-} from "../types";
 
 export async function fetchActiveDays(timeZone: string) {
   const response = await fetch(

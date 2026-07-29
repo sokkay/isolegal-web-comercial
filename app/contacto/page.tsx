@@ -3,7 +3,7 @@ import HeadingSection from "@/sections/heading";
 
 export default function ContactoPage() {
   return (
-    <main className="flex w-full mx-auto flex-col bg-background">
+    <main className="bg-background mx-auto flex w-full flex-col">
       <HeadingSection />
       <BussinessSection />
     </main>

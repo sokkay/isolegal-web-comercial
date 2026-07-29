@@ -1,10 +1,13 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   riskCalculatorSchema,
   type RiskCalculatorFormData,
 } from "@/contexts/RiskCalculator/schemas/riskCalculator.schema";
+import { captureClientEvent } from "@/lib/posthog/client";
+import { POSTHOG_EVENTS } from "@/lib/posthog/events";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import {
   createContext,
   ReactNode,
@@ -13,16 +16,13 @@ import {
   useMemo,
   useState,
 } from "react";
-import { useMutation } from "@tanstack/react-query";
 import { useForm, UseFormReturn } from "react-hook-form";
-import { captureClientEvent } from "@/lib/posthog/client";
-import { POSTHOG_EVENTS } from "@/lib/posthog/events";
 export type {
   ContextoOperativoFormData,
-  SaludMatrizLegalFormData,
   CriterioYRespuestaFormData,
   ResultadosDiagnosticoFormData,
   RiskCalculatorFormData,
+  SaludMatrizLegalFormData,
 } from "@/contexts/RiskCalculator/schemas/riskCalculator.schema";
 
 export type RiskCalculatorContextType = {
@@ -74,12 +74,10 @@ export function RiskCalculatorProvider({
         gestionMatriz: initialData?.saludMatrizLegal?.gestionMatriz || "",
         ultimaActualizacion:
           initialData?.saludMatrizLegal?.ultimaActualizacion || "",
-        normasTratadas:
-          initialData?.saludMatrizLegal?.normasTratadas || [],
+        normasTratadas: initialData?.saludMatrizLegal?.normasTratadas || [],
       },
       criterioYRespuesta: {
-        cambioNormativo:
-          initialData?.criterioYRespuesta?.cambioNormativo || "",
+        cambioNormativo: initialData?.criterioYRespuesta?.cambioNormativo || "",
         evidenciaTrazable:
           initialData?.criterioYRespuesta?.evidenciaTrazable || "",
         compromisosVoluntarios:

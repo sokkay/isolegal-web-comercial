@@ -26,12 +26,12 @@ export default function Select({
   return (
     <div className={cn("flex flex-col gap-2", fullWidth && "w-full")}>
       {label && (
-        <label className="text-text font-semibold text-sm">{label}</label>
+        <label className="text-text text-sm font-semibold">{label}</label>
       )}
       <select
         className={cn(
-          "w-full px-4 py-3 bg-input-bg border border-input-border rounded-lg text-text text-sm font-semibold focus:outline-none focus:border-primary transition-colors",
-          className,
+          "bg-input-bg border-input-border text-text focus:border-primary w-full rounded-lg border px-4 py-3 text-sm font-semibold transition-colors focus:outline-none",
+          className
         )}
         {...props}
       >

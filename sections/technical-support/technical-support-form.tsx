@@ -64,10 +64,10 @@ export const TechnicalSupportForm = () => {
   return (
     <form
       onSubmit={onSubmit}
-      className="bg-card-background dark:bg-surface-tonal-a10 rounded-2xl p-4 md:p-8 xl:p-10 space-y-6"
+      className="bg-card-background dark:bg-surface-tonal-a10 space-y-6 rounded-2xl p-4 md:p-8 xl:p-10"
     >
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-bg">
+        <div className="bg-green-bg flex h-10 w-10 items-center justify-center rounded-lg">
           <Image
             src="/icons/support-agent.svg"
             alt="Soporte técnico"
@@ -75,12 +75,12 @@ export const TechnicalSupportForm = () => {
             height={22}
           />
         </div>
-        <h3 className="text-text dark:text-white text-2xl font-bold">
+        <h3 className="text-text text-2xl font-bold dark:text-white">
           Formulario Soporte Técnico
         </h3>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div className="space-y-1">
           <Input label="Nombre" {...register("name")} />
           {errors.name?.message && (
@@ -97,7 +97,7 @@ export const TechnicalSupportForm = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div className="space-y-1">
           <Input label="Telefono" type="tel" {...register("phone")} />
           {errors.phone?.message && (
@@ -113,11 +113,11 @@ export const TechnicalSupportForm = () => {
       </div>
 
       <div className="space-y-1">
-        <label className="text-text font-semibold text-sm">
+        <label className="text-text text-sm font-semibold">
           Tipo de solicitud
         </label>
         <select
-          className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-lg text-text text-sm font-semibold focus:outline-none focus:border-primary transition-colors"
+          className="bg-input-bg border-input-border text-text focus:border-primary w-full rounded-lg border px-4 py-3 text-sm font-semibold transition-colors focus:outline-none"
           defaultValue=""
           {...register("supportType")}
         >

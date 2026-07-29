@@ -94,15 +94,15 @@ export default function ResultadosDiagnostico() {
   };
 
   return (
-    <div className="flex md:flex-row flex-col bg-card-background rounded-3xl text-text shadow-lg overflow-hidden">
-      <div className="flex-1 p-8 justify-between flex flex-col bg-gray-100 dark:bg-background relative overflow-hidden min-h-96">
-        <div className="h-40 w-40 rounded-full absolute -bottom-26 -right-26 md:-top-26  bg-primary/20 dark:bg-green-100/30" />
+    <div className="bg-card-background text-text flex flex-col overflow-hidden rounded-3xl shadow-lg md:flex-row">
+      <div className="dark:bg-background relative flex min-h-96 flex-1 flex-col justify-between overflow-hidden bg-gray-100 p-8">
+        <div className="bg-primary/20 absolute -right-26 -bottom-26 h-40 w-40 rounded-full md:-top-26 dark:bg-green-100/30" />
         <div>
-          <h2 className="text-2xl font-bold mb-2">
+          <h2 className="mb-2 text-2xl font-bold">
             Tus brechas de cumplimiento ya están identificadas.
           </h2>
           <motion.ul
-            className="mt-4 flex flex-col gap-2 text-sm text-gray-500 dark:text-gray-400 leading-6"
+            className="mt-4 flex flex-col gap-2 text-sm leading-6 text-gray-500 dark:text-gray-400"
             initial="hidden"
             animate="visible"
           >
@@ -119,16 +119,16 @@ export default function ResultadosDiagnostico() {
                   delay: index * checklistItemDelay,
                 }}
               >
-                <CheckIcon className="w-4 h-4 inline-block mr-1 fill-primary dark:fill-green-700" />
-                <span className="text-sm text-text">{item}</span>
+                <CheckIcon className="fill-primary mr-1 inline-block h-4 w-4 dark:fill-green-700" />
+                <span className="text-text text-sm">{item}</span>
               </motion.li>
             ))}
           </motion.ul>
         </div>
-        <div className="bg-white dark:bg-card-background rounded-lg p-4 flex flex-col gap-4">
-          <div className="flex items-center gap-4 ">
-            <div className="w-10 h-10 flex items-center justify-center bg-checkbox-bg rounded-full shrink-0">
-              <AnalyticsIcon className="w-6 h-6 fill-primary" />
+        <div className="dark:bg-card-background flex flex-col gap-4 rounded-lg bg-white p-4">
+          <div className="flex items-center gap-4">
+            <div className="bg-checkbox-bg flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
+              <AnalyticsIcon className="fill-primary h-6 w-6" />
             </div>
             <div className="flex flex-col gap-2">
               <span className="text-base font-bold">Análisis de Riesgo</span>
@@ -137,11 +137,11 @@ export default function ResultadosDiagnostico() {
               </span>
             </div>
           </div>
-          <div className="flex flex-col gap-2 items-end">
+          <div className="flex flex-col items-end gap-2">
             {/* barra de carga */}
-            <div className="w-full h-2 bg-primary/20 dark:bg-primary/30 rounded-full overflow-hidden">
+            <div className="bg-primary/20 dark:bg-primary/30 h-2 w-full overflow-hidden rounded-full">
               <motion.div
-                className="h-full bg-primary dark:bg-primary rounded-full"
+                className="bg-primary dark:bg-primary h-full rounded-full"
                 initial={{ scaleX: 0, transformOrigin: "left" }}
                 animate={{ scaleX: 1 }}
                 transition={{
@@ -150,19 +150,19 @@ export default function ResultadosDiagnostico() {
                 }}
               />
             </div>
-            <span className="text-sm text-primary font-bold dark:text-green-700">
+            <span className="text-primary text-sm font-bold dark:text-green-700">
               {progressPercentage}% Completado
             </span>
           </div>
         </div>
       </div>
 
-      <div className="flex-1 p-8 flex flex-col gap-4">
+      <div className="flex flex-1 flex-col gap-4 p-8">
         <div className="flex flex-col gap-2">
-          <h1 className="text-2xl font-bold mb-2 text-center">
+          <h1 className="mb-2 text-center text-2xl font-bold">
             Estás a un paso de conocer tu nivel de exposición al riesgo legal
           </h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
+          <p className="text-center text-sm text-gray-500 dark:text-gray-400">
             Recibe tu diagnóstico completo y visualiza tu nivel de riesgo en
             segundos
           </p>
@@ -212,16 +212,16 @@ export default function ResultadosDiagnostico() {
             <Button
               text="Desbloquear resultado"
               fullWidth
-              className="mt-4 md:mb-2 mb-4"
+              className="mt-4 mb-4 md:mb-2"
               loading={isSubmitting}
             />
             {submitError && (
-              <span className="text-xs text-center text-red-500">
+              <span className="text-center text-xs text-red-500">
                 {submitError}
               </span>
             )}
-            <span className="text-xs text-center text-gray-500 dark:text-gray-400">
-              <LockIcon className="w-4 h-4 inline-block mr-1 fill-gray-500 dark:fill-gray-400" />
+            <span className="text-center text-xs text-gray-500 dark:text-gray-400">
+              <LockIcon className="mr-1 inline-block h-4 w-4 fill-gray-500 dark:fill-gray-400" />
               Sus datos están protegidos por nuestra política de privacidad. No
               compartiremos su información con terceros.
             </span>

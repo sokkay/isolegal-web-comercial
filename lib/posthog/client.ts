@@ -7,7 +7,7 @@ type ClientEventProperties = Record<
 
 export function captureClientEvent(
   event: string,
-  properties?: ClientEventProperties,
+  properties?: ClientEventProperties
 ) {
   if (typeof window === "undefined") return;
 
@@ -16,11 +16,14 @@ export function captureClientEvent(
 
 export function captureClientException(
   error: unknown,
-  properties?: ClientEventProperties,
+  properties?: ClientEventProperties
 ) {
   if (typeof window === "undefined") return;
 
-  if (error instanceof Error && typeof posthog.captureException === "function") {
+  if (
+    error instanceof Error &&
+    typeof posthog.captureException === "function"
+  ) {
     posthog.captureException(error, properties);
     return;
   }

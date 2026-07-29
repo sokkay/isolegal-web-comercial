@@ -39,7 +39,7 @@ function formatSubmittedAt(value: Date) {
 }
 
 export async function notifyTeamFormSubmission(
-  params: NotifyTeamFormSubmissionParams,
+  params: NotifyTeamFormSubmissionParams
 ) {
   const recipients = getTeamFormNotificationEmails();
   if (recipients.length === 0) {

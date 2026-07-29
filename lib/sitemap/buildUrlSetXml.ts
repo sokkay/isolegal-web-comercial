@@ -11,7 +11,9 @@ function escapeXml(value: string): string {
     .replaceAll("'", "&apos;");
 }
 
-function formatLastModified(lastModified?: SitemapEntry["lastModified"]): string | null {
+function formatLastModified(
+  lastModified?: SitemapEntry["lastModified"]
+): string | null {
   if (!lastModified) {
     return null;
   }
@@ -31,7 +33,9 @@ export function buildUrlSetXml(entries: MetadataRoute.Sitemap): string {
       return [
         "  <url>",
         `    <loc>${escapeXml(entry.url)}</loc>`,
-        lastModified ? `    <lastmod>${escapeXml(lastModified)}</lastmod>` : null,
+        lastModified
+          ? `    <lastmod>${escapeXml(lastModified)}</lastmod>`
+          : null,
         entry.changeFrequency
           ? `    <changefreq>${entry.changeFrequency}</changefreq>`
           : null,

@@ -1,7 +1,7 @@
 "use client";
 
 import Image, { type ImageProps } from "next/image";
-import type { CSSProperties, MouseEvent, DragEvent } from "react";
+import type { CSSProperties, DragEvent, MouseEvent } from "react";
 
 type ProtectedImageProps = ImageProps;
 

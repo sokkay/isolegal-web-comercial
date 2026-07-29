@@ -1,8 +1,8 @@
-import { z } from "zod";
 import {
   hasBusinessEmailDomain,
   isBusinessEmailValidationEnabled,
 } from "@/lib/config/businessEmailValidation";
+import { z } from "zod";
 
 export const gestionMatrizEnum = z.enum([
   "planilla_excel_control_manual",
@@ -48,7 +48,9 @@ export const riskCalculatorSubmissionSchema = z.object({
   contextoOperativo: z.object({
     rubro: z.string().min(1, "Debes seleccionar un rubro"),
     rubroOtro: z.string().optional(),
-    normasISO: z.array(z.string()).min(1, "Debes seleccionar al menos una norma"),
+    normasISO: z
+      .array(z.string())
+      .min(1, "Debes seleccionar al menos una norma"),
   }),
   saludMatrizLegal: z
     .object({
@@ -78,17 +80,18 @@ export const riskCalculatorSubmissionSchema = z.object({
   }),
   resultadosDiagnostico: z.object({
     nombreCompleto: z.string().min(1, "Debes ingresar tu nombre completo"),
-    correoCorporativo: z
-      .email({ message: "Email inválido" })
-      .refine((val) => {
+    correoCorporativo: z.email({ message: "Email inválido" }).refine(
+      (val) => {
         if (!isBusinessEmailValidationEnabled()) {
           return true;
         }
 
         return hasBusinessEmailDomain(val);
-      }, {
+      },
+      {
         message: "Debes usar un correo corporativo",
-      }),
+      }
+    ),
     empresa: z.string().min(1, "Debes ingresar tu empresa"),
   }),
 });

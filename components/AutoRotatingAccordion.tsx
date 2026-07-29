@@ -73,8 +73,10 @@ export default function AutoRotatingAccordion({
     >
       <div className="flex flex-col gap-5 md:hidden">
         <div
-          className="grid gap-3 mt-3"
-          style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}
+          className="mt-3 grid gap-3"
+          style={{
+            gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))`,
+          }}
         >
           {items.map((item, index) => {
             const isActive = index === activeIndex;
@@ -91,7 +93,7 @@ export default function AutoRotatingAccordion({
                   {isActive ? (
                     <motion.div
                       key={`segment-${activeIndex}-${autoPlayIntervalMs}`}
-                      className="h-full w-full origin-left bg-darkBlue dark:bg-white"
+                      className="bg-darkBlue h-full w-full origin-left dark:bg-white"
                       initial={{ scaleX: 0 }}
                       animate={{ scaleX: 1 }}
                       transition={{
@@ -117,7 +119,9 @@ export default function AutoRotatingAccordion({
             exit={{ opacity: 0, x: mobileDirection > 0 ? -24 : 24 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
           >
-            <h3 className="text-text text-lg font-semibold">{activeItem.title}</h3>
+            <h3 className="text-text text-lg font-semibold">
+              {activeItem.title}
+            </h3>
             <p className="text-text mt-2 text-sm">{activeItem.description}</p>
           </motion.div>
         </AnimatePresence>
@@ -134,11 +138,11 @@ export default function AutoRotatingAccordion({
               layout
               transition={{ duration: 0.35, ease: "easeInOut" }}
             >
-              <div className="absolute bottom-3 left-0 top-3 w-[2px] overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
+              <div className="absolute top-3 bottom-3 left-0 w-[2px] overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
                 {isOpen ? (
                   <motion.div
                     key={`desktop-${activeIndex}-${autoPlayIntervalMs}`}
-                    className="h-full w-full origin-top bg-darkBlue dark:bg-white"
+                    className="bg-darkBlue h-full w-full origin-top dark:bg-white"
                     initial={{ scaleY: 0 }}
                     animate={{ scaleY: 1 }}
                     transition={{

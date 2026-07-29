@@ -12,10 +12,12 @@ function AgendaSesionCardContent() {
   const { hasRequiredClientData } = useAgendaSesionCardContext();
 
   return (
-    <div className="mt-4 rounded-2xl border border-gray-200 bg-background p-4 dark:border-gray-800 md:p-6">
+    <div className="bg-background mt-4 rounded-2xl border border-gray-200 p-4 md:p-6 dark:border-gray-800">
       <div className="mb-4 flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-bold text-text">Reserva sesión estratégica</h2>
+          <h2 className="text-text text-lg font-bold">
+            Reserva sesión estratégica
+          </h2>
           <p className="text-sm text-gray-500 dark:text-gray-400">
             Elige una fecha activa y luego un bloque horario disponible.
           </p>

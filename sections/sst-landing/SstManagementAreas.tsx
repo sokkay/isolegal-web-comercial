@@ -43,7 +43,7 @@ export default function SstManagementAreas() {
               key={area.title}
               className="bg-card-background group dark:bg-surface-tonal-a10 flex h-full flex-col items-center gap-4 rounded-2xl p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg lg:p-8"
             >
-              <div className="bg-green-bg dark:bg-primary/35 dark:ring-(--color-primary-on-dark)/30 flex size-16 shrink-0 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-105 dark:ring-1">
+              <div className="bg-green-bg dark:bg-primary/35 flex size-16 shrink-0 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-105 dark:ring-1 dark:ring-(--color-primary-on-dark)/30">
                 <Icon
                   className="fill-primary size-8 dark:fill-white"
                   aria-hidden="true"

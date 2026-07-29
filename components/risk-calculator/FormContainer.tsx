@@ -17,13 +17,13 @@ export default function FormContainer({
   return (
     <div
       className={cn(
-        "md:px-16 px-8 md:py-12 py-8 bg-card-background text-text rounded-3xl shadow-lg",
+        "bg-card-background text-text rounded-3xl px-8 py-8 shadow-lg md:px-16 md:py-12",
         className
       )}
     >
       {step && totalSteps && (
         <div className="">
-          <span className="text-sm text-primary dark:text-white">
+          <span className="text-primary text-sm dark:text-white">
             PASO {step}/{totalSteps}
           </span>
         </div>

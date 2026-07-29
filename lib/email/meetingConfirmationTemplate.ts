@@ -1,6 +1,6 @@
+import Handlebars from "handlebars";
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import Handlebars from "handlebars";
 
 type MeetingConfirmationTemplateParams = {
   toName: string;
@@ -16,15 +16,15 @@ const templateSource = readFileSync(
     "lib",
     "email",
     "templates",
-    "meeting-confirmation.html",
+    "meeting-confirmation.html"
   ),
-  "utf-8",
+  "utf-8"
 );
 
 const template = Handlebars.compile(templateSource);
 
 export function buildMeetingConfirmationTemplate(
-  params: MeetingConfirmationTemplateParams,
+  params: MeetingConfirmationTemplateParams
 ) {
   return template(params);
 }

@@ -41,7 +41,9 @@ export default function AnimatedCounter({
   const [displayValue, setDisplayValue] = useState(0);
 
   useEffect(() => {
-    const unsubscribe = rounded.on("change", (latest) => setDisplayValue(latest));
+    const unsubscribe = rounded.on("change", (latest) =>
+      setDisplayValue(latest)
+    );
     return () => unsubscribe();
   }, [rounded]);
 

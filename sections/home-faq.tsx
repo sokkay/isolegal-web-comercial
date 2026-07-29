@@ -92,7 +92,7 @@ export default function HomeFaqSection() {
           <div className="mb-8 text-center sm:mb-10">
             <span
               aria-hidden="true"
-              className="bg-primary mx-auto mb-5 block size-9 [mask-image:url('/icons/psychiatry.svg')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] dark:bg-green-300"
+              className="bg-primary mx-auto mb-5 block size-9 [mask-image:url('/icons/psychiatry.svg')] [mask-size:contain] [mask-position:center] [mask-repeat:no-repeat] dark:bg-green-300"
             />
             <p className="text-primary mb-3 text-sm font-bold tracking-widest uppercase dark:text-green-300">
               Resolvemos tus dudas

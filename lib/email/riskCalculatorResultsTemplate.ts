@@ -1,6 +1,6 @@
+import Handlebars from "handlebars";
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import Handlebars from "handlebars";
 
 export type RiskCalculatorResultsTemplateParams = {
   toName: string;
@@ -32,15 +32,15 @@ const templateSource = readFileSync(
     "lib",
     "email",
     "templates",
-    "risk-calculator-results.html",
+    "risk-calculator-results.html"
   ),
-  "utf-8",
+  "utf-8"
 );
 
 const template = Handlebars.compile(templateSource);
 
 export function buildRiskCalculatorResultsTemplate(
-  params: RiskCalculatorResultsTemplateParams,
+  params: RiskCalculatorResultsTemplateParams
 ) {
   const boundedScore = Math.min(20, Math.max(0, params.score));
   const contactEmail = "isolegal@contacto.cl";
@@ -48,7 +48,7 @@ export function buildRiskCalculatorResultsTemplate(
   const agendaLink =
     params.agendaLink ?? "https://calendar.app.google/9CaeX4duQX9rXiVj8";
   const mailSubject = encodeURIComponent(
-    `Consulta diagnóstico legal - ${params.empresa}`,
+    `Consulta diagnóstico legal - ${params.empresa}`
   );
   const mailBody = encodeURIComponent(
     [
@@ -61,7 +61,7 @@ export function buildRiskCalculatorResultsTemplate(
       "",
       "Saludos,",
       params.toName,
-    ].join("\n"),
+    ].join("\n")
   );
 
   return template({
@@ -75,7 +75,8 @@ export function buildRiskCalculatorResultsTemplate(
     agendaLink,
     contactEmail,
     contactMailtoHref: `mailto:${contactEmail}?subject=${mailSubject}&body=${mailBody}`,
-    normasISOText: params.normasISO.length > 0 ? params.normasISO.join(", ") : "-",
+    normasISOText:
+      params.normasISO.length > 0 ? params.normasISO.join(", ") : "-",
     normasTratadasText:
       params.normasTratadas.length > 0 ? params.normasTratadas.join(", ") : "-",
   });

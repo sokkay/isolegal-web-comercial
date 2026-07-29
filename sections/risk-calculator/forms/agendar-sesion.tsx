@@ -13,7 +13,7 @@ export default function AgendarSesion() {
     useResultadosDiagnostico();
 
   return (
-    <div className="rounded-3xl bg-card-background px-4 py-8 text-text shadow-lg md:px-8">
+    <div className="bg-card-background text-text rounded-3xl px-4 py-8 shadow-lg md:px-8">
       <div className="mb-6 flex flex-col gap-2">
         <h1 className="text-2xl font-bold">Agenda tu sesión estratégica</h1>
         <p className="text-sm font-semibold text-gray-500 dark:text-gray-400">

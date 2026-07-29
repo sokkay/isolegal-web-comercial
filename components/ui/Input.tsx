@@ -16,14 +16,12 @@ export default function Input({
   return (
     <div className={cn("flex flex-col gap-2", fullWidth && "w-full")}>
       {label && (
-        <label className="text-text font-semibold text-sm">
-          {label}
-        </label>
+        <label className="text-text text-sm font-semibold">{label}</label>
       )}
       <input
         type="text"
         className={cn(
-          "w-full px-4 py-3 bg-input-bg border border-input-border rounded-lg text-text text-sm font-semibold placeholder:text-placeholder placeholder:font-semibold focus:outline-none focus:border-primary transition-colors",
+          "bg-input-bg border-input-border text-text placeholder:text-placeholder focus:border-primary w-full rounded-lg border px-4 py-3 text-sm font-semibold transition-colors placeholder:font-semibold focus:outline-none",
           className
         )}
         {...props}

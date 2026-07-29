@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     if (!adminEmail || !adminPassword) {
       return NextResponse.json(
         { error: "Faltan credenciales admin de PocketBase" },
-        { status: 500 },
+        { status: 500 }
       );
     }
 
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
         bookingUrl: `/agendar-sesion/externo?token=${encodeURIComponent(rawToken)}`,
         expiresAt,
       },
-      { status: 200 },
+      { status: 200 }
     );
   } catch (error) {
     if (error instanceof ZodError) {
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
             message: issue.message,
           })),
         },
-        { status: 400 },
+        { status: 400 }
       );
     }
 

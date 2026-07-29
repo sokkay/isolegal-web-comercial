@@ -199,7 +199,7 @@ export async function consumeScheduleMeetingBookRateLimit(params: {
     if (isRateLimiterRes(error)) {
       const retryAfterSeconds = Math.max(
         1,
-        Math.ceil(error.msBeforeNext / 1000),
+        Math.ceil(error.msBeforeNext / 1000)
       );
 
       return {

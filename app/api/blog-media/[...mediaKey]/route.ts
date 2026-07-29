@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
     if (!s3Response.ok) {
       return NextResponse.json(
         { error: "No fue posible cargar la imagen" },
-        { status: mapStatus(s3Response.status) },
+        { status: mapStatus(s3Response.status) }
       );
     }
 
@@ -55,7 +55,7 @@ export async function GET(request: NextRequest) {
     console.error("Error cargando media de blog desde S3:", error);
     return NextResponse.json(
       { error: "No fue posible cargar la imagen" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

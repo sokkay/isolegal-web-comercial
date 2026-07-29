@@ -33,12 +33,14 @@ export async function GET(request: NextRequest) {
       });
       return NextResponse.json(
         { error: "Faltan credenciales admin de PocketBase" },
-        { status: 500 },
+        { status: 500 }
       );
     }
 
     const pb = getPb();
-    await pb.collection("_superusers").authWithPassword(adminEmail, adminPassword);
+    await pb
+      .collection("_superusers")
+      .authWithPassword(adminEmail, adminPassword);
 
     const tokenRecord = await findExternalBookingTokenRecordByRawToken({
       pb,
@@ -82,7 +84,9 @@ export async function GET(request: NextRequest) {
     }
 
     const clientName = String(tokenRecord.name ?? "").trim();
-    const clientEmail = String(tokenRecord.email ?? "").trim().toLowerCase();
+    const clientEmail = String(tokenRecord.email ?? "")
+      .trim()
+      .toLowerCase();
     const clientCompany = String(tokenRecord.company ?? "").trim();
     if (!clientName || !clientEmail || !clientCompany) {
       await captureServerEvent({
@@ -108,7 +112,7 @@ export async function GET(request: NextRequest) {
           expiresAt: tokenRecord.expires_at,
         },
       },
-      { status: 200 },
+      { status: 200 }
     );
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -120,7 +124,7 @@ export async function GET(request: NextRequest) {
             message: issue.message,
           })),
         },
-        { status: 400 },
+        { status: 400 }
       );
     }
 

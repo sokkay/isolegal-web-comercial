@@ -96,4 +96,3 @@ Nota: El máximo es 20 porque en pregunta 5 pueden sumar simultáneamente `ds_36
   - q3=2, q4=2, q5=3, q6=0, q7=1, q8=1 -> score=9 -> `alto`
 - Caso crítico:
   - q3=3, q4=3, q5=6, q6=2, q7=3, q8=3 -> score=20 -> `critico`
-

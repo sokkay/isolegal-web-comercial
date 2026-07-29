@@ -27,15 +27,15 @@ function TabContent({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className="flex flex-col md:flex-row gap-6 md:gap-10"
+      className="flex flex-col gap-6 md:flex-row md:gap-10"
     >
-      <div className="flex-1 order-1">
-        <h2 className="text-lg font-bold mb-2">{title}</h2>
+      <div className="order-1 flex-1">
+        <h2 className="mb-2 text-lg font-bold">{title}</h2>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.8 }}
           transition={{ duration: 0.4, delay: 0.15 }}
-          className="text-sm mb-4"
+          className="mb-4 text-sm"
         >
           {description}
         </motion.p>
@@ -46,21 +46,21 @@ function TabContent({
           onClick={() => {
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
-          className="hidden md:block text-darkBlue"
+          className="text-darkBlue hidden md:block"
         />
       </div>
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4, delay: 0.1 }}
-        className="w-full md:w-1/3 order-2 md:order-2 flex items-start justify-center"
+        className="order-2 flex w-full items-start justify-center md:order-2 md:w-1/3"
       >
         <video
           key={video}
           autoPlay
           muted
           playsInline
-          className="rounded-2xl w-full h-auto"
+          className="h-auto w-full rounded-2xl"
         >
           <source src={video} type="video/mp4" />
         </video>
@@ -96,23 +96,23 @@ export default function TabsBanner() {
   ];
 
   return (
-    <section id="nosotros" className="py-16 container mx-auto">
-      <div className="flex flex-col items-center bg-darkBlue rounded-2xl py-10 px-6 md:px-20 gap-7 text-white min-h-[950px] md:min-h-[510px]">
+    <section id="nosotros" className="container mx-auto py-16">
+      <div className="bg-darkBlue flex min-h-[950px] flex-col items-center gap-7 rounded-2xl px-6 py-10 text-white md:min-h-[510px] md:px-20">
         <Logo />
-        <div className="bg-[#1E293B] flex flex-col md:flex-row items-center justify-center w-full md:w-4/5 xl:w-2/3 rounded-lg md:h-12 p-1 relative">
+        <div className="relative flex w-full flex-col items-center justify-center rounded-lg bg-[#1E293B] p-1 md:h-12 md:w-4/5 md:flex-row xl:w-2/3">
           {tabs.map((tab, index) => (
             <button
               key={`tab-${index}`}
               onClick={() => setActiveTab(index)}
               className={cn(
-                "font-bold flex-1 w-full md:w-auto flex items-center justify-center rounded-lg cursor-pointer py-3 md:py-0 md:h-full relative z-10 transition-colors",
+                "relative z-10 flex w-full flex-1 cursor-pointer items-center justify-center rounded-lg py-3 font-bold transition-colors md:h-full md:w-auto md:py-0",
                 activeTab === index ? "text-darkBlue" : "text-white"
               )}
             >
               {activeTab === index && (
                 <motion.div
                   layoutId="activeTab"
-                  className="absolute inset-0 bg-white rounded-lg"
+                  className="absolute inset-0 rounded-lg bg-white"
                   transition={{ type: "spring", stiffness: 500, damping: 35 }}
                 />
               )}
@@ -124,7 +124,7 @@ export default function TabsBanner() {
         <motion.div
           layout
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="flex flex-col gap-6 w-full overflow-hidden"
+          className="flex w-full flex-col gap-6 overflow-hidden"
         >
           <AnimatePresence mode="wait">
             <TabContent

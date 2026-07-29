@@ -95,7 +95,7 @@ export default function BussinessSection() {
               {[...logos, ...logos].map((logo, index) => (
                 <div
                   key={`${logo.id}-${index}`}
-                  className="embla__slide flex-[0_0_25%] md:flex-[0_0_20%] min-w-0 pl-6"
+                  className="embla__slide min-w-0 flex-[0_0_25%] pl-6 md:flex-[0_0_20%]"
                 >
                   <div className="relative aspect-3/2 overflow-hidden rounded-lg p-4">
                     <Image

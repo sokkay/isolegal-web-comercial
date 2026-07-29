@@ -42,21 +42,26 @@ export async function GET(request: NextRequest) {
           error:
             "Faltan credenciales admin de PocketBase en variables de entorno",
         },
-        { status: 500 },
+        { status: 500 }
       );
     }
 
     const pb = getPb();
-    await pb.collection("_superusers").authWithPassword(adminEmail, adminPassword);
+    await pb
+      .collection("_superusers")
+      .authWithPassword(adminEmail, adminPassword);
 
     const weeklyScheduleRaw = await pb
       .collection("agenda_semanal_de_reuniones")
       .getFullList();
-    const weeklyScheduleResult = weeklyScheduleSchema.safeParse(weeklyScheduleRaw);
+    const weeklyScheduleResult =
+      weeklyScheduleSchema.safeParse(weeklyScheduleRaw);
     if (!weeklyScheduleResult.success) {
       await captureServerError({
         route: request.nextUrl.pathname,
-        error: new Error("Configuración inválida en agenda_semanal_de_reuniones"),
+        error: new Error(
+          "Configuración inválida en agenda_semanal_de_reuniones"
+        ),
         properties: {
           flow: "schedule_meeting_active_days",
           stage: "invalid_weekly_schedule",
@@ -70,7 +75,7 @@ export async function GET(request: NextRequest) {
             message: issue.message,
           })),
         },
-        { status: 500 },
+        { status: 500 }
       );
     }
     const weeklySchedule = weeklyScheduleResult.data;
@@ -78,7 +83,7 @@ export async function GET(request: NextRequest) {
       weeklySchedule
         .filter((rule) => rule.activado)
         .map((rule) => dayNameToIsoWeekday[normalizeDay(rule.dia)])
-        .filter((weekday): weekday is number => Number.isInteger(weekday)),
+        .filter((weekday): weekday is number => Number.isInteger(weekday))
     );
     const todayInZone = getZonedDateParts(new Date(), timeZone);
 
@@ -90,12 +95,13 @@ export async function GET(request: NextRequest) {
           todayInZone.day + offset,
           12,
           0,
-          0,
-        ),
+          0
+        )
       );
-      const weekday = dayNameToIsoWeekday[
-        normalizeDay(getZonedDateParts(dayAnchor, timeZone).weekday)
-      ];
+      const weekday =
+        dayNameToIsoWeekday[
+          normalizeDay(getZonedDateParts(dayAnchor, timeZone).weekday)
+        ];
 
       return {
         date: getLocalDateKey(dayAnchor, timeZone),
@@ -123,7 +129,7 @@ export async function GET(request: NextRequest) {
             message: issue.message,
           })),
         },
-        { status: 400 },
+        { status: 400 }
       );
     }
 

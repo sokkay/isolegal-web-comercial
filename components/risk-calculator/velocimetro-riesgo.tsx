@@ -63,9 +63,9 @@ export default function VelocimetroRiesgo({
 
   return (
     <div
-      className={cn("w-full max-w-xs flex flex-col items-center", className)}
+      className={cn("flex w-full max-w-xs flex-col items-center", className)}
     >
-      <div className="relative w-64 h-32">
+      <div className="relative h-32 w-64">
         <div
           className="absolute inset-0 rounded-t-full opacity-90"
           style={{
@@ -73,20 +73,20 @@ export default function VelocimetroRiesgo({
               "conic-gradient(from 270deg at 50% 100%, #22c55e 0deg, #eab308 90deg, #ef4444 180deg, transparent 180deg)",
           }}
         />
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-24 bg-card-background rounded-t-full z-10" />
-        <div className="absolute bottom-0 left-0 w-full border-b border-gray-300 dark:border-gray-700 z-20" />
+        <div className="bg-card-background absolute bottom-0 left-1/2 z-10 h-24 w-48 -translate-x-1/2 rounded-t-full" />
+        <div className="absolute bottom-0 left-0 z-20 w-full border-b border-gray-300 dark:border-gray-700" />
 
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-30 h-full flex items-end justify-center">
+        <div className="absolute bottom-0 left-1/2 z-30 flex h-full -translate-x-1/2 items-end justify-center">
           <div
-            className="w-1.5 h-[120px] bg-slate-800 dark:bg-slate-100 origin-bottom rounded-t-sm transition-transform duration-700 ease-out"
+            className="h-[120px] w-1.5 origin-bottom rounded-t-sm bg-slate-800 transition-transform duration-700 ease-out dark:bg-slate-100"
             style={{ transform: `rotate(${needleDegrees}deg)` }}
           />
         </div>
 
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-slate-900 dark:bg-slate-100 z-40 translate-y-1/2" />
+        <div className="absolute bottom-0 left-1/2 z-40 h-4 w-4 -translate-x-1/2 translate-y-1/2 rounded-full bg-slate-900 dark:bg-slate-100" />
       </div>
 
-      <div className="text-center mt-6">
+      <div className="mt-6 text-center">
         {showScore && (
           <div className="flex items-baseline justify-center gap-1">
             <span
@@ -103,7 +103,7 @@ export default function VelocimetroRiesgo({
 
         <span
           className={cn(
-            "inline-flex mt-3 px-4 py-1.5 rounded-full border text-sm font-semibold",
+            "mt-3 inline-flex rounded-full border px-4 py-1.5 text-sm font-semibold",
             riskMeta.badgeClass
           )}
         >

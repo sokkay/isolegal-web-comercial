@@ -21,12 +21,14 @@ export async function GET(request: NextRequest) {
     if (!adminEmail || !adminPassword) {
       return NextResponse.json(
         { error: "Faltan credenciales admin de PocketBase" },
-        { status: 500 },
+        { status: 500 }
       );
     }
 
     const pb = getPb();
-    await pb.collection("_superusers").authWithPassword(adminEmail, adminPassword);
+    await pb
+      .collection("_superusers")
+      .authWithPassword(adminEmail, adminPassword);
 
     const tokenRecord = await findRiskBookingTokenRecordByRawToken({
       pb,
@@ -43,12 +45,16 @@ export async function GET(request: NextRequest) {
     }
 
     const submissionId = String(tokenRecord.submission_id ?? "");
-    const tokenEmail = String(tokenRecord.email ?? "").trim().toLowerCase();
+    const tokenEmail = String(tokenRecord.email ?? "")
+      .trim()
+      .toLowerCase();
     if (!submissionId || !tokenEmail) {
       return NextResponse.json({ error: "Link inválido" }, { status: 404 });
     }
 
-    const diagnosisRecord = await pb.collection("diagnosticos_riesgo").getOne(submissionId);
+    const diagnosisRecord = await pb
+      .collection("diagnosticos_riesgo")
+      .getOne(submissionId);
     const diagnosisData = diagnosisRecord as unknown as Record<string, unknown>;
     const diagnosisEmail = String(diagnosisData.correo_corporativo ?? "")
       .trim()
@@ -69,7 +75,7 @@ export async function GET(request: NextRequest) {
           expiresAt: tokenRecord.expires_at,
         },
       },
-      { status: 200 },
+      { status: 200 }
     );
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -81,7 +87,7 @@ export async function GET(request: NextRequest) {
             message: issue.message,
           })),
         },
-        { status: 400 },
+        { status: 400 }
       );
     }
 

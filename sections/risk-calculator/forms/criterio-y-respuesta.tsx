@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import FormAsk from "@/components/risk-calculator/FormAsk";
 import FormContainer from "@/components/risk-calculator/FormContainer";

@@ -1,4 +1,4 @@
-import { randomBytes, createHash } from "node:crypto";
+import { createHash, randomBytes } from "node:crypto";
 import type PocketBase from "pocketbase";
 import { z } from "zod";
 
@@ -29,7 +29,7 @@ export function generateRiskBookingToken() {
 
 export function resolveRiskBookingTokenTtlDays() {
   return ttlDaysSchema.parse(
-    process.env.RISK_CALCULATOR_BOOKING_TOKEN_TTL_DAYS ?? DEFAULT_TOKEN_TTL_DAYS,
+    process.env.RISK_CALCULATOR_BOOKING_TOKEN_TTL_DAYS ?? DEFAULT_TOKEN_TTL_DAYS
   );
 }
 
@@ -89,7 +89,9 @@ export async function consumeRiskBookingToken(params: {
   pb: PocketBase;
   tokenRecordId: string;
 }) {
-  await params.pb.collection(RISK_BOOKING_TOKENS_COLLECTION).update(params.tokenRecordId, {
-    used_at: new Date().toISOString(),
-  });
+  await params.pb
+    .collection(RISK_BOOKING_TOKENS_COLLECTION)
+    .update(params.tokenRecordId, {
+      used_at: new Date().toISOString(),
+    });
 }

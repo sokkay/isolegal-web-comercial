@@ -11,7 +11,7 @@ export default function FormError({ message, className }: FormErrorProps) {
   return (
     <p
       className={cn(
-        "text-sm text-red-500 dark:text-red-400 mt-1 animate-in fade-in slide-in-from-top-1 duration-200",
+        "animate-in fade-in slide-in-from-top-1 mt-1 text-sm text-red-500 duration-200 dark:text-red-400",
         className
       )}
       role="alert"

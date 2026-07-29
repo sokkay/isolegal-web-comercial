@@ -18,21 +18,21 @@ export default function SimpleTextResponse({
     <div
       onClick={onClick}
       className={cn(
-        "flex items-center gap-4 p-5 rounded-2xl cursor-pointer relative transition-all border border-border",
-        selected ? "border border-primary bg-primary/10" : ""
+        "border-border relative flex cursor-pointer items-center gap-4 rounded-2xl border p-5 transition-all",
+        selected ? "border-primary bg-primary/10 border" : ""
       )}
     >
       <div
         className={cn(
-          "w-6 h-6 rounded-full z-10 flex items-center justify-center border shrink-0",
+          "z-10 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border",
           selected
             ? "bg-primary border-primary"
             : "border-border bg-white dark:bg-[#334155]"
         )}
       >
-        {selected ? <CheckIcon className="w-4 h-4 fill-white" /> : null}
+        {selected ? <CheckIcon className="h-4 w-4 fill-white" /> : null}
       </div>
-      <span className="font-bold text-text dark:text-white">
+      <span className="text-text font-bold dark:text-white">
         {label ?? value}
       </span>
     </div>

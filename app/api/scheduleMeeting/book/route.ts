@@ -1,8 +1,8 @@
+import { buildRiskCalculatorEmailParamsFromRecord } from "@/lib/email/riskCalculatorEmailData";
 import {
   sendMeetingConfirmationEmail,
   sendRiskCalculatorResultsEmail,
 } from "@/lib/email/zeptomail";
-import { buildRiskCalculatorEmailParamsFromRecord } from "@/lib/email/riskCalculatorEmailData";
 import {
   consumeExternalBookingToken,
   findExternalBookingTokenRecordByRawToken,
@@ -18,6 +18,10 @@ import { getPb } from "@/lib/pocketbase";
 import { POSTHOG_EVENTS } from "@/lib/posthog/events";
 import { captureServerError, captureServerEvent } from "@/lib/posthog/server";
 import {
+  buildRateLimitResponseInit,
+  consumeScheduleMeetingBookRateLimit,
+} from "@/lib/rateLimit";
+import {
   consumeRiskBookingToken,
   findRiskBookingTokenRecordByRawToken,
   isRiskBookingTokenExpired,
@@ -27,10 +31,6 @@ import {
   isRiskCalculatorPendingOrigin,
   RISK_CALCULATOR_ORIGIN_SENT_BOOKING,
 } from "@/lib/riskCalculatorEmail";
-import {
-  buildRateLimitResponseInit,
-  consumeScheduleMeetingBookRateLimit,
-} from "@/lib/rateLimit";
 import {
   scheduleMeetingBookRequestSchema,
   scheduleMeetingBookResponseSchema,
@@ -46,7 +46,7 @@ import {
   zonedDateTimeToUtc,
 } from "@/utils/backend/scheduleMeetingTime";
 import { NextRequest, NextResponse } from "next/server";
-import { ZodError, z } from "zod";
+import { z, ZodError } from "zod";
 
 const MAX_BOOKING_WINDOW_DAYS = 14;
 
@@ -56,7 +56,7 @@ function escapeFilterValue(value: string) {
 
 function slotOverlapsBusy(
   slot: { start: Date; end: Date },
-  busy: { start: Date; end: Date },
+  busy: { start: Date; end: Date }
 ) {
   return slot.start < busy.end && slot.end > busy.start;
 }
@@ -98,7 +98,7 @@ export async function POST(request: NextRequest) {
     ) {
       return NextResponse.json(
         { error: "Rango de fechas inválido para reserva" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
           error:
             "La reserva debe estar dentro de los próximos 14 días desde hoy",
         },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -156,17 +156,19 @@ export async function POST(request: NextRequest) {
           error:
             "Faltan credenciales admin de PocketBase en variables de entorno",
         },
-        { status: 500 },
+        { status: 500 }
       );
     }
 
-    await pb.collection("_superusers").authWithPassword(adminEmail, adminPassword);
+    await pb
+      .collection("_superusers")
+      .authWithPassword(adminEmail, adminPassword);
 
     const isExternalBooking = validatedBody.bookingSource === "external_admin";
     if (isExternalBooking && !validatedBody.bookingToken) {
       return NextResponse.json(
         { error: "El flujo externo requiere bookingToken" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -179,23 +181,27 @@ export async function POST(request: NextRequest) {
 
     if (validatedBody.bookingToken) {
       if (isExternalBooking) {
-        const externalTokenRecord = await findExternalBookingTokenRecordByRawToken({
-          pb,
-          rawToken: validatedBody.bookingToken,
-        });
+        const externalTokenRecord =
+          await findExternalBookingTokenRecordByRawToken({
+            pb,
+            rawToken: validatedBody.bookingToken,
+          });
         if (!externalTokenRecord) {
-          return NextResponse.json({ error: "Link de agendamiento inválido" }, { status: 404 });
+          return NextResponse.json(
+            { error: "Link de agendamiento inválido" },
+            { status: 404 }
+          );
         }
         if (isExternalBookingTokenUsed(externalTokenRecord.used_at)) {
           return NextResponse.json(
             { error: "Link de agendamiento ya utilizado" },
-            { status: 410 },
+            { status: 410 }
           );
         }
         if (isExternalBookingTokenExpired(externalTokenRecord.expires_at)) {
           return NextResponse.json(
             { error: "Link de agendamiento expirado" },
-            { status: 410 },
+            { status: 410 }
           );
         }
 
@@ -211,7 +217,7 @@ export async function POST(request: NextRequest) {
         if (!resolvedName || !resolvedEmail || !resolvedCompany) {
           return NextResponse.json(
             { error: "El link no tiene datos completos para agendar" },
-            { status: 409 },
+            { status: 409 }
           );
         }
       } else {
@@ -222,19 +228,19 @@ export async function POST(request: NextRequest) {
         if (!tokenRecord) {
           return NextResponse.json(
             { error: "Link de agendamiento inválido" },
-            { status: 404 },
+            { status: 404 }
           );
         }
         if (isRiskBookingTokenUsed(tokenRecord.used_at)) {
           return NextResponse.json(
             { error: "Link de agendamiento ya utilizado" },
-            { status: 410 },
+            { status: 410 }
           );
         }
         if (isRiskBookingTokenExpired(tokenRecord.expires_at)) {
           return NextResponse.json(
             { error: "Link de agendamiento expirado" },
-            { status: 410 },
+            { status: 410 }
           );
         }
 
@@ -245,21 +251,24 @@ export async function POST(request: NextRequest) {
         if (!submissionIdFromToken || !tokenEmail) {
           return NextResponse.json(
             { error: "Link de agendamiento inválido" },
-            { status: 404 },
+            { status: 404 }
           );
         }
 
         const diagnosisRecord = await pb
           .collection("diagnosticos_riesgo")
           .getOne(submissionIdFromToken);
-        const diagnosisData = diagnosisRecord as unknown as Record<string, unknown>;
+        const diagnosisData = diagnosisRecord as unknown as Record<
+          string,
+          unknown
+        >;
         const diagnosisEmail = String(diagnosisData.correo_corporativo ?? "")
           .trim()
           .toLowerCase();
         if (!diagnosisEmail || diagnosisEmail !== tokenEmail) {
           return NextResponse.json(
             { error: "Link de agendamiento inválido" },
-            { status: 404 },
+            { status: 404 }
           );
         }
 
@@ -273,7 +282,7 @@ export async function POST(request: NextRequest) {
         if (!resolvedName || !resolvedCompany) {
           return NextResponse.json(
             { error: "El diagnóstico no tiene datos completos para agendar" },
-            { status: 409 },
+            { status: 409 }
           );
         }
       }
@@ -286,18 +295,20 @@ export async function POST(request: NextRequest) {
     if (!rateLimitResult.success) {
       return NextResponse.json(
         rateLimitResult.body,
-        buildRateLimitResponseInit(rateLimitResult),
+        buildRateLimitResponseInit(rateLimitResult)
       );
     }
 
     if (resolvedSubmissionId) {
-      const existingBooking = await pb.collection("reservas_reuniones").getList(1, 1, {
-        filter: `submission_id = "${escapeFilterValue(resolvedSubmissionId)}" && estado = "confirmada"`,
-      });
+      const existingBooking = await pb
+        .collection("reservas_reuniones")
+        .getList(1, 1, {
+          filter: `submission_id = "${escapeFilterValue(resolvedSubmissionId)}" && estado = "confirmada"`,
+        });
       if (existingBooking.totalItems > 0) {
         return NextResponse.json(
           { error: "Este diagnóstico ya tiene una sesión confirmada" },
-          { status: 409 },
+          { status: 409 }
         );
       }
     }
@@ -305,11 +316,14 @@ export async function POST(request: NextRequest) {
     const weeklyScheduleRaw = await pb
       .collection("agenda_semanal_de_reuniones")
       .getFullList();
-    const weeklyScheduleResult = weeklyScheduleSchema.safeParse(weeklyScheduleRaw);
+    const weeklyScheduleResult =
+      weeklyScheduleSchema.safeParse(weeklyScheduleRaw);
     if (!weeklyScheduleResult.success) {
       await captureServerError({
         route: request.nextUrl.pathname,
-        error: new Error("Configuración inválida en agenda_semanal_de_reuniones"),
+        error: new Error(
+          "Configuración inválida en agenda_semanal_de_reuniones"
+        ),
         properties: {
           flow: "schedule_meeting_booking",
           stage: "invalid_weekly_schedule",
@@ -323,7 +337,7 @@ export async function POST(request: NextRequest) {
             message: issue.message,
           })),
         },
-        { status: 500 },
+        { status: 500 }
       );
     }
     const weeklySchedule = weeklyScheduleResult.data;
@@ -335,7 +349,8 @@ export async function POST(request: NextRequest) {
     const selectedWeekday = normalizeDay(dayRange.weekday);
     const selectedWeekdayNumber = dayNameToIsoWeekday[selectedWeekday];
     const hasActiveDay = activeRules.some(
-      (rule) => dayNameToIsoWeekday[normalizeDay(rule.dia)] === selectedWeekdayNumber,
+      (rule) =>
+        dayNameToIsoWeekday[normalizeDay(rule.dia)] === selectedWeekdayNumber
     );
 
     if (!hasActiveDay) {
@@ -346,7 +361,7 @@ export async function POST(request: NextRequest) {
       });
       return NextResponse.json(
         { error: "El día seleccionado no está habilitado para reuniones" },
-        { status: 409 },
+        { status: 409 }
       );
     }
 
@@ -366,7 +381,7 @@ export async function POST(request: NextRequest) {
     const hasMatchingSlot = candidateSlots.some(
       (slot) =>
         slot.start.getTime() === startDate.getTime() &&
-        slot.end.getTime() === endDate.getTime(),
+        slot.end.getTime() === endDate.getTime()
     );
 
     if (!hasMatchingSlot) {
@@ -380,7 +395,7 @@ export async function POST(request: NextRequest) {
           error:
             "La hora seleccionada no pertenece a un bloque válido de la agenda",
         },
-        { status: 409 },
+        { status: 409 }
       );
     }
 
@@ -404,13 +419,13 @@ export async function POST(request: NextRequest) {
           error: "No se pudo consultar disponibilidad del calendario",
           details: busyResult.errors,
         },
-        { status: 502 },
+        { status: 502 }
       );
     }
 
     const mergedBusyIntervals = mergeIntervals(busyResult.busyIntervals);
     const slotIsBusy = mergedBusyIntervals.some((busy) =>
-      slotOverlapsBusy({ start: startDate, end: endDate }, busy),
+      slotOverlapsBusy({ start: startDate, end: endDate }, busy)
     );
 
     if (slotIsBusy) {
@@ -424,7 +439,7 @@ export async function POST(request: NextRequest) {
           error:
             "La hora seleccionada ya no está disponible. Actualiza los horarios.",
         },
-        { status: 409 },
+        { status: 409 }
       );
     }
 
@@ -442,14 +457,12 @@ export async function POST(request: NextRequest) {
       .filter(Boolean)
       .join("\n");
 
-    let createdEvent:
-      | {
-          eventId: string;
-          eventLink?: string;
-          meetLink?: string;
-          calendarId: string;
-        }
-      | null = null;
+    let createdEvent: {
+      eventId: string;
+      eventLink?: string;
+      meetLink?: string;
+      calendarId: string;
+    } | null = null;
 
     try {
       createdEvent = await createMeetingEvent({
@@ -488,7 +501,7 @@ export async function POST(request: NextRequest) {
         } catch (rollbackError) {
           console.error(
             "Error al hacer rollback del evento en Google Calendar:",
-            rollbackError,
+            rollbackError
           );
           await captureServerError({
             route: request.nextUrl.pathname,
@@ -506,7 +519,10 @@ export async function POST(request: NextRequest) {
     if (tokenRecordIdToConsume && tokenRecordSource) {
       try {
         if (tokenRecordSource === "risk") {
-          await consumeRiskBookingToken({ pb, tokenRecordId: tokenRecordIdToConsume });
+          await consumeRiskBookingToken({
+            pb,
+            tokenRecordId: tokenRecordIdToConsume,
+          });
         } else {
           await consumeExternalBookingToken({
             pb,
@@ -514,7 +530,10 @@ export async function POST(request: NextRequest) {
           });
         }
       } catch (tokenConsumeError) {
-        console.error("Error consumiendo token de agendamiento:", tokenConsumeError);
+        console.error(
+          "Error consumiendo token de agendamiento:",
+          tokenConsumeError
+        );
         await captureServerError({
           route: request.nextUrl.pathname,
           error: tokenConsumeError,
@@ -537,21 +556,23 @@ export async function POST(request: NextRequest) {
 
           if (isRiskCalculatorPendingOrigin(String(origin ?? ""))) {
             const riskEmailParams = buildRiskCalculatorEmailParamsFromRecord(
-              diagnosisRecord as Record<string, unknown>,
+              diagnosisRecord as Record<string, unknown>
             );
             await sendRiskCalculatorResultsEmail({
               ...riskEmailParams,
               emailVariant: "form_copy",
             });
 
-            await pb.collection("diagnosticos_riesgo").update(resolvedSubmissionId, {
-              origen: RISK_CALCULATOR_ORIGIN_SENT_BOOKING,
-            });
+            await pb
+              .collection("diagnosticos_riesgo")
+              .update(resolvedSubmissionId, {
+                origen: RISK_CALCULATOR_ORIGIN_SENT_BOOKING,
+              });
           }
         } catch (riskEmailError) {
           console.error(
             "Error enviando correo de resultados de riesgo (booking):",
-            riskEmailError,
+            riskEmailError
           );
           await captureServerError({
             route: request.nextUrl.pathname,
@@ -613,7 +634,7 @@ export async function POST(request: NextRequest) {
             message: issue.message,
           })),
         },
-        { status: 400 },
+        { status: 400 }
       );
     }
 

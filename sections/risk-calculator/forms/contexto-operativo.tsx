@@ -114,7 +114,7 @@ export default function ContextoOperativo() {
         question="¿Cuál es el rubro principal de su organización?"
         number={1}
       />
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
         {question1Responses.map((response) => (
           <IconTextCard
             key={response.value}
@@ -151,7 +151,7 @@ export default function ContextoOperativo() {
         number={2}
         isMultipleChoice
       />
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
         {question2Responses.map((response) => (
           <IconTextCard
             key={response.value}

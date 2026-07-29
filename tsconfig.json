@@ -29,7 +29,8 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts",
-    "types/**/*.d.ts"
-, "lib/posthog/PostHogProvider.tss"  ],
+    "types/**/*.d.ts",
+    "lib/posthog/PostHogProvider.tss"
+  ],
   "exclude": ["node_modules"]
 }

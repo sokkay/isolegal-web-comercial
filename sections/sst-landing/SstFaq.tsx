@@ -77,7 +77,7 @@ export default function SstFaq() {
           <div className="mb-10 text-center">
             <span
               aria-hidden="true"
-              className="bg-primary mx-auto mb-5 block size-9 mask-[url('/icons/psychiatry.svg')] mask-center mask-no-repeat mask-contain dark:bg-(--color-primary-on-dark-gray)"
+              className="bg-primary mx-auto mb-5 block size-9 mask-[url('/icons/psychiatry.svg')] mask-contain mask-center mask-no-repeat dark:bg-(--color-primary-on-dark-gray)"
             />
             <p className="text-primary mb-3 text-sm font-bold tracking-[0.18em] uppercase dark:text-(--color-primary-on-dark-gray)">
               Resolvemos tus dudas

@@ -24,7 +24,7 @@ export default function ReactQueryProvider({
             retry: 0,
           },
         },
-      }),
+      })
   );
 
   return (

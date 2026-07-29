@@ -30,7 +30,8 @@ export function generateExternalBookingToken() {
 
 export function resolveExternalBookingTokenTtlDays() {
   return ttlDaysSchema.parse(
-    process.env.EXTERNAL_BOOKING_TOKEN_TTL_DAYS ?? DEFAULT_EXTERNAL_TOKEN_TTL_DAYS,
+    process.env.EXTERNAL_BOOKING_TOKEN_TTL_DAYS ??
+      DEFAULT_EXTERNAL_TOKEN_TTL_DAYS
   );
 }
 
@@ -77,14 +78,18 @@ export async function findExternalBookingTokenRecordByRawToken(params: {
   return result.items[0] ?? null;
 }
 
-export function isExternalBookingTokenExpired(expiresAtIso: string | undefined) {
+export function isExternalBookingTokenExpired(
+  expiresAtIso: string | undefined
+) {
   if (!expiresAtIso) return true;
   const expiresAt = new Date(expiresAtIso);
   if (Number.isNaN(expiresAt.getTime())) return true;
   return expiresAt.getTime() < Date.now();
 }
 
-export function isExternalBookingTokenUsed(usedAtIso: string | null | undefined) {
+export function isExternalBookingTokenUsed(
+  usedAtIso: string | null | undefined
+) {
   return Boolean(usedAtIso);
 }
 

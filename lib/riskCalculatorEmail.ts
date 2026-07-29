@@ -14,6 +14,6 @@ export const riskCalculatorPendingOrigins = [
 export function isRiskCalculatorPendingOrigin(origin?: string | null) {
   if (!origin) return false;
   return riskCalculatorPendingOrigins.includes(
-    origin as (typeof riskCalculatorPendingOrigins)[number],
+    origin as (typeof riskCalculatorPendingOrigins)[number]
   );
 }

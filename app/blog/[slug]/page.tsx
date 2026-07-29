@@ -107,10 +107,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </Link> */}
 
           <header className="mt-6 space-y-4">
-            <p className="text-sm uppercase tracking-wide text-text/70">
+            <p className="text-text/70 text-sm tracking-wide uppercase">
               {formatPublishedDate(post.publishedAt)}
             </p>
-            <h1 className="font-extrabold text-4xl md:text-5xl leading-tight tracking-[-1.2px]">
+            <h1 className="text-4xl leading-tight font-extrabold tracking-[-1.2px] md:text-5xl">
               {post.title}
             </h1>
             {/* {post.excerpt ? (
@@ -120,7 +120,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
 
         {post.coverImageUrl ? (
-          <div className="relative mt-10 mx-auto aspect-video w-full max-w-3xl overflow-hidden rounded-2xl border border-text/15 select-none">
+          <div className="border-text/15 relative mx-auto mt-10 aspect-video w-full max-w-3xl overflow-hidden rounded-2xl border select-none">
             <ProtectedImage
               src={post.coverImageUrl}
               alt={post.title}
@@ -135,12 +135,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <BlogPostContent contentHtml={post.contentHtml} />
 
         {relatedPosts.length > 0 ? (
-          <section className="mx-auto mt-16 max-w-5xl border-t border-text/10 pt-12">
+          <section className="border-text/10 mx-auto mt-16 max-w-5xl border-t pt-12">
             <div className="mx-auto max-w-5xl">
               <h2 className="text-3xl font-extrabold tracking-tight">
                 Blogs recomendados
               </h2>
-              <p className="mt-3 text-text/70">
+              <p className="text-text/70 mt-3">
                 Sigue leyendo contenido relacionado con este tema.
               </p>
             </div>
@@ -149,9 +149,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               {relatedPosts.map((relatedPost) => (
                 <article
                   key={relatedPost.id}
-                  className="overflow-hidden rounded-2xl border border-text/10 bg-background/60"
+                  className="border-text/10 bg-background/60 overflow-hidden rounded-2xl border"
                 >
-                  <Link href={`/blog/${relatedPost.slug}`} className="block h-full">
+                  <Link
+                    href={`/blog/${relatedPost.slug}`}
+                    className="block h-full"
+                  >
                     {relatedPost.coverImageUrl ? (
                       <div className="relative aspect-video w-full select-none">
                         <ProtectedImage
@@ -163,21 +166,21 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                         />
                       </div>
                     ) : (
-                      <div className="aspect-video w-full bg-text/5" />
+                      <div className="bg-text/5 aspect-video w-full" />
                     )}
 
                     <div className="space-y-3 p-5">
-                      <p className="text-sm uppercase tracking-wide text-text/60">
+                      <p className="text-text/60 text-sm tracking-wide uppercase">
                         {formatPublishedDate(relatedPost.publishedAt)}
                       </p>
-                      <h3 className="text-xl font-bold leading-tight">
+                      <h3 className="text-xl leading-tight font-bold">
                         {relatedPost.title}
                       </h3>
-                      <p className="text-sm leading-6 text-text/75">
+                      <p className="text-text/75 text-sm leading-6">
                         {relatedPost.excerpt ||
                           "Sin resumen disponible para esta publicación."}
                       </p>
-                      <span className="inline-flex text-sm font-semibold text-primary">
+                      <span className="text-primary inline-flex text-sm font-semibold">
                         Leer artículo
                       </span>
                     </div>

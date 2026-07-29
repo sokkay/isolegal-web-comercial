@@ -17,9 +17,8 @@ const MODAL_TRANSITION_MS = 200;
 
 export default function AgendamientoHeading() {
   const router = useRouter();
-  const [contactSnapshot, setContactSnapshot] = useState<ContactSnapshot | null>(
-    null,
-  );
+  const [contactSnapshot, setContactSnapshot] =
+    useState<ContactSnapshot | null>(null);
   const [isModalMounted, setIsModalMounted] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isCreatingToken, setIsCreatingToken] = useState(false);
@@ -87,7 +86,7 @@ export default function AgendamientoHeading() {
 
       if (!response.ok || !result.bookingUrl) {
         throw new Error(
-          result.error ?? "No se pudo generar el link de agendamiento",
+          result.error ?? "No se pudo generar el link de agendamiento"
         );
       }
 
@@ -96,7 +95,7 @@ export default function AgendamientoHeading() {
       setErrorMessage(
         error instanceof Error
           ? error.message
-          : "No se pudo generar el link de agendamiento",
+          : "No se pudo generar el link de agendamiento"
       );
       setIsCreatingToken(false);
     }
@@ -111,18 +110,18 @@ export default function AgendamientoHeading() {
           className={cn(
             "fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-[2px] transition-opacity duration-200",
             isModalVisible
-              ? "bg-black/50 opacity-100 pointer-events-auto"
-              : "bg-black/0 opacity-0 pointer-events-none",
+              ? "pointer-events-auto bg-black/50 opacity-100"
+              : "pointer-events-none bg-black/0 opacity-0"
           )}
           onClick={closeModal}
           role="presentation"
         >
           <div
             className={cn(
-              "w-full max-w-lg bg-card-background dark:bg-surface-tonal-a10 rounded-2xl p-6 sm:p-8 shadow-2xl transition-all duration-200",
+              "bg-card-background dark:bg-surface-tonal-a10 w-full max-w-lg rounded-2xl p-6 shadow-2xl transition-all duration-200 sm:p-8",
               isModalVisible
-                ? "opacity-100 scale-100 translate-y-0"
-                : "opacity-0 scale-95 translate-y-2",
+                ? "translate-y-0 scale-100 opacity-100"
+                : "translate-y-2 scale-95 opacity-0"
             )}
             onClick={(event) => event.stopPropagation()}
             role="dialog"
@@ -132,21 +131,21 @@ export default function AgendamientoHeading() {
             <div className="flex items-start justify-between gap-4">
               <h3
                 id="agendamiento-prompt-title"
-                className="text-xl font-bold text-text dark:text-white"
+                className="text-text text-xl font-bold dark:text-white"
               >
                 ¿Deseas agendar una sesión inmediatamente?
               </h3>
               <button
                 type="button"
                 onClick={closeModal}
-                className="text-text-muted dark:text-neutral-300 hover:text-text dark:hover:text-white transition-colors cursor-pointer"
+                className="text-text-muted hover:text-text cursor-pointer transition-colors dark:text-neutral-300 dark:hover:text-white"
                 aria-label="Cerrar"
                 disabled={isCreatingToken}
               >
                 ✕
               </button>
             </div>
-            <p className="mt-4 text-text-muted dark:text-neutral-300 leading-relaxed">
+            <p className="text-text-muted mt-4 leading-relaxed dark:text-neutral-300">
               Recibimos tu mensaje. Si lo prefieres, puedes reservar ahora mismo
               un horario para tu sesión estratégica.
             </p>

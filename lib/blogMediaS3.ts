@@ -59,7 +59,7 @@ function encodePathSegments(path: string): string {
 function buildSigningKey(
   secretAccessKey: string,
   dateStamp: string,
-  region: string,
+  region: string
 ): Buffer {
   const kDate = hmac(`AWS4${secretAccessKey}`, dateStamp);
   const kRegion = hmac(kDate, region);
@@ -106,7 +106,7 @@ export async function fetchBlogMediaObject(key: string): Promise<Response> {
   const signingKey = buildSigningKey(
     config.secretAccessKey,
     dateStamp,
-    config.region,
+    config.region
   );
   const signature = crypto
     .createHmac("sha256", signingKey)

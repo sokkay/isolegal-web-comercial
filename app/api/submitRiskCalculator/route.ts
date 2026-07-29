@@ -64,12 +64,13 @@ function getRiskLevel(score: number): RiskLevel {
 function calculateRiskScore(data: RiskCalculatorSubmissionData) {
   const { saludMatrizLegal, criterioYRespuesta } = data;
 
-  const scoreQuestion3 = SCORE_BY_GESTION_MATRIZ[saludMatrizLegal.gestionMatriz];
+  const scoreQuestion3 =
+    SCORE_BY_GESTION_MATRIZ[saludMatrizLegal.gestionMatriz];
   const scoreQuestion4 =
     SCORE_BY_ULTIMA_ACTUALIZACION[saludMatrizLegal.ultimaActualizacion];
   const scoreQuestion5 =
     saludMatrizLegal.normasTratadas.filter(
-      (value) => value === "ds_369" || value === "ds_40",
+      (value) => value === "ds_369" || value === "ds_40"
     ).length * 3;
   const scoreQuestion6 =
     SCORE_BY_CAMBIO_NORMATIVO[criterioYRespuesta.cambioNormativo];
@@ -106,10 +107,9 @@ export async function POST(request: NextRequest) {
       const adminPassword = process.env.POCKET_BASE_ADMIN_PASSWORD;
 
       if (adminEmail && adminPassword) {
-        await pb.collection("_superusers").authWithPassword(
-          adminEmail,
-          adminPassword,
-        );
+        await pb
+          .collection("_superusers")
+          .authWithPassword(adminEmail, adminPassword);
       }
 
       const record = await pb.collection("diagnosticos_riesgo").create({
@@ -121,7 +121,8 @@ export async function POST(request: NextRequest) {
         rubro_otro: validatedData.contextoOperativo.rubroOtro || "",
         normas_iso: validatedData.contextoOperativo.normasISO,
         gestion_matriz: validatedData.saludMatrizLegal.gestionMatriz,
-        ultima_actualizacion: validatedData.saludMatrizLegal.ultimaActualizacion,
+        ultima_actualizacion:
+          validatedData.saludMatrizLegal.ultimaActualizacion,
         normas_tratadas: validatedData.saludMatrizLegal.normasTratadas,
         cambio_normativo: validatedData.criterioYRespuesta.cambioNormativo,
         evidencia_trazable: validatedData.criterioYRespuesta.evidenciaTrazable,
@@ -154,7 +155,7 @@ export async function POST(request: NextRequest) {
           submissionId,
         },
       },
-      { status: 200 },
+      { status: 200 }
     );
   } catch (error) {
     if (error instanceof ZodError) {
@@ -166,7 +167,7 @@ export async function POST(request: NextRequest) {
             message: err.message,
           })),
         },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -183,7 +184,7 @@ export async function POST(request: NextRequest) {
         error:
           error instanceof Error ? error.message : "Error interno del servidor",
       },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

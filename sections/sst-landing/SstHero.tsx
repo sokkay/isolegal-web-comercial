@@ -15,7 +15,7 @@ export default function SstHero() {
     <section className="bg-darkBlue text-white">
       <div className="container mx-auto grid items-start gap-10 py-14 lg:grid-cols-[minmax(0,1fr)_minmax(480px,0.95fr)] lg:py-20 xl:gap-14">
         <div className="space-y-6 lg:sticky lg:top-28">
-          <p className="text-(--color-primary-on-dark) text-sm font-extrabold tracking-[0.18em] uppercase">
+          <p className="text-sm font-extrabold tracking-[0.18em] text-(--color-primary-on-dark) uppercase">
             SST · HSE · Medio Ambiente
           </p>
           <h1 className="text-4xl leading-[1.06] font-extrabold tracking-[-1.5px] sm:text-5xl xl:text-6xl">

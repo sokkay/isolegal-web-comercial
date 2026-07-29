@@ -3,9 +3,9 @@ import {
   RiskCalculatorProvider,
   useRiskCalculator,
 } from "@/contexts/RiskCalculator";
+import AgendarSesion from "@/sections/risk-calculator/forms/agendar-sesion";
 import ContextoOperativo from "@/sections/risk-calculator/forms/contexto-operativo";
 import CriterioYRespuesta from "@/sections/risk-calculator/forms/criterio-y-respuesta";
-import AgendarSesion from "@/sections/risk-calculator/forms/agendar-sesion";
 import DiagnosticoCompletado from "@/sections/risk-calculator/forms/diagnostico-completado";
 import ResultadosDiagnostico from "@/sections/risk-calculator/forms/resultados-diagnostico";
 import SaludMatrizLegal from "@/sections/risk-calculator/forms/salud-matriz-legal";
@@ -64,7 +64,7 @@ function CalculaTuRiesgoContent() {
   };
 
   return (
-    <div className="relative overflow-hidden bg-background">
+    <div className="bg-background relative overflow-hidden">
       <AnimatePresence mode="wait" custom={direction}>
         <motion.div
           key={currentStep}

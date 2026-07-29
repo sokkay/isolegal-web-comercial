@@ -14,26 +14,26 @@ export default function DiagnosticoCompletado() {
   const riskMeta = getRiskMeta(score);
 
   return (
-    <div className="flex md:flex-row flex-col bg-card-background rounded-3xl text-text shadow-lg overflow-hidden px-4 md:px-8 py-8">
-      <div className="flex-5 flex flex-col justify-center items-center md:pr-8 md:border-r border-gray-200 dark:border-gray-800">
+    <div className="bg-card-background text-text flex flex-col overflow-hidden rounded-3xl px-4 py-8 shadow-lg md:flex-row md:px-8">
+      <div className="flex flex-5 flex-col items-center justify-center border-gray-200 md:border-r md:pr-8 dark:border-gray-800">
         <span className="text-xs font-bold text-gray-500 dark:text-gray-400">
-          <SpeedFillIcon className="w-4 h-4 inline-block mr-1 fill-gray-500" />
+          <SpeedFillIcon className="mr-1 inline-block h-4 w-4 fill-gray-500" />
           ÍNDICE DE RIESGO LEGAL ISO
         </span>
         <VelocimetroRiesgo score={score} className="mt-6" showScore={false} />
       </div>
-      <div className="flex-7 md:pl-6 pt-8 md:pt-0 flex flex-col gap-4">
+      <div className="flex flex-7 flex-col gap-4 pt-8 md:pt-0 md:pl-6">
         <h1 className="text-2xl font-bold">{riskMeta.title}</h1>
         {/* <span className="inline-flex w-fit px-3 py-1 rounded-full text-xs font-bold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">
           {riskMeta.rangeLabel}
         </span> */}
-        <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 leading-6 whitespace-pre-line mb-6">
+        <p className="mb-6 text-sm leading-6 font-semibold whitespace-pre-line text-gray-500 dark:text-gray-400">
           {riskMeta.description}
         </p>
-        <span className="text-base font-semibold text-text">
+        <span className="text-text text-base font-semibold">
           Nuestro equipo
         </span>
-        <div className="flex lg:flex-row flex-col gap-4">
+        <div className="flex flex-col gap-4 lg:flex-row">
           <PersonCard
             name="Claudio Arriagada"
             charge="ISO/Medioambiente"
@@ -51,10 +51,10 @@ export default function DiagnosticoCompletado() {
           className="mt-4"
           onClick={goToNextStep}
         />
-        <div className="mt-auto pt-4 border-t border-gray-200 dark:border-gray-800">
+        <div className="mt-auto border-t border-gray-200 pt-4 dark:border-gray-800">
           <span className="text-xs text-gray-500 dark:text-gray-400">
             ID formulario:{" "}
-            <strong className="font-semibold text-text dark:text-white">
+            <strong className="text-text font-semibold dark:text-white">
               {calculationResult?.submissionId ?? "N/D"}
             </strong>
           </span>
@@ -72,13 +72,13 @@ type PersonCardProps = {
 
 const PersonCard = ({ name, charge, imgUrl }: PersonCardProps) => {
   return (
-    <div className="flex flex-1 flex-row items-center gap-2 bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-lg">
+    <div className="flex flex-1 flex-row items-center gap-2 rounded-lg bg-gray-100 px-4 py-2 dark:bg-gray-800">
       <Image
         src={imgUrl}
         alt={name}
         width={100}
         height={100}
-        className="w-10 h-10 rounded-lg"
+        className="h-10 w-10 rounded-lg"
       />
       <div className="flex flex-col">
         <h3 className="text-base font-bold">{name}</h3>
