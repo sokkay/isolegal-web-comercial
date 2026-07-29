@@ -9,7 +9,7 @@ const regulationCategories = [
     title: "Medio Ambiente",
     items: [
       "RCA",
-      "DS N°40 (act. DS N°17/2025)",
+      "Ley 19.300",
       "Normas SMA",
       "Permisos sectoriales",
     ],

@@ -51,12 +51,14 @@
 
 .sst-page-theme {
   --color-primary: #8A2BE2;
+  --color-primary-on-dark: #C084FC;
   --color-checkbox-bg: color-mix(in srgb, #8A2BE2 14%, white);
   --color-green-bg: color-mix(in srgb, #8A2BE2 12%, white);
 }
 
 .dark .sst-page-theme {
   --color-primary: #8A2BE2;
+  --color-primary-on-dark: #C084FC;
   --color-checkbox-bg: color-mix(in srgb, #8A2BE2 24%, #262c3e);
   --color-green-bg: color-mix(in srgb, #8A2BE2 22%, #262c3e);
 }
