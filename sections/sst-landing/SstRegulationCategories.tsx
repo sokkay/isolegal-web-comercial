@@ -30,6 +30,7 @@ export default function SstRegulationCategories() {
     <section className="container mx-auto py-16 sm:py-20">
       <SectionHeading
         eyebrow="Cobertura integral"
+        eyebrowDarkColor="var(--color-primary-on-dark-gray)"
         title="Toda la normativa SST, HSE y de medio ambiente en un solo lugar"
         description="Nuestro equipo legal mantiene la matriz actualizada en las cuatro dimensiones que más le importan a tu operación."
       />

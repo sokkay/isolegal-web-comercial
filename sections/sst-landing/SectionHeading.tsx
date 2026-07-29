@@ -1,17 +1,28 @@
+import type { CSSProperties } from "react";
+
 type SectionHeadingProps = {
   eyebrow: string;
   title: string;
   description: string;
+  eyebrowDarkColor?: string;
 };
 
 export default function SectionHeading({
   eyebrow,
   title,
   description,
+  eyebrowDarkColor = "var(--color-primary-on-dark)",
 }: SectionHeadingProps) {
   return (
     <div className="mx-auto mb-10 max-w-3xl text-center">
-      <p className="text-primary mb-3 text-sm font-bold tracking-[0.18em] uppercase">
+      <p
+        className="text-primary mb-3 text-sm font-bold tracking-[0.18em] uppercase dark:text-(--eyebrow-dark-color)"
+        style={
+          {
+            "--eyebrow-dark-color": eyebrowDarkColor,
+          } as CSSProperties
+        }
+      >
         {eyebrow}
       </p>
       <h2 className="text-text text-3xl leading-tight font-extrabold sm:text-4xl">

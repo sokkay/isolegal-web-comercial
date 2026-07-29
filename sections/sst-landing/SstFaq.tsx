@@ -62,7 +62,7 @@ export default function SstFaq() {
       <div className="container mx-auto">
         <div className="mx-auto max-w-5xl">
           <div className="mb-10 text-center">
-            <p className="text-primary mb-3 text-sm font-bold tracking-[0.18em] uppercase">
+            <p className="text-primary mb-3 text-sm font-bold tracking-[0.18em] uppercase dark:text-(--color-primary-on-dark-gray)">
               Resolvemos tus dudas
             </p>
             <h2
