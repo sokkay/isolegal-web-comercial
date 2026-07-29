@@ -12,7 +12,7 @@ export default function Heading({ onContactSuccess }: HeadingProps = {}) {
     <div className="bg-darkBlue text-white">
       <div className="container mx-auto flex flex-col items-center gap-8 py-16 lg:flex-row xl:gap-12">
         <div className="flex-1 space-y-6">
-          <h1 className="text-5xl leading-[1.06] font-extrabold tracking-[-1.5px] md:text-6xl">
+          <h1 className="text-4xl leading-[1.06] font-extrabold tracking-[-1.5px] sm:text-5xl xl:text-6xl">
             Software de Compliance <br />
             y Cumplimiento Normativo <br />
             para Empresas en Chile
