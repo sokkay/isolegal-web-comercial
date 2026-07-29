@@ -7,22 +7,29 @@ import type { MouseEvent } from "react";
 
 export default function FloatingActionButton() {
   const pathname = usePathname();
+  const isSstPage = pathname === "/sistema-de-gestion-sst";
+  const calculatorSectionId = isSstPage
+    ? "calcula-tu-riesgo-sst"
+    : "calcula-tu-riesgo";
+  const calculatorSectionHref = isSstPage
+    ? "/sistema-de-gestion-sst#calcula-tu-riesgo-sst"
+    : "/#calcula-tu-riesgo";
 
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
-    if (pathname !== "/") return;
+    if (pathname !== "/" && !isSstPage) return;
 
     event.preventDefault();
 
-    const calculatorSection = document.getElementById("calcula-tu-riesgo");
+    const calculatorSection = document.getElementById(calculatorSectionId);
     if (!calculatorSection) return;
 
     calculatorSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    window.history.replaceState(null, "", "#calcula-tu-riesgo");
+    window.history.replaceState(null, "", `#${calculatorSectionId}`);
   };
 
   return (
     <Link
-      href="/#calcula-tu-riesgo"
+      href={calculatorSectionHref}
       onClick={handleClick}
       aria-label="Ir a Calcula tu riesgo"
       className="group fixed right-6 z-50 flex h-16 w-16 items-center justify-center gap-0 overflow-hidden rounded-full bg-primary text-white shadow-lg ring-1 ring-white/20 transition-all duration-300 hover:w-64 hover:justify-start hover:gap-3 hover:px-5 hover:shadow-xl"

@@ -1,3 +1,4 @@
+import FloatingActionButton from "@/components/FloatingActionButton";
 import {
   SST_FAQ_ITEMS,
   SstComparison,
@@ -76,6 +77,7 @@ export default function SistemaGestionSstPage() {
       <SstMetrics />
       <SstFaq />
       <SstRiskCta />
+      <FloatingActionButton />
     </main>
   );
 }
