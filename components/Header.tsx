@@ -79,7 +79,7 @@ export default function Header() {
     {
       name: "Sistema de Gestión SST",
       description: "Seguridad, salud y cumplimiento en un solo lugar",
-      href: "/sistema-de-gestion-sst",
+      href: "/software/sst",
     },
   ];
 
@@ -184,7 +184,7 @@ export default function Header() {
                 onClick={() => setIsSolutionsOpen((isOpen) => !isOpen)}
                 className={cn(
                   "group relative flex cursor-pointer items-center gap-2 text-lg transition-colors",
-                  pathname === "/sistema-de-gestion-sst" ||
+                  pathname === "/software/sst" ||
                     activeSection === "/#soluciones"
                     ? "text-nav-active"
                     : "hover:text-nav-active"
@@ -194,7 +194,7 @@ export default function Header() {
                   style={{ backgroundColor: navIndicatorColor }}
                   className={cn(
                     "absolute -left-4 h-1.5 w-1.5 rounded-full transition-opacity",
-                    pathname === "/sistema-de-gestion-sst" ||
+                    pathname === "/software/sst" ||
                       activeSection === "/#soluciones"
                       ? "opacity-100"
                       : "opacity-0 group-hover:opacity-100"
@@ -381,7 +381,7 @@ export default function Header() {
                   onClick={() => setIsMobileSolutionsOpen((isOpen) => !isOpen)}
                   className={cn(
                     "group relative flex w-full cursor-pointer items-center justify-between gap-2 transition-colors",
-                    pathname === "/sistema-de-gestion-sst" ||
+                    pathname === "/software/sst" ||
                       activeSection === "/#soluciones"
                       ? "text-nav-active"
                       : "hover:text-nav-active"
@@ -391,7 +391,7 @@ export default function Header() {
                     style={{ backgroundColor: navIndicatorColor }}
                     className={cn(
                       "absolute -left-6 h-2 w-2 rounded-full transition-opacity",
-                      pathname === "/sistema-de-gestion-sst" ||
+                      pathname === "/software/sst" ||
                         activeSection === "/#soluciones"
                         ? "opacity-100"
                         : "opacity-0 group-hover:opacity-100"

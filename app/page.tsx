@@ -8,6 +8,15 @@ import RiskCalculatorMainContainer from "@/sections/risk-calculator/risk-calcula
 import TabsBanner from "@/sections/tabs-banner";
 import Testimonials from "@/sections/testimonials";
 import WhyIsolegalV2Section from "@/sections/why-isolegal-v2";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: {
+    absolute: "Software de Compliance y Cumplimiento Normativo | Isolegal",
+  },
+  description:
+    "Software de compliance y cumplimiento normativo para empresas en Chile. Centraliza matriz legal, evidencias y alertas en una sola plataforma. Contáctanos.",
+};
 
 export default function Home() {
   return (

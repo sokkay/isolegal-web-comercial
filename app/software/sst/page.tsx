@@ -13,38 +13,43 @@ import {
 import type { Metadata } from "next";
 
 const SITE_URL = "https://isolegal.cl";
-const PAGE_PATH = "/sistema-de-gestion-sst";
+const PAGE_PATH = "/software/sst";
 
 export const metadata: Metadata = {
-  title: "Sistema de Gestión de Seguridad y Salud en el Trabajo",
+  title: {
+    absolute: "Sistema de Gestión SST, HSE y Medio Ambiente | Isolegal",
+  },
   description:
-    "Gestiona SST, HSE y medio ambiente en una sola plataforma: matriz legal, evidencia auditable, alertas normativas y reportes de cumplimiento.",
+    "Sistema de gestión SST, HSE y medio ambiente para empresas en Chile. Centraliza matriz legal, evidencia y alertas normativas. Solicita un diagnóstico.",
   alternates: {
     canonical: PAGE_PATH,
   },
   keywords: [
-    "sistema de gestión de seguridad y salud en el trabajo",
     "sistema de gestión SST",
-    "SG-SST Chile",
-    "software SST",
+    "sistema de gestión de seguridad y salud en el trabajo",
+    "SG-SST",
     "HSE",
-    "SSOMA",
+    "medio ambiente",
     "ISO 45001",
+    "RCA",
+    "DS 44",
+    "Ley 16.744",
   ],
   openGraph: {
     type: "website",
     locale: "es_CL",
     url: `${SITE_URL}${PAGE_PATH}`,
+    siteName: "Isolegal",
     title: "Sistema de Gestión SST, HSE y Medio Ambiente | Isolegal",
     description:
-      "Centraliza tu matriz legal, evidencia y alertas normativas para demostrar cumplimiento SST en Chile.",
+      "Sistema de gestión SST, HSE y medio ambiente para empresas en Chile. Centraliza matriz legal, evidencia y alertas normativas.",
     images: ["/images/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Sistema de Gestión SST, HSE y Medio Ambiente | Isolegal",
     description:
-      "Centraliza tu matriz legal, evidencia y alertas normativas para demostrar cumplimiento SST en Chile.",
+      "Sistema de gestión SST, HSE y medio ambiente para empresas en Chile. Centraliza matriz legal, evidencia y alertas normativas.",
     images: ["/images/og-image.png"],
   },
 };

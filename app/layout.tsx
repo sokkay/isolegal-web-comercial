@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     "gestión normativa empresas",
     "RCA cumplimiento ambiental",
     "RCA",
-    "RESO",
+    "RESSO",
     "SIGO",
     "RECSS",
   ],

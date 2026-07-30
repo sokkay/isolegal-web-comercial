@@ -20,12 +20,12 @@ const defaultThemeConfig: PageThemeConfig = {
 };
 
 const pageThemeConfigs: Record<string, PageThemeConfig> = {
-  "/sistema-de-gestion-sst": {
+  "/software/sst": {
     className: "sst-page-theme",
     navIndicatorColor: "var(--color-primary-on-dark)",
-    riskCalculatorHref: "/sistema-de-gestion-sst#calcula-tu-riesgo-sst",
+    riskCalculatorHref: "/software/sst#calcula-tu-riesgo-sst",
     riskCalculatorSectionId: "calcula-tu-riesgo-sst",
-    riskCalculatorPath: "/sistema-de-gestion-sst",
+    riskCalculatorPath: "/software/sst",
   },
 };
 
