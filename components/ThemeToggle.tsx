@@ -1,12 +1,20 @@
 "use client";
 
 import { useTheme } from "next-themes";
+import { useSyncExternalStore } from "react";
 import IconButton from "./ui/IconButton";
 
+const emptySubscribe = () => () => {};
+
 export default function ThemeToggle({ className }: { className?: string }) {
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
   const { resolvedTheme, setTheme } = useTheme();
 
-  if (!resolvedTheme) {
+  if (!mounted || !resolvedTheme) {
     return <IconButton icon="moon" alt="Tema" className={className} disabled />;
   }
 
