@@ -1,6 +1,6 @@
-import FaqAccordion, { FaqItem } from "@/components/FaqAccordion";
+import FaqAccordion, { type FaqItem } from "@/components/FaqAccordion";
 
-const homeFaqItems: FaqItem[] = [
+export const HOME_FAQ_ITEMS: FaqItem[] = [
   {
     question: "¿Qué es un software de compliance o cumplimiento normativo?",
     answer:
@@ -33,7 +33,8 @@ const homeFaqItems: FaqItem[] = [
       "Sí. Isolegal incorpora IA para interpretar requisitos legales y validar evidencia antes de auditorías. Es una herramienta entrenada por nuestros abogados expertos.",
   },
   {
-    question: "¿Se puede gestionar cumplimiento ambiental y laboral?",
+    question:
+      "¿Se puede gestionar cumplimiento ambiental, laboral, SST y de eficiencia energética?",
     answer:
       "Sí. La plataforma permite administrar requisitos ambientales, laborales, de seguridad y salud en el trabajo (SST), eficiencia energética y exigencias de mandantes, adaptados a los distintos rubros de cada organización.",
   },
@@ -110,7 +111,7 @@ export default function HomeFaqSection() {
           </div>
 
           <FaqAccordion
-            items={homeFaqItems}
+            items={HOME_FAQ_ITEMS}
             className="bg-card-background/90 rounded-2xl px-5 shadow-md shadow-black/5 backdrop-blur-sm sm:px-8"
           />
         </div>
