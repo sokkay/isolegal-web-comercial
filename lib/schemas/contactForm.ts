@@ -26,6 +26,7 @@ export const CONTACT_RUBRO_OPTIONS = [
   "Transporte",
   "Manufactura",
   "Servicios",
+  "Banca/Financiero",
   "Otro",
 ] as const;
 

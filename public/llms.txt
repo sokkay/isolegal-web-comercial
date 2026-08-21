@@ -9,6 +9,9 @@ Sitemap: https://isolegal.cl/sitemap.xml
 
 - Home (`/`): propuesta de valor de Isolegal, beneficios del sistema, funcionalidades clave, testimonios y acceso al formulario de contacto.
 - Calcula tu riesgo (`/calcula-tu-riesgo`): flujo guiado en varios pasos para evaluar riesgo de cumplimiento, mostrar resultados y agendar una sesion.
+- Sistema de gestion SST (`/software/sst`): gestion centralizada de seguridad, salud en el trabajo, HSE y medio ambiente.
+- Software GRC (`/software/grc`): gobierno corporativo, gestion de riesgos, cumplimiento normativo y modelos de prevencion de delitos.
+- Plataforma RESSO (`/software/resso`): gestion de requisitos RESSO para empresas contratistas y subcontratistas de Codelco.
 - Soporte tecnico (`/soporte-tecnico`): formularios para reportar problemas tecnicos y enviar opiniones o sugerencias.
 - Terminos y condiciones (`/terminos-y-condiciones`): condiciones de uso, informacion legal y politicas del servicio.
 

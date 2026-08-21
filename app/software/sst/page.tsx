@@ -1,4 +1,5 @@
 import FloatingActionButton from "@/components/FloatingActionButton";
+import { createFaqStructuredData } from "@/sections/software-landing";
 import {
   SST_FAQ_ITEMS,
   SstComparison,
@@ -54,18 +55,7 @@ export const metadata: Metadata = {
   },
 };
 
-const faqStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: SST_FAQ_ITEMS.map((item) => ({
-    "@type": "Question",
-    name: item.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: item.answer,
-    },
-  })),
-};
+const faqStructuredData = createFaqStructuredData(SST_FAQ_ITEMS);
 
 export default function SistemaGestionSstPage() {
   return (

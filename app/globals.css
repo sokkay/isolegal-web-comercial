@@ -65,6 +65,40 @@
   --color-green-bg: color-mix(in srgb, #8a2be2 22%, #262c3e);
 }
 
+/* Paleta provisional GRC. Centralizada aquí para facilitar su reemplazo. */
+.grc-page-theme {
+  --color-primary: #2563eb;
+  --color-primary-on-dark: #60a5fa;
+  --color-primary-on-dark-gray: #93c5fd;
+  --color-checkbox-bg: color-mix(in srgb, #2563eb 14%, white);
+  --color-green-bg: color-mix(in srgb, #2563eb 12%, white);
+}
+
+.dark .grc-page-theme {
+  --color-primary: #2563eb;
+  --color-primary-on-dark: #60a5fa;
+  --color-primary-on-dark-gray: #93c5fd;
+  --color-checkbox-bg: color-mix(in srgb, #2563eb 24%, #262c3e);
+  --color-green-bg: color-mix(in srgb, #2563eb 22%, #262c3e);
+}
+
+/* Paleta provisional RESSO: #d97706 es el cobre base de marca. */
+.resso-page-theme {
+  --color-primary: #b45309;
+  --color-primary-on-dark: #fbbf24;
+  --color-primary-on-dark-gray: #fcd34d;
+  --color-checkbox-bg: color-mix(in srgb, #d97706 14%, white);
+  --color-green-bg: color-mix(in srgb, #d97706 12%, white);
+}
+
+.dark .resso-page-theme {
+  --color-primary: #d97706;
+  --color-primary-on-dark: #fbbf24;
+  --color-primary-on-dark-gray: #fcd34d;
+  --color-checkbox-bg: color-mix(in srgb, #d97706 24%, #262c3e);
+  --color-green-bg: color-mix(in srgb, #d97706 22%, #262c3e);
+}
+
 html {
   scroll-behavior: smooth;
 }

@@ -81,7 +81,19 @@ export default function Header() {
       description: "Seguridad, salud y cumplimiento en un solo lugar",
       href: "/software/sst",
     },
+    {
+      name: "Software GRC",
+      description: "Gobierno, riesgo y cumplimiento para empresas",
+      href: "/software/grc",
+    },
+    {
+      name: "Plataforma RESSO",
+      description: "Gestión RESSO para contratistas de Codelco",
+      href: "/software/resso",
+    },
   ];
+
+  const isSoftwareRoute = pathname.startsWith("/software/");
 
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -184,8 +196,7 @@ export default function Header() {
                 onClick={() => setIsSolutionsOpen((isOpen) => !isOpen)}
                 className={cn(
                   "group relative flex cursor-pointer items-center gap-2 text-lg transition-colors",
-                  pathname === "/software/sst" ||
-                    activeSection === "/#soluciones"
+                  isSoftwareRoute || activeSection === "/#soluciones"
                     ? "text-nav-active"
                     : "hover:text-nav-active"
                 )}
@@ -194,8 +205,7 @@ export default function Header() {
                   style={{ backgroundColor: navIndicatorColor }}
                   className={cn(
                     "absolute -left-4 h-1.5 w-1.5 rounded-full transition-opacity",
-                    pathname === "/software/sst" ||
-                      activeSection === "/#soluciones"
+                    isSoftwareRoute || activeSection === "/#soluciones"
                       ? "opacity-100"
                       : "opacity-0 group-hover:opacity-100"
                   )}
@@ -381,8 +391,7 @@ export default function Header() {
                   onClick={() => setIsMobileSolutionsOpen((isOpen) => !isOpen)}
                   className={cn(
                     "group relative flex w-full cursor-pointer items-center justify-between gap-2 transition-colors",
-                    pathname === "/software/sst" ||
-                      activeSection === "/#soluciones"
+                    isSoftwareRoute || activeSection === "/#soluciones"
                       ? "text-nav-active"
                       : "hover:text-nav-active"
                   )}
@@ -391,8 +400,7 @@ export default function Header() {
                     style={{ backgroundColor: navIndicatorColor }}
                     className={cn(
                       "absolute -left-6 h-2 w-2 rounded-full transition-opacity",
-                      pathname === "/software/sst" ||
-                        activeSection === "/#soluciones"
+                      isSoftwareRoute || activeSection === "/#soluciones"
                         ? "opacity-100"
                         : "opacity-0 group-hover:opacity-100"
                     )}

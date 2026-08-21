@@ -21,6 +21,9 @@ import {
 
 type ContactFormProps = {
   onSuccess?: (data: ContactFormData) => void;
+  title?: string;
+  description?: string;
+  defaultCargo?: ContactFormData["cargo"];
   messageLabel?: string;
   messagePlaceholder?: string;
   submitText?: string;
@@ -46,6 +49,9 @@ const rubroOptions = CONTACT_RUBRO_OPTIONS.map((value) => ({
 
 export default function ContactForm({
   onSuccess,
+  title,
+  description,
+  defaultCargo,
   messageLabel = "¿Qué necesita resolver tu empresa?",
   messagePlaceholder = "Describe el desafío o necesidad de tu empresa...",
   submitText = "Cotiza aquí",
@@ -66,7 +72,7 @@ export default function ContactForm({
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
-      cargo: undefined,
+      cargo: defaultCargo,
       companySize: undefined,
       rubro: undefined,
       consent: false,
@@ -121,6 +127,16 @@ export default function ContactForm({
       onSubmit={handleSubmit(onSubmit)}
       className="bg-card-background space-y-6 rounded-2xl p-4 md:p-8 xl:p-16"
     >
+      {title || description ? (
+        <div>
+          {title ? (
+            <h3 className="text-text text-2xl font-extrabold">{title}</h3>
+          ) : null}
+          {description ? (
+            <p className="text-text/70 mt-2 leading-7">{description}</p>
+          ) : null}
+        </div>
+      ) : null}
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-6">
         <div>
           <Input
@@ -187,6 +203,7 @@ export default function ContactForm({
             label="Cargo"
             placeholder="Selecciona tu cargo"
             options={cargoOptions}
+            defaultValue={defaultCargo ?? ""}
             {...register("cargo")}
           />
 
@@ -200,6 +217,7 @@ export default function ContactForm({
             label="Tamaño de la empresa"
             placeholder="Selecciona el tamaño"
             options={companySizeOptions}
+            defaultValue=""
             {...register("companySize")}
           />
 
@@ -216,6 +234,7 @@ export default function ContactForm({
           label="Rubro/Industria"
           placeholder="Selecciona el rubro"
           options={rubroOptions}
+          defaultValue=""
           {...register("rubro")}
         />
 
