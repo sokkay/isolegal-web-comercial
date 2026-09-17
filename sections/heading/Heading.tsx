@@ -12,8 +12,8 @@ export default function Heading({ onContactSuccess }: HeadingProps = {}) {
     <div className="bg-darkBlue text-white">
       <div className="container mx-auto flex flex-col items-center gap-8 py-16 lg:flex-row xl:gap-12">
         <div className="flex-1 space-y-6">
-          <p className="text-lg font-bold tracking-wide opacity-90">
-            Si te fiscalizan, necesitas evidencia, no explicaciones.
+          <p className="text-md font-bold tracking-wide opacity-90">
+            SI TE FISCALIZAN, NECESITAS EVIDENCIA, NO EXPLICACIONES.
           </p>
           <h1 className="text-4xl leading-[1.06] font-extrabold tracking-[-1.5px] sm:text-5xl xl:text-6xl">
             Software de Compliance <br />

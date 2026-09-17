@@ -4,6 +4,7 @@ import HeadingSection from "@/sections/heading";
 import HomeFaqSection, { HOME_FAQ_ITEMS } from "@/sections/home-faq";
 import HowIsolegalWorks from "@/sections/how-isolegal-works";
 import IsolegalRoi from "@/sections/isolegal-roi";
+import { OurTools } from "@/sections/our-tools";
 import RiskCalculatorMainContainer from "@/sections/risk-calculator/risk-calculator-main-container";
 import TabsBanner from "@/sections/tabs-banner";
 import Testimonials from "@/sections/testimonials";
@@ -41,6 +42,7 @@ export default function Home() {
       <HeadingSection />
       <BussinessSection />
       <WhyIsolegalV2Section />
+      <OurTools />
       <IsolegalRoi />
       <HowIsolegalWorks />
       <TabsBanner />
