@@ -82,7 +82,7 @@ export default function OurToolsCarousel() {
           {tools.map((tool) => (
             <div
               key={tool.title}
-              className="embla__slide min-w-0 flex-[0_0_88%] px-2 hover:z-10 sm:flex-[0_0_72%] lg:flex-[0_0_60%]"
+              className="embla__slide min-w-0 flex-[0_0_88%] px-2 hover:z-10 sm:flex-[0_0_66%] lg:flex-[0_0_52%]"
             >
               <ToolCard {...tool} />
             </div>
