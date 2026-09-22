@@ -2,7 +2,7 @@ import IsolegalSolutionsCarousel from "@/sections/isolegal-solutions-carousel";
 
 export default function IsolegalSolutions() {
   return (
-    <section className="dark:bg-darkBlue bg-white pt-16">
+    <section className="dark:bg-darkBlue bg-white py-16 sm:py-20">
       <div className="container mx-auto">
         <h2 className="text-text mb-4 text-center text-3xl font-bold dark:text-white">
           Descubre las soluciones que ofrece Isolegal

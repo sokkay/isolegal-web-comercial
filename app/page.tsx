@@ -3,12 +3,12 @@ import BussinessSection from "@/sections/bussiness";
 import HeadingSection from "@/sections/heading";
 import HomeFaqSection, { HOME_FAQ_ITEMS } from "@/sections/home-faq";
 import HowIsolegalWorks from "@/sections/how-isolegal-works";
-import IsolegalRoi from "@/sections/isolegal-roi";
 import IsolegalSolutions from "@/sections/isolegal-solutions";
 import { OurTools } from "@/sections/our-tools";
 import RiskCalculatorMainContainer from "@/sections/risk-calculator/risk-calculator-main-container";
 import TabsBanner from "@/sections/tabs-banner";
 import Testimonials from "@/sections/testimonials";
+import WhoWeAre from "@/sections/who-we-are";
 import WhyIsolegalV2Section from "@/sections/why-isolegal-v2";
 import type { Metadata } from "next";
 
@@ -45,8 +45,9 @@ export default function Home() {
       <WhyIsolegalV2Section />
       <OurTools />
       <IsolegalSolutions />
-      <IsolegalRoi />
-      <HowIsolegalWorks />
+      {/* <IsolegalRoi /> */}
+      <WhoWeAre />
+      {/* <HowIsolegalWorks /> */}
       <TabsBanner />
       <Testimonials />
       <HomeFaqSection />
