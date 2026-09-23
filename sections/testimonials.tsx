@@ -53,7 +53,7 @@ export default function Testimonials() {
   }, [emblaApi, list.length]);
 
   return (
-    <div id="testimonios" className="dark:bg-darkBlue bg-white py-16">
+    <section id="testimonios" className="dark:bg-darkBlue bg-white py-16">
       <div className="container mx-auto">
         <h2 className="text-text mb-2 text-center text-sm font-bold tracking-wider dark:text-white">
           TESTIMONIOS
@@ -77,7 +77,7 @@ export default function Testimonials() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

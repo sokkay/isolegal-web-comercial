@@ -96,7 +96,7 @@ export default function TabsBanner() {
   ];
 
   return (
-    <section id="nosotros" className="container mx-auto py-16">
+    <section className="container mx-auto py-16">
       <div className="bg-darkBlue flex min-h-[950px] flex-col items-center gap-7 rounded-2xl px-6 py-10 text-white md:min-h-[510px] md:px-20">
         <Logo />
         <div className="relative flex w-full flex-col items-center justify-center rounded-lg bg-[#1E293B] p-1 md:h-12 md:w-4/5 md:flex-row xl:w-2/3">

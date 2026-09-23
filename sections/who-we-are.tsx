@@ -25,7 +25,7 @@ const TEAM_MEMBERS = [
 
 export default function WhoWeAre() {
   return (
-    <section className="px-4 py-16 sm:py-20">
+    <section id="nosotros" className="px-4 py-16 sm:py-20">
       <div className="container mx-auto">
         <p className="text-primary mb-4 text-center text-sm font-bold tracking-wider dark:text-white">
           CONOCE A NUESTRO EQUIPO
