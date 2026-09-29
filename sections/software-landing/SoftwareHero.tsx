@@ -6,6 +6,7 @@ type SoftwareHeroProps = {
   title: string;
   lead?: string;
   description: string;
+  tagline?: string;
   coverageTitle?: string;
   coverageItems?: string[];
   coverageVariant?: "chips" | "list";
@@ -22,6 +23,7 @@ export default function SoftwareHero({
   title,
   lead,
   description,
+  tagline,
   coverageTitle,
   coverageItems,
   coverageVariant = "chips",
@@ -52,16 +54,23 @@ export default function SoftwareHero({
           <p className="max-w-2xl text-base leading-7 text-white/75 sm:text-lg">
             {description}
           </p>
+          {tagline ? (
+            <p className="max-w-2xl text-sm leading-6 text-white/55 italic sm:text-base">
+              {tagline}
+            </p>
+          ) : null}
 
-          {coverageTitle && coverageItems && coverageItems.length > 0 ? (
+          {coverageItems && coverageItems.length > 0 ? (
             <div>
-              <p className="mb-3 text-sm font-bold text-white/90">
-                {coverageTitle}
-              </p>
+              {coverageTitle ? (
+                <p className="mb-3 text-sm font-bold text-white/90">
+                  {coverageTitle}
+                </p>
+              ) : null}
               {coverageVariant === "list" ? (
                 <ul
                   className="space-y-3 text-white/80"
-                  aria-label={coverageTitle}
+                  aria-label={coverageTitle ?? title}
                 >
                   {coverageItems.map((item) => (
                     <li key={item} className="flex items-center gap-2.5">
@@ -71,7 +80,10 @@ export default function SoftwareHero({
                   ))}
                 </ul>
               ) : (
-                <ul className="flex flex-wrap gap-2" aria-label={coverageTitle}>
+                <ul
+                  className="flex flex-wrap gap-2"
+                  aria-label={coverageTitle ?? title}
+                >
                   {coverageItems.map((item) => (
                     <li
                       key={item}

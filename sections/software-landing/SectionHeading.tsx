@@ -3,7 +3,7 @@ import type { CSSProperties } from "react";
 type SectionHeadingProps = {
   eyebrow?: string;
   title: string;
-  description: string;
+  description?: string;
   eyebrowDarkColor?: string;
 };
 
@@ -30,9 +30,11 @@ export default function SectionHeading({
       <h2 className="text-text text-3xl leading-tight font-extrabold sm:text-4xl">
         {title}
       </h2>
-      <p className="text-text/75 mt-4 text-base leading-7 sm:text-lg">
-        {description}
-      </p>
+      {description ? (
+        <p className="text-text/75 mt-4 text-base leading-7 sm:text-lg">
+          {description}
+        </p>
+      ) : null}
     </div>
   );
 }

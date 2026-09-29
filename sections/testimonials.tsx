@@ -1,5 +1,6 @@
 "use client";
 import StarIcon from "@/public/icons/start.svg";
+import { cn } from "@/utils/cn";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
@@ -13,7 +14,21 @@ interface Testimonial {
   logoUrl: string;
 }
 
-export default function Testimonials() {
+type TestimonialsProps = {
+  id?: string;
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+  className?: string;
+};
+
+export default function Testimonials({
+  id = "testimonios",
+  eyebrow = "TESTIMONIOS",
+  title = "Lo que dicen nuestros clientes",
+  description,
+  className,
+}: TestimonialsProps = {}) {
   const [list, setList] = useState<Testimonial[]>([]);
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
@@ -53,14 +68,32 @@ export default function Testimonials() {
   }, [emblaApi, list.length]);
 
   return (
-    <section id="testimonios" className="dark:bg-darkBlue bg-white py-16">
+    <section
+      id={id}
+      className={cn("dark:bg-darkBlue bg-white py-16", className)}
+    >
       <div className="container mx-auto">
-        <h2 className="text-text mb-2 text-center text-sm font-bold tracking-wider dark:text-white">
-          TESTIMONIOS
+        {eyebrow ? (
+          <p className="text-text mb-2 text-center text-sm font-bold tracking-wider dark:text-white">
+            {eyebrow}
+          </p>
+        ) : null}
+        <h2
+          className={cn(
+            "text-text text-center font-bold dark:text-white",
+            description
+              ? "mb-4 text-3xl leading-tight sm:text-4xl"
+              : "mb-12 text-3xl",
+            !eyebrow && "leading-tight sm:text-4xl"
+          )}
+        >
+          {title}
         </h2>
-        <h3 className="text-text mb-12 text-center text-3xl font-bold dark:text-white">
-          Lo que dicen nuestros clientes
-        </h3>
+        {description ? (
+          <p className="text-text/75 mx-auto mb-12 max-w-3xl text-center text-base leading-7 sm:text-lg dark:text-white/70">
+            {description}
+          </p>
+        ) : null}
 
         <div className="embla relative">
           <div className="embla__viewport" ref={emblaRef}>

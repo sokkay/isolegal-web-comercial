@@ -17,7 +17,7 @@ type ToolCard = {
   href: string;
   imageSrc?: string;
   imageAlt?: string;
-  accent: "green" | "blue";
+  accent: "green" | "blue" | "lime";
   Icon: ComponentType<SVGProps<SVGSVGElement>>;
 };
 
@@ -35,12 +35,12 @@ const tools: ToolCard[] = [
     Icon: TableViewIcon,
   },
   {
-    title: "Pulso",
+    title: "PULSO",
     description:
       "Asigna actividades de cumplimiento a tus equipos y empresas contratistas, activa notificaciones automáticas y captura evidencia fotográfica y documental verificable en terreno, garantizando trazabilidad total para tus auditorías.",
-    cta: "Conoce Pulso",
-    href: "#",
-    accent: "blue",
+    cta: "Conoce PULSO",
+    href: "/soluciones/pulso",
+    accent: "lime",
     Icon: VerifiedIcon,
   },
 ];
@@ -125,6 +125,7 @@ function CarouselArrow({
 const accentClasses = {
   green: "bg-green-bg dark:bg-primary/25",
   blue: "bg-[#e8edf5] dark:bg-slate-700/70",
+  lime: "bg-[color-mix(in_srgb,#abd038_16%,white)] dark:bg-[color-mix(in_srgb,#abd038_22%,#262c3e)]",
 };
 
 function ToolCard({

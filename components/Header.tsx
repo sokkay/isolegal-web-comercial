@@ -52,7 +52,7 @@ const solutionLinks: DropdownItem[] = [
   {
     name: "PULSO",
     description: "Tareas, evidencia y trazabilidad en terreno",
-    href: "#",
+    href: "/soluciones/pulso",
   },
   {
     name: "Modelo de Prevención del Delito",

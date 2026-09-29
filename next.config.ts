@@ -53,6 +53,11 @@ const nextConfig: NextConfig = {
         destination: "/soluciones/mdp",
         permanent: true,
       },
+      {
+        source: "/software/pulso",
+        destination: "/soluciones/pulso",
+        permanent: true,
+      },
     ];
   },
 };

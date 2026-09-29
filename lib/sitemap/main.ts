@@ -51,6 +51,12 @@ export function getMainSitemapEntries(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${SITE_URL}/soluciones/pulso`,
+      lastModified: new Date("2026-09-29T00:00:00.000Z"),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
       url: `${SITE_URL}/soporte-tecnico`,
       lastModified: STATIC_CONTENT_LAST_MODIFIED,
       changeFrequency: "monthly",

@@ -116,6 +116,45 @@
   --color-green-bg: color-mix(in srgb, #a92c23 22%, #262c3e);
 }
 
+/* Paleta PULSO tomada del mockup: --color-primary #ABD038, --color-primary-deep #5C7A1E. */
+.pulso-page-theme {
+  --color-primary: #abd038;
+  --color-primary-on-dark: #abd038;
+  --color-primary-on-dark-gray: #c5e05a;
+  --color-checkbox-bg: color-mix(in srgb, #abd038 14%, white);
+  --color-green-bg: color-mix(in srgb, #abd038 12%, white);
+}
+
+.dark .pulso-page-theme {
+  --color-primary: #abd038;
+  --color-primary-on-dark: #abd038;
+  --color-primary-on-dark-gray: #c5e05a;
+  --color-checkbox-bg: color-mix(in srgb, #abd038 24%, #262c3e);
+  --color-green-bg: color-mix(in srgb, #abd038 22%, #262c3e);
+}
+
+@keyframes pulso-badge-pulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
+.pulso-badge-ring {
+  animation: pulso-badge-pulse 2.4s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulso-badge-ring {
+    display: none;
+    animation: none;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
