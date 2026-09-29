@@ -41,6 +41,13 @@ const pageThemeConfigs: Record<string, PageThemeConfig> = {
     riskCalculatorSectionId: "calcula-tu-riesgo",
     riskCalculatorPath: "/calcula-tu-riesgo",
   },
+  "/productos/mdp": {
+    className: "mpd-page-theme",
+    navIndicatorColor: "var(--color-primary-on-dark)",
+    riskCalculatorHref: "/calcula-tu-riesgo?step=1",
+    riskCalculatorSectionId: "calcula-tu-riesgo",
+    riskCalculatorPath: "/calcula-tu-riesgo",
+  },
 };
 
 const PageThemeContext = createContext<PageThemeConfig>(defaultThemeConfig);

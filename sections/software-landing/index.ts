@@ -14,5 +14,9 @@ export {
   type SoftwareRequirementItem,
 } from "./SoftwareRequirements";
 export { default as SoftwareRiskCta } from "./SoftwareRiskCta";
+export {
+  default as SoftwareSanctionsStrip,
+  type SoftwareSanctionItem,
+} from "./SoftwareSanctionsStrip";
 export { default as SoftwareSteps, type SoftwareStep } from "./SoftwareSteps";
 export { default as SoftwareTestimonial } from "./SoftwareTestimonial";

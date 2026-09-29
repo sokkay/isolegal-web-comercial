@@ -1,3 +1,4 @@
+import { cn } from "@/utils/cn";
 import type { ComponentType, SVGProps } from "react";
 import SectionHeading from "./SectionHeading";
 
@@ -9,7 +10,7 @@ export type SoftwareFeatureItem = {
 };
 
 type SoftwareFeatureCardsProps = {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   description: string;
   items: SoftwareFeatureItem[];
@@ -29,7 +30,14 @@ export default function SoftwareFeatureCards({
         title={title}
         description={description}
       />
-      <div className="grid gap-5 md:grid-cols-3">
+      <div
+        className={cn(
+          "grid gap-5",
+          items.length === 4
+            ? "md:grid-cols-2 xl:grid-cols-4"
+            : "md:grid-cols-3"
+        )}
+      >
         {items.map(
           ({ title: itemTitle, description: itemDescription, badge, Icon }) => (
             <article

@@ -8,7 +8,7 @@ export type SoftwareRequirementItem = {
 };
 
 type SoftwareRequirementsProps = {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   description: string;
   items: SoftwareRequirementItem[];

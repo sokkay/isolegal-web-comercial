@@ -99,6 +99,23 @@
   --color-green-bg: color-mix(in srgb, #d97706 22%, #262c3e);
 }
 
+/* Paleta MPD tomada del mockup: --color-primary #a92c23, --color-hero-accent #D4372B. */
+.mpd-page-theme {
+  --color-primary: #a92c23;
+  --color-primary-on-dark: #d4372b;
+  --color-primary-on-dark-gray: #e86b62;
+  --color-checkbox-bg: color-mix(in srgb, #a92c23 14%, white);
+  --color-green-bg: color-mix(in srgb, #a92c23 12%, white);
+}
+
+.dark .mpd-page-theme {
+  --color-primary: #a92c23;
+  --color-primary-on-dark: #d4372b;
+  --color-primary-on-dark-gray: #e86b62;
+  --color-checkbox-bg: color-mix(in srgb, #a92c23 24%, #262c3e);
+  --color-green-bg: color-mix(in srgb, #a92c23 22%, #262c3e);
+}
+
 html {
   scroll-behavior: smooth;
 }
