@@ -31,6 +31,30 @@ const nextConfig: NextConfig = {
     return config;
   },
   reactCompiler: true,
+  async redirects() {
+    return [
+      {
+        source: "/software/sst",
+        destination: "/areas/sst",
+        permanent: true,
+      },
+      {
+        source: "/software/grc",
+        destination: "/areas/grc",
+        permanent: true,
+      },
+      {
+        source: "/software/resso",
+        destination: "/areas/resso",
+        permanent: true,
+      },
+      {
+        source: "/productos/mdp",
+        destination: "/soluciones/mdp",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

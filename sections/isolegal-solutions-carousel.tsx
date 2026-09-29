@@ -18,28 +18,28 @@ const solutions: SolutionCard[] = [
     title: "SST y Medio Ambiente",
     description:
       "Sistema de gestión SST y medio ambiente: centraliza matriz legal, evidencia y alertas normativas para tus faenas.",
-    href: "/software/sst",
+    href: "/areas/sst",
     themeClassName: "sst-page-theme",
   },
   {
     title: "RESSO (Contratistas Codelco)",
     description:
       "Gestiona tu matriz RESSO (SIGO) para contratistas de Codelco: cumplimiento, evidencia y alertas en una sola plataforma.",
-    href: "/software/resso",
+    href: "/areas/resso",
     themeClassName: "resso-page-theme",
   },
   {
     title: "GRC (Gobierno, Riesgo y Cumplimiento)",
     description:
       "Gobierno corporativo, gestión de riesgos y cumplimiento (Ley 20.393, 21.595) centralizados en un solo lugar.",
-    href: "/software/grc",
+    href: "/areas/grc",
     themeClassName: "grc-page-theme",
   },
   {
     title: "Modelo de Prevención del Delito (MPD)",
     description:
       "Actualiza tu MPD a la Ley 20.393 y la Ley 21.595: encargado, protocolos y evidencia lista para un tribunal.",
-    href: "#",
+    href: "/soluciones/mdp",
   },
 ];
 

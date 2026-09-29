@@ -20,28 +20,28 @@ const defaultThemeConfig: PageThemeConfig = {
 };
 
 const pageThemeConfigs: Record<string, PageThemeConfig> = {
-  "/software/sst": {
+  "/areas/sst": {
     className: "sst-page-theme",
     navIndicatorColor: "var(--color-primary-on-dark)",
-    riskCalculatorHref: "/software/sst#calcula-tu-riesgo-sst",
+    riskCalculatorHref: "/areas/sst#calcula-tu-riesgo-sst",
     riskCalculatorSectionId: "calcula-tu-riesgo-sst",
-    riskCalculatorPath: "/software/sst",
+    riskCalculatorPath: "/areas/sst",
   },
-  "/software/grc": {
+  "/areas/grc": {
     className: "grc-page-theme",
     navIndicatorColor: "var(--color-primary-on-dark)",
     riskCalculatorHref: "/calcula-tu-riesgo?step=1",
     riskCalculatorSectionId: "calcula-tu-riesgo",
     riskCalculatorPath: "/calcula-tu-riesgo",
   },
-  "/software/resso": {
+  "/areas/resso": {
     className: "resso-page-theme",
     navIndicatorColor: "var(--color-primary-on-dark)",
     riskCalculatorHref: "/calcula-tu-riesgo?step=1",
     riskCalculatorSectionId: "calcula-tu-riesgo",
     riskCalculatorPath: "/calcula-tu-riesgo",
   },
-  "/productos/mdp": {
+  "/soluciones/mdp": {
     className: "mpd-page-theme",
     navIndicatorColor: "var(--color-primary-on-dark)",
     riskCalculatorHref: "/calcula-tu-riesgo?step=1",

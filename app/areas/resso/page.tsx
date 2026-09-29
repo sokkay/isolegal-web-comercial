@@ -24,7 +24,7 @@ import {
 import type { Metadata } from "next";
 
 const SITE_URL = "https://isolegal.cl";
-const PAGE_PATH = "/software/resso";
+const PAGE_PATH = "/areas/resso";
 
 export const metadata: Metadata = {
   title: {

@@ -9,12 +9,107 @@ import ThemeToggle from "./ThemeToggle";
 import Button from "./ui/Button";
 import IconButton from "./ui/IconButton";
 
+type NavLink = {
+  name: string;
+  href: string;
+};
+
+type DropdownItem = NavLink & {
+  description: string;
+};
+
+type DropdownId = "areas" | "soluciones";
+
+const navLinks: NavLink[] = [
+  { name: "Nosotros", href: "/#nosotros" },
+  { name: "Testimonios", href: "/#testimonios" },
+];
+
+const areaLinks: DropdownItem[] = [
+  {
+    name: "GRC",
+    description: "Gobierno, riesgo y cumplimiento para empresas",
+    href: "/areas/grc",
+  },
+  {
+    name: "Resso",
+    description: "Gestión RESSO para contratistas de Codelco",
+    href: "/areas/resso",
+  },
+  {
+    name: "SST",
+    description: "Seguridad, salud y cumplimiento en un solo lugar",
+    href: "/areas/sst",
+  },
+];
+
+const solutionLinks: DropdownItem[] = [
+  {
+    name: "Matriz Legal",
+    description: "Requisitos legales claros, actualizados y accionables",
+    href: "#",
+  },
+  {
+    name: "PULSO",
+    description: "Tareas, evidencia y trazabilidad en terreno",
+    href: "#",
+  },
+  {
+    name: "Modelo de Prevención del Delito",
+    description: "Modelo defendible bajo la Ley 20.393 y 21.595",
+    href: "/soluciones/mdp",
+  },
+];
+
+const dropdownMenus: {
+  id: DropdownId;
+  name: string;
+  items: DropdownItem[];
+}[] = [
+  { id: "areas", name: "Áreas", items: areaLinks },
+  { id: "soluciones", name: "Soluciones", items: solutionLinks },
+];
+
+function isDropdownActive(id: DropdownId, pathname: string) {
+  if (id === "areas") {
+    return pathname.startsWith("/areas/");
+  }
+
+  return pathname.startsWith("/soluciones/");
+}
+
+function Chevron({ open, className }: { open: boolean; className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 20 20"
+      fill="none"
+      className={cn(
+        "transition-transform duration-200",
+        open && "rotate-180",
+        className
+      )}
+    >
+      <path
+        d="m5 7.5 5 5 5-5"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
-  const [isMobileSolutionsOpen, setIsMobileSolutionsOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<DropdownId | null>(null);
+  const [openMobileDropdown, setOpenMobileDropdown] =
+    useState<DropdownId | null>(null);
   const [activeSection, setActiveSection] = useState("");
-  const solutionsMenuRef = useRef<HTMLLIElement>(null);
+  const dropdownRefs = useRef<
+    Partial<Record<DropdownId, HTMLLIElement | null>>
+  >({});
   const router = useRouter();
   const pathname = usePathname();
   const {
@@ -40,65 +135,41 @@ export default function Header() {
   }, [pathname]);
 
   useEffect(() => {
-    const closeSolutionsMenu = (event: MouseEvent) => {
-      if (
-        solutionsMenuRef.current &&
-        !solutionsMenuRef.current.contains(event.target as Node)
-      ) {
-        setIsSolutionsOpen(false);
+    const closeDropdowns = (event: MouseEvent) => {
+      const target = event.target as Node;
+      const clickedInsideDropdown = Object.values(dropdownRefs.current).some(
+        (element) => element?.contains(target)
+      );
+
+      if (!clickedInsideDropdown) {
+        setOpenDropdown(null);
       }
     };
 
-    const closeSolutionsMenuWithKeyboard = (event: KeyboardEvent) => {
+    const closeDropdownsWithKeyboard = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setIsSolutionsOpen(false);
+        setOpenDropdown(null);
       }
     };
 
-    document.addEventListener("mousedown", closeSolutionsMenu);
-    document.addEventListener("keydown", closeSolutionsMenuWithKeyboard);
+    document.addEventListener("mousedown", closeDropdowns);
+    document.addEventListener("keydown", closeDropdownsWithKeyboard);
 
     return () => {
-      document.removeEventListener("mousedown", closeSolutionsMenu);
-      document.removeEventListener("keydown", closeSolutionsMenuWithKeyboard);
+      document.removeEventListener("mousedown", closeDropdowns);
+      document.removeEventListener("keydown", closeDropdownsWithKeyboard);
     };
   }, []);
-
-  const navLinks = [
-    { name: "Inicio", href: "/" },
-    { name: "Nosotros", href: "/#nosotros" },
-    { name: "Testimonios", href: "/#testimonios" },
-  ];
-
-  const solutionLinks = [
-    {
-      name: "Todas las soluciones",
-      description: "Conoce nuestra plataforma",
-      href: "/#soluciones",
-    },
-    {
-      name: "Sistema de Gestión SST",
-      description: "Seguridad, salud y cumplimiento en un solo lugar",
-      href: "/software/sst",
-    },
-    {
-      name: "Software GRC",
-      description: "Gobierno, riesgo y cumplimiento para empresas",
-      href: "/software/grc",
-    },
-    {
-      name: "Plataforma RESSO",
-      description: "Gestión RESSO para contratistas de Codelco",
-      href: "/software/resso",
-    },
-  ];
-
-  const isSoftwareRoute = pathname.startsWith("/software/");
 
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string
   ) => {
+    if (href === "#") {
+      e.preventDefault();
+      return;
+    }
+
     const isOnHome = pathname === "/";
 
     if (href === "/") {
@@ -158,18 +229,29 @@ export default function Header() {
           <Logo goToHome />
 
           <ul className="hidden flex-row items-center justify-start gap-6 lg:flex xl:gap-10">
-            {navLinks.slice(0, 1).map((link) => {
-              const isActive =
-                activeSection === link.href ||
-                (activeSection === "/" && link.href === "/");
+            {dropdownMenus.map((menu) => {
+              const isActive = isDropdownActive(menu.id, pathname);
+              const isOpen = openDropdown === menu.id;
 
               return (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
+                <li
+                  key={menu.id}
+                  ref={(element) => {
+                    dropdownRefs.current[menu.id] = element;
+                  }}
+                  className="relative"
+                >
+                  <button
+                    type="button"
+                    aria-expanded={isOpen}
+                    aria-controls={`${menu.id}-menu`}
+                    onClick={() =>
+                      setOpenDropdown((current) =>
+                        current === menu.id ? null : menu.id
+                      )
+                    }
                     className={cn(
-                      "group relative flex items-center gap-2 text-lg transition-colors",
+                      "group relative flex cursor-pointer items-center gap-2 text-lg transition-colors",
                       isActive ? "text-nav-active" : "hover:text-nav-active"
                     )}
                   >
@@ -182,90 +264,46 @@ export default function Header() {
                           : "opacity-0 group-hover:opacity-100"
                       )}
                     />
-                    {link.name}
-                  </Link>
+                    {menu.name}
+                    <Chevron open={isOpen} className="h-4 w-4" />
+                  </button>
+
+                  <div
+                    id={`${menu.id}-menu`}
+                    className={cn(
+                      "bg-darkBlue absolute top-full left-1/2 mt-4 w-80 -translate-x-1/2 overflow-hidden rounded-2xl border border-white/10 p-2 shadow-2xl transition-all duration-200",
+                      isOpen
+                        ? "visible translate-y-0 opacity-100"
+                        : "invisible -translate-y-2 opacity-0"
+                    )}
+                  >
+                    {menu.items.map((item) => (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        onClick={(event) => {
+                          handleNavClick(event, item.href);
+                          setOpenDropdown(null);
+                        }}
+                        className={cn(
+                          "group block rounded-xl px-4 py-3 transition-colors hover:bg-white/10",
+                          pathname === item.href && "bg-white/10"
+                        )}
+                      >
+                        <span className="group-hover:text-nav-active block text-base font-semibold text-white transition-colors">
+                          {item.name}
+                        </span>
+                        <span className="mt-1 block text-sm font-normal text-white/65">
+                          {item.description}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
                 </li>
               );
             })}
 
-            <li ref={solutionsMenuRef} className="relative">
-              <button
-                type="button"
-                aria-expanded={isSolutionsOpen}
-                aria-controls="solutions-menu"
-                onClick={() => setIsSolutionsOpen((isOpen) => !isOpen)}
-                className={cn(
-                  "group relative flex cursor-pointer items-center gap-2 text-lg transition-colors",
-                  isSoftwareRoute || activeSection === "/#soluciones"
-                    ? "text-nav-active"
-                    : "hover:text-nav-active"
-                )}
-              >
-                <span
-                  style={{ backgroundColor: navIndicatorColor }}
-                  className={cn(
-                    "absolute -left-4 h-1.5 w-1.5 rounded-full transition-opacity",
-                    isSoftwareRoute || activeSection === "/#soluciones"
-                      ? "opacity-100"
-                      : "opacity-0 group-hover:opacity-100"
-                  )}
-                />
-                Soluciones
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  className={cn(
-                    "h-4 w-4 transition-transform duration-200",
-                    isSolutionsOpen && "rotate-180"
-                  )}
-                >
-                  <path
-                    d="m5 7.5 5 5 5-5"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-
-              <div
-                id="solutions-menu"
-                className={cn(
-                  "bg-darkBlue absolute top-full left-1/2 mt-4 w-80 -translate-x-1/2 overflow-hidden rounded-2xl border border-white/10 p-2 shadow-2xl transition-all duration-200",
-                  isSolutionsOpen
-                    ? "visible translate-y-0 opacity-100"
-                    : "invisible -translate-y-2 opacity-0"
-                )}
-              >
-                {solutionLinks.map((solution) => (
-                  <Link
-                    key={solution.href}
-                    href={solution.href}
-                    onClick={(event) => {
-                      handleNavClick(event, solution.href);
-                      setIsSolutionsOpen(false);
-                    }}
-                    className={cn(
-                      "group block rounded-xl px-4 py-3 transition-colors hover:bg-white/10",
-                      (activeSection === solution.href ||
-                        pathname === solution.href) &&
-                        "bg-white/10"
-                    )}
-                  >
-                    <span className="group-hover:text-nav-active block text-base font-semibold text-white transition-colors">
-                      {solution.name}
-                    </span>
-                    <span className="mt-1 block text-sm font-normal text-white/65">
-                      {solution.description}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            </li>
-
-            {navLinks.slice(1).map((link) => {
+            {navLinks.map((link) => {
               const isActive = activeSection === link.href;
 
               return (
@@ -350,21 +388,23 @@ export default function Header() {
             </div>
 
             <ul className="flex flex-col gap-6 px-10 pt-8 text-lg">
-              {navLinks.slice(0, 1).map((link) => {
-                const isActive =
-                  activeSection === link.href ||
-                  (activeSection === "/" && link.href === "/");
+              {dropdownMenus.map((menu) => {
+                const isActive = isDropdownActive(menu.id, pathname);
+                const isOpen = openMobileDropdown === menu.id;
 
                 return (
-                  <li key={link.name}>
-                    <Link
-                      href={link.href}
-                      onClick={(e) => {
-                        handleNavClick(e, link.href);
-                        setIsMenuOpen(false);
-                      }}
+                  <li key={menu.id}>
+                    <button
+                      type="button"
+                      aria-expanded={isOpen}
+                      aria-controls={`mobile-${menu.id}-menu`}
+                      onClick={() =>
+                        setOpenMobileDropdown((current) =>
+                          current === menu.id ? null : menu.id
+                        )
+                      }
                       className={cn(
-                        "group relative flex items-center gap-2 transition-colors",
+                        "group relative flex w-full cursor-pointer items-center justify-between gap-2 transition-colors",
                         isActive ? "text-nav-active" : "hover:text-nav-active"
                       )}
                     >
@@ -377,90 +417,48 @@ export default function Header() {
                             : "opacity-0 group-hover:opacity-100"
                         )}
                       />
-                      {link.name}
-                    </Link>
+                      {menu.name}
+                      <Chevron open={isOpen} className="h-5 w-5" />
+                    </button>
+
+                    <div
+                      id={`mobile-${menu.id}-menu`}
+                      className={cn(
+                        "grid transition-all duration-200",
+                        isOpen
+                          ? "grid-rows-[1fr] opacity-100"
+                          : "grid-rows-[0fr] opacity-0"
+                      )}
+                    >
+                      <div className="overflow-hidden">
+                        <div className="mt-4 space-y-1 border-l border-white/15 pl-4">
+                          {menu.items.map((item) => (
+                            <Link
+                              key={item.name}
+                              href={item.href}
+                              onClick={(event) => {
+                                handleNavClick(event, item.href);
+                                setOpenMobileDropdown(null);
+                                setIsMenuOpen(false);
+                              }}
+                              className="block rounded-lg px-3 py-2 hover:bg-white/10"
+                            >
+                              <span className="block text-base font-semibold">
+                                {item.name}
+                              </span>
+                              <span className="mt-0.5 block text-sm font-normal text-white/60">
+                                {item.description}
+                              </span>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
                   </li>
                 );
               })}
 
-              <li>
-                <button
-                  type="button"
-                  aria-expanded={isMobileSolutionsOpen}
-                  aria-controls="mobile-solutions-menu"
-                  onClick={() => setIsMobileSolutionsOpen((isOpen) => !isOpen)}
-                  className={cn(
-                    "group relative flex w-full cursor-pointer items-center justify-between gap-2 transition-colors",
-                    isSoftwareRoute || activeSection === "/#soluciones"
-                      ? "text-nav-active"
-                      : "hover:text-nav-active"
-                  )}
-                >
-                  <span
-                    style={{ backgroundColor: navIndicatorColor }}
-                    className={cn(
-                      "absolute -left-6 h-2 w-2 rounded-full transition-opacity",
-                      isSoftwareRoute || activeSection === "/#soluciones"
-                        ? "opacity-100"
-                        : "opacity-0 group-hover:opacity-100"
-                    )}
-                  />
-                  Soluciones
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    className={cn(
-                      "h-5 w-5 transition-transform duration-200",
-                      isMobileSolutionsOpen && "rotate-180"
-                    )}
-                  >
-                    <path
-                      d="m5 7.5 5 5 5-5"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
-
-                <div
-                  id="mobile-solutions-menu"
-                  className={cn(
-                    "grid transition-all duration-200",
-                    isMobileSolutionsOpen
-                      ? "grid-rows-[1fr] opacity-100"
-                      : "grid-rows-[0fr] opacity-0"
-                  )}
-                >
-                  <div className="overflow-hidden">
-                    <div className="mt-4 space-y-1 border-l border-white/15 pl-4">
-                      {solutionLinks.map((solution) => (
-                        <Link
-                          key={solution.href}
-                          href={solution.href}
-                          onClick={(event) => {
-                            handleNavClick(event, solution.href);
-                            setIsMobileSolutionsOpen(false);
-                            setIsMenuOpen(false);
-                          }}
-                          className="block rounded-lg px-3 py-2 hover:bg-white/10"
-                        >
-                          <span className="block text-base font-semibold">
-                            {solution.name}
-                          </span>
-                          <span className="mt-0.5 block text-sm font-normal text-white/60">
-                            {solution.description}
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-              {navLinks.slice(1).map((link) => {
+              {navLinks.map((link) => {
                 const isActive = activeSection === link.href;
 
                 return (
@@ -505,6 +503,7 @@ export default function Header() {
                   text="Iniciar sesión"
                   variant="outline"
                   color="secondary"
+                  href="https://app.isolegal.cl"
                   className="w-full border-white/80 text-white"
                 />
               </li>

@@ -20,7 +20,7 @@ import {
 import type { Metadata } from "next";
 
 const SITE_URL = "https://isolegal.cl";
-const PAGE_PATH = "/productos/mdp";
+const PAGE_PATH = "/soluciones/mdp";
 
 export const metadata: Metadata = {
   title: {
