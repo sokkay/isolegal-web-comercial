@@ -27,7 +27,7 @@ const tools: ToolCard[] = [
     description:
       "Convierte la normativa aplicable a tu empresa en Chile en requisitos claros y accionables. Actualizada continuamente por abogados especialistas y con evidencia auditable ante fiscalizaciones y certificaciones ISO.",
     cta: "Conoce Matriz Legal",
-    href: "#",
+    href: "/soluciones/matriz-legal",
     imageSrc: "/images/features/dashboard-interactivo.png",
     imageAlt:
       "Dashboard de Matriz Legal con el cumplimiento general de proyectos",

@@ -1,6 +1,7 @@
 "use client";
 
 import AutoRotatingAccordion from "@/components/AutoRotatingAccordion";
+import { cn } from "@/utils/cn";
 import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import { useState } from "react";
@@ -56,11 +57,15 @@ const features = [
   },
 ];
 
-export default function HowIsolegalWorks() {
+export default function HowIsolegalWorks({
+  className,
+}: {
+  className?: string;
+} = {}) {
   const [activeFeature, setActiveFeature] = useState(0);
 
   return (
-    <section className="dark:bg-darkBlue bg-white py-16">
+    <section className={cn("dark:bg-darkBlue bg-white py-16", className)}>
       <div className="container mx-auto flex flex-col justify-center md:flex-row">
         <h2 className="text-text mb-10 block text-center text-3xl font-bold md:hidden">
           Cómo Funciona Isolegal

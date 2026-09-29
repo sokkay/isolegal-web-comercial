@@ -1,10 +1,12 @@
 import FaqAccordion, { type FaqItem } from "@/components/FaqAccordion";
+import { cn } from "@/utils/cn";
 
 type SoftwareFaqProps = {
   id: string;
   titleId: string;
   title: string;
   items: FaqItem[];
+  className?: string;
 };
 
 export default function SoftwareFaq({
@@ -12,12 +14,16 @@ export default function SoftwareFaq({
   titleId,
   title,
   items,
+  className,
 }: SoftwareFaqProps) {
   return (
     <section
       id={id}
       aria-labelledby={titleId}
-      className="bg-background relative isolate overflow-hidden py-16 sm:py-20"
+      className={cn(
+        "bg-background relative isolate overflow-hidden py-16 sm:py-20",
+        className
+      )}
     >
       <div
         aria-hidden="true"

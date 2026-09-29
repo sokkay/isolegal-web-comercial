@@ -47,7 +47,7 @@ const solutionLinks: DropdownItem[] = [
   {
     name: "Matriz Legal",
     description: "Requisitos legales claros, actualizados y accionables",
-    href: "#",
+    href: "/soluciones/matriz-legal",
   },
   {
     name: "PULSO",

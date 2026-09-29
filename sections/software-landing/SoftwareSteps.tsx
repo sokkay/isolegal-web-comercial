@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/utils/cn";
 import { motion, useReducedMotion } from "motion/react";
 import SectionHeading from "./SectionHeading";
 
@@ -13,6 +14,7 @@ type SoftwareStepsProps = {
   title: string;
   description: string;
   steps: SoftwareStep[];
+  className?: string;
 };
 
 export default function SoftwareSteps({
@@ -20,11 +22,14 @@ export default function SoftwareSteps({
   title,
   description,
   steps,
+  className,
 }: SoftwareStepsProps) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="dark:bg-darkBlue bg-white py-16 sm:py-20">
+    <section
+      className={cn("dark:bg-darkBlue bg-white py-16 sm:py-20", className)}
+    >
       <div className="container mx-auto">
         <SectionHeading
           eyebrow={eyebrow}

@@ -6,8 +6,8 @@ type SoftwareHeroProps = {
   title: string;
   lead?: string;
   description: string;
-  coverageTitle: string;
-  coverageItems: string[];
+  coverageTitle?: string;
+  coverageItems?: string[];
   coverageVariant?: "chips" | "list";
   formTitle?: string;
   formDescription?: string;
@@ -53,35 +53,37 @@ export default function SoftwareHero({
             {description}
           </p>
 
-          <div>
-            <p className="mb-3 text-sm font-bold text-white/90">
-              {coverageTitle}
-            </p>
-            {coverageVariant === "list" ? (
-              <ul
-                className="space-y-3 text-white/80"
-                aria-label={coverageTitle}
-              >
-                {coverageItems.map((item) => (
-                  <li key={item} className="flex items-center gap-2.5">
-                    <span className="size-1.5 shrink-0 rounded-full bg-white" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <ul className="flex flex-wrap gap-2" aria-label={coverageTitle}>
-                {coverageItems.map((item) => (
-                  <li
-                    key={item}
-                    className="border-primary/45 bg-primary/15 rounded-full border px-3 py-1.5 text-sm font-semibold text-white"
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+          {coverageTitle && coverageItems && coverageItems.length > 0 ? (
+            <div>
+              <p className="mb-3 text-sm font-bold text-white/90">
+                {coverageTitle}
+              </p>
+              {coverageVariant === "list" ? (
+                <ul
+                  className="space-y-3 text-white/80"
+                  aria-label={coverageTitle}
+                >
+                  {coverageItems.map((item) => (
+                    <li key={item} className="flex items-center gap-2.5">
+                      <span className="size-1.5 shrink-0 rounded-full bg-white" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <ul className="flex flex-wrap gap-2" aria-label={coverageTitle}>
+                  {coverageItems.map((item) => (
+                    <li
+                      key={item}
+                      className="border-primary/45 bg-primary/15 rounded-full border px-3 py-1.5 text-sm font-semibold text-white"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ) : null}
         </div>
 
         <ContactForm

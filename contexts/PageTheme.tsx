@@ -48,6 +48,13 @@ const pageThemeConfigs: Record<string, PageThemeConfig> = {
     riskCalculatorSectionId: "calcula-tu-riesgo",
     riskCalculatorPath: "/calcula-tu-riesgo",
   },
+  "/soluciones/matriz-legal": {
+    className: "",
+    navIndicatorColor: "var(--color-nav-indicator)",
+    riskCalculatorHref: "/calcula-tu-riesgo?step=1",
+    riskCalculatorSectionId: "calcula-tu-riesgo",
+    riskCalculatorPath: "/calcula-tu-riesgo",
+  },
 };
 
 const PageThemeContext = createContext<PageThemeConfig>(defaultThemeConfig);

@@ -1,6 +1,10 @@
 export { createFaqStructuredData } from "./faqStructuredData";
 export { default as SectionHeading } from "./SectionHeading";
 export { default as SoftwareComparison } from "./SoftwareComparison";
+export {
+  default as SoftwareComparisonTable,
+  type SoftwareComparisonTableRow,
+} from "./SoftwareComparisonTable";
 export { default as SoftwareConsequences } from "./SoftwareConsequences";
 export { default as SoftwareFaq } from "./SoftwareFaq";
 export {
@@ -9,6 +13,10 @@ export {
 } from "./SoftwareFeatureCards";
 export { default as SoftwareHero } from "./SoftwareHero";
 export { default as SoftwareIntro } from "./SoftwareIntro";
+export {
+  default as SoftwarePlainColumns,
+  type SoftwarePlainColumnItem,
+} from "./SoftwarePlainColumns";
 export {
   default as SoftwareRequirements,
   type SoftwareRequirementItem,
