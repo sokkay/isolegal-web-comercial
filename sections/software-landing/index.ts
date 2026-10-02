@@ -28,3 +28,8 @@ export {
 } from "./SoftwareSanctionsStrip";
 export { default as SoftwareSteps, type SoftwareStep } from "./SoftwareSteps";
 export { default as SoftwareTestimonial } from "./SoftwareTestimonial";
+
+export {
+  default as SoftwareHowItWorks,
+  type SoftwareHowItWorksStep,
+} from "./SoftwareHowItWorks";

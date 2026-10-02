@@ -9,7 +9,6 @@ import {
   PULSO_WHAT_IS_STEPS,
   PulsoAudiences,
   PulsoComplementsMatrix,
-  PulsoHowItWorks,
   PulsoPeople,
   PulsoTestimonials,
   PulsoWhatIs,
@@ -18,6 +17,7 @@ import {
   SoftwareFaq,
   SoftwareFeatureCards,
   SoftwareHero,
+  SoftwareHowItWorks,
   SoftwareRiskCta,
   createFaqStructuredData,
 } from "@/sections/software-landing";
@@ -89,7 +89,7 @@ export default function SolucionesPulsoPage() {
         description="PULSO es el software de Isolegal para gestionar y hacer seguimiento de las actividades de cumplimiento normativo en terreno. Asigna un programa de actividades a cada integrante del equipo, le notifica automáticamente qué le corresponde hacer, y define desde el inicio qué evidencia debe quedar registrada, sin depender de planillas paralelas ni de la memoria de las personas."
         steps={PULSO_WHAT_IS_STEPS}
       />
-      <PulsoHowItWorks
+      <SoftwareHowItWorks
         className={SURFACE_MUTED}
         title="Cómo funciona PULSO"
         description="Cuatro pasos que convierten una obligación normativa en evidencia trazable, sin que nadie tenga que perseguirla después. Sigue el scroll."

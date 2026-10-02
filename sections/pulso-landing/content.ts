@@ -8,7 +8,10 @@ import LockIcon from "@/public/icons/lock.svg";
 import TableViewIcon from "@/public/icons/table-view.svg";
 import VerifiedIcon from "@/public/icons/verified.svg";
 import type { RiskCalculatorInformationItem } from "@/sections/risk-calculator/risk-calculator-banner";
-import type { SoftwareFeatureItem } from "@/sections/software-landing";
+import type {
+  SoftwareFeatureItem,
+  SoftwareHowItWorksStep,
+} from "@/sections/software-landing";
 import type { ComponentType, SVGProps } from "react";
 
 type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
@@ -19,23 +22,14 @@ export const PULSO_WHAT_IS_STEPS = [
   "Registra la evidencia exigida",
 ] as const;
 
-export type PulsoHowItWorksStep = {
-  number: string;
-  title: string;
-  description: string;
-  imageAlt: string;
-  // Rutas previstas cuando el cliente envíe capturas:
-  // /images/pulso/paso-01.png … /images/pulso/paso-04.png
-  imageSrc?: string;
-};
-
-export const PULSO_HOW_IT_WORKS_STEPS: PulsoHowItWorksStep[] = [
+export const PULSO_HOW_IT_WORKS_STEPS: SoftwareHowItWorksStep[] = [
   {
     number: "01",
     title: "Asignas el programa",
     description:
       "Cada integrante del equipo recibe un programa de actividades de cumplimiento hecho para su rol.",
     imageAlt: "Programa de actividades asignado en PULSO",
+    imageSrc: "/images/pulso-asignas-el-programa.png",
   },
   {
     number: "02",
@@ -43,6 +37,7 @@ export const PULSO_HOW_IT_WORKS_STEPS: PulsoHowItWorksStep[] = [
     description:
       "La persona recibe la notificación de qué actividad le corresponde, sin que nadie tenga que recordárselo.",
     imageAlt: "Notificación de actividad en PULSO",
+    imageSrc: "/images/pulso-notifica.png",
   },
   {
     number: "03",
@@ -50,6 +45,7 @@ export const PULSO_HOW_IT_WORKS_STEPS: PulsoHowItWorksStep[] = [
     description:
       "Cada actividad define desde el inicio qué evidencia debe quedar: fotos, checklist, firma, entre otros. La evidencia se carga como cumplimiento en las matrices asociadas.",
     imageAlt: "Registro de evidencia requerida en PULSO",
+    imageSrc: "/images/pulso-evidencia.png",
   },
   {
     number: "04",
@@ -57,6 +53,7 @@ export const PULSO_HOW_IT_WORKS_STEPS: PulsoHowItWorksStep[] = [
     description:
       "Evidencia trazable y centralizada, disponible para revisar en cualquier momento.",
     imageAlt: "Evidencia lista para auditar en PULSO",
+    imageSrc: "/images/pulso-listo-para-auditar.png",
   },
 ];
 

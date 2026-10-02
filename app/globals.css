@@ -4,6 +4,10 @@
 
 :root {
   color-scheme: light;
+  /* macOS-style window controls */
+  --window-close: #ff6159;
+  --window-minimize: #ffbd2e;
+  --window-maximize: #28c941;
 }
 
 @theme {

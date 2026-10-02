@@ -90,6 +90,8 @@ export default function PulsoTestimonials({
 
   useEffect(() => {
     if (!emblaApi || items.length === 0) return;
+    // Con un solo snap el plugin sale de init sin armar `delay`; play() leería delay[0].
+    if (emblaApi.scrollSnapList().length <= 1) return;
     const autoplay = emblaApi.plugins()?.autoplay;
     if (typeof autoplay?.play === "function") autoplay.play();
   }, [emblaApi, items.length]);

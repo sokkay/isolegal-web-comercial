@@ -2,6 +2,7 @@ import type { FaqItem } from "@/components/FaqAccordion";
 import type { RiskCalculatorInformationItem } from "@/sections/risk-calculator/risk-calculator-banner";
 import type {
   SoftwareComparisonTableRow,
+  SoftwareHowItWorksStep,
   SoftwarePlainColumnItem,
   SoftwareSanctionItem,
   SoftwareStep,
@@ -139,5 +140,72 @@ export const MATRIZ_LEGAL_RISK_CTA_ITEMS: RiskCalculatorInformationItem[] = [
     title: "Demostración con un especialista",
     description:
       "Conoce en vivo cómo gestionar evidencias y alertas preventivas antes de cada auditoría.",
+  },
+];
+
+export const MATRIZ_LEGAL_FEATURE_STEPS: SoftwareHowItWorksStep[] = [
+  {
+    title: "Dashboard de cumplimiento legal en tiempo real",
+    description:
+      "Visualiza el nivel de cumplimiento de tus matrices con indicadores claros y actualizados en tiempo real.",
+    number: "01",
+    imageSrc: "/images/dashboard-de-cumplimiento-legal-en-tiempo-real.png",
+    imageAlt: "Dashboard de cumplimiento legal en tiempo real en Isolegal",
+  },
+  {
+    title: "Notificaciones normativas",
+    description:
+      "Recibe la información de las actualizaciones legales integradas a tu matriz, con la interpretación de nuestro equipo de abogados.",
+    number: "02",
+    imageSrc: "/images/notificaciones-normativas.png",
+    imageAlt: "Notificaciones normativas en Isolegal",
+  },
+  {
+    title: "Informes personalizados",
+    description:
+      "Descarga en un clic un informe con el estado de cumplimiento de cada una de tus matrices, las veces que quieras.",
+    number: "03",
+    imageSrc: "/images/informes-personalizados.png",
+    imageAlt: "Informes personalizados en Isolegal",
+  },
+  {
+    title: "Gestión de riesgos normativos",
+    description:
+      "Visualiza un mapa de calor con los riesgos asociados a los requisitos normativos de tu matriz para una gestión más eficiente.",
+    number: "04",
+    imageSrc: "/images/gestion-de-riesgos.png",
+    imageAlt: "Gestión de riesgos normativos en Isolegal",
+  },
+  {
+    title: "Gestión de normas",
+    description:
+      "Olvídate de interpretar, accede a las normas aplicables a tu matriz con el detalle de cada artículo, preguntas guía y referencias de cumplimiento.",
+    number: "05",
+    imageSrc: "/images/gestion-de-normas.png",
+    imageAlt: "Gestión de normas en Isolegal",
+  },
+  {
+    title: "Evidencia y cumplimiento",
+    description:
+      "Asocia evidencia y gestiona el cumplimiento en cada requisito, trabajando en equipo con todos los usuarios que tu empresa requiera.",
+    number: "06",
+    imageSrc: "/images/evidencia-y-cumplimiento.png",
+    imageAlt: "Evidencia y cumplimiento en Isolegal",
+  },
+  {
+    title: "Planes de acción",
+    description:
+      "Crea y gestiona acciones correctivas directamente desde los incumplimientos detectados.",
+    number: "07",
+    imageSrc: "/images/planes-de-accion.png",
+    imageAlt: "Planes de acción en Isolegal",
+  },
+  {
+    title: "Asistente normativo con IA",
+    description:
+      "Interpreta requisitos legales y valida si la evidencia que cargas cumple antes de una auditoría.",
+    number: "08",
+    imageSrc: "/images/asistente-ia.png",
+    imageAlt: "Asistente normativo con IA en Isolegal",
   },
 ];

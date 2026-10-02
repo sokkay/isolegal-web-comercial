@@ -53,7 +53,7 @@ export default function Testimonials({
           setList(
             data.items.map((t) => ({
               ...t,
-              logoUrl: t.logoUrl || "/images/isolgal-logo-8.jpg",
+              logoUrl: t.logoUrl || "/images/logos/6.png",
             }))
           );
         }

@@ -1,9 +1,9 @@
 import FloatingActionButton from "@/components/FloatingActionButton";
-import HowIsolegalWorks from "@/sections/how-isolegal-works";
 import {
   MATRIZ_LEGAL_COLUMNS,
   MATRIZ_LEGAL_COMPARISON_ROWS,
   MATRIZ_LEGAL_FAQ_ITEMS,
+  MATRIZ_LEGAL_FEATURE_STEPS,
   MATRIZ_LEGAL_RISK_CTA_ITEMS,
   MATRIZ_LEGAL_SANCTIONS,
   MATRIZ_LEGAL_STEPS,
@@ -12,6 +12,7 @@ import {
   SoftwareComparisonTable,
   SoftwareFaq,
   SoftwareHero,
+  SoftwareHowItWorks,
   SoftwarePlainColumns,
   SoftwareRiskCta,
   SoftwareSanctionsStrip,
@@ -64,7 +65,7 @@ const SURFACE_MUTED = "bg-background dark:bg-background";
 
 export default function SolucionesMatrizLegalPage() {
   return (
-    <main className="bg-background min-h-dvh overflow-hidden">
+    <main className="bg-background min-h-dvh overflow-x-clip">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
@@ -78,7 +79,12 @@ export default function SolucionesMatrizLegalPage() {
         messageLabel="¿Qué necesita resolver tu equipo?"
         messagePlaceholder="Cuéntanos el estado actual de tu matriz legal..."
       />
-      <HowIsolegalWorks className={SURFACE_WHITE} />
+      <SoftwareHowItWorks
+        className={SURFACE_WHITE}
+        title="Cómo funciona Isolegal"
+        description="Conoce las herramientas que centralizan el seguimiento de tu cumplimiento legal, desde los indicadores hasta la evidencia de cada requisito."
+        steps={MATRIZ_LEGAL_FEATURE_STEPS}
+      />
       <SoftwareComparisonTable
         className={SURFACE_MUTED}
         title="Del Excel estático a una matriz de cumplimiento legal viva y auditable"
