@@ -5,43 +5,7 @@ import { cn } from "@/utils/cn";
 import useEmblaCarousel from "embla-carousel-react";
 import Link from "next/link";
 import { useCallback, useEffect, useRef } from "react";
-
-type SolutionCard = {
-  title: string;
-  description: string;
-  href: string;
-  themeClassName?: string;
-};
-
-const solutions: SolutionCard[] = [
-  {
-    title: "SST y Medio Ambiente",
-    description:
-      "Sistema de gestión SST y medio ambiente: centraliza matriz legal, evidencia y alertas normativas para tus faenas.",
-    href: "/areas/sst",
-    themeClassName: "sst-page-theme",
-  },
-  {
-    title: "RESSO (Contratistas Codelco)",
-    description:
-      "Gestiona tu matriz RESSO (SIGO) para contratistas de Codelco: cumplimiento, evidencia y alertas en una sola plataforma.",
-    href: "/areas/resso",
-    themeClassName: "resso-page-theme",
-  },
-  {
-    title: "GRC (Gobierno, Riesgo y Cumplimiento)",
-    description:
-      "Gobierno corporativo, gestión de riesgos y cumplimiento (Ley 20.393, 21.595) centralizados en un solo lugar.",
-    href: "/areas/grc",
-    themeClassName: "grc-page-theme",
-  },
-  {
-    title: "Modelo de Prevención del Delito (MPD)",
-    description:
-      "Actualiza tu MPD a la Ley 20.393 y la Ley 21.595: encargado, protocolos y evidencia lista para un tribunal.",
-    href: "/soluciones/mdp",
-  },
-];
+import { HOME_AREAS, type SolutionCard } from "./home-solutions/content";
 
 export default function IsolegalSolutionsCarousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -77,7 +41,7 @@ export default function IsolegalSolutionsCarousel() {
         ref={emblaRef}
       >
         <div className="embla__container">
-          {solutions.map((solution) => (
+          {HOME_AREAS.map((solution) => (
             <div
               key={solution.title}
               className="embla__slide min-w-0 flex-[0_0_85%] px-2 hover:z-10 sm:flex-[0_0_48%] lg:flex-[0_0_32%]"

@@ -1,49 +1,12 @@
 "use client";
 
 import ArrowRightIcon from "@/public/icons/arrow-right-alt.svg";
-import TableViewIcon from "@/public/icons/table-view.svg";
-import VerifiedIcon from "@/public/icons/verified.svg";
 import { cn } from "@/utils/cn";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import Link from "next/link";
-import type { ComponentType, SVGProps } from "react";
 import { useCallback, useEffect, useRef } from "react";
-
-type ToolCard = {
-  title: string;
-  description: string;
-  cta: string;
-  href: string;
-  imageSrc?: string;
-  imageAlt?: string;
-  accent: "green" | "blue" | "lime";
-  Icon: ComponentType<SVGProps<SVGSVGElement>>;
-};
-
-const tools: ToolCard[] = [
-  {
-    title: "Matriz Legal",
-    description:
-      "Convierte la normativa aplicable a tu empresa en Chile en requisitos claros y accionables. Actualizada continuamente por abogados especialistas y con evidencia auditable ante fiscalizaciones y certificaciones ISO.",
-    cta: "Conoce Matriz Legal",
-    href: "/soluciones/matriz-legal",
-    imageSrc: "/images/features/dashboard-interactivo.png",
-    imageAlt:
-      "Dashboard de Matriz Legal con el cumplimiento general de proyectos",
-    accent: "green",
-    Icon: TableViewIcon,
-  },
-  {
-    title: "PULSO",
-    description:
-      "Asigna actividades de cumplimiento a tus equipos y empresas contratistas, activa notificaciones automáticas y captura evidencia fotográfica y documental verificable en terreno, garantizando trazabilidad total para tus auditorías.",
-    cta: "Conoce PULSO",
-    href: "/soluciones/pulso",
-    accent: "lime",
-    Icon: VerifiedIcon,
-  },
-];
+import { HOME_TOOLS, type ToolCard } from "./home-solutions/content";
 
 export default function OurToolsCarousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -79,7 +42,7 @@ export default function OurToolsCarousel() {
         ref={emblaRef}
       >
         <div className="embla__container">
-          {tools.map((tool) => (
+          {HOME_TOOLS.map((tool) => (
             <div
               key={tool.title}
               className="embla__slide min-w-0 flex-[0_0_88%] px-2 hover:z-10 sm:flex-[0_0_66%] lg:flex-[0_0_52%]"

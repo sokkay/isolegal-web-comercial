@@ -2,13 +2,11 @@ import FloatingActionButton from "@/components/FloatingActionButton";
 import BussinessSection from "@/sections/bussiness";
 import HeadingSection from "@/sections/heading";
 import HomeFaqSection, { HOME_FAQ_ITEMS } from "@/sections/home-faq";
-import IsolegalSolutions from "@/sections/isolegal-solutions";
-import { OurTools } from "@/sections/our-tools";
+import HomeSolutions from "@/sections/home-solutions";
 import RiskCalculatorMainContainer from "@/sections/risk-calculator/risk-calculator-main-container";
 import TabsBanner from "@/sections/tabs-banner";
 import Testimonials from "@/sections/testimonials";
 import WhoWeAre from "@/sections/who-we-are";
-import WhyIsolegalV2Section from "@/sections/why-isolegal-v2";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -41,9 +39,7 @@ export default function Home() {
       />
       <HeadingSection />
       <BussinessSection />
-      <WhyIsolegalV2Section />
-      <OurTools />
-      <IsolegalSolutions />
+      <HomeSolutions />
       {/* <IsolegalRoi /> */}
       <WhoWeAre />
       {/* <HowIsolegalWorks /> */}

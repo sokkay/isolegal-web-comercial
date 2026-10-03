@@ -1,56 +1,13 @@
 "use client";
 
 import ArrowRightIcon from "@/public/icons/arrow-right-alt.svg";
-import DatabaseV2Icon from "@/public/icons/database-v2.svg";
-import GestionCumplimientoIcon from "@/public/icons/gestion-cumplimiento.svg";
-import HeatmapIcon from "@/public/icons/heat-map.svg";
-import MatrizLegalPersonalizadaIcon from "@/public/icons/matriz-legal-perzonalizada.svg";
-import PreguntasGuiaIcon from "@/public/icons/preguntas-guia.svg";
-import RevisionInteligenteIcon from "@/public/icons/revision-inteligente.svg";
 import { cn } from "@/utils/cn";
 import { EmblaCarouselType } from "embla-carousel";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { ReactNode, useEffect, useRef, useState } from "react";
 
-const characteristics = [
-  {
-    icon: <HeatmapIcon className="fill-primary h-9 w-9" />,
-    title: "Análisis de riesgo con mapa de calor",
-    description:
-      "Identifica rápidamente las áreas con mayor exposición al incumplimiento normativo. Priorizamos brechas críticas según impacto y probabilidad, para enfocar la gestión donde existe mayor riesgo operacional, legal o reputacional.",
-  },
-  {
-    icon: <MatrizLegalPersonalizadaIcon className="fill-primary h-9 w-9" />,
-    title: "Matriz legal personalizada y accionable en Chile",
-    description:
-      "Administramos y mantenemos actualizada tu matriz legal, mostrando solo lo que te aplica según tu rubro y actividad. Sin ruido ni duplicidades.",
-  },
-  {
-    icon: <PreguntasGuiaIcon className="fill-primary h-9 w-9" />,
-    title: "Interpretación normativa clara y aplicable",
-    description:
-      "Convertimos requisitos legales complejos en preguntas guía y acciones concretas para facilitar el cumplimiento en terreno.",
-  },
-  {
-    icon: <RevisionInteligenteIcon className="fill-primary h-9 w-9" />,
-    title: "Revisión inteligente de evidencia con IA",
-    description:
-      "Nuestro sistema valida si la evidencia cargada es pertinente y suficiente antes de auditorías o fiscalizaciones, reduciendo reprocesos y tiempos de revisión.",
-  },
-  {
-    icon: <GestionCumplimientoIcon className="fill-primary h-9 w-9" />,
-    title: "Gestión de auditorías y fiscalizaciones",
-    description:
-      "Gestiona auditorías internas, externas o de certificación con información ordenada, trazable y disponible en tiempo real.",
-  },
-  {
-    icon: <DatabaseV2Icon className="fill-primary h-9 w-9" />,
-    title: "Base normativa administrada por abogados",
-    description:
-      "Nuestro equipo legal mantiene actualizada la matriz normativa incorporando cambios legales, derogaciones y nuevas obligaciones aplicables a tu operación.",
-  },
-];
+import { MATRIX_BENEFITS } from "./home-solutions/content";
 
 const SIDE_SCALE = 0.86;
 const CENTER_SCALE = 1.08;
@@ -196,13 +153,16 @@ export default function WhyIsolegalV2() {
           ref={emblaRef}
         >
           <div className="embla__container">
-            {characteristics.map((characteristic, index) => (
+            {MATRIX_BENEFITS.map((characteristic, index) => (
               <div
                 key={characteristic.title}
                 className="embla__slide min-w-0 flex-[0_0_78%] px-2 sm:flex-[0_0_56%] lg:flex-[0_0_33.333%]"
               >
                 <Card
                   {...characteristic}
+                  icon={
+                    <characteristic.Icon className="fill-primary h-9 w-9" />
+                  }
                   onClick={() => handleOpenModal(index)}
                 />
               </div>
@@ -213,8 +173,8 @@ export default function WhyIsolegalV2() {
       {activeCardIndex !== null && (
         <CardModal
           isOpen={isModalVisible}
-          title={characteristics[activeCardIndex].title}
-          description={characteristics[activeCardIndex].description}
+          title={MATRIX_BENEFITS[activeCardIndex].title}
+          description={MATRIX_BENEFITS[activeCardIndex].description}
           onClose={handleCloseModal}
         />
       )}
