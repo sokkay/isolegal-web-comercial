@@ -4,6 +4,7 @@ import HeadingSection from "@/sections/heading";
 import HomeFaqSection, { HOME_FAQ_ITEMS } from "@/sections/home-faq";
 import HomeSolutions from "@/sections/home-solutions";
 import HomeTeam from "@/sections/home-team";
+import IsolegalRoi from "@/sections/isolegal-roi";
 import RiskCalculatorMainContainer from "@/sections/risk-calculator/risk-calculator-main-container";
 import Testimonials from "@/sections/testimonials";
 import type { Metadata } from "next";
@@ -39,7 +40,7 @@ export default function Home() {
       <HeadingSection />
       <BussinessSection />
       <HomeSolutions />
-      {/* <IsolegalRoi /> */}
+      <IsolegalRoi />
       <HomeTeam />
       {/* <HowIsolegalWorks /> */}
       <Testimonials />

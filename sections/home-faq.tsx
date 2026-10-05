@@ -7,11 +7,6 @@ export const HOME_FAQ_ITEMS: FaqItem[] = [
       "Es una plataforma que permite gestionar obligaciones legales, evidencias, auditorías y riesgos regulatorios de manera centralizada y trazable.",
   },
   {
-    question: "¿Para qué sirve una matriz legal?",
-    answer:
-      "Identifica todas las normas y requisitos aplicables a una organización según su actividad, permitiendo controlar y demostrar cumplimiento.",
-  },
-  {
     question: "¿Qué empresas necesitan un sistema de compliance?",
     answer:
       "Empresas de minería, construcción, energía, industria, transporte y organizaciones sometidas a auditorías, fiscalizaciones o certificaciones ISO.",
@@ -20,12 +15,6 @@ export const HOME_FAQ_ITEMS: FaqItem[] = [
     question: "¿Cómo ayuda Isolegal en auditorías?",
     answer:
       "Centraliza evidencia, genera trazabilidad y permite demostrar cumplimiento normativo en tiempo real frente a auditorías internas, externas o fiscalizaciones.",
-  },
-  {
-    question:
-      "¿Isolegal administra y mantiene actualizada la matriz legal de sus clientes?",
-    answer:
-      "Sí. En Isolegal administramos permanentemente la matriz legal de nuestros clientes, manteniéndola actualizada frente a cambios normativos, modificaciones de requisitos o derogaciones aplicables. Cuando identificamos un cambio en algún requisito normativo, primero actualizamos la matriz legal del cliente y luego informamos internamente las modificaciones realizadas a través de la plataforma. De esta forma, nuestros clientes cuentan con una matriz legal viva, vigente y gestionada de manera continua.",
   },
   {
     question: "¿La plataforma utiliza inteligencia artificial?",
@@ -37,16 +26,6 @@ export const HOME_FAQ_ITEMS: FaqItem[] = [
       "¿Se puede gestionar cumplimiento ambiental, laboral, SST y de eficiencia energética?",
     answer:
       "Sí. La plataforma permite administrar requisitos ambientales, laborales, de seguridad y salud en el trabajo (SST), eficiencia energética y exigencias de mandantes, adaptados a los distintos rubros de cada organización.",
-  },
-  {
-    question: "¿Isolegal reemplaza las matrices legales en Excel?",
-    answer:
-      "Sí. Centraliza toda la gestión de cumplimiento en una plataforma más eficiente, colaborativa y auditable.",
-  },
-  {
-    question: "¿Puedo gestionar los requisitos de mis mandantes en Isolegal?",
-    answer:
-      "Sí. Isolegal permite incorporar y gestionar los requisitos específicos que exigen tus mandantes —como sistemas de gestión de contratistas u otras exigencias contractuales— dentro de la misma matriz legal, junto con la normativa nacional aplicable.",
   },
 ];
 

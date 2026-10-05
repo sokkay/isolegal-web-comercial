@@ -126,7 +126,7 @@ function MatrixPanel() {
 }
 
 function PulsoPanel() {
-  const evidenceStep = PULSO_HOW_IT_WORKS_STEPS[2];
+  const assignmentStep = PULSO_HOW_IT_WORKS_STEPS[0];
   return (
     <div className="space-y-5 pb-6">
       <p className="text-text/75 max-w-2xl text-[0.8125rem] leading-6 sm:text-sm">
@@ -147,9 +147,9 @@ function PulsoPanel() {
           ))}
         </ol>
         <PlatformImage
-          src={evidenceStep.imageSrc!}
-          alt={evidenceStep.imageAlt}
-          caption="Evidencia lista para auditar"
+          src={assignmentStep.imageSrc!}
+          alt={assignmentStep.imageAlt}
+          caption={assignmentStep.title}
         />
       </div>
       <FeatureList items={PULSO_FEATURES.slice(0, 3)} compact />

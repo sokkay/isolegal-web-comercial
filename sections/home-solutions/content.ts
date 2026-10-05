@@ -26,7 +26,7 @@ export const HOME_TOOLS: ToolCard[] = [
       "Convierte la normativa aplicable a tu empresa en Chile en requisitos claros y accionables. Actualizada continuamente por abogados especialistas y con evidencia auditable ante fiscalizaciones y certificaciones ISO.",
     cta: "Conoce Matriz Legal",
     href: "/soluciones/matriz-legal",
-    imageSrc: "/images/features/dashboard-interactivo.png",
+    imageSrc: "/images/dashboard-de-cumplimiento-legal-en-tiempo-real.png",
     imageAlt:
       "Dashboard de Matriz Legal con el cumplimiento general de proyectos",
     accent: "green",
@@ -38,6 +38,8 @@ export const HOME_TOOLS: ToolCard[] = [
       "Asigna actividades de cumplimiento a tus equipos y empresas contratistas, activa notificaciones automáticas y captura evidencia fotográfica y documental verificable en terreno, garantizando trazabilidad total para tus auditorías.",
     cta: "Conoce PULSO",
     href: "/soluciones/pulso",
+    imageSrc: "/images/pulso-asignas-el-programa.png",
+    imageAlt: "PULSO asignas el programa",
     accent: "lime",
     Icon: VerifiedIcon,
   },

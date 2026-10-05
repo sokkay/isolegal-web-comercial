@@ -10,8 +10,7 @@ const TEAM_PANELS = [
     id: "equipo-conocimiento",
     title: "Conocimiento",
     paragraphs: [
-      "Isolegal se construye sobre una base normativa creada y mantenida por abogados durante más de 10 años. No partimos desde interpretaciones genéricas: trabajamos con una biblioteca legal robusta —más de 1.300 normas y más de 4.500 artículos— estructurada para reflejar aplicabilidad real en operación. Ese conocimiento se traduce en matrices claras, preguntas guía y criterios consistentes, para que el cumplimiento se gestione con evidencia y no con supuestos.",
-      "Sobre esta base, nuestro asistente de inteligencia artificial, impulsado por Google Gemini, permite interpretar requisitos, orientar la carga de evidencia y resolver dudas en tiempo real, aplicando el mismo criterio experto de la plataforma en el contexto operativo de cada organización.",
+      "Isolegal se construye sobre una base normativa creada y mantenida por abogados durante más de 10 años. No partimos desde interpretaciones genéricas: trabajamos con una biblioteca legal robusta —más de 1.300 normas y más de 4.500 artículos— estructurada para reflejar aplicabilidad real en operación. Ese conocimiento se traduce en matrices claras, preguntas guía y criterios consistentes, para que el cumplimiento se gestione con evidencia y no con suposiciones.",
     ],
     button: "Inicia hoy",
     member: {
@@ -62,11 +61,9 @@ export default function HomeTeam() {
     >
       <div className="container mx-auto px-4! sm:px-8!">
         <div className="mx-auto mb-8 max-w-2xl text-center sm:mb-10">
-          <h2
-            id="home-team-title"
-            className="text-3xl leading-tight font-extrabold sm:text-4xl"
-          >
-            Quiénes somos
+          <Logo width={160} height={40} className="mx-auto" />
+          <h2 id="home-team-title" className="sr-only">
+            Nosotros
           </h2>
           {/*<p className="mt-4 text-base leading-7 text-white/75">
             Conoce al equipo detrás de Isolegal. Un grupo con experiencia en

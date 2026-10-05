@@ -1,5 +1,3 @@
-"use client";
-
 import AnimatedCounter from "@/components/AnimatedCounter";
 
 export type IsolegalRoiItem = {
