@@ -36,6 +36,11 @@ const TEMP_LOGOS: BusinessLogo[] = [
     imageUrl: "/images/logos/18.png",
     alt: "Aguas Santiago Poniente",
   },
+  {
+    id: 19,
+    imageUrl: "/images/logos/minuto-verde.png",
+    alt: "Minuto Verde",
+  },
 ];
 
 export default function BussinessSection() {
