@@ -5,6 +5,11 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "hermes-web.isolegal.cl",
+        pathname: "/api/files/**",
+      },
+      {
+        protocol: "https",
         hostname: "pocketbase-production-019d.up.railway.app",
         pathname: "/api/files/**",
       },
