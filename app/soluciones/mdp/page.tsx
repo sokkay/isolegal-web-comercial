@@ -82,7 +82,6 @@ export default function ProductosMdpPage() {
         ]}
         formTitle="Cotiza con nosotros para gestionar tu MPD"
         formDescription="Respuesta de un especialista en menos de 24 horas hábiles."
-        defaultCargo="Compliance/Legal"
         messageLabel="¿Qué necesita resolver tu equipo?"
         messagePlaceholder="Cuéntanos el estado actual de tu MPD..."
       />

@@ -79,7 +79,6 @@ export default function SolucionesPulsoPage() {
         coverageItems={["Asigna", "Notifica", "Registra evidencia"]}
         formTitle="Cotiza PULSO para tu equipo"
         formDescription="Respuesta de un especialista en menos de 24 horas hábiles."
-        defaultCargo="SSOMA/HSE"
         messageLabel="¿Qué necesita resolver tu equipo?"
         messagePlaceholder="Cuéntanos cómo haces seguimiento hoy a las actividades de cumplimiento en terreno..."
       />

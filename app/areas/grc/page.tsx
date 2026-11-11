@@ -87,7 +87,6 @@ export default function SoftwareGrcPage() {
         ]}
         formTitle="Solicita tu diagnóstico GRC"
         formDescription="Respuesta de un especialista en menos de 24 horas hábiles."
-        defaultCargo="Compliance/Legal"
         messageLabel="¿Qué necesita resolver tu equipo de compliance?"
         messagePlaceholder="Cuéntanos el principal desafío de riesgo o cumplimiento de tu equipo..."
       />

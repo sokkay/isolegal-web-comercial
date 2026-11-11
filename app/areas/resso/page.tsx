@@ -83,7 +83,6 @@ export default function SoftwareRessoPage() {
         coverageItems={["Ley 16.744", "DS N°76", "DS N°44", "RESSO"]}
         formTitle="Solicita tu diagnóstico RESSO"
         formDescription="Respuesta de un especialista en menos de 24 horas hábiles. Revisamos tu matriz actual y te indicamos dónde estás expuesto frente a Codelco."
-        defaultCargo="SSOMA/HSE"
         messageLabel="¿Qué necesita resolver tu equipo con el RESSO?"
         messagePlaceholder="Cuéntanos el desafío RESSO de tu contrato o faena..."
       />

@@ -1,4 +1,3 @@
-import type { ContactFormData } from "@/lib/schemas/contactForm";
 import ContactForm from "@/sections/heading/ContactForm";
 
 type SoftwareHeroProps = {
@@ -12,7 +11,6 @@ type SoftwareHeroProps = {
   coverageVariant?: "chips" | "list";
   formTitle?: string;
   formDescription?: string;
-  defaultCargo?: ContactFormData["cargo"];
   messageLabel: string;
   messagePlaceholder: string;
   submitText?: string;
@@ -29,7 +27,6 @@ export default function SoftwareHero({
   coverageVariant = "chips",
   formTitle,
   formDescription,
-  defaultCargo,
   messageLabel,
   messagePlaceholder,
   submitText,
@@ -101,7 +98,6 @@ export default function SoftwareHero({
         <ContactForm
           title={formTitle}
           description={formDescription}
-          defaultCargo={defaultCargo}
           messageLabel={messageLabel}
           messagePlaceholder={messagePlaceholder}
           submitText={submitText}

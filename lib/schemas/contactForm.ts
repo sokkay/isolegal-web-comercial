@@ -51,15 +51,21 @@ export const contactFormSchema = z.object({
     .string()
     .regex(/^\+56\d{9}$/, "Formato: +56912345678 (12 dígitos)"),
   company: z.string().min(1, "Empresa es requerida"),
-  cargo: z.enum(CONTACT_CARGO_OPTIONS, {
-    message: "Debes seleccionar un cargo",
-  }),
-  companySize: z.enum(CONTACT_COMPANY_SIZE_OPTIONS, {
-    message: "Debes seleccionar el tamaño de la empresa",
-  }),
-  rubro: z.enum(CONTACT_RUBRO_OPTIONS, {
-    message: "Debes seleccionar un rubro",
-  }),
+  cargo: z
+    .enum(CONTACT_CARGO_OPTIONS, {
+      message: "Debes seleccionar un cargo",
+    })
+    .optional(),
+  companySize: z
+    .enum(CONTACT_COMPANY_SIZE_OPTIONS, {
+      message: "Debes seleccionar el tamaño de la empresa",
+    })
+    .optional(),
+  rubro: z
+    .enum(CONTACT_RUBRO_OPTIONS, {
+      message: "Debes seleccionar un rubro",
+    })
+    .optional(),
   message: z.string().min(1, "Este campo es requerido"),
   consent: z
     .boolean()

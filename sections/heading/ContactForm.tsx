@@ -3,7 +3,6 @@
 import Button from "@/components/ui/Button";
 import Checkbox from "@/components/ui/Checkbox";
 import Input from "@/components/ui/Input";
-import Select from "@/components/ui/Select";
 import TextArea from "@/components/ui/TextArea";
 import { captureClientEvent } from "@/lib/posthog/client";
 import { POSTHOG_EVENTS } from "@/lib/posthog/events";
@@ -11,47 +10,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import {
-  CONTACT_CARGO_OPTIONS,
-  CONTACT_COMPANY_SIZE_OPTIONS,
-  CONTACT_RUBRO_OPTIONS,
-  ContactFormData,
-  contactFormSchema,
-} from "@/lib/schemas/contactForm";
+import { ContactFormData, contactFormSchema } from "@/lib/schemas/contactForm";
 
 type ContactFormProps = {
   onSuccess?: (data: ContactFormData) => void;
   title?: string;
   description?: string;
-  defaultCargo?: ContactFormData["cargo"];
   messageLabel?: string;
   messagePlaceholder?: string;
   submitText?: string;
 };
 
-const cargoOptions = CONTACT_CARGO_OPTIONS.map((value) => ({
-  value,
-
-  label: value,
-}));
-
-const companySizeOptions = CONTACT_COMPANY_SIZE_OPTIONS.map((value) => ({
-  value,
-
-  label: value,
-}));
-
-const rubroOptions = CONTACT_RUBRO_OPTIONS.map((value) => ({
-  value,
-
-  label: value,
-}));
-
 export default function ContactForm({
   onSuccess,
   title,
   description,
-  defaultCargo,
   messageLabel = "¿Qué necesita resolver tu empresa?",
   messagePlaceholder = "Describe el desafío o necesidad de tu empresa...",
   submitText = "Cotiza aquí",
@@ -72,9 +45,6 @@ export default function ContactForm({
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
-      cargo: defaultCargo,
-      companySize: undefined,
-      rubro: undefined,
       consent: false,
     },
   });
@@ -105,9 +75,6 @@ export default function ContactForm({
         submission_id: result.data?.id,
         consent: data.consent,
         has_company: Boolean(data.company.trim()),
-        cargo: data.cargo,
-        company_size: data.companySize,
-        rubro: data.rubro,
       });
 
       reset();
@@ -196,52 +163,6 @@ export default function ContactForm({
             </p>
           )}
         </div>
-      </div>
-
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-6">
-        <div>
-          <Select
-            label="Cargo"
-            placeholder="Selecciona tu cargo"
-            options={cargoOptions}
-            defaultValue={defaultCargo ?? ""}
-            {...register("cargo")}
-          />
-
-          {errors.cargo && (
-            <p className="mt-1 text-xs text-red-500">{errors.cargo.message}</p>
-          )}
-        </div>
-
-        <div>
-          <Select
-            label="Tamaño de la empresa"
-            placeholder="Selecciona el tamaño"
-            options={companySizeOptions}
-            defaultValue=""
-            {...register("companySize")}
-          />
-
-          {errors.companySize && (
-            <p className="mt-1 text-xs text-red-500">
-              {errors.companySize.message}
-            </p>
-          )}
-        </div>
-      </div>
-
-      <div>
-        <Select
-          label="Rubro/Industria"
-          placeholder="Selecciona el rubro"
-          options={rubroOptions}
-          defaultValue=""
-          {...register("rubro")}
-        />
-
-        {errors.rubro && (
-          <p className="mt-1 text-xs text-red-500">{errors.rubro.message}</p>
-        )}
       </div>
 
       <div>

@@ -5,8 +5,12 @@ import { after, test } from "node:test";
 import { gunzipSync } from "node:zlib";
 await mkdir("tmp", { recursive: true });
 await build({
-  entryPoints: ["lib/email/contactNotification.ts"],
-  outfile: "tmp/contact-notification-test.mjs",
+  entryPoints: {
+    "contact-notification-test": "lib/email/contactNotification.ts",
+    "contact-form-schema-test": "lib/schemas/contactForm.ts",
+  },
+  outdir: "tmp",
+  outExtension: { ".js": ".mjs" },
   bundle: true,
   packages: "external",
   platform: "node",
@@ -14,6 +18,52 @@ await build({
 });
 const { sendContactNotification } =
   await import("../tmp/contact-notification-test.mjs");
+const { contactFormSchema } =
+  await import("../tmp/contact-form-schema-test.mjs");
+test("contact accepts omitted legacy fields and keeps remaining validation", () => {
+  const contact = {
+    firstname: "Nombre Apellido",
+    company: "Empresa",
+    email: "contacto@empresa.cl",
+    mobilephone: "+56912345678",
+    message: "Necesito una cotización",
+    consent: true,
+  };
+  assert.ok(contactFormSchema.safeParse(contact).success);
+  assert.ok(
+    contactFormSchema.safeParse({
+      ...contact,
+      cargo: "SSOMA/HSE",
+      companySize: "51–200",
+      rubro: "Minería",
+    }).success
+  );
+  for (const field of [
+    "firstname",
+    "company",
+    "email",
+    "mobilephone",
+    "message",
+    "consent",
+  ]) {
+    assert.equal(
+      contactFormSchema.safeParse({ ...contact, [field]: undefined }).success,
+      false,
+      field
+    );
+  }
+  for (const field of ["cargo", "companySize", "rubro"]) {
+    assert.equal(
+      contactFormSchema.safeParse({ ...contact, [field]: "invalid" }).success,
+      false,
+      field
+    );
+  }
+  assert.equal(
+    contactFormSchema.safeParse({ ...contact, consent: false }).success,
+    false
+  );
+});
 process.env.TEAM_FORM_NOTIFICATION_EMAILS = "team@example.com";
 process.env.ZEPTOMAIL_TOKEN = "test";
 process.env.ZEPTOMAIL_FROM_EMAIL = "sender@example.com";
@@ -64,6 +114,9 @@ test("accepted notification is sent to team and recorded", async () => {
     const body = JSON.parse(options.body);
     assert.equal(body.to[0].email_address.address, "team@example.com");
     assert.ok(body.htmlbody.includes("&lt;test&gt;"));
+    for (const label of ["Cargo", "Tamaño de la empresa", "Rubro/Industria"]) {
+      assert.ok(!body.htmlbody.includes(label));
+    }
     return new Response("{}", { status: 201 });
   };
   assert.equal((await sendContactNotification(pb, record)).status, "sent");
@@ -75,6 +128,34 @@ test("accepted notification is sent to team and recorded", async () => {
   assert.equal(events.at(-1).properties.email_type, "contact_notification");
   assert.equal(events.at(-1).properties.submission_id, record.id);
   assert.ok(!JSON.stringify(events.at(-1)).includes(record.email));
+});
+test("historical contact fields remain in notifications", async () => {
+  const pb = fakePb();
+  mailFetch = async (_url, options) => {
+    const body = JSON.parse(options.body);
+    for (const value of [
+      "Cargo",
+      "SSOMA/HSE",
+      "Tamaño de la empresa",
+      "51–200",
+      "Rubro/Industria",
+      "Minería",
+    ]) {
+      assert.ok(body.htmlbody.includes(value));
+    }
+    return new Response("{}", { status: 201 });
+  };
+  assert.equal(
+    (
+      await sendContactNotification(pb, {
+        ...record,
+        cargo: "SSOMA/HSE",
+        tamano_empresa: "51–200",
+        rubro: "Minería",
+      })
+    ).status,
+    "sent"
+  );
 });
 test("provider failure preserves retry state with sanitized error", async () => {
   const pb = fakePb();
