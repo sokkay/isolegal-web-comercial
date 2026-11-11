@@ -1,3 +1,4 @@
+import FadeIn from "@/components/FadeIn";
 import { cn } from "@/utils/cn";
 import type { ComponentType, ReactNode, SVGProps } from "react";
 import SectionHeading from "./SectionHeading";
@@ -44,37 +45,34 @@ export default function SoftwareFeatureCards({
           )}
         >
           {items.map(
-            ({
-              title: itemTitle,
-              description: itemDescription,
-              badge,
-              Icon,
-            }) => (
-              <article
-                key={itemTitle}
-                className="bg-card-background group dark:bg-surface-tonal-a10 flex h-full flex-col items-center gap-4 rounded-2xl p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg lg:p-8"
-              >
-                <div className="bg-green-bg dark:bg-primary/35 flex size-16 shrink-0 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-105 dark:ring-1 dark:ring-(--color-primary-on-dark)/30">
-                  {Icon ? (
-                    <Icon
-                      className="fill-primary size-8 dark:fill-white"
-                      aria-hidden="true"
-                    />
-                  ) : (
-                    <span className="text-primary text-2xl font-extrabold dark:text-white">
-                      {badge}
-                    </span>
-                  )}
-                </div>
-                <h3 className="text-text text-xl font-extrabold dark:text-white">
-                  {itemTitle}
-                </h3>
-                {itemDescription ? (
-                  <p className="text-text/70 max-w-sm leading-7 dark:text-white/70">
-                    {itemDescription}
-                  </p>
-                ) : null}
-              </article>
+            (
+              { title: itemTitle, description: itemDescription, badge, Icon },
+              index
+            ) => (
+              <FadeIn key={itemTitle} delay={index * 0.12} className="h-full">
+                <article className="bg-card-background group dark:bg-surface-tonal-a10 flex h-full flex-col items-center gap-4 rounded-2xl p-6 text-center shadow-sm hover:shadow-lg motion-safe:transition-all motion-safe:duration-300 motion-safe:hover:-translate-y-1 lg:p-8">
+                  <div className="bg-green-bg dark:bg-primary/35 flex size-16 shrink-0 items-center justify-center rounded-full motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-105 dark:ring-1 dark:ring-(--color-primary-on-dark)/30">
+                    {Icon ? (
+                      <Icon
+                        className="fill-primary size-8 motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:-rotate-6 dark:fill-white"
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <span className="text-primary text-2xl font-extrabold dark:text-white">
+                        {badge}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="text-text text-xl font-extrabold dark:text-white">
+                    {itemTitle}
+                  </h3>
+                  {itemDescription ? (
+                    <p className="text-text/70 max-w-sm leading-7 dark:text-white/70">
+                      {itemDescription}
+                    </p>
+                  ) : null}
+                </article>
+              </FadeIn>
             )
           )}
         </div>

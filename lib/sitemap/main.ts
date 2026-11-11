@@ -21,6 +21,12 @@ export function getMainSitemapEntries(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${SITE_URL}/areas/medio-ambiente`,
+      lastModified: new Date("2026-11-11T00:00:00.000Z"),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
       url: `${SITE_URL}/areas/sst`,
       lastModified: new Date("2026-07-24T00:00:00.000Z"),
       changeFrequency: "monthly",

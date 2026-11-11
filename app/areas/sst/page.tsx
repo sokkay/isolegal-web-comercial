@@ -1,4 +1,5 @@
 import FloatingActionButton from "@/components/FloatingActionButton";
+import Button from "@/components/ui/Button";
 import { createFaqStructuredData } from "@/sections/software-landing";
 import {
   SST_FAQ_ITEMS,
@@ -65,6 +66,17 @@ export default function SistemaGestionSstPage() {
       <SstHero />
       <SstManagementAreas />
       <SstComparison />
+      <div className="container mx-auto pb-8 text-center">
+        <p className="text-text mb-4">
+          ¿También gestionas obligaciones ambientales? Integra SST y medio
+          ambiente en una misma matriz legal.
+        </p>
+        <Button
+          text="Conoce Medio Ambiente"
+          href="/areas/medio-ambiente"
+          variant="outline"
+        />
+      </div>
       <SstRegulationCategories />
       <SstSteps />
       <SstMetrics />

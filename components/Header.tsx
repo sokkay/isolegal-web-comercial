@@ -27,6 +27,11 @@ const navLinks: NavLink[] = [
 
 const areaLinks: DropdownItem[] = [
   {
+    name: "Medio Ambiente",
+    description: "Matriz legal ambiental, RCA y evidencia trazable",
+    href: "/areas/medio-ambiente",
+  },
+  {
     name: "GRC",
     description: "Gobierno, riesgo y cumplimiento para empresas",
     href: "/areas/grc",

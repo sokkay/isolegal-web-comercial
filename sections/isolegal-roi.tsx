@@ -33,20 +33,23 @@ const roi: IsolegalRoiItem[] = [
 
 type IsolegalRoiProps = {
   items?: IsolegalRoiItem[];
-  title?: string;
+  title?: string | null;
 };
 
 export default function IsolegalRoi({
   items = roi,
   title = "Los números nos avalan",
 }: IsolegalRoiProps = {}) {
+  const ItemTitle = title ? "h3" : "div";
   return (
     <section className="dark:bg-darkBlue bg-white pt-16">
       <div className="container mx-auto">
         <div className="flex w-full flex-col items-center">
-          <h2 className="text-text mb-10 text-center text-3xl font-bold">
-            {title}
-          </h2>
+          {title ? (
+            <h2 className="text-text mb-10 text-center text-3xl font-bold">
+              {title}
+            </h2>
+          ) : null}
           <div className="mb-10 grid grid-cols-1 gap-4 md:grid-cols-3">
             {items.map((item) => (
               <div
@@ -54,7 +57,9 @@ export default function IsolegalRoi({
                 className="bg-green-bg dark:bg-card-background text-text flex flex-col items-center gap-4 rounded-2xl p-5.5"
               >
                 <AnimatedCounter value={item.number} type={item.type} />
-                <h3 className="text-center text-lg font-bold">{item.title}</h3>
+                <ItemTitle className="text-center text-lg font-bold">
+                  {item.title}
+                </ItemTitle>
                 <p className="font-norma text-center text-base">
                   {item.description}
                 </p>

@@ -20,6 +20,13 @@ const defaultThemeConfig: PageThemeConfig = {
 };
 
 const pageThemeConfigs: Record<string, PageThemeConfig> = {
+  "/areas/medio-ambiente": {
+    className: "environment-page-theme",
+    navIndicatorColor: "var(--color-primary-on-dark)",
+    riskCalculatorHref: "/calcula-tu-riesgo?step=1",
+    riskCalculatorSectionId: "calcula-tu-riesgo",
+    riskCalculatorPath: "/calcula-tu-riesgo",
+  },
   "/areas/sst": {
     className: "sst-page-theme",
     navIndicatorColor: "var(--color-primary-on-dark)",

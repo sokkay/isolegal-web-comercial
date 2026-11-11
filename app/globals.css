@@ -53,6 +53,11 @@
   --color-card-background: #262c3e;
 }
 
+.environment-page-theme {
+  --color-primary-on-dark: #86efac;
+  --color-primary-on-dark-gray: #86efac;
+}
+
 .sst-page-theme {
   --color-primary: #8a2be2;
   --color-primary-on-dark: #c084fc;
