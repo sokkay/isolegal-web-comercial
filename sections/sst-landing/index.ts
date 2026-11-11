@@ -6,3 +6,4 @@ export { default as SstMetrics } from "./SstMetrics";
 export { default as SstRegulationCategories } from "./SstRegulationCategories";
 export { default as SstRiskCta } from "./SstRiskCta";
 export { default as SstSteps } from "./SstSteps";
+export { default as SstTestimonials } from "./SstTestimonials";

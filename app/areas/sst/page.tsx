@@ -10,6 +10,7 @@ import {
   SstRegulationCategories,
   SstRiskCta,
   SstSteps,
+  SstTestimonials,
 } from "@/sections/sst-landing";
 import type { Metadata } from "next";
 
@@ -70,6 +71,7 @@ export default function SistemaGestionSstPage() {
       <SstRegulationCategories />
       <SstSteps />
       <SstMetrics />
+      <SstTestimonials />
       <SstFaq />
       <SstRiskCta />
       <FloatingActionButton />
