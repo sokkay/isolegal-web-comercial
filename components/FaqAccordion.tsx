@@ -2,11 +2,12 @@
 
 import { cn } from "@/utils/cn";
 import { AnimatePresence, motion } from "motion/react";
-import { useId, useState } from "react";
+import { type ReactNode, useId, useState } from "react";
 
 export type FaqItem = {
   question: string;
   answer: string;
+  answerContent?: ReactNode;
 };
 
 type FaqAccordionProps = {
@@ -85,7 +86,7 @@ export default function FaqAccordion({
                   className="overflow-hidden"
                 >
                   <p className="text-text/80 max-w-4xl pr-8 pb-6 text-sm leading-7 sm:pr-12 sm:text-base">
-                    {item.answer}
+                    {item.answerContent ?? item.answer}
                   </p>
                 </motion.div>
               ) : null}
