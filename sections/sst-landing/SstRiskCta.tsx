@@ -5,7 +5,7 @@ export default function SstRiskCta() {
     <SoftwareRiskCta
       id="calcula-tu-riesgo-sst"
       title="¿Tu sistema de gestión SST resistiría una fiscalización hoy mismo?"
-      description="Descubre el nivel de riesgo de incumplimiento SST, HSE y ambiental de tu organización en menos de 5 minutos."
+      description="Descubre el nivel de riesgo de incumplimiento SST de tu organización en menos de 5 minutos."
       buttonText="Iniciar evaluación gratuita SST"
       informationItems={[
         {
@@ -19,8 +19,7 @@ export default function SstRiskCta() {
         },
         {
           title: "Agenda una reunión",
-          description:
-            "Conoce en detalle tus principales riesgos SST y ambientales.",
+          description: "Conoce en detalle tus principales riesgos SST.",
         },
       ]}
     />
