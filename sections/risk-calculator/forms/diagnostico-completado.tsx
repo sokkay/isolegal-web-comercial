@@ -36,7 +36,7 @@ export default function DiagnosticoCompletado() {
         <div className="flex flex-col gap-4 lg:flex-row">
           <PersonCard
             name="Claudio Arriagada"
-            charge="ISO/Medioambiente"
+            charge="ISO/Medio Ambiente"
             imgUrl="/images/personal/claudio.png"
           />
           <PersonCard

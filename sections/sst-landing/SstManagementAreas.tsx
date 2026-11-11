@@ -33,7 +33,7 @@ export default function SstManagementAreas() {
       <p className="text-text/75 mt-8 text-center leading-7">
         La parte ambiental del HSE está en{" "}
         <Link
-          href="/areas/medioambiente"
+          href="/areas/medio-ambiente"
           className="text-primary underline underline-offset-4 dark:text-(--color-primary-on-dark-gray)"
         >
           Software de Cumplimiento Ambiental

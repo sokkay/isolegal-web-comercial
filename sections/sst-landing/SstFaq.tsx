@@ -20,7 +20,7 @@ export const SST_FAQ_ITEMS: FaqItem[] = [
       <>
         {environmentAnswerStart}
         <Link
-          href="/areas/medioambiente"
+          href="/areas/medio-ambiente"
           className="text-primary underline underline-offset-4 dark:text-(--color-primary-on-dark-gray)"
         >
           Medio Ambiente
