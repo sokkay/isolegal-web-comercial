@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
 
-import { notifyTeamFormSubmission } from "@/lib/email/teamFormNotification";
+import { sendContactNotification } from "@/lib/email/contactNotification";
 import { getPb } from "@/lib/pocketbase";
 import { captureServerError } from "@/lib/posthog/server";
 import { contactFormSchema } from "@/lib/schemas/contactForm";
@@ -20,27 +20,17 @@ export async function POST(request: NextRequest) {
       tamano_empresa: validatedData.companySize,
       rubro: validatedData.rubro,
       mensaje: validatedData.message,
+      email_estado: "pending",
     });
 
     try {
-      await notifyTeamFormSubmission({
-        formType: "contacto",
-        source: "api/submitContactForm",
-        fields: [
-          { label: "Nombre", value: validatedData.firstname },
-          { label: "Empresa", value: validatedData.company },
-          { label: "Correo corporativo", value: validatedData.email },
-          { label: "Teléfono", value: validatedData.mobilephone },
-          { label: "Cargo", value: validatedData.cargo },
-          { label: "Tamaño de la empresa", value: validatedData.companySize },
-          { label: "Rubro/Industria", value: validatedData.rubro },
-          {
-            label: "¿Qué necesita resolver tu empresa?",
-            value: validatedData.message,
-          },
-          { label: "Consentimiento", value: validatedData.consent },
-        ],
-      });
+      await pb
+        .collection("_superusers")
+        .authWithPassword(
+          process.env.POCKET_BASE_ADMIN_EMAIL ?? "",
+          process.env.POCKET_BASE_ADMIN_PASSWORD ?? ""
+        );
+      await sendContactNotification(pb, record);
     } catch (notificationError) {
       console.error(
         "Error enviando notificación interna (contacto):",

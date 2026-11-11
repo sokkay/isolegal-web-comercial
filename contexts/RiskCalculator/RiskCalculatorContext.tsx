@@ -159,6 +159,7 @@ export function RiskCalculatorProvider({
       setCalculationResult(result);
       captureClientEvent(POSTHOG_EVENTS.riskCalculatorCompleted, {
         has_submission_id: Boolean(result.submissionId),
+        submission_id: result.submissionId,
         risk_level: result.riskLevel,
         score: result.score,
       });

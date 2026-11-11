@@ -102,6 +102,7 @@ export default function ContactForm({
       setSubmitStatus("success");
 
       captureClientEvent(POSTHOG_EVENTS.contactFormCompleted, {
+        submission_id: result.data?.id,
         consent: data.consent,
         has_company: Boolean(data.company.trim()),
         cargo: data.cargo,

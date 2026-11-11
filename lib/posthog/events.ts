@@ -1,4 +1,5 @@
 export const POSTHOG_EVENTS = {
+  emailSendResult: "email_send_result",
   apiError: "api_error",
   contactFormCompleted: "contact_form_completed",
   meetingBooked: "meeting_booked",

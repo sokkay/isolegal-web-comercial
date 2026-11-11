@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "output/**",
+    "tmp/**",
+    ".railway/functions/risk-calculator-cron.mjs",
   ]),
 ]);
 

@@ -131,6 +131,7 @@ export async function POST(request: NextRequest) {
         score: calculation.score,
         nivel_riesgo: calculation.riskLevel,
         origen: RISK_CALCULATOR_ORIGIN_PENDING,
+        email_estado: "pending",
       });
       submissionId = record.id;
     } catch (pbError) {

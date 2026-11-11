@@ -1,12 +1,5 @@
-import { buildRiskCalculatorEmailParamsFromRecord } from "@/lib/email/riskCalculatorEmailData";
-import { sendRiskCalculatorResultsEmail } from "@/lib/email/zeptomail";
+import { dispatchPendingRiskEmails } from "@/lib/email/dispatchPendingRiskEmails";
 import { getPb } from "@/lib/pocketbase";
-import { createRiskBookingTokenRecord } from "@/lib/riskCalculatorBookingToken";
-import {
-  RISK_CALCULATOR_ORIGIN_LEGACY,
-  RISK_CALCULATOR_ORIGIN_PENDING,
-  RISK_CALCULATOR_ORIGIN_SENT_DELAYED,
-} from "@/lib/riskCalculatorEmail";
 import { NextRequest, NextResponse } from "next/server";
 
 function isAuthorized(request: NextRequest) {
@@ -60,69 +53,12 @@ export async function POST(request: NextRequest) {
       .authWithPassword(adminEmail, adminPassword);
     const appBaseUrl = resolveAppBaseUrl(request);
 
-    const now = new Date();
-    const pendingRecords = await pb
-      .collection("diagnosticos_riesgo")
-      .getFullList({
-        filter: `(origen = "${RISK_CALCULATOR_ORIGIN_PENDING}" || origen = "${RISK_CALCULATOR_ORIGIN_LEGACY}") && created <= "${now.toISOString()}"`,
-      });
-
-    let evaluated = 0;
-    let sent = 0;
-    let skipped = 0;
-    let failed = 0;
-
-    for (const record of pendingRecords) {
-      evaluated += 1;
-
-      const recordData = record as unknown as Record<string, unknown>;
-
-      const bookingExists = await pb
-        .collection("reservas_reuniones")
-        .getList(1, 1, {
-          filter: `submission_id = "${record.id}" && estado = "confirmada"`,
-        });
-      if (bookingExists.totalItems > 0) {
-        skipped += 1;
-        continue;
-      }
-
-      try {
-        const emailParams =
-          buildRiskCalculatorEmailParamsFromRecord(recordData);
-        if (!emailParams.toEmail) {
-          throw new Error("Diagnóstico sin correo corporativo");
-        }
-
-        const { rawToken } = await createRiskBookingTokenRecord({
-          pb,
-          submissionId: record.id,
-          email: emailParams.toEmail,
-        });
-        const agendaLink = `${appBaseUrl}/agendar-sesion?token=${encodeURIComponent(rawToken)}`;
-
-        await sendRiskCalculatorResultsEmail({
-          ...emailParams,
-          emailVariant: "followup_no_booking",
-          agendaLink,
-        });
-        await pb.collection("diagnosticos_riesgo").update(record.id, {
-          origen: RISK_CALCULATOR_ORIGIN_SENT_DELAYED,
-        });
-        sent += 1;
-      } catch (error) {
-        failed += 1;
-        console.error(
-          `Error enviando correo diferido para diagnóstico ${record.id}:`,
-          error
-        );
-      }
-    }
+    const stats = await dispatchPendingRiskEmails(pb, appBaseUrl);
 
     return NextResponse.json(
       {
         success: true,
-        stats: { evaluated, sent, skipped, failed },
+        stats,
       },
       { status: 200 }
     );

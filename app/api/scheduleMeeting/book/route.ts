@@ -1,8 +1,5 @@
-import { buildRiskCalculatorEmailParamsFromRecord } from "@/lib/email/riskCalculatorEmailData";
-import {
-  sendMeetingConfirmationEmail,
-  sendRiskCalculatorResultsEmail,
-} from "@/lib/email/zeptomail";
+import { sendRiskDiagnosticEmail } from "@/lib/email/sendRiskDiagnosticEmail";
+import { sendMeetingConfirmationEmail } from "@/lib/email/zeptomail";
 import {
   consumeExternalBookingToken,
   findExternalBookingTokenRecordByRawToken,
@@ -27,10 +24,6 @@ import {
   isRiskBookingTokenExpired,
   isRiskBookingTokenUsed,
 } from "@/lib/riskCalculatorBookingToken";
-import {
-  isRiskCalculatorPendingOrigin,
-  RISK_CALCULATOR_ORIGIN_SENT_BOOKING,
-} from "@/lib/riskCalculatorEmail";
 import {
   scheduleMeetingBookRequestSchema,
   scheduleMeetingBookResponseSchema,
@@ -552,23 +545,7 @@ export async function POST(request: NextRequest) {
           const diagnosisRecord = await pb
             .collection("diagnosticos_riesgo")
             .getOne(resolvedSubmissionId);
-          const origin = (diagnosisRecord as Record<string, unknown>).origen;
-
-          if (isRiskCalculatorPendingOrigin(String(origin ?? ""))) {
-            const riskEmailParams = buildRiskCalculatorEmailParamsFromRecord(
-              diagnosisRecord as Record<string, unknown>
-            );
-            await sendRiskCalculatorResultsEmail({
-              ...riskEmailParams,
-              emailVariant: "form_copy",
-            });
-
-            await pb
-              .collection("diagnosticos_riesgo")
-              .update(resolvedSubmissionId, {
-                origen: RISK_CALCULATOR_ORIGIN_SENT_BOOKING,
-              });
-          }
+          await sendRiskDiagnosticEmail(pb, diagnosisRecord, "form_copy");
         } catch (riskEmailError) {
           console.error(
             "Error enviando correo de resultados de riesgo (booking):",

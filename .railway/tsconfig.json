@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "target": "ES2022",
+    "incremental": false
+  },
+  "include": ["railway.ts", "src/**/*.ts"],
+  "exclude": ["functions"]
+}

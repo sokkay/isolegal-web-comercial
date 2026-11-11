@@ -226,6 +226,7 @@ export async function sendZeptoMail(params: {
 
   const response = await fetch(zeptoMailUrl, {
     method: "POST",
+    signal: AbortSignal.timeout(60_000),
     headers: {
       "Content-Type": "application/json",
       Authorization: zeptoMailToken,

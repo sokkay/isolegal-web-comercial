@@ -9,7 +9,9 @@
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "railway:build": "node .railway/build-functions.mjs",
+    "railway:plan": "pnpm railway:build && railway config plan --environment e6eca4d8-22b4-441c-8b5f-0afb791082d4 --detailed-exit-code"
   },
   "dependencies": {
     "@google-cloud/local-auth": "^3.0.1",
@@ -45,11 +47,13 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "^1.0.0",
+    "esbuild": "0.25.12",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "prettier": "^3.8.1",
     "prettier-plugin-organize-imports": "^4.3.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
+    "railway": "3.16.0",
     "sharp": "^0.34.5",
     "tailwindcss": "^4",
     "typescript": "^5"
