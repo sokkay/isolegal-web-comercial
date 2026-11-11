@@ -1,5 +1,5 @@
 import { cn } from "@/utils/cn";
-import type { ComponentType, SVGProps } from "react";
+import type { ComponentType, ReactNode, SVGProps } from "react";
 import SectionHeading from "./SectionHeading";
 
 export type SoftwareFeatureItem = {
@@ -15,6 +15,7 @@ type SoftwareFeatureCardsProps = {
   description?: string;
   items: SoftwareFeatureItem[];
   className?: string;
+  children?: ReactNode;
 };
 
 export default function SoftwareFeatureCards({
@@ -23,6 +24,7 @@ export default function SoftwareFeatureCards({
   description,
   items,
   className,
+  children,
 }: SoftwareFeatureCardsProps) {
   return (
     <section className={cn("py-16 sm:py-20", className)}>
@@ -67,13 +69,16 @@ export default function SoftwareFeatureCards({
                 <h3 className="text-text text-xl font-extrabold dark:text-white">
                   {itemTitle}
                 </h3>
-                <p className="text-text/70 max-w-sm leading-7 dark:text-white/70">
-                  {itemDescription}
-                </p>
+                {itemDescription ? (
+                  <p className="text-text/70 max-w-sm leading-7 dark:text-white/70">
+                    {itemDescription}
+                  </p>
+                ) : null}
               </article>
             )
           )}
         </div>
+        {children}
       </div>
     </section>
   );
