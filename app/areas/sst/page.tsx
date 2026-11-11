@@ -19,10 +19,10 @@ const PAGE_PATH = "/areas/sst";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Sistema de Gestión SST, HSE y Medio Ambiente | Isolegal",
+    absolute: "Sistema de Gestión SST para Empresas en Chile | Isolegal",
   },
   description:
-    "Sistema de gestión SST, HSE y medio ambiente para empresas en Chile. Centraliza matriz legal, evidencia y alertas normativas. Solicita un diagnóstico.",
+    "Sistema de gestión de seguridad y salud en el trabajo para empresas en Chile. Centraliza matriz legal SST, evidencia y alertas normativas. Solicita un diagnóstico.",
   alternates: {
     canonical: PAGE_PATH,
   },
@@ -30,10 +30,7 @@ export const metadata: Metadata = {
     "sistema de gestión SST",
     "sistema de gestión de seguridad y salud en el trabajo",
     "SG-SST",
-    "HSE",
-    "medio ambiente",
     "ISO 45001",
-    "RCA",
     "DS 44",
     "Ley 16.744",
   ],
@@ -42,16 +39,16 @@ export const metadata: Metadata = {
     locale: "es_CL",
     url: `${SITE_URL}${PAGE_PATH}`,
     siteName: "Isolegal",
-    title: "Sistema de Gestión SST, HSE y Medio Ambiente | Isolegal",
+    title: "Sistema de Gestión SST para Empresas en Chile | Isolegal",
     description:
-      "Sistema de gestión SST, HSE y medio ambiente para empresas en Chile. Centraliza matriz legal, evidencia y alertas normativas.",
+      "Sistema de gestión de seguridad y salud en el trabajo para empresas en Chile. Centraliza matriz legal SST, evidencia y alertas normativas.",
     images: ["/images/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sistema de Gestión SST, HSE y Medio Ambiente | Isolegal",
+    title: "Sistema de Gestión SST para Empresas en Chile | Isolegal",
     description:
-      "Sistema de gestión SST, HSE y medio ambiente para empresas en Chile. Centraliza matriz legal, evidencia y alertas normativas.",
+      "Sistema de gestión de seguridad y salud en el trabajo para empresas en Chile. Centraliza matriz legal SST, evidencia y alertas normativas.",
     images: ["/images/og-image.png"],
   },
 };
