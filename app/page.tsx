@@ -39,11 +39,11 @@ export default function Home() {
       />
       <HeadingSection />
       <BussinessSection />
+      <Testimonials />
       <HomeSolutions />
       <IsolegalRoi />
       <HomeTeam />
       {/* <HowIsolegalWorks /> */}
-      <Testimonials />
       <HomeFaqSection />
       <RiskCalculatorMainContainer />
       <FloatingActionButton />
